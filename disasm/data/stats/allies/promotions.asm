@@ -14,6 +14,8 @@ tbl_Promotions:
                 promotionSection &      ; Regular promoted classes
                     HERO, PLDN, GLDT, WIZ, VICR, SNIP, BDBT, WFBR, BWNT, PHNX, NINJ, MNST
                     
+            if (CLASS_EXPANSIONS=0)
+			
                 promotionSection &      ; Special base classes
                     KNTE, WARR, MAGE, PRST, ACHR
                     
@@ -22,3 +24,35 @@ tbl_Promotions:
                     
                 promotionItems &        ; Special promotion items
                     PEGASUS_WING, WARRIORS_PRIDE, SECRET_BOOK, VIGOR_BALL, SILVER_TANK
+					
+            else
+                promotionSection &      ; Vigor Ball base classes
+                    PRST
+                    
+                promotionSection &      ; Vigor Ball promoted classes
+                    MMNK
+                    
+                promotionSection &      ; Pegasus Wing base classes
+                    KNTE
+                    
+                promotionSection &      ; Pegasus Wing promoted classes
+                    PGNT
+                    
+                promotionSection &      ; Warrior Pride base classes
+                    WARR
+                    
+                promotionSection &      ; Warrior Pride promoted classes
+                    BRN
+                    
+                promotionSection &      ; Secret Book base classes
+                    MAGE
+                    
+                promotionSection &      ; Secret Book promoted classes
+                    SORC
+                    
+                promotionSection &      ; Naska Plans base classes
+                    ACHR
+                    
+                promotionSection &      ; Naska Plans promoted classes
+                    BRGN
+            endif
