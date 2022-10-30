@@ -664,7 +664,7 @@ PromoWithItem:
                 move.w  newClass(a6),((TEXT_NAME_INDEX_2-$1000000)).w
                 txt     $8F             ; "{NAME} can be promoted{N}to {CLASS} with the{N}{ITEM}.{W2}"
                 txt     $93             ; "OK?"
-				rts
+                rts
 
     ; End of function PromoWithItem
 	
