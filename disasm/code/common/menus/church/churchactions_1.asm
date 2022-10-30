@@ -419,13 +419,13 @@ ChurchMenuActions:
                 move.w  #PROMOTIONSECTION_VIGOR_PROMO,d2
                 bsr.w   FindPromotionSection
                 addq.w  #1,a0
-				move.w  #ITEM_VIGOR_BALL,d1
+                move.w  #ITEM_VIGOR_BALL,d1
                 jsr     GetItemInventoryLocation
                 cmpi.w  #$FFFF,d0
                 beq.s   @CheckSpecialPromo2
-				move.w  #ITEM_VIGOR_BALL,promotionItem(a6)
+                move.w  #ITEM_VIGOR_BALL,promotionItem(a6)
                 clr.w   d0
-				bsr.w   PromoWithItem
+                bsr.w   PromoWithItem
                 jsr     YesNoChoiceBox
                 cmpi.w  #0,d0
                 beq.w   @ChangeSpells
@@ -443,13 +443,13 @@ ChurchMenuActions:
                 move.w  #PROMOTIONSECTION_FEATHER_PROMO,d2
                 bsr.w   FindPromotionSection
                 addq.w  #1,a0
-				move.w  #ITEM_ROC_FEATHER,d1
+                move.w  #ITEM_ROC_FEATHER,d1
                 jsr     GetItemInventoryLocation
                 cmpi.w  #$FFFF,d0
                 beq.s   @CheckSpecialPromo3
-				move.w  #ITEM_ROC_FEATHER,promotionItem(a6)
+                move.w  #ITEM_ROC_FEATHER,promotionItem(a6)
                 clr.w   d0
-				bsr.w   PromoWithItem
+                bsr.w   PromoWithItem
                 jsr     YesNoChoiceBox
                 cmpi.w  #0,d0
                 beq.w   @ChangeSpells
@@ -467,13 +467,13 @@ ChurchMenuActions:
                 move.w  #PROMOTIONSECTION_TRAINING_PROMO,d2
                 bsr.w   FindPromotionSection
                 addq.w  #1,a0
-				move.w  #ITEM_TACTICS_PRIMER,d1
+                move.w  #ITEM_TACTICS_PRIMER,d1
                 jsr     GetItemInventoryLocation
                 cmpi.w  #$FFFF,d0
                 beq.s   @CheckSpecialPromo4
-				move.w  #ITEM_TACTICS_PRIMER,promotionItem(a6)
+                move.w  #ITEM_TACTICS_PRIMER,promotionItem(a6)
                 clr.w   d0
-				bsr.w   PromoWithItem
+                bsr.w   PromoWithItem
                 jsr     YesNoChoiceBox
                 cmpi.w  #0,d0
                 beq.w   @ChangeSpells
@@ -491,13 +491,13 @@ ChurchMenuActions:
                 move.w  #PROMOTIONSECTION_TOME_PROMO,d2
                 bsr.w   FindPromotionSection
                 addq.w  #1,a0
-				move.w  #ITEM_ARS_INNOVA,d1
+                move.w  #ITEM_ARS_INNOVA,d1
                 jsr     GetItemInventoryLocation
                 cmpi.w  #$FFFF,d0
                 beq.s   @CheckSpecialPromo5
-				move.w  #ITEM_ARS_INNOVA,promotionItem(a6)
+                move.w  #ITEM_ARS_INNOVA,promotionItem(a6)
                 clr.w   d0
-				bsr.w   PromoWithItem
+                bsr.w   PromoWithItem
                 jsr     YesNoChoiceBox
                 cmpi.w  #0,d0
                 beq.w   @ChangeSpells
@@ -515,13 +515,13 @@ ChurchMenuActions:
                 move.w  #PROMOTIONSECTION_NASKA_PROMO,d2
                 bsr.w   FindPromotionSection
                 addq.w  #1,a0
-				move.w  #ITEM_NASKA_PLANS,d1
+                move.w  #ITEM_NASKA_PLANS,d1
                 jsr     GetItemInventoryLocation
                 cmpi.w  #$FFFF,d0
                 beq.s   @CheckRegularPromo
-				move.w  #ITEM_NASKA_PLANS,promotionItem(a6)
+                move.w  #ITEM_NASKA_PLANS,promotionItem(a6)
                 clr.w   d0
-				bsr.w   PromoWithItem
+                bsr.w   PromoWithItem
                 jsr     YesNoChoiceBox
                 cmpi.w  #0,d0
                 beq.w   @ChangeSpells
