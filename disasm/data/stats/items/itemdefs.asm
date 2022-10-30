@@ -20,10 +20,10 @@ tbl_ItemDefs:
 ; Notes: Equip parameter range depends on effect.
 ;        Constant names ("enums"), shorthands (defined by macro), and numerical indexes are interchangeable.
                 
-			; 0: Medical Herb
+                ; 0: Medical Herb
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 1
                 price      10
@@ -34,10 +34,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 1: Healing Seed
+                ; 1: Healing Seed
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 1
                 price      200
@@ -48,10 +48,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 2: Healing Drop
+                ; 2: Healing Drop
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 1
                 price      300
@@ -62,10 +62,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 3: Antidote
+                ; 3: Antidote
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 1
                 price      20
@@ -76,10 +76,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 4: Angel Wing
+                ; 4: Angel Wing
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      40
@@ -90,10 +90,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 5: Fairy Powder
+                ; 5: Fairy Powder
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 1
                 price      100
@@ -104,10 +104,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 6: Healing Water
+                ; 6: Healing Water
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 1
                 price      400
@@ -118,10 +118,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 7: Fairy Tear
+                ; 7: Fairy Tear
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 1
                 price      300
@@ -132,10 +132,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 8: Healing Rain
+                ; 8: Healing Rain
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      10000
@@ -146,10 +146,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 9: Power Water
+                ; 9: Power Water
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      500
@@ -160,10 +160,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 10: Protect Milk
+                ; 10: Protect Milk
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      500
@@ -174,10 +174,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 11: Quick Chicken
+                ; 11: Quick Chicken
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      500
@@ -188,10 +188,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 12: Running Pimento
+                ; 12: Running Pimento
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      1500
@@ -202,10 +202,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 13: Cheerful Bread
+                ; 13: Cheerful Bread
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      500
@@ -216,10 +216,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 14: Bright Honey
+                ; 14: Bright Honey
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      500
@@ -230,10 +230,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 15: Brave Apple
+                ; 15: Brave Apple
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      500
@@ -244,10 +244,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 16: Shining Ball
+                ; 16: Shining Ball
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 1
                 price      1000
@@ -258,10 +258,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 17: Blizzard
+                ; 17: Blizzard
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 1
                 price      1200
@@ -272,10 +272,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 18: Holy Thunder
+                ; 18: Holy Thunder
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 1
                 price      1500
@@ -286,10 +286,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 19: Power Ring
+                ; 19: Power Ring
                 equipFlags ALL
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      3000
@@ -300,10 +300,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 20: Protect Ring
+                ; 20: Protect Ring
                 equipFlags ALL
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      3000
@@ -314,10 +314,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 21: Quick Ring
+                ; 21: Quick Ring
                 equipFlags ALL          ; 21: Quick Ring
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      3000
@@ -328,10 +328,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 22: Running Ring
+                ; 22: Running Ring
                 equipFlags ALL
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      3000
@@ -342,10 +342,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 23: White Ring
+                ; 23: White Ring
                 equipFlags HERO|VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      5000
@@ -356,10 +356,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 24: Black Ring
+                ; 24: Black Ring
                 equipFlags WIZ|SORC
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      5000
@@ -370,10 +370,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 25: Evil Ring
+                ; 25: Evil Ring
                 equipFlags WIZ|SORC|VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      5000
@@ -384,10 +384,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 26: Leather Glove
+                ; 26: Leather Glove
                 equipFlags MMNK
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      1300
@@ -398,10 +398,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 27: Power Glove
+                ; 27: Power Glove
                 equipFlags MMNK
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      1800
@@ -412,10 +412,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 28: Brass Knuckles
+                ; 28: Brass Knuckles
                 equipFlags MMNK
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      2900
@@ -426,10 +426,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 29: Iron Knuckles
+                ; 29: Iron Knuckles
                 equipFlags MMNK
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      4800
@@ -440,10 +440,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 30: Misty Knuckles
+                ; 30: Misty Knuckles
                 equipFlags MMNK
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      5500
@@ -454,10 +454,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 31: Giant Knuckles
+                ; 31: Giant Knuckles
                 equipFlags MMNK
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      7500
@@ -468,10 +468,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 32: Evil Knuckles
+                ; 32: Evil Knuckles
                 equipFlags MMNK
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      9500
@@ -482,10 +482,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 33: Short Axe
+                ; 33: Short Axe
                 equipFlags WARR|GLDT|BRN|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      120
@@ -496,10 +496,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 34: Hand Axe
+                ; 34: Hand Axe
                 equipFlags WARR|GLDT|BRN|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      340
@@ -510,10 +510,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 35: Middle Axe
+                ; 35: Middle Axe
                 equipFlags WARR|GLDT|BRN|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      610
@@ -524,10 +524,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 36: Power Axe
+                ; 36: Power Axe
                 equipFlags WARR|GLDT|BRN|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      1100
@@ -538,10 +538,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 37: Battle Axe
+                ; 37: Battle Axe
                 equipFlags WARR|GLDT|BRN|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      1370
@@ -552,10 +552,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 38: Large Axe
+                ; 38: Large Axe
                 equipFlags GLDT|BRN|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      2250
@@ -566,10 +566,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 39: Great Axe
+                ; 39: Great Axe
                 equipFlags GLDT|BRN|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      4600
@@ -580,10 +580,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 40: Heat Axe
+                ; 40: Heat Axe
                 equipFlags GLDT|BRN|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      7200
@@ -594,10 +594,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 41: Atlas Axe
+                ; 41: Atlas Axe
                 equipFlags GLDT|BRN|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      9600
@@ -608,10 +608,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 42: Ground Axe
+                ; 42: Ground Axe
                 equipFlags GLDT|BRN|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      10000
@@ -622,10 +622,10 @@ tbl_ItemDefs:
                     INCREASE_MOV, 1, &
                     NONE, 0
                     
-				; 43: Rune Axe
+                ; 43: Rune Axe
                 equipFlags GLDT|BRN|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      10000
@@ -636,10 +636,10 @@ tbl_ItemDefs:
                     INCREASE_CRITICAL, 1, &
                     NONE, 0
                     
-				; 44: Evil Axe
+                ; 44: Evil Axe
                 equipFlags GLDT|BRN|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      15000
@@ -650,10 +650,10 @@ tbl_ItemDefs:
                     DECREASE_DEF, 5, &
                     NONE, 0
                     
-				; 45: Wooden Arrow
+                ; 45: Wooden Arrow
                 equipFlags ACHR|RNGR|SNIP|BRGN|BWNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      2, 2
                 price      250
@@ -664,10 +664,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 46: Iron Arrow
+                ; 46: Iron Arrow
                 equipFlags ACHR|RNGR|SNIP|BRGN|BWNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      2, 2
                 price      600
@@ -678,10 +678,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 47: Steel Arrow
+                ; 47: Steel Arrow
                 equipFlags ACHR|RNGR|SNIP|BRGN|BWNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      2, 2
                 price      1270
@@ -692,10 +692,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 48: Robin Arrow
+                ; 48: Robin Arrow
                 equipFlags SNIP|BRGN|BWNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      2, 3
                 price      1480
@@ -706,10 +706,10 @@ tbl_ItemDefs:
                     INCREASE_CRITICAL, 1, &
                     NONE, 0
                     
-				; 49: Assault Shell
+                ; 49: Assault Shell
                 equipFlags SNIP|BRGN|BWNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      2, 3
                 price      2500
@@ -720,10 +720,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 50: Great Shot
+                ; 50: Great Shot
                 equipFlags SNIP|BRGN|BWNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      2, 3
                 price      5000
@@ -734,10 +734,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 51: Nazca Cannon
+                ; 51: Nazca Cannon
                 equipFlags SNIP|BRGN|BWNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      2, 3
                 price      3000
@@ -748,10 +748,10 @@ tbl_ItemDefs:
                     INCREASE_CRITICAL, 1, &
                     NONE, 0
                     
-				; 52: Buster Shot
+                ; 52: Buster Shot
                 equipFlags SNIP|BRGN|BWNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      2, 3
                 price      6800
@@ -762,10 +762,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 53: Hyper Cannon
+                ; 53: Hyper Cannon
                 equipFlags SNIP|BRGN|BWNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      2, 3
                 price      8700
@@ -776,10 +776,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 54: Grand Cannon
+                ; 54: Grand Cannon
                 equipFlags SNIP|BRGN|BWNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      2, 3
                 price      9800
@@ -790,10 +790,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 55: Evil Shot
+                ; 55: Evil Shot
                 equipFlags SNIP|BRGN|BWNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      2, 3
                 price      13000
@@ -804,10 +804,10 @@ tbl_ItemDefs:
                     DECREASE_DEF, 5, &
                     NONE, 0
                     
-				; 56: Wooden Stick
+                ; 56: Wooden Stick
                 equipFlags KNTE|PLDN|PGNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      70
@@ -818,10 +818,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 57: Short Sword
+                ; 57: Short Sword
                 equipFlags SDMN|BDMN|HERO|BRN|BDBT|NINJ|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      140
@@ -832,10 +832,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 58: Middle Sword
+                ; 58: Middle Sword
                 equipFlags SDMN|BDMN|HERO|BRN|BDBT|NINJ|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      340
@@ -846,10 +846,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 59: Long Sword
+                ; 59: Long Sword
                 equipFlags SDMN|BDMN|HERO|BRN|BDBT|NINJ|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      620
@@ -860,10 +860,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 60: Steel Sword
+                ; 60: Steel Sword
                 equipFlags SDMN|BDMN|HERO|BRN|BDBT|NINJ|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      1120
@@ -874,10 +874,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 61: Achilles Sword
+                ; 61: Achilles Sword
                 equipFlags SDMN|HERO
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      1350
@@ -888,10 +888,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 62: Broad Sword
+                ; 62: Broad Sword
                 equipFlags HERO|BRN|BDBT|NINJ|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      1600
@@ -902,10 +902,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 63: Buster Sword
+                ; 63: Buster Sword
                 equipFlags HERO|BRN|BDBT|NINJ|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      2600
@@ -916,10 +916,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 64: Great Sword
+                ; 64: Great Sword
                 equipFlags HERO|BRN|BDBT|NINJ|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      5100
@@ -930,10 +930,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 65: Critical Sword
+                ; 65: Critical Sword
                 equipFlags HERO|BRN|BDBT|NINJ|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      7200
@@ -944,10 +944,10 @@ tbl_ItemDefs:
                     INCREASE_CRITICAL, 1, &
                     NONE, 0
                     
-				; 66: Battle Sword
+                ; 66: Battle Sword
                 equipFlags HERO|BRN|BDBT|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      9200
@@ -958,10 +958,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 67: Force Sword
+                ; 67: Force Sword
                 equipFlags HERO
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      10000
@@ -972,10 +972,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 68: Counter Sword
+                ; 68: Counter Sword
                 equipFlags HERO|BRN|BDBT|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      13000
@@ -986,10 +986,10 @@ tbl_ItemDefs:
                     INCREASE_COUNTER, 1, &
                     NONE, 0
                     
-				; 69: Levanter
+                ; 69: Levanter
                 equipFlags HERO
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      14000
@@ -1000,10 +1000,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 70: Dark Sword
+                ; 70: Dark Sword
                 equipFlags HERO|BRN|BDBT|NINJ|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      17000
@@ -1014,10 +1014,10 @@ tbl_ItemDefs:
                     DECREASE_DEF, 5, &
                     NONE, 0
                     
-				; 71: Wooden Sword
+                ; 71: Wooden Sword
                 equipFlags SDMN|BDMN|HERO|BRN|BDBT|NINJ|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      60
@@ -1028,10 +1028,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 72: Short Spear
+                ; 72: Short Spear
                 equipFlags KNTE|PLDN|PGNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 2
                 price      120
@@ -1042,10 +1042,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 73: Bronze Lance
+                ; 73: Bronze Lance
                 equipFlags KNTE|PLDN|PGNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      260
@@ -1056,10 +1056,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 74: Spear
+                ; 74: Spear
                 equipFlags KNTE|PLDN|PGNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 2
                 price      460
@@ -1070,10 +1070,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 75: Steel Lance
+                ; 75: Steel Lance
                 equipFlags KNTE|PLDN|PGNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      810
@@ -1084,10 +1084,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 76: Power Spear
+                ; 76: Power Spear
                 equipFlags KNTE|PLDN|PGNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 2
                 price      1270
@@ -1098,10 +1098,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 77: Heavy Lance
+                ; 77: Heavy Lance
                 equipFlags PLDN|PGNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      1600
@@ -1112,10 +1112,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 78: Javelin
+                ; 78: Javelin
                 equipFlags PLDN|PGNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 2
                 price      3400
@@ -1126,10 +1126,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 79: Chrome Lance
+                ; 79: Chrome Lance
                 equipFlags PLDN|PGNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      6900
@@ -1140,10 +1140,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 80: Valkyrie
+                ; 80: Valkyrie
                 equipFlags PLDN|PGNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 2
                 price      7700
@@ -1154,10 +1154,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 81: Holy Lance
+                ; 81: Holy Lance
                 equipFlags PLDN|PGNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      9300
@@ -1168,10 +1168,10 @@ tbl_ItemDefs:
                     INCREASE_DEF, 5, &
                     NONE, 0
                     
-				; 82: Mist Javelin
+                ; 82: Mist Javelin
                 equipFlags PLDN|PGNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 2
                 price      9900
@@ -1182,10 +1182,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 83: Halberd
+                ; 83: Halberd
                 equipFlags PLDN|PGNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      7300
@@ -1196,10 +1196,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 84: Evil Lance
+                ; 84: Evil Lance
                 equipFlags PLDN|PGNT
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      11000
@@ -1210,10 +1210,10 @@ tbl_ItemDefs:
                     DECREASE_MOV, 2, &
                     NONE, 0
                     
-				; 85: Wooden Rod
+                ; 85: Wooden Rod
                 equipFlags MAGE|PRST|WIZ|SORC|VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      60
@@ -1224,10 +1224,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 86: Short Rod
+                ; 86: Short Rod
                 equipFlags MAGE|PRST|WIZ|SORC|VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      130
@@ -1238,10 +1238,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 87: Bronze Rod
+                ; 87: Bronze Rod
                 equipFlags MAGE|PRST|WIZ|SORC|VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      360
@@ -1252,10 +1252,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 88: Iron Rod
+                ; 88: Iron Rod
                 equipFlags MAGE|PRST|WIZ|SORC|VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      560
@@ -1266,10 +1266,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 89: Power Stick
+                ; 89: Power Stick
                 equipFlags MAGE|PRST|WIZ|SORC|VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      1050
@@ -1280,10 +1280,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 90: Flail
+                ; 90: Flail
                 equipFlags WIZ|SORC|VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      1490
@@ -1294,10 +1294,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 91: Guardian Staff
+                ; 91: Guardian Staff
                 equipFlags WIZ|SORC|VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      2380
@@ -1308,10 +1308,10 @@ tbl_ItemDefs:
                     INCREASE_DEF, 5, &
                     NONE, 0
                     
-				; 92: Indra Staff
+                ; 92: Indra Staff
                 equipFlags WIZ|SORC|VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      3200
@@ -1322,10 +1322,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 93: Mage Staff
+                ; 93: Mage Staff
                 equipFlags WIZ|SORC
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      6300
@@ -1336,10 +1336,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 94: Wish Staff
+                ; 94: Wish Staff
                 equipFlags VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      6100
@@ -1350,10 +1350,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 95: Great Rod
+                ; 95: Great Rod
                 equipFlags WIZ|SORC|VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      7900
@@ -1364,10 +1364,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 96: Supply Staff
+                ; 96: Supply Staff
                 equipFlags WIZ|SORC
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      8500
@@ -1378,10 +1378,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 97: Holy Staff
+                ; 97: Holy Staff
                 equipFlags VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      9000
@@ -1392,10 +1392,10 @@ tbl_ItemDefs:
                     UNDEFINED1, 3, &
                     NONE, 0
                     
-				; 98: Freeze Staff
+                ; 98: Freeze Staff
                 equipFlags WIZ|SORC
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      9500
@@ -1406,10 +1406,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 99: Goddess Staff
+                ; 99: Goddess Staff
                 equipFlags VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      9700
@@ -1420,10 +1420,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 100: Mystery Staff
+                ; 100: Mystery Staff
                 equipFlags WIZ|SORC|VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      10000
@@ -1434,10 +1434,10 @@ tbl_ItemDefs:
                     UNDEFINED2, 2, &
                     NONE, 0
                     
-				; 101: Demon Rod
+                ; 101: Demon Rod
                 equipFlags WIZ|SORC|VICR
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      12500
@@ -1448,7 +1448,7 @@ tbl_ItemDefs:
                     DECREASE_AGI, 10, &
                     NONE, 0
                     
-				; 102: Iron Ball
+                ; 102: Iron Ball
                 equipFlags NONE
                 range      1, 1
                 price      3800
@@ -1459,10 +1459,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 103: Short Knife
+                ; 103: Short Knife
                 equipFlags THIF
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      70
@@ -1473,10 +1473,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 104: Dagger
+                ; 104: Dagger
                 equipFlags THIF
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      320
@@ -1487,10 +1487,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 105: Knife
+                ; 105: Knife
                 equipFlags THIF
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      500
@@ -1501,10 +1501,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 106: Thieve's Dagger
+                ; 106: Thieve's Dagger
                 equipFlags THIF
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      940
@@ -1515,10 +1515,10 @@ tbl_ItemDefs:
                     INCREASE_AGI, 5, &
                     NONE, 0
                     
-				; 107: Katana
+                ; 107: Katana
                 equipFlags NINJ
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      9600
@@ -1529,10 +1529,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 108: Ninja Katana
+                ; 108: Ninja Katana
                 equipFlags NINJ
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      11500
@@ -1543,10 +1543,10 @@ tbl_ItemDefs:
                     INCREASE_DOUBLE, 1, &
                     NONE, 0
                     
-				; 109: Gisarme
+                ; 109: Gisarme
                 equipFlags NINJ
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 1
                 price      15000
@@ -1557,10 +1557,10 @@ tbl_ItemDefs:
                     SET_CRITICAL, 6, &
                     NONE, 0
                     
-				; 110: Taros Sword
+                ; 110: Taros Sword
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      1, 2
                 price      10000
@@ -1571,10 +1571,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 111: Right of Hope
+                ; 111: Right of Hope
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      10000
@@ -1585,10 +1585,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 112: Wooden Panel
+                ; 112: Wooden Panel
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      0
@@ -1599,10 +1599,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 113: Sky Orb
+                ; 113: Sky Orb
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      0
@@ -1613,10 +1613,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 114: Cannon
+                ; 114: Cannon
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      0
@@ -1627,10 +1627,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 115: Dry Stone
+                ; 115: Dry Stone
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      0
@@ -1641,10 +1641,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 116: Dynamite
+                ; 116: Dynamite
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      0
@@ -1655,10 +1655,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 117: Arm of Golem
+                ; 117: Arm of Golem
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      0
@@ -1669,10 +1669,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 118: Pegasus Wing
+                ; 118: Pegasus Wing
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      3000
@@ -1683,10 +1683,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 119: Warrior Pride
+                ; 119: Warrior Pride
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      3000
@@ -1697,10 +1697,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 120: Silver Tank
+                ; 120: Silver Tank
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      3000
@@ -1711,10 +1711,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 121: Secret Book
+                ; 121: Secret Book
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      3000
@@ -1725,10 +1725,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 122: Vigor Ball
+                ; 122: Vigor Ball
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      3000
@@ -1739,10 +1739,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 123: Mithril
+                ; 123: Mithril
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      2000
@@ -1753,10 +1753,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 124: Life Ring
+                ; 124: Life Ring
                 equipFlags HERO|PLDN|PGNT|GLDT|BRN|WIZ|SORC|VICR|MMNK|SNIP|BRGN|BDBT|WFBR|BWNT|PHNX|NINJ|MNST|RBT|GLM|RDBN
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      5000
@@ -1767,10 +1767,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 125: Cotton Balloon
+                ; 125: Cotton Balloon
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      0
@@ -1781,10 +1781,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 126: Chirrup Sandals
+                ; 126: Chirrup Sandals
                 equipFlags ALL
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      5
@@ -1795,10 +1795,10 @@ tbl_ItemDefs:
                     NONE, 0, &
                     NONE, 0
                     
-				; 127: Empty
+                ; 127: Empty
                 equipFlags NONE
             if (CLASS_EXPANSIONS=1)
-				equipFlags2 NONE
+                equipFlags2 NONE
             endif
                 range      0, 0
                 price      0
