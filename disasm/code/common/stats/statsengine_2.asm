@@ -1557,9 +1557,23 @@ IsItemEquippableAndCursed:
                 move.b  COMBATANT_OFFSET_CLASS(a0),d0
                 addq.b  #1,d0
                 bsr.w   GetItemDefAddress
+			if(CLASS_EXPANSIONS=1)
+				move.l  a0,-(sp)
+@EquipFlag_Loop:
+                move.l  (a0)+,d1         ; get class-equippable bitfield
+				cmpi.b  #$20,d0
+				bls.s   @EquipCompare
+				subi.b  #$20,d0
+				bra.s	@EquipFlag_Loop
+@EquipCompare:
+                lsr.l   d0,d1           ; push relevant class-equippable bit into carry
+                bcc.s   @NotEquippable
+                move.l  (sp)+,a0
+			else
                 move.l  (a0),d1         ; get class-equippable bitfield
                 lsr.l   d0,d1           ; push relevant class-equippable bit into carry
-                bcc.s   @NotEquippable  
+                bcc.s   @NotEquippable
+			endif
                 btst    #ITEMTYPE_BIT_CURSED,ITEMDEF_OFFSET_TYPE(a0) 
                                                         ; test cursed bit of itemdef's misc byte
                 bne.s   @EquippableAndCursed
@@ -1573,6 +1587,9 @@ IsItemEquippableAndCursed:
                 bra.s   @Done
 @NotEquippable:
                 
+			if(CLASS_EXPANSIONS=1)
+                move.l  (sp)+,a0
+			endif
                 move.w  #1,d2           ; code 1: not equippable
 @Done:
                 
@@ -1857,6 +1874,17 @@ GetEquippableItemsByType:
                 
                 bsr.w   GetCombatantEntryAddress
                 move.b  COMBATANT_OFFSET_CLASS(a0),d0
+			if (CLASS_EXPANSIONS=1)
+				clr.w	d7
+@CompareClass_Loop:
+				cmpi.b  #$1F,d0
+				bls.w   @Break
+				subi.b  #$20,d0
+				addq.w	#1,d7
+				bra.s	@CompareClass_Loop
+				
+@Break:
+            endif
                 moveq   #1,d3
                 lsl.l   d0,d3           ; place class bit in long value
                 lea     COMBATANT_OFFSET_ITEM_0(a0),a1
@@ -1906,6 +1934,10 @@ IsItemEquippable:
                 move.b  ITEMDEF_OFFSET_TYPE(a0),d6
                 and.b   d2,d6
                 beq.s   @Done           ; skip if not a weapon/ring
+			if (CLASS_EXPANSIONS=1)
+				lsl.w	#2,d7
+				adda.l	d7,a0
+			endif
                 move.l  (a0),d6
                 and.l   d3,d6
                 beq.s   @Done
@@ -1927,6 +1959,17 @@ IsWeaponOrRingEquippable:
                 move.w  #ITEMTYPE_WEAPON|ITEMTYPE_RING,d2
                 bsr.w   GetCombatantEntryAddress
                 move.b  COMBATANT_OFFSET_CLASS(a0),d0
+			if (CLASS_EXPANSIONS=1)
+				clr.w	d7
+@CompareClass_Loop:
+				cmpi.b  #$1F,d0
+				bls.w   @Break
+				subi.b  #$20,d0
+				addq.w	#1,d7
+				bra.s	@CompareClass_Loop
+				
+@Break:
+            endif
                 moveq   #1,d3
                 lsl.l   d0,d3
                 bsr.s   IsItemEquippable
@@ -1951,9 +1994,24 @@ GetEquipNewATTandDEF:
                 move.w  #ITEMTYPE_WEAPON|ITEMTYPE_RING,d2
                 clr.w   d0
                 move.b  COMBATANT_OFFSET_CLASS(a0),d0
+			if (CLASS_EXPANSIONS=1)
+				clr.w	d7
+@CompareClass_Loop:
+				cmpi.b  #$1F,d0
+				bls.w   @Break
+				subi.b  #$20,d0
+				addq.w	#1,d7
+				bra.s	@CompareClass_Loop
+				
+@Break:
+            endif
                 moveq   #1,d3
                 lsl.l   d0,d3
+			if (CLASS_EXPANSIONS=1)
+			    bsr.w   IsItemEquippable
+			else
                 bsr.s   IsItemEquippable
+			endif
                 movem.w (sp)+,d0/d2-d3
                 bcc.w   @Skip           ; skip if item is not equippable
                 movem.l d1/a0,-(sp)
