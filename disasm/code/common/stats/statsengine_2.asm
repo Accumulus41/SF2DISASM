@@ -1929,15 +1929,28 @@ GetEquippableItemsByType:
 
 IsItemEquippable:
                 
+            if (CLASS_EXPANSIONS=1)
+                movem.l d7/a0,-(sp)
+                bsr.w   GetItemDefAddress
+                move.b  ITEMDEF_OFFSET_TYPE(a0),d6
+                and.b   d2,d6
+                beq.s   @Done           ; skip if not a weapon/ring
+                lsl.w	#2,d7
+                adda.l	d7,a0
+                move.l  (a0),d6
+                and.l   d3,d6
+                beq.s   @Done
+                ori     #1,ccr          ; set carry flag : Item is Equippable !
+@Done:
+                
+                movem.l (sp)+,d7/a0
+                rts
+            else
                 movem.l a0,-(sp)
                 bsr.w   GetItemDefAddress
                 move.b  ITEMDEF_OFFSET_TYPE(a0),d6
                 and.b   d2,d6
                 beq.s   @Done           ; skip if not a weapon/ring
-            if (CLASS_EXPANSIONS=1)
-                lsl.w	#2,d7
-                adda.l	d7,a0
-            endif
                 move.l  (a0),d6
                 and.l   d3,d6
                 beq.s   @Done
@@ -1946,6 +1959,7 @@ IsItemEquippable:
                 
                 movem.l (sp)+,a0
                 rts
+            endif
 
     ; End of function IsItemEquippable
 
