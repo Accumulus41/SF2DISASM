@@ -53,7 +53,7 @@ Map11_EntityEvent3:
                 
                  
                 txt     3189            ; "Do you know the legend{N}of the phoenix?{W1}"
-                jsr     j_YesNoPrompt
+                jsr     YesNoPrompt
                 tst.w   d0
                 bne.s   byte_57A56      
                 txt     3190            ; "And {NAME;7} was born from{N}holy fire.{W2}"

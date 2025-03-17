@@ -6,8 +6,8 @@
                     mainLayerEnd        31, 19
                     scndLayerFgndStart  0, 0
                     scndLayerBgndStart  48, 44
-                    mainLayerParallax   256, 256
-                    scndLayerParallax   256, 256
+                    mainLayerParallax   16, 16
+                    scndLayerParallax   16, 16
                     mainLayerAutoscroll 0, 0
                     scndLayerAutoscroll 0, 0
                     mainLayerType    255

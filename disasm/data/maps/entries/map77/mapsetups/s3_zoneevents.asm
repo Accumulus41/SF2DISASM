@@ -10,9 +10,9 @@ ms_map77_ZoneEvents:
 Map77_DefaultZoneEvent:
                 
                  
-                chkFlg  537             ; Battle 37 completed - BATTLE_VERSUS_RED_BARON            
+                chkFlg  FLAG_BATTLE37_COMPLETE             ; Battle 37 completed - BATTLE_VERSUS_RED_BARON            
                 bne.s   return_50A80
-                setFlg  437             ; Battle 37 unlocked - BATTLE_VERSUS_RED_BARON          
+                setFlg  FLAG_BATTLE37_AVAILABLE             ; Battle 37 unlocked - BATTLE_VERSUS_RED_BARON          
                 move.l  #MAP_EVENT_RELOADMAP,((MAP_EVENT_TYPE-$1000000)).w
 return_50A80:
                 

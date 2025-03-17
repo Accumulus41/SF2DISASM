@@ -8,10 +8,10 @@
 ms_map19_flag609_InitFunction:
                 
                  
-                chkFlg  610             ; Set after you agree to go to see Hawel
+                chkFlg  FLAG_YEEL1             ; Set after you agree to go to see Hawel
                 bne.s   return_5311C
                 script  cs_53176
-                setFlg  610             ; Set after you agree to go to see Hawel
+                setFlg  FLAG_YEEL1             ; Set after you agree to go to see Hawel
 return_5311C:
                 
                 rts

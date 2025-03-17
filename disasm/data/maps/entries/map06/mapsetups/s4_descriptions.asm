@@ -42,7 +42,7 @@ byte_54D9A:     msDesc 5, 7, 4, 0       ; "{NAME} investigated{N}the book shelve
 Map6_DescFunc0:
                 
                  
-                chkFlg  702             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
+                chkFlg  FLAG_NEWGRANS2             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
                 bne.s   loc_54DEE
                 move.w  #$FFB,d0        ; It reads...{N}OUT TO LUNCH{W1}
                 jsr     (DisplayText).w 
@@ -68,14 +68,14 @@ Map6_DescFunc1:
                 
                 move.w  #$FFE,d0
                 jsr     (DisplayText).w 
-                jsr     j_YesNoPrompt
+                jsr     YesNoPrompt
                 tst.w   d0
                 bne.s   return_54E4A
                 ori.b   #0,d0
                 sndCom  SFX_FALLING
                 moveq   #50,d0
                 jsr     (Sleep).w       
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   loc_54E38
                 sndCom  SFX_BLO
                 move.w  #$FFF,d0

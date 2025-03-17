@@ -8,19 +8,19 @@
 ms_map9_InitFunction:
                 
                  
-                chkFlg  518             ; Battle 18 completed - BATTLE_VERSUS_TAROS                
+                chkFlg  FLAG_BATTLE18_COMPLETE     ; Battle 18 completed - BATTLE_VERSUS_TAROS                
                 bne.s   byte_568D4      
                 move.w  #137,d0
                 jsr     MoveEntityOutOfMap
 byte_568D4:
                 
-                chkFlg  65              ; Caravan is unlocked
+                chkFlg  FLAG_CARAVAN      ; Caravan is unlocked
                 beq.s   byte_568E4      
                 move.w  #ALLY_ROHDE,d0
                 jsr     MoveEntityOutOfMap
 byte_568E4:
                 
-                chkFlg  12              ; Rick joined
+                chkFlg  ALLY_RICK              ; Rick joined
                 beq.s   return_568F4
                 move.w  #ALLY_RICK,d0
                 jsr     MoveEntityOutOfMap

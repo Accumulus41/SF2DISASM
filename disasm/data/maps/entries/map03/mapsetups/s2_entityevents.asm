@@ -2,8 +2,8 @@
 ; ASM FILE data\maps\entries\map03\mapsetups\s2_entityevents.asm :
 ; 0x50F10..0x5105C : 
 ms_map3_EntityEvents:
-                msEntityEvent ALLY_SARAH, DOWN, Map3_EntityEvent0-ms_map3_EntityEvents
-                msEntityEvent ALLY_CHESTER, RIGHT, Map3_EntityEvent1-ms_map3_EntityEvents
+                msEntityEvent 1, DOWN, Map3_EntityEvent0-ms_map3_EntityEvents
+                msEntityEvent 2, RIGHT, Map3_EntityEvent1-ms_map3_EntityEvents
                 msEntityEvent 128, UP, Map3_EntityEvent2-ms_map3_EntityEvents
                 msEntityEvent 129, DOWN, Map3_EntityEvent3-ms_map3_EntityEvents
                 msEntityEvent 130, UP, Map3_EntityEvent4-ms_map3_EntityEvents
@@ -26,21 +26,21 @@ ms_map3_EntityEvents:
 Map3_EntityEvent0:
                 
                  
-                chkFlg  603             ; Set after the messenger scene
+                chkFlg  FLAG_GRANSEAL4             ; Set after the messenger scene
                 bne.s   byte_50F8A      
-                chkFlg  602             ; Set after Astral's second basement line
+                chkFlg  FLAG_GRANSEAL3             ; Set after Astral's second basement line
                 bne.s   byte_50F84      
-                chkFlg  256             ; TEMP FLAG #00
+                chkFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 bne.s   byte_50F6A      
                 txt     512             ; "Hi, {LEADER}!{N}How are you?{W2}"
 byte_50F6A:
                 
                 txt     480             ; "Sir Astral is in the{N}basement, but he looks{N}"
                 txt     481             ; "strange today.{W1}"
-                chkFlg  256             ; TEMP FLAG #00
+                chkFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 bne.s   loc_50F82
                 script  cs_513D6
-                setFlg  256             ; TEMP FLAG #00
+                setFlg  FLAG_TEMP00             ; TEMP FLAG #00
 loc_50F82:
                 
                 bra.s   loc_50F88
@@ -52,7 +52,7 @@ loc_50F88:
                 bra.s   return_50F96
 byte_50F8A:
                 
-                chkFlg  66              ; Sarah + Chester are followers
+                chkFlg  FLAG_FOLLOWER_START              ; Sarah + Chester are followers
                 bne.s   return_50F96
                 script  cs_513E2
 return_50F96:
@@ -68,9 +68,9 @@ return_50F96:
 Map3_EntityEvent1:
                 
                  
-                chkFlg  603             ; Set after the messenger scene
+                chkFlg  FLAG_GRANSEAL4             ; Set after the messenger scene
                 bne.s   byte_50FB4      
-                chkFlg  602             ; Set after Astral's second basement line
+                chkFlg  FLAG_GRANSEAL3             ; Set after Astral's second basement line
                 bne.s   byte_50FAA      
                 txt     482             ; "Hooo...I'm sleepy.{N}{NAME;3} must be sleeping{N}soundly about now.{W1}"
                 bra.s   loc_50FB2
@@ -97,7 +97,7 @@ return_50FB8:
 Map3_EntityEvent2:
                 
                  
-                chkFlg  602             ; Set after Astral's second basement line
+                chkFlg  FLAG_GRANSEAL3             ; Set after Astral's second basement line
                 bne.s   byte_50FC6      
                 txt     483             ; "Hurry to school!{N}Sir Astral and {NAME;1} must{N}be waiting.{W1}"
                 bra.s   return_50FCA
@@ -207,7 +207,7 @@ Map3_EntityEvent9:
 Map3_EntityEvent10:
                 
                  
-                chkFlg  604             ; Set after the guards have listened to Sarah and allowed you into the castle
+                chkFlg  FLAG_GRANSEAL5             ; Set after the guards have listened to Sarah and allowed you into the castle
                 bne.s   byte_5101A      
                 txt     497             ; "You cannot enter the castle{N}of Granseal.  Go away!{W1}"
                 bra.s   return_5101E
@@ -227,7 +227,7 @@ return_5101E:
 Map3_EntityEvent11:
                 
                  
-                chkFlg  604             ; Set after the guards have listened to Sarah and allowed you into the castle
+                chkFlg  FLAG_GRANSEAL5             ; Set after the guards have listened to Sarah and allowed you into the castle
                 bne.s   byte_5102C      
                 txt     497             ; "You cannot enter the castle{N}of Granseal.  Go away!{W1}"
                 bra.s   return_51030
@@ -259,7 +259,7 @@ Map3_EntityEvent12:
 
 Map3_EntityEvent13:
                 
-                jsr     j_ChurchMenu
+                jsr     ChurchMenu
                 rts
 
     ; End of function Map3_EntityEvent13
@@ -271,14 +271,14 @@ Map3_EntityEvent13:
 Map3_EntityEvent15:
                 
                  
-                chkFlg  261             ; TEMP FLAG #05
+                chkFlg  FLAG_TEMP15             ; TEMP FLAG #05
                 bne.s   byte_51052      
                 txt     500             ; "Oh, morning {LEADER}.{N}When did you come in?{W2}"
-                setFlg  261             ; TEMP FLAG #05
+                setFlg  FLAG_TEMP15             ; TEMP FLAG #05
 byte_51052:
                 
                 txt     501             ; "Is it time to start school?{N}OK, I'm coming up soon.{W1}"
-                setFlg  602             ; Set after Astral's second basement line
+                setFlg  FLAG_GRANSEAL3             ; Set after Astral's second basement line
 Map3_DefaultEntityEvent:
                 
                 rts

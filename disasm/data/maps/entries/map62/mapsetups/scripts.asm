@@ -57,5 +57,5 @@ cs_5C914:       textCursor 3629
                 nextSingleText $FF,255  ; "{LEADER} decides to go{N}with him.{W1}"
                 nextSingleText $0,129   ; "All I want is the Sky Orb.{N}Just help me get that, and{N}then you can leave.{W1}"
                 followEntity 129,FOLLOWER_B,2
-                setF 77                 ; Old man is a follower
+                setF FLAG_FOLLOWER_OLDMAN                 ; Old man is a follower
                 csc_end

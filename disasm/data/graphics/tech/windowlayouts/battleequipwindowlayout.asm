@@ -1,6 +1,6 @@
 
 ; ASM FILE data\graphics\tech\windowlayouts\battleequipwindowlayout.asm :
-; 0x114BE..0x11572 : Battlefield equip window layout
+; 0x114BE..0x11572 : Battle equip window layout
 layout_BattleEquipWindow:
                 
 ; Syntax        vdpBaseTile [VDPTILE_]enum[|MIRROR|FLIP]
@@ -22,12 +22,12 @@ layout_BattleEquipWindow:
                 
 ; 2nd line
                 vdpBaseTile V_BORDER
-                vdpBaseTile UPPERCASE_A
-                vdpBaseTile UPPERCASE_T
-                vdpBaseTile UPPERCASE_T
+                vdpBaseTile UPPERCASE_H
+                vdpBaseTile UPPERCASE_P
                 vdpBaseTile SPACE
                 vdpBaseTile SPACE
                 vdpBaseTile SPACE
+                vdpBaseTile NUMBER_9
                 vdpBaseTile NUMBER_9
                 vdpBaseTile NUMBER_9
                 vdpBaseTile V_BORDER|MIRROR
@@ -46,12 +46,12 @@ layout_BattleEquipWindow:
                 
 ; 4th line
                 vdpBaseTile V_BORDER
-                vdpBaseTile UPPERCASE_D
-                vdpBaseTile UPPERCASE_E
-                vdpBaseTile UPPERCASE_F
+                vdpBaseTile UPPERCASE_M
+                vdpBaseTile UPPERCASE_P
                 vdpBaseTile SPACE
                 vdpBaseTile SPACE
                 vdpBaseTile SPACE
+                vdpBaseTile NUMBER_9
                 vdpBaseTile NUMBER_9
                 vdpBaseTile NUMBER_9
                 vdpBaseTile V_BORDER|MIRROR
@@ -71,8 +71,8 @@ layout_BattleEquipWindow:
 ; 6th line
                 vdpBaseTile V_BORDER
                 vdpBaseTile UPPERCASE_A
-                vdpBaseTile UPPERCASE_G
-                vdpBaseTile UPPERCASE_I
+                vdpBaseTile UPPERCASE_T
+                vdpBaseTile UPPERCASE_T
                 vdpBaseTile SPACE
                 vdpBaseTile SPACE
                 vdpBaseTile SPACE
@@ -94,6 +94,54 @@ layout_BattleEquipWindow:
                 
 ; 8th line
                 vdpBaseTile V_BORDER
+                vdpBaseTile UPPERCASE_D
+                vdpBaseTile UPPERCASE_E
+                vdpBaseTile UPPERCASE_F
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile NUMBER_9
+                vdpBaseTile NUMBER_9
+                vdpBaseTile V_BORDER|MIRROR
+                
+; 9th line
+                vdpBaseTile V_BORDER
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile V_BORDER|MIRROR
+                
+; 10th line
+                vdpBaseTile V_BORDER
+                vdpBaseTile UPPERCASE_A
+                vdpBaseTile UPPERCASE_G
+                vdpBaseTile UPPERCASE_I
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile NUMBER_9
+                vdpBaseTile NUMBER_9
+                vdpBaseTile V_BORDER|MIRROR
+                
+; 11th line
+                vdpBaseTile V_BORDER
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile SPACE
+                vdpBaseTile V_BORDER|MIRROR
+                
+; 12th line
+                vdpBaseTile V_BORDER
                 vdpBaseTile UPPERCASE_M
                 vdpBaseTile UPPERCASE_O
                 vdpBaseTile UPPERCASE_V
@@ -104,7 +152,7 @@ layout_BattleEquipWindow:
                 vdpBaseTile NUMBER_9
                 vdpBaseTile V_BORDER|MIRROR
                 
-; 9th line
+; 13th line
                 vdpBaseTile CORNER|FLIP
                 vdpBaseTile H_BORDER|FLIP
                 vdpBaseTile H_BORDER|FLIP

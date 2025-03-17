@@ -34,33 +34,35 @@ GetAllyAnimation:
                 subq.w  #1,d2
                 cmp.w   (a0,d2.w),d1
                 dbeq    d2,@FindKnight_Loop
-                bne.s   @GetAnimationPointer
+                bne.s   @Default
                 
                 ; Get spear throw animation index
+                clr.w   d1
                 move.w  @KNIGHTS_TO_SPEARS_OFFSET(a0,d2.w),d1
-                bra.s   @GetAnimationPointer
+                bra.s   @GetDodgeAnimationPointer
                 
 @IsSpecialAnimation:
                 cmpi.w  #ALLYBATTLEANIMATION_SPECIALS_START,d1
-                bhs.s   @GetAnimationPointer
+                bhs.s   @GetDodgeAnimationPointer
                 
                 ; Is dodge?
                 cmpi.w  #BATTLEANIMATION_DODGE,d1
                 bne.s   @Default
-            if (ALLYBATTLEANIMATION_DODGES_START>127)
-                move.w  #ALLYBATTLEANIMATION_DODGES_START,d1
-            else
-                moveq   #ALLYBATTLEANIMATION_DODGES_START,d1
-            endif
+                
+@GetDodgeAnimationPointer:
+                lea     pt_AllyDodgeAnimations, a0
+                cmpi.w  #ALLYBATTLEANIMATION_SPECIALS_START,d1
+                bhs.s   @GetAnimationPointer
+                clr.w   d1
                 bra.s   @GetAnimationIndex
                 
 @Default:       clr.w   d1                      ; default to regular attack animation
+                lea     pt_AllyAttackAnimations, a0
                 
 @GetAnimationIndex:
                 add.w   ((BATTLESCENE_ALLYBATTLESPRITE-$1000000)).w,d1
                 
 @GetAnimationPointer:
-                getPointer p_pt_AllyAnimations, a0
                 lsl.w   #2,d1
                 movea.l (a0,d1.w),a0
                 

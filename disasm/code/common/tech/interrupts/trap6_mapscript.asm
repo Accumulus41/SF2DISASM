@@ -16,7 +16,7 @@ Trap6_TriggerAndExecuteMapScript:
                 trap    #VINT_FUNCTIONS
                 dc.w VINTS_ACTIVATE
                 dc.l VInt_UpdateEntities
-                jsr     j_ExecuteMapScript
+                jsr     ExecuteMapScript
             if (MUSIC_RESUMING=1)
                 activateMusicResuming
             endif

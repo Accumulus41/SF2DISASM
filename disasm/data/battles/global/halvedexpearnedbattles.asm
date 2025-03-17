@@ -5,6 +5,13 @@ table_HalvedExpEarnedBattles:
                 
 ; Syntax        battle [BATTLE_]enum (or index)
                 
-                battle INSIDE_ANCIENT_TOWER
+                battleEXP INSIDE_ANCIENT_TOWER, 2
+                battleEXP INSIDE_ANCIENT_TOWER, 2
+                battleEXP INSIDE_ANCIENT_TOWER, 2
+                battleEXP INSIDE_ANCIENT_TOWER, 2
+                battleEXP INSIDE_ANCIENT_TOWER, 2
+                battleEXP INSIDE_ANCIENT_TOWER, 2
+                battleEXP INSIDE_ANCIENT_TOWER, 2
+                battleEXP INSIDE_ANCIENT_TOWER, 2
                 
                 tableEnd.b

@@ -2,8 +2,8 @@
 ; ASM FILE data\maps\entries\map22\mapsetups\s2_entityevents.asm :
 ; 0x59474..0x595DE : 
 ms_map22_EntityEvents:
-                msEntityEvent ALLY_ERIC, UP, Map22_EntityEvent0-ms_map22_EntityEvents
-                msEntityEvent ALLY_KARNA, UP, Map22_EntityEvent1-ms_map22_EntityEvents
+                msEntityEvent 14, UP, Map22_EntityEvent0-ms_map22_EntityEvents
+                msEntityEvent 15, UP, Map22_EntityEvent1-ms_map22_EntityEvents
                 msEntityEvent 128, RIGHT, Map22_EntityEvent2-ms_map22_EntityEvents
                 msEntityEvent 129, DOWN, Map22_EntityEvent3-ms_map22_EntityEvents
                 msEntityEvent 130, DOWN, Map22_EntityEvent4-ms_map22_EntityEvents
@@ -13,25 +13,6 @@ ms_map22_EntityEvents:
                 msEntityEvent 134, DOWN, Map22_EntityEvent8-ms_map22_EntityEvents
                 msEntityEvent 135, DOWN, Map22_EntityEvent9-ms_map22_EntityEvents
                 msEntityEvent 136, DOWN, Map22_EntityEvent10-ms_map22_EntityEvents
-            if (STANDARD_BUILD&MINIATURES_SHOP=1)
-                msEntityEvent 137, RIGHT, Map22_EntityEvent22-ms_map22_EntityEvents
-                msEntityEvent 138, RIGHT, Map22_EntityEvent11-ms_map22_EntityEvents
-                msEntityEvent 139, RIGHT, Map22_EntityEvent12-ms_map22_EntityEvents
-                msEntityEvent 140, RIGHT, Map22_EntityEvent13-ms_map22_EntityEvents
-                msEntityEvent 141, RIGHT, Map22_EntityEvent13-ms_map22_EntityEvents
-                msEntityEvent 142, RIGHT, Map22_EntityEvent15-ms_map22_EntityEvents
-                msEntityEvent 143, RIGHT, Map22_EntityEvent15-ms_map22_EntityEvents
-                msEntityEvent 144, RIGHT, Map22_EntityEvent17-ms_map22_EntityEvents
-                msEntityEvent 145, RIGHT, Map22_EntityEvent17-ms_map22_EntityEvents
-                msEntityEvent 146, RIGHT, Map22_EntityEvent12-ms_map22_EntityEvents
-                msEntityEvent 147, RIGHT, Map22_EntityEvent12-ms_map22_EntityEvents
-                msEntityEvent 148, RIGHT, Map22_EntityEvent21-ms_map22_EntityEvents
-                msEntityEvent 149, RIGHT, Map22_EntityEvent21-ms_map22_EntityEvents
-                msEntityEvent 150, RIGHT, Map22_EntityEvent21-ms_map22_EntityEvents
-                msEntityEvent 151, RIGHT, Map22_EntityEvent21-ms_map22_EntityEvents
-                msEntityEvent 152, RIGHT, Map22_EntityEvent21-ms_map22_EntityEvents
-                msEntityEvent 153, RIGHT, Map22_EntityEvent21-ms_map22_EntityEvents
-            else
                 msEntityEvent 137, RIGHT, Map22_EntityEvent11-ms_map22_EntityEvents
                 msEntityEvent 138, RIGHT, Map22_EntityEvent12-ms_map22_EntityEvents
                 msEntityEvent 139, RIGHT, Map22_EntityEvent13-ms_map22_EntityEvents
@@ -48,7 +29,6 @@ ms_map22_EntityEvents:
                 msEntityEvent 150, RIGHT, Map22_EntityEvent21-ms_map22_EntityEvents
                 msEntityEvent 151, RIGHT, Map22_EntityEvent21-ms_map22_EntityEvents
                 msEntityEvent 152, RIGHT, Map22_EntityEvent21-ms_map22_EntityEvents
-            endif
                 msDefaultEntityEvent Map22_DefaultEntityEvent-ms_map22_EntityEvents
 
 ; =============== S U B R O U T I N E =======================================
@@ -56,7 +36,7 @@ ms_map22_EntityEvents:
 
 Map22_EntityEvent2:
                 
-                jsr     j_CaravanMenu
+                jsr     CaravanMenu
                 rts
 
     ; End of function Map22_EntityEvent2
@@ -133,7 +113,7 @@ Map22_EntityEvent1:
 
 Map22_EntityEvent6:
                 
-                jsr     j_ChurchMenu
+                jsr     ChurchMenu
                 rts
 
     ; End of function Map22_EntityEvent6
@@ -145,17 +125,17 @@ Map22_EntityEvent6:
 Map22_EntityEvent7:
                 
                  
-                chkFlg  522             ; Battle 22 completed - BATTLE_CHESSBOARD                  
+                chkFlg  FLAG_BATTLE22_COMPLETE             ; Battle 22 completed - BATTLE_CHESSBOARD                  
                 bne.s   byte_59536      
                 txt     1777            ; "I'm sure King Ponpei will{N}help you.{W1}"
                 bra.s   return_59552
 byte_59536:
                 
-                chkFlg  256             ; TEMP FLAG #00
+                chkFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 bne.s   byte_5954A      
                 txt     1798            ; "He's just kidding, but to{N}tell the truth, the Cotton{W2}"
                 txt     1799            ; "Balloon is a very special{N}treasure.{W1}"
-                setFlg  256             ; TEMP FLAG #00
+                setFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 bra.s   return_59552
 byte_5954A:
                 
@@ -174,9 +154,9 @@ return_59552:
 Map22_EntityEvent8:
                 
                  
-                chkFlg  522             ; Battle 22 completed - BATTLE_CHESSBOARD                  
+                chkFlg  FLAG_BATTLE22_COMPLETE             ; Battle 22 completed - BATTLE_CHESSBOARD                  
                 bne.s   byte_59576      
-                chkFlg  777             ; Set after the Desktop King tells you to fight on the chessboard
+                chkFlg  FLAG_DESKTOP2             ; Set after the Desktop King tells you to fight on the chessboard
                 bne.s   byte_5956C      
                 txt     1778            ; "So, you were not able to see{N}Creed?{W2}"
                 txt     1779            ; "Somewhere in Floor World,{N}there's a tunnel that leads{N}to Creed.{W2}"
@@ -184,11 +164,12 @@ Map22_EntityEvent8:
 byte_5956C:
                 
                 txt     1781            ; "You may go to the chessboard{N}now.{W1}"
-                setFlg  777             ; Set after the Desktop King tells you to fight on the chessboard
+                setFlg  FLAG_DESKTOP2             ; Set after the Desktop King tells you to fight on the chessboard
                 bra.s   return_5957A
 byte_59576:
                 
                 txt     1797            ; "Bravo!  I'd give you an army{N}if you'd stay here.{W1}"
+				setFlg	FLAG_BALLOONS
 return_5957A:
                 
                 rts
@@ -202,7 +183,7 @@ return_5957A:
 Map22_EntityEvent9:
                 
                  
-                chkFlg  777             ; Set after the Desktop King tells you to fight on the chessboard
+                chkFlg  FLAG_DESKTOP2             ; Set after the Desktop King tells you to fight on the chessboard
                 bne.s   byte_5958C      
                 txt     1783            ; "The Chess Army is very{N}strong.{W2}"
                 txt     1784            ; "It will be good training for{N}you.{W1}"
@@ -223,17 +204,17 @@ return_59590:
 Map22_EntityEvent10:
                 
                  
-                chkFlg  212             ; Cotton Balloon (chest on chessboard, Desktop Kingdom)
+                chkFlg  FLAG_BALLOONS             ; Cotton Balloon (chest on chessboard, Desktop Kingdom)
                 bne.s   byte_5959E      
                 txt     1802            ; "Halt!  I can't let you{N}pass without the King's{N}permission.{W1}"
                 bra.s   return_595B2
 byte_5959E:
                 
                 txt     1803            ; "Floor World is very{N}dangerous.  Take care!{W1}"
-                chkFlg  258             ; TEMP FLAG #02
+                chkFlg  FLAG_TEMP02             ; TEMP FLAG #02
                 bne.s   return_595B2
                 script  cs_599A4
-                setFlg  258             ; TEMP FLAG #02
+                setFlg  FLAG_TEMP02             ; TEMP FLAG #02
 return_595B2:
                 
                 rts
@@ -282,10 +263,6 @@ Map22_EntityEvent15:
 
 Map22_EntityEvent13:
                 
-            if (STANDARD_BUILD&MINIATURES_SHOP=1)
-                chkFlg  522             ; Battle 22 completed - BATTLE_CHESSBOARD
-                bne.s   Map22_EntityEvent22
-            endif
                 txt     1788            ; "Is healing is my only ability?{N}Ha, ha!  You have a lot to{N}learn!{W1}"
                 rts
 
@@ -322,10 +299,6 @@ Map22_EntityEvent11:
 
 Map22_EntityEvent22:
 
-            if (STANDARD_BUILD&MINIATURES_SHOP=1)
-                move.b  #SHOP_MINATURES_ROOM,((CURRENT_SHOP_INDEX-$1000000)).w
-                jmp     ShopMenu
-            endif
 
 Map22_DefaultEntityEvent:
                 

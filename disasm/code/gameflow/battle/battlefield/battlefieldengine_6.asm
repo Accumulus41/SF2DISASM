@@ -4,57 +4,6 @@
 
 ; =============== S U B R O U T I N E =======================================
 
-; unused
-
-
-sub_D3CA:
-                
-                movem.l d1-d2,-(sp)
-                jsr     GetCurrentMp
-                move.w  d1,d2
-                jsr     GetMaxMp
-                bra.w   loc_D3FC
-
-    ; End of function sub_D3CA
-
-
-; =============== S U B R O U T I N E =======================================
-
-; unused
-
-
-sub_D3E0:
-                
-                movem.l d1-d2,-(sp)
-                move.w  d1,d2
-                jsr     GetMaxMp
-                bra.w   loc_D3FC
-
-    ; End of function sub_D3E0
-
-
-; =============== S U B R O U T I N E =======================================
-
-; unused
-
-
-sub_D3F0:
-                
-                movem.l d1-d2,-(sp)
-                move.w  d1,d2
-                jsr     GetCurrentMp
-loc_D3FC:
-                
-                mulu.w  #3,d2
-                cmp.w   d2,d1
-                movem.l (sp)+,d1-d2
-                rts
-
-    ; End of function sub_D3F0
-
-
-; =============== S U B R O U T I N E =======================================
-
 ; Out: D1 = 0 if normal, 1 if hard, 2 if super, 3 if ouch
 
 
@@ -62,13 +11,13 @@ GetDifficulty:
                 
                 movem.l d0/d2-a6,-(sp)
                 clr.w   d2
-                move.w  #FLAG_INDEX_DIFFICULTY1,d1
+                move.w  #FLAG_DIFFICULTY1,d1
                 bsr.w   CheckFlag
                 beq.s   loc_D41C
                 move.w  #1,d2
 loc_D41C:
                 
-                move.w  #FLAG_INDEX_DIFFICULTY2,d1
+                move.w  #FLAG_DIFFICULTY2,d1
                 bsr.w   CheckFlag
                 beq.s   loc_D428
                 addq.w  #2,d2

@@ -20,19 +20,19 @@ ShopMenu:
                 moveq   #0,d1
                 move.w  ((CURRENT_PORTRAIT-$1000000)).w,d0
                 blt.s   byte_2007A      
-                jsr     j_OpenPortraitWindow
+                jsr     OpenPortraitWindow
 byte_2007A:
                 
                 txt     158             ; "What's up, boy!{N}We guarantee all items to{N}be in good condition!{D3}"
                 clsTxt
-                jsr     j_ClosePortraitWindow
+                jsr     ClosePortraitWindow
 loc_20088:
                 
                 moveq   #0,d0           ; initial choice : up
                 moveq   #0,d1           ; animate-in direction : bottom
                 moveq   #MENU_SHOP,d2
                 lea     (InitialStack).w,a0
-                jsr     j_ExecuteDiamondMenu
+                jsr     ExecuteDiamondMenu
                 cmpi.w  #-1,d0
                 beq.s   @ExitShop
                 bra.w   @CheckChoice_Buy
@@ -41,12 +41,12 @@ loc_20088:
                 moveq   #0,d1
                 move.w  ((CURRENT_PORTRAIT-$1000000)).w,d0
                 blt.s   byte_200B0      
-                jsr     j_OpenPortraitWindow
+                jsr     OpenPortraitWindow
 byte_200B0:
                 
                 txt     161             ; "{CLEAR}Thank you!  Come again!{W1}"
                 clsTxt
-                jsr     j_ClosePortraitWindow
+                jsr     ClosePortraitWindow
                 unlk    a6
                 movem.l (sp)+,d0-a5
                 rts
@@ -59,19 +59,19 @@ byte_200CE:
                 txt     162             ; "What do you want to buy?"
                 jsr     PopulateShopInventoryList(pc)
                 nop
-                jsr     j_ExecuteShopScreen
+                jsr     BuildShopInventoryScreen
                 cmpi.w  #-1,d0
                 beq.w   byte_207CC
                 
                 move.w  d0,selectedItem(a6)
                 move.w  d0,d1
-                jsr     j_GetItemDefinitionAddress
+                jsr     GetItemDefAddress
                 move.w  ITEMDEF_OFFSET_PRICE(a0),itemPrice(a6)
                 move.w  selectedItem(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
                 clr.l   ((DIALOGUE_NUMBER-$1000000)).w
                 move.w  itemPrice(a6),((CURRENT_ITEM_PRICE-$1000000)).w
                 txt     163             ; "The {ITEM} costs{N}{#} gold coins.{N}OK?"
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 cmpi.w  #0,d0
                 beq.s   loc_20120
 byte_20118:
@@ -80,7 +80,7 @@ byte_20118:
                 bra.w   byte_202C2
 loc_20120:
                 
-                jsr     j_GetGold
+                jsr     GetGold
                 move.l  d1,currentGold(a6)
                 clr.l   d0
                 move.w  itemPrice(a6),d0
@@ -93,7 +93,7 @@ byte_2013C:
                 @SelectRecipient_Buy:
                 txt     166             ; "Who gets it?{W2}"
                 clsTxt
-                jsr     j_UpdateForce
+                jsr     UpdateForce
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,((GENERIC_LIST_LENGTH-$1000000)).w
                 lea     ((TARGETS_LIST-$1000000)).w,a0
                 lea     ((GENERIC_LIST-$1000000)).w,a1
@@ -105,63 +105,63 @@ loc_2015E:
                 dbf     d7,loc_2015E
                 clsTxt
                 move.w  selectedItem(a6),((SELECTED_ITEM_INDEX-$1000000)).w
-                move.b  #ITEM_SUBMENU_ACTION_USE,((CURRENT_ITEM_SUBMENU_ACTION-$1000000)).w
-                jsr     j_ExecuteMembersListScreenOnItemSummaryPage
+                move.b  #0,((byte_FFB13C-$1000000)).w
+                jsr     BuildMembersListScreen_NewAttAndDefPage
                 cmpi.w  #-1,d0
                 beq.s   byte_20118      
                 move.w  d0,member(a6)
                 moveq   #0,d1
-                jsr     j_GetItemBySlotAndHeldItemsNumber
+                jsr     GetItemBySlotAndHeldItemsNumber
                 cmpi.w  #COMBATANT_ITEMSLOTS,d2
                 bcs.s   loc_201AC
                 move.w  member(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
                 txt     168             ; "Oops!  {NAME}'s hands{N}are full!  To anybody else?"
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 cmpi.w  #0,d0
                 beq.s   byte_2013C      ; @SelectRecipient_Buy
                 bra.w   byte_20118      
 loc_201AC:
                 
                 move.w  selectedItem(a6),d1
-                jsr     j_GetEquipmentType
+                jsr     GetEquipmentType
                 cmpi.w  #EQUIPMENTTYPE_WEAPON,d2
                 bne.s   loc_201E4
                 move.w  selectedItem(a6),d1
                 move.w  member(a6),d0
-                jsr     j_IsWeaponOrRingEquippable
+                jsr     IsWeaponOrRingEquippable
                 bcs.s   loc_201E4
                 move.w  member(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
                 txt     167             ; "{NAME} can't be{N}equipped with it.  OK?"
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 cmpi.w  #0,d0
                 bne.w   byte_2013C      ; @SelectRecipient_Buy
 loc_201E4:
                 
                 moveq   #0,d1
                 move.w  itemPrice(a6),d1
-                jsr     j_DecreaseGold
+                jsr     DecreaseGold
                 move.w  member(a6),d0
                 move.w  selectedItem(a6),d1
-                jsr     j_AddItem
+                jsr     AddItem
                 move.w  selectedItem(a6),d1
                 move.w  member(a6),d0
-                jsr     j_IsWeaponOrRingEquippable
+                jsr     IsWeaponOrRingEquippable
                 bcc.w   byte_202BE      
                 txt     173             ; "{CLEAR}Equip it now?"
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 cmpi.w  #0,d0
                 bne.w   byte_202BE      
                 move.w  selectedItem(a6),d1
-                jsr     j_GetEquipmentType
+                jsr     GetEquipmentType
                 cmpi.w  #EQUIPMENTTYPE_WEAPON,d2
                 bne.s   loc_2025E
                 move.w  member(a6),d0
-                jsr     j_GetEquippedWeapon
+                jsr     GetEquippedWeapon
                 cmpi.w  #-1,d1
                 beq.s   loc_2028A
                 
                 move.w  d2,d1
-                jsr     j_UnequipItemBySlotIfNotCursed
+                jsr     UnequipItemBySlotIfNotCursed
                 cmpi.w  #2,d2
                 bne.w   loc_2028A
                 move.w  member(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
@@ -170,12 +170,12 @@ loc_201E4:
 loc_2025E:
                 
                 move.w  member(a6),d0
-                jsr     j_GetEquippedRing
+                jsr     GetEquippedRing
                 cmpi.w  #-1,d1
                 beq.s   loc_2028A
                 
                 move.w  d2,d1
-                jsr     j_UnequipItemBySlotIfNotCursed
+                jsr     UnequipItemBySlotIfNotCursed
                 cmpi.w  #2,d2
                 bne.w   loc_2028A
                 move.w  member(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
@@ -184,10 +184,10 @@ loc_2025E:
 loc_2028A:
                 
                 moveq   #0,d1
-                jsr     j_GetItemBySlotAndHeldItemsNumber
+                jsr     GetItemBySlotAndHeldItemsNumber
                 move.w  d2,d1
                 subq.w  #1,d1
-                jsr     j_EquipItemBySlot
+                jsr     EquipItemBySlot
                 cmpi.w  #2,d2
                 bne.s   byte_202B8      
                 sndCom  MUSIC_CURSED_ITEM
@@ -217,7 +217,7 @@ byte_202D2:
                 
                 txt     177             ; "Whose and which item do{N}you want to sell?{D3}"
                 clsTxt
-                jsr     j_UpdateForce
+                jsr     UpdateForce
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,((GENERIC_LIST_LENGTH-$1000000)).w
                 lea     ((TARGETS_LIST-$1000000)).w,a0
                 lea     ((GENERIC_LIST-$1000000)).w,a1
@@ -228,9 +228,9 @@ loc_202F4:
                 move.b  (a0)+,(a1)+
                 dbf     d7,loc_202F4
                 clsTxt
-                move.b  #ITEM_SUBMENU_ACTION_GIVE,((CURRENT_ITEM_SUBMENU_ACTION-$1000000)).w
+                move.b  #1,((byte_FFB13C-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
-                jsr     j_ExecuteMembersListScreenOnItemSummaryPage
+                jsr     BuildMembersListScreen_NewAttAndDefPage
                 cmpi.w  #-1,d0
                 beq.w   byte_207CC
                 clr.w   rareItemFlag(a6)
@@ -238,7 +238,7 @@ loc_202F4:
                 move.w  d1,itemSlot(a6)
                 move.w  d2,selectedItem(a6)
                 move.w  selectedItem(a6),d1
-                jsr     j_GetItemDefinitionAddress
+                jsr     GetItemDefAddress
                 move.w  ITEMDEF_OFFSET_PRICE(a0),itemPrice(a6)
                 move.l  ITEMDEF_OFFSET_TYPE(a0),itemTypeBitfield(a6)
                 clr.l   d0
@@ -268,7 +268,7 @@ byte_20384:
                 txt     178             ; "I'll pay {#} gold coins{N}for it, OK?"
 @ConfirmSale:
                 
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 cmpi.w  #0,d0
                 beq.s   loc_2039C
                 txt     179             ; "{CLEAR}Too bad.{W2}"
@@ -276,46 +276,46 @@ byte_20384:
 loc_2039C:
                 
                 move.w  selectedItem(a6),d1
-                jsr     j_GetEquipmentType
+                jsr     GetEquipmentType
                 cmpi.w  #EQUIPMENTTYPE_WEAPON,d2
                 bne.s   loc_203DC
                 move.w  member(a6),d0
-                jsr     j_GetEquippedWeapon
+                jsr     GetEquippedWeapon
                 cmpi.w  #-1,d1
                 beq.w   loc_2040C
                 
                 cmp.w   itemSlot(a6),d2
                 bne.w   loc_2040C
                 move.w  selectedItem(a6),d1
-                jsr     j_IsItemCursed
+                jsr     IsItemCursed
                 bcc.w   loc_2040C
                 txt     184             ; "OK, pass it to me...{D1}{N}{D1}Hey, it's cursed, isn't it?{W2}{N}I'm not such an easy mark!{W2}"
                 bra.w   byte_2043A
 loc_203DC:
                 
                 move.w  member(a6),d0
-                jsr     j_GetEquippedRing
+                jsr     GetEquippedRing
                 cmpi.w  #-1,d1
                 beq.w   loc_2040C
                 
                 cmp.w   itemSlot(a6),d2
                 bne.w   loc_2040C
                 move.w  selectedItem(a6),d1
-                jsr     j_IsItemCursed
+                jsr     IsItemCursed
                 bcc.w   loc_2040C
                 txt     184             ; "OK, pass it to me...{D1}{N}{D1}Hey, it's cursed, isn't it?{W2}{N}I'm not such an easy mark!{W2}"
                 bra.w   byte_2043A
 loc_2040C:
                 
                 move.l  currentGold(a6),d1
-                jsr     j_IncreaseGold
+                jsr     IncreaseGold
                 move.w  member(a6),d0
                 move.w  itemSlot(a6),d1
-                jsr     j_DropItemBySlot
+                jsr     DropItemBySlot
                 cmpi.w  #0,rareItemFlag(a6)
                 beq.s   byte_20436      ; @NotDealsItem
                 move.w  selectedItem(a6),d1
-                jsr     j_AddItemToDeals
+                jsr     AddItemToDeals
 byte_20436:
                 
                 @NotDealsItem:
@@ -332,7 +332,7 @@ byte_2044A:
                 
                 txt     186             ; "Whose and which item{N}should I repair?{D1}"
                 clsTxt
-                jsr     j_UpdateForce
+                jsr     UpdateForce
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,((GENERIC_LIST_LENGTH-$1000000)).w
                 lea     ((TARGETS_LIST-$1000000)).w,a0
                 lea     ((GENERIC_LIST-$1000000)).w,a1
@@ -343,31 +343,26 @@ loc_2046C:
                 move.b  (a0)+,(a1)+
                 dbf     d7,loc_2046C
                 clsTxt
-                move.b  #ITEM_SUBMENU_ACTION_GIVE,((CURRENT_ITEM_SUBMENU_ACTION-$1000000)).w
+                move.b  #1,((byte_FFB13C-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
-                jsr     j_ExecuteMembersListScreenOnItemSummaryPage
+                jsr     BuildMembersListScreen_NewAttAndDefPage
                 cmpi.w  #-1,d0
                 beq.w   byte_207CC
                 move.w  d0,member(a6)
                 move.w  d1,itemSlot(a6)
                 move.w  d2,selectedItem(a6)
                 move.w  selectedItem(a6),d1
-                jsr     j_GetItemDefinitionAddress
+                jsr     GetItemDefAddress
                 move.w  ITEMDEF_OFFSET_PRICE(a0),itemPrice(a6)
                 move.w  itemPrice(a6),d0
                 lsr.w   #2,d0           ; repair is 25% item price
                 move.w  d0,itemPrice(a6)
                 move.w  member(a6),d0
-                jsr     j_GetCombatantEntryAddress
+                jsr     GetCombatantEntryAddress
                 move.w  itemSlot(a6),d1
                 add.w   d1,d1
-            if (STANDARD_BUILD=1)
-                addToSavedBytePointer d1, a0
-                getSavedWord a0, d2, COMBATANT_OFFSET_ITEMS
-            else
                 lea     COMBATANT_OFFSET_ITEMS(a0,d1.w),a0
                 move.w  (a0),d2
-            endif
                 btst    #ITEMENTRY_BIT_BROKEN,d2
                 bne.w   loc_204DC
                 txt     188             ; "It's not damaged.{W2}"
@@ -377,14 +372,14 @@ loc_204DC:
                 clr.l   ((DIALOGUE_NUMBER-$1000000)).w
                 move.w  itemPrice(a6),((CURRENT_ITEM_PRICE-$1000000)).w
                 txt     187             ; "{CLEAR}Will you pay {#} gold{N}coins to repair it?"
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 cmpi.w  #0,d0
                 beq.s   loc_204FE
                 txt     179             ; "{CLEAR}Too bad.{W2}"
                 bra.w   byte_205AC
 loc_204FE:
                 
-                jsr     j_GetGold
+                jsr     GetGold
                 move.l  d1,currentGold(a6)
                 clr.l   d0
                 move.w  itemPrice(a6),d0
@@ -395,32 +390,32 @@ loc_204FE:
 loc_2051A:
                 
                 move.w  selectedItem(a6),d1
-                jsr     j_GetEquipmentType
+                jsr     GetEquipmentType
                 cmpi.w  #ITEMTYPE_BIT_WEAPON,d2
                 bne.s   loc_2055A
                 move.w  member(a6),d0
-                jsr     j_GetEquippedWeapon
+                jsr     GetEquippedWeapon
                 cmpi.w  #-1,d1
                 beq.w   loc_2058A
                 
                 cmp.w   itemSlot(a6),d2
                 bne.w   loc_2058A
                 move.w  selectedItem(a6),d1
-                jsr     j_IsItemCursed
+                jsr     IsItemCursed
                 bcc.w   loc_2058A
                 txt     190             ; "Sorry, I don't repair cursed{N}items.{N}Let sleeping devils lie.{W2}"
                 bra.w   byte_205AC
 loc_2055A:
                 
                 move.w  member(a6),d0
-                jsr     j_GetEquippedRing
+                jsr     GetEquippedRing
                 cmpi.w  #-1,d1
                 beq.w   loc_2058A
                 
                 cmp.w   itemSlot(a6),d2
                 bne.w   loc_2058A
                 move.w  selectedItem(a6),d1
-                jsr     j_IsItemCursed
+                jsr     IsItemCursed
                 bcc.w   loc_2058A
                 txt     190             ; "Sorry, I don't repair cursed{N}items.{N}Let sleeping devils lie.{W2}"
                 bra.w   byte_205AC
@@ -428,10 +423,10 @@ loc_2058A:
                 
                 moveq   #0,d1
                 move.w  itemPrice(a6),d1
-                jsr     j_DecreaseGold
+                jsr     DecreaseGold
                 move.w  member(a6),d0
                 move.w  itemSlot(a6),d1
-                jsr     j_RepairItemBySlot
+                jsr     RepairItemBySlot
                 txt     191             ; "{CLEAR}OK, one moment please!{W2}"
                 txt     192             ; "{CLEAR}Here you go!{N}Beautiful, huh?{W2}"
 byte_205AC:
@@ -449,19 +444,19 @@ byte_205AC:
 byte_205C8:
                 
                 txt     171             ; "You must be surprised!{D1}{N}What would you like?"
-                jsr     j_ExecuteShopScreen
+                jsr     BuildShopInventoryScreen
                 cmpi.w  #-1,d0
                 beq.w   byte_207CC
                 
                 move.w  d0,selectedItem(a6)
                 move.w  d0,d1
-                jsr     j_GetItemDefinitionAddress
+                jsr     GetItemDefAddress
                 move.w  ITEMDEF_OFFSET_PRICE(a0),itemPrice(a6)
                 move.w  selectedItem(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
                 clr.l   ((DIALOGUE_NUMBER-$1000000)).w
                 move.w  itemPrice(a6),((CURRENT_ITEM_PRICE-$1000000)).w
                 txt     163             ; "The {ITEM} costs{N}{#} gold coins.{N}OK?"
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 cmpi.w  #0,d0
                 beq.s   loc_20614
 byte_2060C:
@@ -470,7 +465,7 @@ byte_2060C:
                 bra.w   byte_207C4
 loc_20614:
                 
-                jsr     j_GetGold
+                jsr     GetGold
                 move.l  d1,currentGold(a6)
                 clr.l   d0
                 move.w  itemPrice(a6),d0
@@ -482,7 +477,7 @@ byte_20630:
                 
                 txt     166             ; "Who gets it?{W2}"
                 clsTxt
-                jsr     j_UpdateForce
+                jsr     UpdateForce
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,((GENERIC_LIST_LENGTH-$1000000)).w
                 lea     ((TARGETS_LIST-$1000000)).w,a0
                 lea     ((GENERIC_LIST-$1000000)).w,a1
@@ -494,65 +489,65 @@ loc_20652:
                 dbf     d7,loc_20652
                 clsTxt
                 move.w  selectedItem(a6),((SELECTED_ITEM_INDEX-$1000000)).w
-                move.b  #ITEM_SUBMENU_ACTION_USE,((CURRENT_ITEM_SUBMENU_ACTION-$1000000)).w
-                jsr     j_ExecuteMembersListScreenOnItemSummaryPage
+                move.b  #0,((byte_FFB13C-$1000000)).w
+                jsr     BuildMembersListScreen_NewAttAndDefPage
                 cmpi.w  #-1,d0
                 beq.s   byte_2060C      
                 move.w  d0,member(a6)
                 moveq   #0,d1
-                jsr     j_GetItemBySlotAndHeldItemsNumber
+                jsr     GetItemBySlotAndHeldItemsNumber
                 cmpi.w  #COMBATANT_ITEMSLOTS,d2
                 bcs.s   loc_206A0
                 move.w  member(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
                 txt     168             ; "Oops!  {NAME}'s hands{N}are full!  To anybody else?"
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 cmpi.w  #0,d0
                 beq.s   byte_20630      
                 bra.w   byte_2060C      
 loc_206A0:
                 
                 move.w  selectedItem(a6),d1
-                jsr     j_GetEquipmentType
+                jsr     GetEquipmentType
                 cmpi.w  #EQUIPMENTTYPE_WEAPON,d2
                 bne.s   loc_206D8
                 move.w  selectedItem(a6),d1
                 move.w  member(a6),d0
-                jsr     j_IsWeaponOrRingEquippable
+                jsr     IsWeaponOrRingEquippable
                 bcs.s   loc_206D8
                 move.w  member(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
                 txt     167             ; "{NAME} can't be{N}equipped with it.  OK?"
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 cmpi.w  #0,d0
                 bne.w   byte_20630      
 loc_206D8:
                 
                 moveq   #0,d1
                 move.w  itemPrice(a6),d1
-                jsr     j_DecreaseGold
+                jsr     DecreaseGold
                 move.w  member(a6),d0
                 move.w  selectedItem(a6),d1
-                jsr     j_AddItem
+                jsr     AddItem
                 move.w  selectedItem(a6),d1
-                jsr     j_RemoveItemFromDeals
+                jsr     RemoveItemFromDeals
                 move.w  selectedItem(a6),d1
                 move.w  member(a6),d0
-                jsr     j_IsWeaponOrRingEquippable
+                jsr     IsWeaponOrRingEquippable
                 bcc.w   byte_207C0      
                 txt     173             ; "{CLEAR}Equip it now?"
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 cmpi.w  #0,d0
                 bne.w   byte_207C0      
                 move.w  selectedItem(a6),d1
-                jsr     j_GetEquipmentType
+                jsr     GetEquipmentType
                 cmpi.w  #EQUIPMENTTYPE_WEAPON,d2
                 bne.s   loc_2075C
                 move.w  member(a6),d0
-                jsr     j_GetEquippedWeapon
+                jsr     GetEquippedWeapon
                 cmpi.w  #-1,d1
                 beq.s   loc_20788
                 
                 move.w  d2,d1
-                jsr     j_UnequipItemBySlotIfNotCursed
+                jsr     UnequipItemBySlotIfNotCursed
                 cmpi.w  #2,d2
                 bne.w   loc_20788
                 move.w  member(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
@@ -561,12 +556,12 @@ loc_206D8:
 loc_2075C:
                 
                 move.w  member(a6),d0
-                jsr     j_GetEquippedRing
+                jsr     GetEquippedRing
                 cmpi.w  #-1,d1
                 beq.s   loc_20788
                 
                 move.w  d2,d1
-                jsr     j_UnequipItemBySlotIfNotCursed
+                jsr     UnequipItemBySlotIfNotCursed
                 cmpi.w  #2,d2
                 bne.w   loc_20788
                 move.w  member(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
@@ -575,10 +570,10 @@ loc_2075C:
 loc_20788:
                 
                 moveq   #0,d1
-                jsr     j_GetItemBySlotAndHeldItemsNumber
+                jsr     GetItemBySlotAndHeldItemsNumber
                 move.w  d2,d1
                 subq.w  #1,d1
-                jsr     j_EquipItemBySlot
+                jsr     EquipItemBySlot
                 cmpi.w  #2,d2
                 bne.s   byte_207BA      
                 sndCom  MUSIC_CURSED_ITEM
@@ -656,14 +651,10 @@ DetermineDealsItemsNotInCurrentShop:
                 lea     ((GENERIC_LIST-$1000000)).w,a0
                 clr.w   ((GENERIC_LIST_LENGTH-$1000000)).w
                 clr.w   d1
-            if (DEALS_ITEMS_COUNTER>127)
                 move.w  #DEALS_ITEMS_COUNTER,d7
-            else
-                moveq   #DEALS_ITEMS_COUNTER,d7
-            endif
 @Loop:
                 
-                jsr     j_GetDealsItemAmount
+                jsr     GetDealsItemAmount
                 tst.b   d2
                 beq.w   @Next
                 bsr.w   DoesCurrentShopContainItem

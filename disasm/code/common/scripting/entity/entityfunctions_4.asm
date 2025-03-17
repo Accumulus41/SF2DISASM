@@ -4,7 +4,7 @@
 
 ; =============== S U B R O U T I N E =======================================
 
-; In: a0, a1 = pointer to mapsprite decompressed pixel data in RAM
+; In: a0 = entity data pointer
 
 
 OrientSpriteLeft:
@@ -21,60 +21,60 @@ loc_45868:
 loc_4586C:
                 
                 move.b  3(a0),d0
-                lsl.b   #NIBBLE_SHIFT_COUNT,d0
+                lsl.b   #4,d0
                 move.b  7(a0),d1
-                andi.b  #BYTE_LOWER_NIBBLE_MASK,d1
+                andi.b  #$F,d1
                 or.b    d1,d0
-                lsl.w   #BYTE_SHIFT_COUNT,d0
-                move.b  11(a0),d0
-                lsl.b   #NIBBLE_SHIFT_COUNT,d0
-                move.b  15(a0),d1
-                andi.b  #BYTE_LOWER_NIBBLE_MASK,d1
+                lsl.w   #8,d0
+                move.b  $B(a0),d0
+                lsl.b   #4,d0
+                move.b  $F(a0),d1
+                andi.b  #$F,d1
                 or.b    d1,d0
-                lsl.l   #BYTE_SHIFT_COUNT,d0
-                move.b  19(a0),d0
-                lsl.b   #NIBBLE_SHIFT_COUNT,d0
-                move.b  23(a0),d1
-                andi.b  #BYTE_LOWER_NIBBLE_MASK,d1
+                lsl.l   #8,d0
+                move.b  $13(a0),d0
+                lsl.b   #4,d0
+                move.b  $17(a0),d1
+                andi.b  #$F,d1
                 or.b    d1,d0
-                lsl.l   #BYTE_SHIFT_COUNT,d0
-                move.b  27(a0),d0
-                lsl.b   #NIBBLE_SHIFT_COUNT,d0
-                move.b  31(a0),d1
-                andi.b  #BYTE_LOWER_NIBBLE_MASK,d1
+                lsl.l   #8,d0
+                move.b  $1B(a0),d0
+                lsl.b   #4,d0
+                move.b  $1F(a0),d1
+                andi.b  #$F,d1
                 or.b    d1,d0
                 move.l  d0,-(a6)
                 move.b  3(a0),d0
-                andi.b  #BYTE_UPPER_NIBBLE_MASK,d0
+                andi.b  #$F0,d0
                 move.b  7(a0),d1
-                lsr.b   #NIBBLE_SHIFT_COUNT,d1
+                lsr.b   #4,d1
                 or.b    d1,d0
-                lsl.w   #BYTE_SHIFT_COUNT,d0
-                move.b  11(a0),d0
-                andi.b  #BYTE_UPPER_NIBBLE_MASK,d0
-                move.b  15(a0),d1
-                lsr.b   #NIBBLE_SHIFT_COUNT,d1
+                lsl.w   #8,d0
+                move.b  $B(a0),d0
+                andi.b  #$F0,d0
+                move.b  $F(a0),d1
+                lsr.b   #4,d1
                 or.b    d1,d0
-                lsl.l   #BYTE_SHIFT_COUNT,d0
-                move.b  19(a0),d0
-                andi.b  #BYTE_UPPER_NIBBLE_MASK,d0
-                move.b  23(a0),d1
-                lsr.b   #NIBBLE_SHIFT_COUNT,d1
+                lsl.l   #8,d0
+                move.b  $13(a0),d0
+                andi.b  #$F0,d0
+                move.b  $17(a0),d1
+                lsr.b   #4,d1
                 or.b    d1,d0
-                lsl.l   #BYTE_SHIFT_COUNT,d0
-                move.b  27(a0),d0
-                andi.b  #BYTE_UPPER_NIBBLE_MASK,d0
-                move.b  31(a0),d1
-                lsr.b   #NIBBLE_SHIFT_COUNT,d1
+                lsl.l   #8,d0
+                move.b  $1B(a0),d0
+                andi.b  #$F0,d0
+                move.b  $1F(a0),d1
+                lsr.b   #4,d1
                 or.b    d1,d0
                 move.l  d0,-(a6)
                 subq.l  #1,a0
                 dbf     d5,loc_4586C
-                
-                adda.l  #36,a0
+				
+                adda.l  #$24,a0 
                 dbf     d6,loc_45868
                 dbf     d7,loc_45864
-                
+				
                 move.w  #1,d7
 loc_45914:
                 
@@ -108,7 +108,7 @@ loc_45914:
 
 ; =============== S U B R O U T I N E =======================================
 
-; In: a0, a1 = pointer to mapsprite decompressed pixel data in RAM
+; In: a0 = entity data pointer
 
 
 OrientSpriteRight:
@@ -124,58 +124,58 @@ loc_45984:
                 move.w  #3,d5
 loc_45988:
                 
-                move.b  28(a0),d0
-                andi.b  #BYTE_UPPER_NIBBLE_MASK,d0
-                move.b  24(a0),d1
-                lsr.b   #NIBBLE_SHIFT_COUNT,d1
+                move.b  $1C(a0),d0
+                andi.b  #$F0,d0
+                move.b  $18(a0),d1
+                lsr.b   #4,d1
                 or.b    d1,d0
-                lsl.w   #BYTE_SHIFT_COUNT,d0
-                move.b  20(a0),d0
-                andi.b  #BYTE_UPPER_NIBBLE_MASK,d0
-                move.b  16(a0),d1
-                lsr.b   #NIBBLE_SHIFT_COUNT,d1
+                lsl.w   #8,d0
+                move.b  $14(a0),d0
+                andi.b  #$F0,d0
+                move.b  $10(a0),d1
+                lsr.b   #4,d1
                 or.b    d1,d0
-                lsl.l   #BYTE_SHIFT_COUNT,d0
-                move.b  12(a0),d0
-                andi.b  #BYTE_UPPER_NIBBLE_MASK,d0
+                lsl.l   #8,d0
+                move.b  $C(a0),d0
+                andi.b  #$F0,d0
                 move.b  8(a0),d1
-                lsr.b   #NIBBLE_SHIFT_COUNT,d1
+                lsr.b   #4,d1
                 or.b    d1,d0
-                lsl.l   #BYTE_SHIFT_COUNT,d0
+                lsl.l   #8,d0
                 move.b  4(a0),d0
-                andi.b  #BYTE_UPPER_NIBBLE_MASK,d0
+                andi.b  #$F0,d0
                 move.b  (a0),d1
-                lsr.b   #NIBBLE_SHIFT_COUNT,d1
+                lsr.b   #4,d1
                 or.b    d1,d0
                 move.l  d0,-(a6)
-                move.b  28(a0),d0
-                lsl.b   #NIBBLE_SHIFT_COUNT,d0
-                move.b  24(a0),d1
-                andi.b  #BYTE_LOWER_NIBBLE_MASK,d1
+                move.b  $1C(a0),d0
+                lsl.b   #4,d0
+                move.b  $18(a0),d1
+                andi.b  #$F,d1
                 or.b    d1,d0
-                lsl.w   #BYTE_SHIFT_COUNT,d0
-                move.b  20(a0),d0
-                lsl.b   #NIBBLE_SHIFT_COUNT,d0
-                move.b  16(a0),d1
-                andi.b  #BYTE_LOWER_NIBBLE_MASK,d1
+                lsl.w   #8,d0
+                move.b  $14(a0),d0
+                lsl.b   #4,d0
+                move.b  $10(a0),d1
+                andi.b  #$F,d1
                 or.b    d1,d0
-                lsl.l   #BYTE_SHIFT_COUNT,d0
-                move.b  12(a0),d0
-                lsl.b   #NIBBLE_SHIFT_COUNT,d0
+                lsl.l   #8,d0
+                move.b  $C(a0),d0
+                lsl.b   #4,d0
                 move.b  8(a0),d1
-                andi.b  #BYTE_LOWER_NIBBLE_MASK,d1
+                andi.b  #$F,d1
                 or.b    d1,d0
-                lsl.l   #BYTE_SHIFT_COUNT,d0
+                lsl.l   #8,d0
                 move.b  4(a0),d0
-                lsl.b   #NIBBLE_SHIFT_COUNT,d0
+                lsl.b   #4,d0
                 move.b  (a0),d1
-                andi.b  #BYTE_LOWER_NIBBLE_MASK,d1
+                andi.b  #$F,d1
                 or.b    d1,d0
                 move.l  d0,-(a6)
                 addq.l  #1,a0
                 dbf     d5,loc_45988
-                
-                adda.l  #28,a0
+				
+                adda.l  #$1C,a0
                 dbf     d6,loc_45984
                 dbf     d7,loc_45980
                 
@@ -333,8 +333,6 @@ loc_45B78:
 
 ; =============== S U B R O U T I N E =======================================
 
-; In: a0, a1 = pointer to mapsprite decompressed pixel data in RAM
-
 
 ApplySpriteGhostEffect:
                 
@@ -375,8 +373,6 @@ loc_45BB0:
 
 
 ; =============== S U B R O U T I N E =======================================
-
-; In: a0, a1 = pointer to mapsprite decompressed pixel data in RAM
 
 
 ResizeSprite:
@@ -493,8 +489,6 @@ table_45C6A:    dc.b 0
                 dc.b $C3
 
 ; =============== S U B R O U T I N E =======================================
-
-; In: a0, a1 = pointer to mapsprite decompressed pixel data in RAM
 
 
 ApplySpriteImmersedEffect:

@@ -13,10 +13,11 @@ ms_map3_flag543_EntityEvents:
                 msEntityEvent 136, UP, Map3_21F_EntityEvent8-ms_map3_flag543_EntityEvents
                 msEntityEvent 137, UP, Map3_21F_EntityEvent9-ms_map3_flag543_EntityEvents
                 msEntityEvent 138, UP, Map3_21F_EntityEvent10-ms_map3_flag543_EntityEvents
-                msEntityEvent ALLY_SARAH, UP, Map3_21F_EntityEvent11-ms_map3_flag543_EntityEvents
-                msEntityEvent ALLY_CHESTER, UP, Map3_21F_EntityEvent12-ms_map3_flag543_EntityEvents
-                msEntityEvent ALLY_JAHA, UP, Map3_21F_EntityEvent13-ms_map3_flag543_EntityEvents
-                msEntityEvent ALLY_KAZIN, UP, Map3_21F_EntityEvent14-ms_map3_flag543_EntityEvents
+                msEntityEvent 1, UP, Map3_21F_EntityEvent11-ms_map3_flag543_EntityEvents
+                msEntityEvent 2, UP, Map3_21F_EntityEvent12-ms_map3_flag543_EntityEvents
+                msEntityEvent 3, UP, Map3_21F_EntityEvent13-ms_map3_flag543_EntityEvents
+                msEntityEvent 4, UP, Map3_21F_EntityEvent14-ms_map3_flag543_EntityEvents
+				msEntityEvent 139, DOWN, Map3_21F_EntityEvent15-ms_map3_flag543_EntityEvents
                 msDefaultEntityEvent Map3_21F_DefaultEntityEvent-ms_map3_flag543_EntityEvents
 
 ; =============== S U B R O U T I N E =======================================
@@ -163,11 +164,11 @@ Map3_21F_EntityEvent10:
                  
                 txt     3932            ; "Morning, {LEADER}.{W2}"
                 txt     3933            ; "Are you ready to go to{N}the castle?{W1}"
-                jsr     j_YesNoPrompt
+                jsr     YesNoPrompt
                 tst.w   d0
                 bne.s   byte_627F2      
                 txt     4033            ; "Now, let's go see the King!{W1}"
-                setFlg  981
+                setFlg  FLAG_GRANSEAL7
                 script  cs_6290C
                 bra.s   return_627F6
 byte_627F2:
@@ -230,4 +231,13 @@ Map3_21F_EntityEvent14:
                 rts
 
     ; End of function Map3_21F_EntityEvent14
+
+; =============== S U B R O U T I N E =======================================
+
+Map3_21F_EntityEvent15:
+                
+				jsr	CaravanMenu
+                rts
+
+    ; End of function Map3_21F_DefaultEntityEvent
 

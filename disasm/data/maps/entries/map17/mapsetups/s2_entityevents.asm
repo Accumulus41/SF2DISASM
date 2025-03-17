@@ -32,7 +32,7 @@ Map17_EntityEvent9:
 Map17_EntityEvent7:
                 
                  
-                chkFlg  661             ; Set after prison scene, ending in Slade unlocking/Sarah accusing
+                chkFlg  FLAG_CASTLEGALAM3             ; Set after prison scene, ending in Slade unlocking/Sarah accusing
                 bne.s   return_5235C
                 txt     893             ; "We're talking about{N}Ground Seal.{N}Please, join in.{W1}"
 return_5235C:
@@ -48,7 +48,7 @@ return_5235C:
 Map17_EntityEvent8:
                 
                  
-                chkFlg  661             ; Set after prison scene, ending in Slade unlocking/Sarah accusing
+                chkFlg  FLAG_CASTLEGALAM3             ; Set after prison scene, ending in Slade unlocking/Sarah accusing
                 bne.s   return_52368
                 txt     896             ; "Hey!  Don't interrupt!{N}Sit down next to me!{W1}"
 return_52368:
@@ -64,7 +64,7 @@ return_52368:
 Map17_EntityEvent10:
                 
                  
-                chkFlg  661             ; Set after prison scene, ending in Slade unlocking/Sarah accusing
+                chkFlg  FLAG_CASTLEGALAM3             ; Set after prison scene, ending in Slade unlocking/Sarah accusing
                 bne.s   return_52374
                 txt     895             ; "Hey, {LEADER}!{N}King Galam also knows about{N}Ground Seal!{W1}"
 return_52374:
@@ -133,7 +133,7 @@ Map17_EntityEvent2:
 Map17_EntityEvent4:
                 
                  
-                chkFlg  661             ; Set after prison scene, ending in Slade unlocking/Sarah accusing
+                chkFlg  FLAG_CASTLEGALAM3             ; Set after prison scene, ending in Slade unlocking/Sarah accusing
                 bne.s   byte_523AE      
                 txt     894             ; "You got a raw deal, huh?{N}The same thing happened to{N}the rat next door.{W1}"
                 bra.s   return_523B2
@@ -165,10 +165,10 @@ Map17_EntityEvent5:
 Map17_EntityEvent3:
                 
                  
-                chkFlg  256             ; TEMP FLAG #00
+                chkFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 bne.s   byte_523CC      
                 script  cs_52A3C
-                setFlg  256             ; TEMP FLAG #00
+                setFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 bra.s   return_523D0
 byte_523CC:
                 

@@ -13,14 +13,14 @@ table_StatGrowthCurves:
                 dc.w 26, 9              ;  level 4
                 dc.w 35, 9              ;  level 5
                 dc.w 44, 9              ;  level 6
-                dc.w 52, 8              ;  level 7
-                dc.w 61, 9              ;  level 8
+                dc.w 53, 9              ;  level 7
+                dc.w 61, 8              ;  level 8
                 dc.w 70, 9              ;  level 9
                 dc.w 79, 9              ;  level 10
                 dc.w 88, 9              ;  level 11
                 dc.w 97, 9              ;  level 12
-                dc.w 105, 8             ;  level 13
-                dc.w 114, 9             ;  level 14
+                dc.w 106, 9             ;  level 13
+                dc.w 114, 8             ;  level 14
                 dc.w 123, 9             ;  level 15
                 dc.w 132, 9             ;  level 16
                 dc.w 141, 9             ;  level 17
@@ -37,6 +37,26 @@ table_StatGrowthCurves:
                 dc.w 238, 9             ;  level 28
                 dc.w 247, 9             ;  level 29
                 dc.w 256, 9             ;  level 30
+				dc.w 264, 8             ;  level 31
+				dc.w 273, 9             ;  level 32
+				dc.w 282, 9             ;  level 33
+				dc.w 291, 9             ;  level 34
+				dc.w 300, 9             ;  level 35
+				dc.w 309, 9             ;  level 36
+				dc.w 317, 8             ;  level 37
+				dc.w 326, 9             ;  level 38
+				dc.w 335, 9             ;  level 39
+				dc.w 344, 9             ;  level 40
+				dc.w 353, 9             ;  level 41
+				dc.w 362, 9             ;  level 42
+				dc.w 370, 8             ;  level 43
+				dc.w 379, 9             ;  level 44
+				dc.w 388, 9             ;  level 45
+				dc.w 397, 9             ;  level 46
+				dc.w 406, 9             ;  level 47
+				dc.w 414, 8             ;  level 48
+				dc.w 423, 9             ;  level 49
+				dc.w 432, 9             ;  level 50
                 
                 ; Late
                 dc.w 6, 6               ;  level 2
@@ -68,6 +88,26 @@ table_StatGrowthCurves:
                 dc.w 234, 11            ;  level 28
                 dc.w 244, 10            ;  level 29
                 dc.w 256, 12            ;  level 30
+				dc.w 266, 10             ;  level 31
+				dc.w 277, 11             ;  level 32
+				dc.w 289, 12             ;  level 33
+				dc.w 300, 11             ;  level 34
+				dc.w 312, 12             ;  level 35
+				dc.w 323, 11             ;  level 36
+				dc.w 335, 12             ;  level 37
+				dc.w 347, 12             ;  level 38
+				dc.w 359, 12             ;  level 39
+				dc.w 371, 12             ;  level 40
+				dc.w 383, 12             ;  level 41
+				dc.w 395, 12             ;  level 42
+				dc.w 407, 12             ;  level 43
+				dc.w 419, 12             ;  level 44
+				dc.w 431, 12             ;  level 45
+				dc.w 443, 12             ;  level 46
+				dc.w 455, 12             ;  level 47
+				dc.w 467, 12             ;  level 48
+				dc.w 479, 12             ;  level 49
+				dc.w 491, 12             ;  level 50
                 
                 ; Early
                 dc.w 11, 11             ;  level 2
@@ -99,6 +139,26 @@ table_StatGrowthCurves:
                 dc.w 242, 7             ;  level 28
                 dc.w 250, 8             ;  level 29
                 dc.w 256, 6             ;  level 30
+				dc.w 263, 7             ;  level 31
+				dc.w 270, 7             ;  level 32
+				dc.w 276, 6             ;  level 33
+				dc.w 283, 7             ;  level 34
+				dc.w 289, 6             ;  level 35
+				dc.w 295, 6             ;  level 36
+				dc.w 301, 6             ;  level 37
+				dc.w 307, 6             ;  level 38
+				dc.w 313, 6             ;  level 39
+				dc.w 319, 6             ;  level 40
+				dc.w 325, 6             ;  level 41
+				dc.w 331, 6             ;  level 42
+				dc.w 337, 6             ;  level 43
+				dc.w 343, 6             ;  level 44
+				dc.w 349, 6             ;  level 45
+				dc.w 355, 6             ;  level 46
+				dc.w 361, 6             ;  level 47
+				dc.w 367, 6             ;  level 48
+				dc.w 373, 6             ;  level 49
+				dc.w 379, 6             ;  level 50
                 
                 ; Middle
                 dc.w 6, 6               ;  level 2
@@ -130,6 +190,26 @@ table_StatGrowthCurves:
                 dc.w 242, 8             ;  level 28
                 dc.w 249, 7             ;  level 29
                 dc.w 256, 7             ;  level 30
+				dc.w 263, 7             ;  level 31
+				dc.w 271, 8             ;  level 32
+				dc.w 278, 7             ;  level 33
+				dc.w 285, 7             ;  level 34
+				dc.w 292, 7             ;  level 35
+				dc.w 299, 7             ;  level 36
+				dc.w 306, 7             ;  level 37
+				dc.w 313, 7             ;  level 38
+				dc.w 320, 7             ;  level 39
+				dc.w 327, 7             ;  level 40
+				dc.w 334, 7             ;  level 41
+				dc.w 341, 7             ;  level 42
+				dc.w 348, 7             ;  level 43
+				dc.w 355, 7             ;  level 44
+				dc.w 362, 7             ;  level 45
+				dc.w 369, 7             ;  level 46
+				dc.w 376, 7             ;  level 47
+				dc.w 383, 7             ;  level 48
+				dc.w 390, 7             ;  level 49
+				dc.w 397, 7             ;  level 50
                 
                 ; Early and late
                 dc.w 12, 12             ;  level 2
@@ -161,4 +241,24 @@ table_StatGrowthCurves:
                 dc.w 231, 11            ;  level 28
                 dc.w 243, 12            ;  level 29
                 dc.w 256, 13            ;  level 30
+				dc.w 268, 12             ;  level 31
+				dc.w 280, 12             ;  level 32
+				dc.w 292, 12             ;  level 33
+				dc.w 304, 12             ;  level 34
+				dc.w 316, 12             ;  level 35
+				dc.w 328, 12             ;  level 36
+				dc.w 340, 12             ;  level 37
+				dc.w 352, 12             ;  level 38
+				dc.w 364, 12             ;  level 39
+				dc.w 376, 12             ;  level 40
+				dc.w 388, 12             ;  level 41
+				dc.w 400, 12             ;  level 42
+				dc.w 412, 12             ;  level 43
+				dc.w 424, 12             ;  level 44
+				dc.w 436, 12             ;  level 45
+				dc.w 448, 12             ;  level 46
+				dc.w 460, 12             ;  level 47
+				dc.w 472, 12             ;  level 48
+				dc.w 484, 12             ;  level 49
+				dc.w 496, 12             ;  level 50
                 

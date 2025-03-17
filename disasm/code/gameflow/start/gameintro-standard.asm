@@ -29,14 +29,10 @@ AfterGameIntro: clr.w   ((QUAKE_AMPLITUDE-$1000000)).w
                 jsr     (UpdateBackgroundVScrollData).w
                 jsr     (WaitForDmaQueueProcessing).w
                 jsr     (InitializeDisplay).w
-            if (SKIP_TITLE_SCREEN=1)
-                bra.w   StartWitchScreen   
-            else
                 jsr     (DisableDisplayAndInterrupts).w
                 sndCom  MUSIC_TITLE
                 bsr.s   StartTitleScreen
                 bne.w   StartWitchScreen   
 @Reset:         jmp     (ResetGame).w
-            endif
 
     ; End of function GameIntro

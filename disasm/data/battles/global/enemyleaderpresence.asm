@@ -50,4 +50,23 @@ table_EnemyLeaderPresentFlags:
                 dc.b -1                 ; 42: Versus Galam
                 dc.b -1                 ; 43: Versus Zeon
                 dc.b -1                 ; 44: Fairy Woods
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
+                dc.b -1
                 

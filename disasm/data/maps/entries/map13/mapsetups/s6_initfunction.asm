@@ -8,19 +8,19 @@
 ms_map13_InitFunction:
                 
                  
-                chkFlg  711             ; Set after you dislodge the turtle/fairy in Polca, also set after you speak to Volcanon
+                chkFlg  FLAG_POLCA2             ; Set after you dislodge the turtle/fairy in Polca, also set after you speak to Volcanon
                 bne.s   byte_582EC      
                 script  cs_58310
 byte_582EC:
                 
-                chkFlg  716             ; Set after your raft-giving conversation with the mayor in Polca
+                chkFlg  FLAG_POLCA4             ; Set after your raft-giving conversation with the mayor in Polca
                 beq.s   byte_582FE      
                 move.w  #$89,d0 
                 moveq   #3,d1
                 jsr     sub_4781A       
 byte_582FE:
                 
-                chkFlg  718             ; Set after Oddler runs after you as you leave Polca, and tags along
+                chkFlg  FLAG_POLCA6             ; Set after Oddler runs after you as you leave Polca, and tags along
                 beq.s   return_5830E
                 move.w  #140,d0
                 jsr     MoveEntityOutOfMap

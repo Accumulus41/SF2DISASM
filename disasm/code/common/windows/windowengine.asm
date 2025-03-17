@@ -20,7 +20,7 @@ InitializeWindowProperties:
                 move.w  (sp)+,d7
                 movea.l (sp)+,a0
                 clr.b   ((WINDOW_IS_PRESENT-$1000000)).w
-                compareToSavedByte #MAP_CURRENT, CURRENT_MAP
+                checkSavedByte #MAP_CURRENT, CURRENT_MAP
                 beq.s   @Continue
                 addq.b  #1,((WINDOW_IS_PRESENT-$1000000)).w
 @Continue:
@@ -146,25 +146,6 @@ FixWindowsPositions:
 
 ; =============== S U B R O U T I N E =======================================
 
-; unused
-
-
-sub_48BE:
-            if (VANILLA_BUILD=1)
-                move.l  a0,-(sp)
-                move.w  d0,-(sp)
-                bsr.w   GetWindowEntryAddress
-                move.w  #1,$E(a0)
-                move.w  (sp)+,d0
-                movea.l (sp)+,a0
-                rts
-            endif
-
-    ; End of function sub_48BE
-
-
-; =============== S U B R O U T I N E =======================================
-
 
 CopyPlaneALayoutForWindows:
                 
@@ -205,8 +186,7 @@ MoveWindowWithSfx:
 
 MoveWindow:
                 
-                tst.b   ((SPECIAL_TURBO_TOGGLE-$1000000)).w
-                beq.s   loc_4900
+                bra.s   loc_4900
                 moveq   #1,d2
 loc_4900:
                 

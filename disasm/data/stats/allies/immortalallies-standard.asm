@@ -1,10 +1,14 @@
 
-; ASM FILE data\stats\allies\immortalallies-standard.asm :
+; ASM FILE data\stats\items\immortalallies-standard.asm :
 
 ; Allies who automatically revive after battle.
 table_ImmortalAllies:
                 
+				dc.b ALLY_BOWIE
                 dc.b ALLY_PETER
                 dc.b ALLY_LEMON
+                dc.b ALLY_PETER
+                dc.b ALLY_LEMON
+                dc.b ALLY_PETER
                 
                 tableEnd.b

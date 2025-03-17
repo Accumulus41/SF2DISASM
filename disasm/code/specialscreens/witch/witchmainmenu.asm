@@ -199,7 +199,7 @@ var_4 = -4
 DrawWitchMenuBubble:
                 
                 module
-                getPointer p_table_WitchBubbleAnimation, a0
+                getPointer p_WitchBubbleAnimation, a0
                 movea.l var_4(a6),a1
                 cmp.b   d0,d3
                 bne.s   @loc_3
@@ -305,7 +305,7 @@ DrawWitchMenuBubble:
 @CopyName_Loop:
                 
                 move.b  (a0),(a1)+
-                addq.l  #2,a0
+                addq.l  #1,a0
                 dbf     d7,@CopyName_Loop
                 
                 movem.l (sp)+,d7-a1

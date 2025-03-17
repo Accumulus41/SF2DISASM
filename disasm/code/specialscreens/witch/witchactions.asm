@@ -7,7 +7,30 @@
 
 WitchNew:
                 
-                 
+                bsr.w   InitGameSettings
+                txt     232             ; "I'll let you decide the{N}difficulty level at this time."
+                clr.w   d0
+                moveq   #3,d1
+                moveq   #$F,d2
+                jsr     WitchMainMenu
+                tst.w   d0
+                bpl.s   loc_7494
+                clr.w   d0
+loc_7494:
+                
+                btst    #0,d0
+                beq.s   loc_749E
+                setFlg  FLAG_DIFFICULTY1              ; Difficulty bit 0
+loc_749E:
+                
+                btst    #1,d0
+                beq.s   loc_74A8        
+                setFlg  FLAG_DIFFICULTY2              ; Difficulty bit 1
+loc_74A8:
+                
+                addi.w  #$E9,d0 ; HARDCODED text index for difficulty choice reactions
+                bsr.w   DisplayText     
+				
                 txt     222             ; "What should I call you?{W2}"
                 move.b  (SAVE_FLAGS).l,d2
                 andi.w  #3,d2
@@ -25,24 +48,22 @@ loc_7426:
                 moveq   #1,d1
 loc_7428:
                 
-                jsr     j_WitchMainMenu
+                jsr     WitchMainMenu
                 tst.w   d0
                 bmi.s   byte_73C2       
                 subq.w  #1,d0
                 setCurrentSaveSlot d0
-                jsr     j_NewGame
+                jsr     NewGame
                 clsTxt
                 clr.w   d0
-                jsr     j_NameAlly
-                btst    #7,(SAVE_FLAGS).l ; "Game completed" bit
-                beq.w   byte_7476       
+                jsr     NameAlly
                 btst    #INPUT_BIT_START,((PLAYER_1_INPUT-$1000000)).w
                 beq.w   byte_7476       
                 moveq   #1,d0
                 moveq   #COMBATANT_ALLIES_MINUS_PLAYER_AND_CREATURE_COUNTER,d7
 loc_7464:
                 
-                jsr     j_NameAlly
+                jsr     NameAlly
 loc_746A:
                 
                 addq.w  #1,d0
@@ -50,31 +71,15 @@ loc_746A:
                 beq.s   loc_746A
                 dbf     d7,loc_7464
 byte_7476:
+                moveq   #COMBATANT_ALLIES_COUNTER,d7
+@Loop:
                 
+                moveq   #COMBATANT_ALLIES_COUNTER,d0
+                sub.w   d7,d0
+                bsr.w   InitAllyPromoStats
+                dbf     d7,@Loop
+				
                 txt     223             ; "{NAME;0}....{N}Nice name, huh?{W2}"
-                bsr.w   CheatModeConfiguration
-                txt     232             ; "I'll let you decide the{N}difficulty level at this time."
-                clr.w   d0
-                moveq   #3,d1
-                moveq   #$F,d2
-                jsr     j_WitchMainMenu
-                tst.w   d0
-                bpl.s   loc_7494
-                clr.w   d0
-loc_7494:
-                
-                btst    #0,d0
-                beq.s   loc_749E
-                setFlg  78              ; Difficulty bit 0
-loc_749E:
-                
-                btst    #1,d0
-                beq.s   loc_74A8        
-                setFlg  79              ; Difficulty bit 1
-loc_74A8:
-                
-                addi.w  #$E9,d0 ; HARDCODED text index for difficulty choice reactions
-                bsr.w   DisplayText     
                 txt     224             ; "Now, good luck!{N}You have no time to waste!{W1}"
 loc_74B4:
                 
@@ -115,7 +120,7 @@ loc_74FC:
 loc_74FE:
                 
                 moveq   #2,d1
-                jsr     j_WitchMainMenu
+                jsr     WitchMainMenu
                 tst.w   d0
                 bmi.w   byte_73C2       
                 subq.w  #1,d0
@@ -126,9 +131,9 @@ loc_74FE:
                 txt     224             ; "Now, good luck!{N}You have no time to waste!{W1}"
                 clsTxt
                 clr.b   ((DEACTIVATE_WINDOW_HIDING-$1000000)).w
-                chkFlg  88              ; checks if a game has been saved for copying purposes ? (or if saved from battle?)
+                chkFlg  FLAG_SUSPENDED_BATTLE              ; checks if a game has been saved for copying purposes ? (or if saved from battle?)
                 beq.s   loc_753A
-                jsr     j_BattleLoop
+                jsr     BattleLoop
                 bra.w   loc_75E0        
 loc_753A:
                 
@@ -149,7 +154,7 @@ WitchCopy:
                 
                  
                 txt     227             ; "Copy?  Really?"
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 tst.w   d0
                 bne.w   byte_73C2       
                 move.b  (SAVE_FLAGS).l,d0
@@ -182,13 +187,13 @@ loc_758E:
 loc_7590:
                 
                 moveq   #2,d1
-                jsr     j_WitchMainMenu
+                jsr     WitchMainMenu
                 tst.w   d0
                 bmi.w   byte_73C2       
                 subq.w  #1,d0
                 setCurrentSaveSlot d0
                 txt     230             ; "Delete?  Are you sure?"
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 tst.w   d0
                 bne.w   byte_73C2       
                 getCurrentSaveSlot d0

@@ -7,7 +7,22 @@ AllyStats07:    forClass  PHNK
                 attGrowth 10, 70, LINEAR
                 defGrowth 8, 39, LINEAR
                 agiGrowth 4, 30, LINEAR
-                spellList 
+                spellList &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS
+				lastSpells
                 
                 forClass  PHNX
                 hpGrowth  35, 107, LINEAR
@@ -15,5 +30,227 @@ AllyStats07:    forClass  PHNK
                 attGrowth 49, 120, LATE
                 defGrowth 28, 90, LINEAR
                 agiGrowth 21, 57, LINEAR
-                spellList 
+                spellList &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS
+				lastSpells
+					
+				forClass  UNPRO13
+                hpGrowth  1, 1, NONE
+                mpGrowth  0, 0, NONE
+                attGrowth 1, 1, NONE
+                defGrowth 1, 1, NONE
+                agiGrowth 1, 1, NONE
+                spellList &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS
+				lastSpells
+					
+				forClass  UNPRO13
+                hpGrowth  1, 1, NONE
+                mpGrowth  0, 0, NONE
+                attGrowth 1, 1, NONE
+                defGrowth 1, 1, NONE
+                agiGrowth 1, 1, NONE
+                spellList &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS
+				lastSpells
+					
+				forClass  UNPRO13
+                hpGrowth  1, 1, NONE
+                mpGrowth  0, 0, NONE
+                attGrowth 1, 1, NONE
+                defGrowth 1, 1, NONE
+                agiGrowth 1, 1, NONE
+                spellList &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS
+				lastSpells
+					
+				forClass  UNPRO13
+                hpGrowth  1, 1, NONE
+                mpGrowth  0, 0, NONE
+                attGrowth 1, 1, NONE
+                defGrowth 1, 1, NONE
+                agiGrowth 1, 1, NONE
+                spellList &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS
+				lastSpells
+					
+				forClass  UNPRO13
+                hpGrowth  1, 1, NONE
+                mpGrowth  0, 0, NONE
+                attGrowth 1, 1, NONE
+                defGrowth 1, 1, NONE
+                agiGrowth 1, 1, NONE
+                spellList &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS
+				lastSpells
+					
+				forClass  UNPRO13
+                hpGrowth  1, 1, NONE
+                mpGrowth  0, 0, NONE
+                attGrowth 1, 1, NONE
+                defGrowth 1, 1, NONE
+                agiGrowth 1, 1, NONE
+                spellList &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS
+				lastSpells
+					
+				forClass  UNPRO13
+                hpGrowth  1, 1, NONE
+                mpGrowth  0, 0, NONE
+                attGrowth 1, 1, NONE
+                defGrowth 1, 1, NONE
+                agiGrowth 1, 1, NONE
+                spellList &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS
+				lastSpells
+					
+				forClass  UNPRO13
+                hpGrowth  1, 1, NONE
+                mpGrowth  0, 0, NONE
+                attGrowth 1, 1, NONE
+                defGrowth 1, 1, NONE
+                agiGrowth 1, 1, NONE
+                spellList &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS
+				lastSpells
+					
+				forClass  UNPRO13
+                hpGrowth  1, 1, NONE
+                mpGrowth  0, 0, NONE
+                attGrowth 1, 1, NONE
+                defGrowth 1, 1, NONE
+                agiGrowth 1, 1, NONE
+                spellList &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS, &
+					0, EGRESS
+				lastSpells
                 

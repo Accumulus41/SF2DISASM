@@ -10,7 +10,7 @@ VInt_UpdateViewData:
                 module
                 clr.w   d0
                 move.b  ((VIEW_TARGET_ENTITY-$1000000)).w,d0
-                bmi.w   loc_468C        
+                bmi.w   loc_468C
                 
                 lsl.w   #ENTITYDEF_SIZE_BITS,d0
                 lea     ((ENTITY_DATA-$1000000)).w,a0
@@ -83,7 +83,7 @@ loc_4676:
                 beq.s   loc_4688
                 move.w  d2,d0
                 move.w  d3,d1
-                bsr.w   SetViewDestination
+                bsr.w   SetViewDest
                 addq.w  #1,((word_FFA828-$1000000)).w
                 bra.s   loc_468C        
 loc_4688:
@@ -116,35 +116,39 @@ loc_46B4:
                 move.w  ((VIEW_SCROLLING_SPEED-$1000000)).w,d7
 loc_46BE:
                 
+				clr.w   d0
                 tst.b   ((MAP_AREA_LAYER1_AUTOSCROLL_X-$1000000)).w
                 bne.s   loc_46D0
-                move.w  d7,d0
-                mulu.w  ((MAP_AREA_LAYER1_PARALLAX_X-$1000000)).w,d0
-                lsr.w   #BYTE_SHIFT_COUNT,d0
+                move.b  ((MAP_AREA_LAYER1_PARALLAX_X-$1000000)).w,d0
+				mulu.w  d7,d0
+                lsr.w   #4,d0
                 move.w  d0,((PLANE_A_SCROLL_SPEED_X-$1000000)).w
 loc_46D0:
                 
+				clr.w   d0
                 tst.b   ((MAP_AREA_LAYER1_AUTOSCROLL_Y-$1000000)).w
                 bne.s   loc_46E2
-                move.w  d7,d0
-                mulu.w  ((MAP_AREA_LAYER1_PARALLAX_Y-$1000000)).w,d0
-                lsr.w   #BYTE_SHIFT_COUNT,d0
+                move.b  ((MAP_AREA_LAYER1_PARALLAX_Y-$1000000)).w,d0
+				mulu.w  d7,d0
+                lsr.w   #4,d0
                 move.w  d0,((PLANE_A_SCROLL_SPEED_Y-$1000000)).w
 loc_46E2:
                 
+				clr.w   d0
                 tst.b   ((MAP_AREA_LAYER2_AUTOSCROLL_X-$1000000)).w
                 bne.s   loc_46F4
-                move.w  d7,d0
-                mulu.w  ((MAP_AREA_LAYER2_PARALLAX_X-$1000000)).w,d0
-                lsr.w   #BYTE_SHIFT_COUNT,d0
+                move.b  ((MAP_AREA_LAYER2_PARALLAX_X-$1000000)).w,d0
+				mulu.w  d7,d0
+                lsr.w   #4,d0
                 move.w  d0,((PLANE_B_SCROLL_SPEED_X-$1000000)).w
 loc_46F4:
                 
+				clr.w   d0
                 tst.b   ((MAP_AREA_LAYER2_AUTOSCROLL_Y-$1000000)).w
                 bne.s   return_4706
-                move.w  d7,d0
-                mulu.w  ((MAP_AREA_LAYER2_PARALLAX_Y-$1000000)).w,d0
-                lsr.w   #BYTE_SHIFT_COUNT,d0
+                move.b  ((MAP_AREA_LAYER2_PARALLAX_Y-$1000000)).w,d0
+				mulu.w  d7,d0
+                lsr.w   #4,d0
                 move.w  d0,((PLANE_B_SCROLL_SPEED_Y-$1000000)).w
 return_4706:
                 

@@ -22,9 +22,9 @@ InitializeFollowerActscripts:
                 movem.l a6,-(sp)
                 lea     table_Followers(pc), a4
                 lea     pt_eas_Followers(pc), a6
-                chkFlg  65              ; Caravan is unlocked
+                chkFlg  FLAG_CARAVAN              ; Caravan is unlocked
                 beq.s   loc_443D2
-                bsr.w   IsOverworldMap  
+                bsr.w   IsOverworldMap
                 beq.s   loc_443D2
                 lea     table_OverworldFollowers(pc), a4
                 lea     pt_eas_OverworldFollowers(pc), a6
@@ -38,7 +38,7 @@ loc_443D6:
                 movem.w d1,-(sp)
                 clr.w   d1
                 move.b  (a4),d1
-                jsr     j_CheckFlag
+                jsr     CheckFlag
                 movem.w (sp)+,d1
                 beq.s   loc_443FA
                 move.l  (a6)+,ENTITYDEF_OFFSET_ACTSCRIPTADDR(a0)
@@ -61,25 +61,21 @@ loc_443FE:
 sub_44404:
                 
                 module
-                compareToSavedByte #PLAYERTYPE_RAFT, PLAYER_TYPE
+                checkSavedByte #PLAYERTYPE_RAFT, PLAYER_TYPE
                 bne.s   byte_44420      
                 
                 ; Player is a raft
-            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 move.w  #MAPSPRITE_RAFT,((ENTITY_MAPSPRITE-$1000000)).w
-            else
-                move.b  #MAPSPRITE_RAFT,((ENTITY_MAPSPRITE-$1000000)).w
-            endif
                 bsr.w   MakeFollowersStand
                 move.w  #$40,d1 
                 move.w  d1,d2
                 bra.w   loc_4443C
 byte_44420:
                 
-                chkFlg  64              ; Raft is unlocked
+                chkFlg  FLAG_RAFT              ; Raft is unlocked
                 beq.w   return_4446A
                 getSavedByte CURRENT_MAP, d0
-                compareSavedByteTo RAFT_MAP, d0
+                checkRaftMap d0
                 bne.w   return_4446A
                 getSavedByte RAFT_X, d1
                 getSavedByte RAFT_Y, d2
@@ -91,11 +87,7 @@ loc_4443C:
                 andi.w  #$7F,d2 
                 muls.w  #MAP_TILE_SIZE,d2
                 moveq   #LEFT,d3        ; facing
-            if (STANDARD_BUILD=1)
-                move.w  #MAPSPRITE_RAFT,d4 ; EXPANDED_MAPSPRITES
-            else
-                moveq   #MAPSPRITE_RAFT,d4
-            endif
+                move.w  #MAPSPRITE_RAFT,d4
                 move.l  #eas_Standing,d5
                 clr.w   d6
                 lea     ((ENTITY_EVENT_INDEX_LIST-$1000000)).w,a0

@@ -6,16 +6,16 @@
 
 battleEntity = -4
 
-SpawnEnemyEntity:
+sub_444A2:
                 
                 link    a6,#-16
                 move.w  d0,battleEntity(a6)
                 movem.l d0-d7,-(sp)
-                jsr     j_GetCombatantY
+                jsr     GetCombatantY
                 move.w  d1,d2
-                jsr     j_GetCombatantX
+                jsr     GetCombatantX
                 move.w  d1,-(sp)
-                jsr     j_GetMoveType
+                jsr     GetMoveType
                 clr.w   d6
                 cmpi.b  #MOVETYPE_LOWER_FLYING,d1
                 bne.s   loc_444CE
@@ -36,7 +36,7 @@ loc_444D6:
                 moveq   #3,d3
                 move.l  #eas_Idle,d5
                 bsr.w   GetCombatantMapsprite
-                bsr.w   InitializeNewEnemyEntity  
+                bsr.w   GetEntityEvent  
                 movem.l a0-a1,-(sp)
                 lea     (FF6802_LOADING_SPACE).l,a0
                 move.l  a0,-(sp)
@@ -59,7 +59,7 @@ loc_4450A:
                 unlk    a6
                 rts
 
-    ; End of function SpawnEnemyEntity
+    ; End of function sub_444A2
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -67,7 +67,7 @@ loc_4450A:
 ; In: d0.w = battle entity
 
 
-InitializeNewEnemyEntity:
+GetEntityEvent:
                 
                 movem.l d0-d5/d7-a0,-(sp)
                 move.w  d0,-(sp)
@@ -98,7 +98,7 @@ InitializeNewEnemyEntity:
                 movem.l (sp)+,d0-d5/d7-a0
                 rts
 
-    ; End of function InitializeNewEnemyEntity
+    ; End of function GetEntityEvent
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -174,12 +174,8 @@ DeclareNewEntity:
                 move.w  (sp)+,d0
                 move.w  d1,(a0)
                 move.w  d2,ENTITYDEF_OFFSET_Y(a0)
-            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 clr.w   ENTITYDEF_OFFSET_XVELOCITY(a0)
-            else
-                clr.l   ENTITYDEF_OFFSET_XVELOCITY(a0) ; clear both X and Y velocity words
-            endif
-                clr.l   ENTITYDEF_OFFSET_XTRAVEL(a0) ; clear both X and Y travel words
+                clr.l   ENTITYDEF_OFFSET_XTRAVEL(a0)
                 move.w  d1,ENTITYDEF_OFFSET_XDEST(a0)
                 move.w  d2,ENTITYDEF_OFFSET_YDEST(a0)
                 move.b  d3,ENTITYDEF_OFFSET_FACING(a0)
@@ -187,11 +183,8 @@ DeclareNewEntity:
                 swap    d6
                 move.b  d6,ENTITYDEF_OFFSET_LAYER(a0)
                 swap    d6
-            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
+				andi.w  #$3FF,d4
                 move.w  d4,ENTITYDEF_OFFSET_MAPSPRITE(a0)
-            else
-                move.b  d4,ENTITYDEF_OFFSET_MAPSPRITE(a0)
-            endif
                 tst.l   d5
                 bpl.s   @loc_3
                 move.l  (ENTITY_WALKING_PARAMETERS).l,-(sp)
@@ -213,7 +206,7 @@ DeclareNewEntity:
                 bra.s   @loc_2
 @loc_1:
                 
-                bsr.w   sub_44D0E       
+                bsr.w   sub_44D0E
 @loc_2:
                 
                 movem.l (sp)+,d0-d4
@@ -260,7 +253,7 @@ loc_44688:
                 dbf     d7,loc_44688
                 
                 move.l  #FF5600_LOADING_SPACE,(ENTITY_WALKING_PARAMETERS).l
-                jsr     (sub_19B0).w    
+                jsr     (sub_19B0).w
                 movem.l (sp)+,d7-a0
                 rts
 
@@ -284,14 +277,14 @@ PositionBattleEntities:
                 
                 move.w  d0,-(sp)
                 move.w  battleEntity(a6),d0
-                jsr     j_GetCombatantY
+                jsr     GetCombatantY
                 move.w  (sp)+,d0
                 move.w  d1,d2
                 tst.b   d2
                 bmi.w   @SkipAlly
                 move.w  d0,-(sp)
                 move.w  battleEntity(a6),d0
-                jsr     j_GetCombatantX
+                jsr     GetCombatantX
                 move.w  (sp)+,d0
                 tst.b   d1
                 bmi.w   @SkipAlly
@@ -299,7 +292,7 @@ PositionBattleEntities:
                 ; Is flying or hovering?
                 movem.w d0-d1,-(sp)
                 move.w  battleEntity(a6),d0
-                jsr     j_GetMoveType
+                jsr     GetMoveType
                 clr.w   d6
                 cmpi.b  #MOVETYPE_LOWER_FLYING,d1
                 bne.s   @loc_2
@@ -341,20 +334,20 @@ PositionBattleEntities:
                 
                 move.w  d0,-(sp)
                 move.w  battleEntity(a6),d0
-                jsr     j_GetActivationBitfield
+                jsr     GetActivationBitfield
                 move.w  (sp)+,d0
                 andi.w  #8,d1
                 bne.w   @SkipEnemy
                 move.w  d0,-(sp)
                 move.w  battleEntity(a6),d0
-                jsr     j_GetCombatantY
+                jsr     GetCombatantY
                 move.w  (sp)+,d0
                 move.w  d1,d2
                 tst.b   d2
                 bmi.w   @SkipEnemy
                 move.w  d0,-(sp)
                 move.w  battleEntity(a6),d0
-                jsr     j_GetCombatantX
+                jsr     GetCombatantX
                 move.w  (sp)+,d0
                 tst.b   d1
                 bmi.w   @SkipEnemy
@@ -362,7 +355,7 @@ PositionBattleEntities:
                 ; Is flying or hovering?
                 movem.w d0-d1,-(sp)
                 move.w  battleEntity(a6),d0
-                jsr     j_GetMoveType
+                jsr     GetMoveType
                 clr.w   d6
                 cmpi.b  #MOVETYPE_LOWER_FLYING,d1
                 bne.s   @loc_7
@@ -384,14 +377,7 @@ PositionBattleEntities:
                 moveq   #3,d3
                 move.l  #eas_Standing,d5
                 bsr.w   GetCombatantMapsprite
-            if (STANDARD_BUILD=1)
-                move.w  d1,-(sp)        ; EXPANDED_MAPSPRITES
-                move.w  d4,d1
-                jsr     IsSpecialSprite ; Out: CCR carry-bit clear if true
-                movem.w (sp)+,d1        ; MOVEM to pull value back from the stack without affecting the CCR
-            else
-                cmpi.b  #MAPSPRITES_SPECIALS_START,d4
-            endif
+                cmpi.w  #MAPSPRITES_SPECIALS_START,d4
                 bcs.s   @RegularSprite
                 
                 ; Enemy uses a special sprite
@@ -419,16 +405,12 @@ PositionBattleEntities:
                 
                 clr.w   d1
                 getSavedByte CURRENT_BATTLE, d1
-                addi.w  #BATTLE_COMPLETED_FLAGS_START,d1
-                jsr     j_CheckFlag
+                addi.w  #FLAG_BATTLE00_COMPLETE,d1
+                jsr     CheckFlag
                 bne.w   @Done
                 
                 ; Position neutral entities
-            if (STANDARD_BUILD=1)
-                lea     ((ENTITY_EVENT_ENEMY_END-$1000000)).w,a1 ; neutral entities occupy enemy combatant slots to accommodate expanded force members
-            else
-                lea     ((ENTITY_EVENT_ENEMY_START-$1000000)).w,a1
-            endif
+                lea     ((ENTITY_EVENT_ENEMY_END-$1000000)).w,a1
                 lea     table_NeutralBattleEntities(pc), a0
                 clr.w   d1
                 getSavedByte CURRENT_BATTLE, d1
@@ -440,17 +422,11 @@ PositionBattleEntities:
                 beq.s   @Continue
 @loc_13:
                 
-            if (STANDARD_BUILD=1)
-                adda.w  #BATTLE_NEUTRAL_ENTITY_SIZE,a0 ; EXPANDED_MAPSPRITES
+                adda.w  #NEUTRAL_ENTITY_SIZE,a0
                 cmpi.w  #-1,(a0)
                 bne.s   @loc_13
                 cmp.w   (a0)+,d1
                 bra.s   @loc_12
-            else
-                cmpi.w  #-1,(a0)+
-                beq.s   @loc_12
-                bra.s   @loc_13
-            endif
 @Continue:
                 
                 move.w  #159,battleEntity(a6)
@@ -461,41 +437,36 @@ PositionBattleEntities:
                 move.w  d0,-(sp)
                 move.w  battleEntity(a6),d0
                 clr.w   d1
-                jsr     j_SetMaxHp
-                jsr     j_SetCurrentHp
-                jsr     j_SetStatusEffects
-                jsr     j_GetActivationBitfield
+                jsr     SetMaxHp
+                jsr     SetCurrentHp
+                jsr     SetStatusEffects
+                jsr     GetActivationBitfield
                 ori.w   #8,d1
-                jsr     j_SetActivationBitfield
+                jsr     SetActivationBitfield
                 clr.w   d1
                 move.b  (a0)+,d1
                 move.w  d1,d3
-                jsr     j_SetCombatantX
+                jsr     SetCombatantX
                 move.b  (a0)+,d1
                 move.w  d1,d2
-                jsr     j_SetCombatantY
+                jsr     SetCombatantY
                 move.w  (sp)+,d0
                 move.w  d3,d1
                 andi.w  #$3F,d1 
                 muls.w  #MAP_TILE_SIZE,d1
                 andi.w  #$3F,d2 
                 muls.w  #MAP_TILE_SIZE,d2
-            if (STANDARD_BUILD=1)
-                move.w  (a0)+,d3 ; EXPANDED_MAPSPRITES
-                move.w  (a0)+,d4
-            else
-                move.b  (a0)+,d3
+                move.w  (a0)+,d3
                 clr.w   d4
-                move.b  (a0)+,d4
-            endif
+                move.w  (a0)+,d4
                 move.l  (a0)+,d5
                 clr.l   d6
                 move.w  d0,d6
                 move.b  d0,-(a1)
                 bsr.w   DeclareNewEntity
                 addq.w  #1,d0
-                bra.w   @NextNeutralEntity
                 move.b  #-1,(a1)+
+                bra.w   @NextNeutralEntity
 @NextNeutralEntity:
                 
                 subq.w  #1,battleEntity(a6)

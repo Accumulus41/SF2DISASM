@@ -17,4 +17,5 @@ ms_map3_flag543_Entities:
                 msFixedEntity 43, 11, LEFT, ALLY_CHESTER, eas_Init
                 msFixedEntity 40, 11, UP, ALLY_JAHA, eas_Init
                 msFixedEntity 40, 10, DOWN, ALLY_KAZIN, eas_Init
+				msFixedEntity 6, 9, DOWN, MAPSPRITE_CARAVAN, eas_Init
                 msEntitiesEnd

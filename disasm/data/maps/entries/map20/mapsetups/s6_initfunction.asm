@@ -9,17 +9,17 @@ ms_map20_InitFunction:
                 
                 cmpi.l  #$22803780,((ENTITY_DATA-$1000000)).w
                 bne.s   ms_map20_flag501_InitFunction
-                chkFlg  605             ; Set after the scene in the King's bedroom
+                chkFlg  FLAG_CASTLEGRANS1             ; Set after the scene in the King's bedroom
                 bne.s   byte_53982
                 script  cs_53996
-                setFlg  605             ; Set after the scene in the King's bedroom
+                setFlg  FLAG_CASTLEGRANS1             ; Set after the scene in the King's bedroom
                 bra.s   ms_map20_flag501_InitFunction
 byte_53982:
                 
                 script  cs_53B60
 ms_map20_flag501_InitFunction:
                 
-                chkFlg  507             ; Battle 7 completed - BATTLE_VERSUS_DARK_SMOKES           
+                chkFlg  FLAG_BATTLE07_COMPLETE             ; Battle 7 completed - BATTLE_VERSUS_DARK_SMOKES           
                 beq.s   return_53994
                 script  cs_53FD8
 return_53994:

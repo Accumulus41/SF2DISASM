@@ -7,8 +7,8 @@
 
 DisplayTacticalBaseQuote:
                 
-                jsr     j_OpenNameUnderPortraitWindow
-                jsr     j_GetCurrentHp
+                jsr     DisplayNameUnderPortrait
+                jsr     GetCurrentHp
                 tst.w   d1
                 bne.s   @LivingMember
                 
@@ -17,8 +17,8 @@ DisplayTacticalBaseQuote:
 @LivingMember:
                 
                 move.w  d0,d1
-                addi.w  #FORCEMEMBER_ACTIVE_FLAGS_START,d1
-                jsr     j_CheckFlag
+                addi.w  #FLAG_ALLY00_INPARTY,d1
+                jsr     CheckFlag
                 beq.s   @InReserve      
                 
                 ; In battle party
@@ -30,7 +30,7 @@ DisplayTacticalBaseQuote:
 @DisplayQuote:
                 
                 jsr     (DisplayText).w ; start of headquarters 'outside of party' quotes
-                jsr     j_CloseNameUnderPortraitWindow
+                jsr     CloseNameUnderPortraitWindow
                 rts
 
     ; End of function DisplayTacticalBaseQuote
@@ -43,13 +43,13 @@ InitializeNazcaShipForceMembers:
                 
                 movem.l d0-a2,-(sp)
                 moveq   #1,d0
-                moveq   #COMBATANT_ALLIES_MINUS_PLAYER_COUNTER,d7
+                moveq   #TURN_ORDER_ENTRIES_MINUS_ONE_COUNTER,d7
                 lea     ((OTHER_ENTITIES_DATA-$1000000)).w,a0
                 lea     table_TacticalBaseBattlePartyPositions(pc), a2
 @PositionMember_Loop:
                 
                 move.w  d0,d1
-                jsr     j_CheckFlag
+                jsr     CheckFlag
                 bne.s   @Next
                 move.w  #$5E80,d2
                 move.w  d2,(a0)
@@ -77,13 +77,13 @@ InitializeTacticalBaseForceMembers:
                 
                 movem.l d0-a2,-(sp)
                 moveq   #1,d0
-                moveq   #COMBATANT_ALLIES_MINUS_PLAYER_COUNTER,d7
+                moveq   #TURN_ORDER_ENTRIES_MINUS_ONE_COUNTER,d7
                 lea     ((OTHER_ENTITIES_DATA-$1000000)).w,a0
                 lea     table_TacticalBaseBattlePartyPositions(pc), a2
 @PositionMember_Loop:
                 
                 move.w  d0,d1
-                jsr     j_CheckFlag     ; joined
+                jsr     CheckFlag     ; joined
                 bne.s   @IsMemberInBattleParty
                 
                 ; Position member who has not joined offscreen
@@ -98,8 +98,8 @@ InitializeTacticalBaseForceMembers:
 @IsMemberInBattleParty:
                 
                 move.w  d0,d1
-                addi.w  #FORCEMEMBER_ACTIVE_FLAGS_START,d1
-                jsr     j_CheckFlag
+                addi.w  #FLAG_ALLY00_INPARTY,d1
+                jsr     CheckFlag
                 beq.s   @Next
                 
                 ; Position member in battle party area
@@ -116,7 +116,7 @@ InitializeTacticalBaseForceMembers:
                 move.b  #DOWN,ENTITYDEF_OFFSET_FACING(a0)
                 move.l  #eas_Idle,ENTITYDEF_OFFSET_ACTSCRIPTADDR(a0)
                 movem.w d0-d4,-(sp)
-                jsr     j_GetAllyMapsprite
+                jsr     GetAllyMapsprite
                 move.w  #DOWN,d1
                 moveq   #-1,d2
                 move.w  d4,d3

@@ -1,7 +1,7 @@
 
 ; ASM FILE data\scripting\map\cs_intro4.asm :
 ; 0x48A78..0x48FE2 : Intro cutscene 4
-IntroCutscene4: textCursor 4233
+IntroCutscene4: textCursor STORYTEXT_OFFSET_TOWER_DOOR_OPENS
                 mapLoad MAP_GRANSEAL_CASTLE,7,3
                 loadMapEntities ce_48FAA
                 setActscriptWait ALLY_BOWIE,eas_Init
@@ -14,7 +14,7 @@ IntroCutscene4: textCursor 4233
                 executeSubroutine ApplyStormEffect
                 executeSubroutine ApplyStormEffect
                 csWait 60
-                textCursor 4233
+                textCursor STORYTEXT_OFFSET_TOWER_DOOR_OPENS
                 nextSingleText $0,129   ; "Somebody bring a light to{N}the King's chamber!{D2}"
                 csWait 20
                 playSound SFX_DEMON_BREATH
@@ -363,4 +363,4 @@ ce_48FAA:       mainEntity 63,63,UP
                 entity 63,63,DOWN,MAPSPRITE_GESHP,eas_Init
                 entity 63,63,UP,MAPSPRITE_EFFECT6,eas_Init
                 entity 63,63,DOWN,MAPSPRITE_EFFECT4,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd

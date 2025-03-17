@@ -1,7 +1,7 @@
 
 ; ASM FILE data\scripting\map\cs_intro3.asm :
 ; 0x48540..0x48A78 : Intro cutscene 3
-IntroCutscene3: textCursor 4215
+IntroCutscene3: textCursor STORYTEXT_OFFSET_SLADE_TAKES_JEWELS
                 mapLoad MAP_FORCE_SWORD_SHRINE,21,1
                 loadMapEntities ce_48A50
                 setActscriptWait ALLY_BOWIE,eas_Init
@@ -352,4 +352,4 @@ ce_48A50:       mainEntity 63,63,UP
                 entity 26,5,UP,MAPSPRITE_WORKER,eas_Init
                 entity 27,6,UP,MAPSPRITE_WORKER,eas_Init
                 entity 26,4,DOWN,MAPSPRITE_OBJECT1,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd

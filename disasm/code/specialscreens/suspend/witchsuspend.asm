@@ -17,11 +17,7 @@ WitchSuspend:
                 clsTxt
                 clr.b   ((BLINK_CONTROL_TOGGLE-$1000000)).w
                 bsr.w   Reinitializelayout_Witch
-            if (STANDARD_BUILD=1)
                 jsr     SuspendGame
-            else
-                jsr     j_SuspendGame
-            endif
                 move.w  #600,d0         ; wait for 10 seconds, or until player presses Start before restarting the game
 @WaitForStartInput:
                 

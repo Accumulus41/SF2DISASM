@@ -24,8 +24,8 @@ GetEnemyAnimation:
                 add.w   ((BATTLESCENE_ENEMYBATTLEANIMATION-$1000000)).w,d1
 @GetAnimationPointer:
                 
-                getPointer p_pt_EnemyAnimations, a0
-                lsl.w   #INDEX_SHIFT_COUNT,d1
+                lea     pt_EnemyAttackAnimations, a0
+                lsl.w   #2,d1
                 movea.l (a0,d1.w),a0
                 move.w  (sp)+,d1
                 rts
@@ -127,11 +127,7 @@ loc_198E0:
                 
                 move.w  #VDPTILE_BLANK|VDPTILE_PALETTE3,(a0)+
                 dbf     d0,loc_198E0
-            if (STANDARD_BUILD=1)
                 getPointer p_layout_BattlesceneBackground, a1
-            else
-                lea     layout_BattlesceneBackground(pc), a1
-            endif
                 move.w  #191,d0 
 loc_198F0:
                 
@@ -763,11 +759,11 @@ GetBattlespriteAndPalette:
                 cmpi.w  #COMBATANT_ENEMIES_START,d0
                 bcc.w   @Enemy
                 movem.l d0/a0,-(sp)
-                jsr     j_GetClass
+                jsr     GetClass
                 lea     table_AllyBattlesprites(pc), a0
-                mulu.w  #9,d0
+                mulu.w  #33,d0
                 adda.w  d0,a0
-                moveq   #2,d0
+                moveq   #10,d0
 @FindClass_Loop:
                 
                 cmp.b   (a0)+,d1
@@ -793,7 +789,7 @@ GetBattlespriteAndPalette:
 @Enemy:
                 
                 move.l  a0,-(sp)
-                jsr     j_GetEnemy
+                jsr     GetEnemy
                 lea     table_EnemyBattlesprites(pc), a0
                 add.w   d1,d1
                 move.b  1(a0,d1.w),d2

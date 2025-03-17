@@ -13,10 +13,10 @@ ms_map19_flag501_EntityEvents:
 Map19_1F5_EntityEvent0:
                 
                  
-                chkFlg  256             ; TEMP FLAG #00
+                chkFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 bne.s   byte_52F7E      
                 txt     585             ; "Well, boy.  Did you hear a{N}strange noise?{W2}"
-                setFlg  256             ; TEMP FLAG #00
+                setFlg  FLAG_TEMP00             ; TEMP FLAG #00
 byte_52F7E:
                 
                 txt     586             ; "I don't know why, but{N}everybody ignores my{N}questions....{W1}"

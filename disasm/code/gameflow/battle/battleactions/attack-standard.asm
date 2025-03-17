@@ -8,7 +8,7 @@
 ;     a5 = Pointer to target index in RAM
 
 ; Attack action variables
-currentHpTableSize = 2*(COMBATANT_ALLIES_SPACE_END+COMBATANT_ENEMIES_NUMBER)
+currentHpTableSize = 2*(COMBATANT_ALLIES_SPACEEND+COMBATANT_ENEMIES_NUMBER)
 
 finalDamage = -28-currentHpTableSize
 leechAmountCap = -26-currentHpTableSize

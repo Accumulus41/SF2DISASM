@@ -12,7 +12,7 @@ GetBattlesceneGround:
                 
                 cmpi.w  #COMBATANT_ENEMIES_START,d0
                 bcc.w   @Skip           ; skip if enemy
-                jsr     j_GetMoveType
+                jsr     GetMoveType
                 cmpi.w  #MOVETYPE_LOWER_FLYING,d1
                 beq.w   @Skip           ; skip if ally is flying or hovering
                 cmpi.w  #MOVETYPE_LOWER_HOVERING,d1
@@ -243,12 +243,9 @@ loc_1A00E:
 
     ; End of function sub_1A00A
 
-table_1A020:    dc.b 0
-                dc.b 1
-                dc.b 0
-                dc.b 1
-                dc.b 0
-                dc.b 0
+table_1A020:    dc.w 1
+                dc.w 1
+                dc.w 0
                 dc.b 0
                 dc.b 0
 
@@ -275,7 +272,8 @@ TintScreen:
                 add.w   d0,d0
                 move.w  rjt_TintScreenFunctions(pc,d0.w),d0
                 jsr     rjt_TintScreenFunctions(pc,d0.w)
-                bra.w   @Continue
+                jsr     (ApplyVIntCramDma).w
+                jmp     (EnableDmaQueueProcessing).w
 
     ; End of function TintScreen
 
@@ -312,15 +310,6 @@ rjt_TintScreenFunctions:
                 dc.w tint_None-rjt_TintScreenFunctions ; PHNK Attack
                 dc.w tint_None-rjt_TintScreenFunctions ; Burst Rock
                 dc.w tint_None-rjt_TintScreenFunctions ; Odd Eye Beam
-
-; START OF FUNCTION CHUNK FOR TintScreen
-
-@Continue:
-                
-                jsr     (ApplyVIntCramDma).w
-                jmp     (EnableDmaQueueProcessing).w
-
-; END OF FUNCTION CHUNK FOR TintScreen
 
                 modend
 
@@ -374,24 +363,6 @@ CopyPalettes:
                 rts
 
     ; End of function CopyPalettes
-
-
-; =============== S U B R O U T I N E =======================================
-
-; unused duplicate of the function below
-
-
-sub_1A0C4:
-                
-                movem.l a0-a1,-(sp)
-                lea     ((PALETTE_3_CURRENT-$1000000)).w,a0
-                lea     ((PALETTE_3_BASE-$1000000)).w,a1
-                move.w  $12(a0),$12(a1)
-                move.l  $1A(a0),$1A(a1)
-                movem.l (sp)+,a0-a1
-                rts
-
-    ; End of function sub_1A0C4
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -982,16 +953,6 @@ return_1A474:
 ; =============== S U B R O U T I N E =======================================
 
 
-nullsub_1A476:
-                
-                rts
-
-    ; End of function nullsub_1A476
-
-
-; =============== S U B R O U T I N E =======================================
-
-
 spellanimationSetup_Nothing:
                 
                 rts
@@ -1004,7 +965,6 @@ spellanimationSetup_Nothing:
 
 spellanimationSetup_Blaze:
                 
-                bsr.s   nullsub_1A476
                 move.w  d1,-(sp)
                 sndCom  SFX_SPELL_CAST
                 move.w  #BLAZE_FLASH_COLOR,d0
@@ -1039,7 +999,7 @@ spellanimationSetup_Blaze:
                 bsr.w   sub_1A2F6       
                 move.w  #5,2(a0)
                 moveq   #2,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 lea     table_1A5E4(pc), a0
                 clr.w   d0
                 move.b  (a1),d0
@@ -1059,7 +1019,7 @@ spellanimationSetup_Blaze:
                 move.w  d7,d0
                 andi.w  #1,d0
                 addq.w  #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #$10,d6
                 jsr     (GenerateRandomNumber).w
                 move.w  d1,d4
@@ -1073,7 +1033,7 @@ loc_1A52A:
                 btst    #2,((SPELLANIMATION_VARIATION_AND_MIRRORED_BIT-$1000000)).w
                 beq.w   loc_1A56E
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #$40,2(a0) 
                 move.w  #$40,4(a0) 
                 move.w  #$80,6(a0) 
@@ -1089,9 +1049,9 @@ loc_1A552:
                 moveq   #$2C,d0 
                 moveq   #8,d1
                 lea     table_1A614(pc), a0
-                bsr.w   sub_19FAA       
+                bsr.w   sub_19FAA
 loc_1A56E:
-                
+				; variaton 4
                 move.w  #-1,((byte_FFB404-$1000000)).w
                 move.b  #SPELLANIMATION_BLAZE,((CURRENT_SPELLANIMATION-$1000000)).w
                 move.b  #1,((byte_FFB585-$1000000)).w
@@ -1105,86 +1065,119 @@ loc_1A58A:
 
     ; End of function spellanimationSetup_Blaze
 
-table_1A594:    dc.b 0
+table_1A594:    ; Variation 1
+                dc.b 0
                 dc.b $48
                 dc.b $70
                 dc.b $70
+				
                 dc.b 0
                 dc.b 0
                 dc.b $50
                 dc.b 0
+				
                 dc.b 0
                 dc.b 0
+				
+				; Variation 2
                 dc.b 1
                 dc.b $44
                 dc.b $60
                 dc.b $80
+				
                 dc.b 0
                 dc.b $A
                 dc.b $50
                 dc.b 0
+				
                 dc.b 0
                 dc.b 0
+				
+				; Variation 3
                 dc.b 2
                 dc.b $40
                 dc.b $50
                 dc.b $70
+				
                 dc.b 1
                 dc.b $E
                 dc.b $50
                 dc.b 0
+				
                 dc.b 0
                 dc.b 0
+				
+				; Variation 4
 table_1A5B2:    dc.b 2
                 dc.b $40
                 dc.b $50
                 dc.b $70
+				
                 dc.b 1
                 dc.b 4
                 dc.b $50
                 dc.b $20
+				
                 dc.b $20
                 dc.b 0
+				
+				; Variation 1 Mirrored
                 dc.b 0
                 dc.b $B0
                 dc.b $80
                 dc.b $80
+				
                 dc.b 0
                 dc.b 0
                 dc.b $30
                 dc.b 0
+				
                 dc.b 0
                 dc.b 0
+				
+				; Variation 2 Mirrored
                 dc.b 1
                 dc.b $AC
                 dc.b $70
                 dc.b $90
+				
                 dc.b 0
                 dc.b $A
                 dc.b $30
                 dc.b 0
+				
                 dc.b 0
                 dc.b 0
+				
+				; Variation 3 Mirrored
                 dc.b 2
                 dc.b $A8
                 dc.b $60
                 dc.b $80
+				
                 dc.b 1
                 dc.b $E
                 dc.b $30
                 dc.b 0
+				
                 dc.b 0
                 dc.b 0
+				
+				; Variation 4 Mirrored
                 dc.b 2
                 dc.b $A8
                 dc.b $60
                 dc.b $80
+				
                 dc.b 1
                 dc.b 4
                 dc.b $30
                 dc.b $80
+				
                 dc.b $20
                 dc.b 0
+				
+				; Variation 1
 table_1A5E4:    dc.b 0
                 dc.b 0
                 dc.b 0
@@ -1198,9 +1191,11 @@ table_1A5E4:    dc.b 0
                 dc.b 0
                 dc.b 0
                 dc.b 5
-                dc.b $41
+                dc.b $49
                 dc.b 7
                 dc.b $20
+				
+				; Variation 2
                 dc.b 0
                 dc.b 0
                 dc.b 0
@@ -1217,6 +1212,8 @@ table_1A5E4:    dc.b 0
                 dc.b $5D
                 dc.b 9
                 dc.b $20
+				
+				; Variation 3&4
                 dc.b 0
                 dc.b 0
                 dc.b 0
@@ -1233,68 +1230,52 @@ table_1A5E4:    dc.b 0
                 dc.b $85
                 dc.b $F
                 dc.b $20
-table_1A614:    dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 5
-                dc.b $31
+				
+table_1A614:    dc.w 0
+                dc.w 0
+                dc.w $531
                 dc.b $F
                 dc.b $20
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 5
-                dc.b $28
+				
+                dc.w 0
+                dc.w 0
+                dc.w $528
                 dc.b $A
                 dc.b $20
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 5
-                dc.b $28
+				
+                dc.w 0
+                dc.w 0
+                dc.w $528
                 dc.b $A
                 dc.b $20
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 5
-                dc.b $28
+				
+                dc.w 0
+                dc.w 0
+                dc.w $528
                 dc.b $A
                 dc.b $20
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 5
-                dc.b $28
+				
+                dc.w 0
+                dc.w 0
+                dc.w $528
                 dc.b $A
                 dc.b $20
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 5
-                dc.b $28
+				
+                dc.w 0
+                dc.w 0
+                dc.w $528
                 dc.b $A
                 dc.b $20
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 5
-                dc.b $24
+				
+                dc.w 0
+                dc.w 0
+                dc.w $524
                 dc.b 5
                 dc.b $20
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 5
-                dc.b $20
+				
+                dc.w 0
+                dc.w 0
+                dc.w $520
                 dc.b 5
                 dc.b $20
 
@@ -1303,7 +1284,6 @@ table_1A614:    dc.b 0
 
 spellanimationSetup_Freeze:
                 
-                bsr.w   nullsub_1A476
                 move.w  d1,-(sp)
                 sndCom  SFX_SPELL_CAST
                 move.w  #FREEZE_FLASH_COLOR,d0
@@ -1332,13 +1312,13 @@ loc_1A680:
                 btst    #2,((SPELLANIMATION_VARIATION_AND_MIRRORED_BIT-$1000000)).w
                 beq.s   loc_1A6B4
                 moveq   #$14,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.b  #2,(byte_FFAFC6).l
                 addq.w  #1,d1
 loc_1A6B4:
-                
+				; variation 4
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #-1,((byte_FFB404-$1000000)).w
                 move.b  #SPELLANIMATION_FREEZE,((CURRENT_SPELLANIMATION-$1000000)).w
                 move.b  #1,((byte_FFB585-$1000000)).w
@@ -1350,6 +1330,7 @@ loc_1A6CC:
 
     ; End of function spellanimationSetup_Freeze
 
+                ; Variation 1
                 dc.b 1
                 dc.b $70
                 dc.b 0
@@ -1362,6 +1343,8 @@ loc_1A6CC:
                 dc.b $FA
                 dc.b 0
                 dc.b $C8
+				
+				; Variation 2
                 dc.b 1
                 dc.b $70
                 dc.b 0
@@ -1374,6 +1357,8 @@ loc_1A6CC:
                 dc.b $FA
                 dc.b 0
                 dc.b $C8
+				
+				; Variation 3
                 dc.b 1
                 dc.b $70
                 dc.b 0
@@ -1386,6 +1371,8 @@ loc_1A6CC:
                 dc.b $FA
                 dc.b 0
                 dc.b $C8
+				
+				; Variation 4
                 dc.b 1
                 dc.b $70
                 dc.b 0
@@ -1398,6 +1385,8 @@ loc_1A6CC:
                 dc.b $FA
                 dc.b 0
                 dc.b $C8
+				
+				; Variation 1 Mirrored
                 dc.b 0
                 dc.b $80
                 dc.b 0
@@ -1410,6 +1399,8 @@ loc_1A6CC:
                 dc.b 6
                 dc.b 1
                 dc.b $38
+				
+				; Variation 2 Mirrored
                 dc.b 0
                 dc.b $80
                 dc.b 0
@@ -1422,6 +1413,8 @@ loc_1A6CC:
                 dc.b 6
                 dc.b 1
                 dc.b $38
+				
+				; Variation 3 Mirrored
                 dc.b 0
                 dc.b $80
                 dc.b 0
@@ -1434,6 +1427,8 @@ loc_1A6CC:
                 dc.b 6
                 dc.b 1
                 dc.b $38
+				
+				; Variation 4 Mirrored
                 dc.b 0
                 dc.b $80
                 dc.b 0
@@ -1452,7 +1447,6 @@ loc_1A6CC:
 
 spellanimationSetup_Desoul:
                 
-                bsr.w   nullsub_1A476
                 move.w  d1,-(sp)
                 sndCom  SFX_SPELL_CAST
                 move.w  #DESOUL_FLASH_COLOR,d0
@@ -1479,7 +1473,7 @@ loc_1A778:
 loc_1A786:
                 
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  d2,2(a0)
                 move.w  #$8000,4(a0)
                 move.b  d3,6(a0)
@@ -1487,12 +1481,12 @@ loc_1A786:
                 cmpi.b  #2,d1
                 bcs.s   loc_1A7E2
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #$20,2(a0) 
                 move.w  #$1E,4(a0)
                 move.w  #3,6(a0)
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #$20,2(a0) 
                 move.w  #$14,4(a0)
                 move.w  #$301,6(a0)
@@ -1514,22 +1508,18 @@ loc_1A7E2:
 
     ; End of function spellanimationSetup_Desoul
 
-table_1A810:    dc.b 0
-                dc.b 1
-                dc.b 0
-                dc.b 1
-                dc.b 5
-                dc.b $80
+table_1A810:    dc.w $001
+                dc.w $001
+                dc.w $580
                 dc.b 5
                 dc.b $20
-                dc.b 0
-                dc.b 1
-                dc.b 0
-                dc.b 1
-                dc.b 5
-                dc.b $84
+				
+                dc.w $001
+                dc.w $001
+                dc.w $584
                 dc.b 5
                 dc.b $21
+				
 table_DesoulBackgroundModification:
                 dc.b 0
                 dc.b $38
@@ -1586,14 +1576,14 @@ spellanimationSetup_HealingFairy:
                 bsr.w   LoadSpellGraphics
                 move.w  (sp)+,d1
                 bclr    #7,d1
-                bne.s   loc_1A874
-                lea     table_1A908(pc), a0
+                bne.s   @Enemy
+                lea     spr_HealFairy(pc), a0
                 lea     table_1A8F4(pc), a1
                 moveq   #7,d4
                 bra.s   loc_1A87E
-loc_1A874:
+@Enemy:
                 
-                lea     table_1A918(pc), a0
+                lea     spr_EvilFairy(pc), a0
                 lea     table_1A8FE(pc), a1
                 moveq   #3,d4
 loc_1A87E:
@@ -1621,14 +1611,14 @@ loc_1A898:
                 move.w  d7,d3
                 bsr.w   sub_19FAA
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  d4,2(a0)
                 moveq   #$1E,d6
                 jsr     (GenerateRandomNumber).w
                 addq.w  #1,d7
                 move.w  d7,8(a0)
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 moveq   #$C,d6
                 jsr     (GenerateRandomNumber).w
                 addq.w  #1,d7
@@ -1653,6 +1643,7 @@ table_1A8F4:    dc.b 0
                 dc.b $28
                 dc.b 0
                 dc.b $34
+				
 table_1A8FE:    dc.b 0
                 dc.b $35
                 dc.b 0
@@ -1663,36 +1654,28 @@ table_1A8FE:    dc.b 0
                 dc.b $5D
                 dc.b 0
                 dc.b $69
-table_1A908:    dc.b 1
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 5
-                dc.b $30
+				
+spr_HealFairy:  dc.w $100
+                dc.w 0
+                dc.w $530
                 dc.b $F
                 dc.b $20
-                dc.b 1
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 5
-                dc.b $40
+				
+                dc.w $100
+                dc.w 0
+                dc.w $540
                 dc.b $D
                 dc.b $20
-table_1A918:    dc.b $FF
-                dc.b $E0
-                dc.b 0
-                dc.b 0
-                dc.b 5
-                dc.b $65
+				
+spr_EvilFairy:  dc.w $FFE0
+                dc.w 0
+                dc.w $565
                 dc.b $F
                 dc.b $21
-                dc.b $FF
-                dc.b $E0
-                dc.b 0
-                dc.b 0
-                dc.b 5
-                dc.b $75
+				
+                dc.w $FFE0
+                dc.w 0
+                dc.w $575
                 dc.b $D
                 dc.b $21
 
@@ -1701,7 +1684,6 @@ table_1A918:    dc.b $FF
 
 spellanimationSetup_Blast:
                 
-                bsr.w   nullsub_1A476
                 move.w  d1,-(sp)
                 sndCom  SFX_SPELL_CAST
                 move.w  #BLAST_FLASH_COLOR,d0
@@ -1744,7 +1726,7 @@ loc_1A996:
 loc_1A99E:
                 
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 moveq   #$20,d6 
                 jsr     (GenerateRandomNumber).w
                 addq.w  #1,d7
@@ -1752,24 +1734,24 @@ loc_1A99E:
                 move.b  #2,(a1)+
                 dbf     d1,loc_1A99E
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #$301,2(a0)
                 move.b  #2,(byte_FFAFCE).l
                 tst.w   4(a2)
                 beq.s   loc_1AA06
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.b  #1,3(a0)
                 move.w  d3,4(a0)
                 addi.w  #$B4,4(a0) 
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.b  #2,3(a0)
                 move.b  #$1E,4(a0)
                 moveq   #$2F,d0 
                 moveq   #3,d1
                 lea     table_1AA28(pc), a0
-                bsr.w   sub_19FAA       
+                bsr.w   sub_19FAA
 loc_1AA06:
                 
                 move.w  #-1,((byte_FFB404-$1000000)).w
@@ -1781,30 +1763,23 @@ loc_1AA06:
 
     ; End of function spellanimationSetup_Blast
 
-table_1AA28:    dc.b 0
-                dc.b 8
-                dc.b 0
-                dc.b $30
-                dc.b 5
-                dc.b $AB
-                dc.b 5
-                dc.b $20
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 5
-                dc.b $4B
-                dc.b $F
-                dc.b $20
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b $20
-                dc.b 5
-                dc.b $5B
-                dc.b $F
-                dc.b $20
+table_1AA28:    dc.w $8		; x offset
+                dc.w $30	; y offset
+                dc.w $5AB	; tile data
+                dc.b 5		; size H2|V2
+                dc.b $20	;
+				
+                dc.w 0		; x offset
+                dc.w 0		; y offset
+                dc.w $54B	; tile data
+                dc.b $F		; size H4|V4
+                dc.b $20	;
+				
+                dc.w 0		; x offset
+                dc.w $20	; y offset
+                dc.w $55B	; tile data
+                dc.b $F		; size H4|V4
+                dc.b $20	;
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -1813,13 +1788,13 @@ spellanimationSetup_Detox:
                 
                  
                 sndCom  SFX_SPELL_CAST
-                move.w  #DETOX_FLASH_COLOR,d0
+                move.w  #$A8A,d0
                 bsr.w   ExecuteSpellcastFlashEffect
                 bsr.w   ClearSpellanimationProperties
                 moveq   #SPELLGRAPHICS_DETOX,d0
                 bsr.w   LoadSpellGraphics
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #1,4(a0)
                 lea     table_1AA88(pc), a0
                 moveq   #$26,d0 
@@ -1832,12 +1807,9 @@ spellanimationSetup_Detox:
 
     ; End of function spellanimationSetup_Detox
 
-table_1AA88:    dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 5
-                dc.b $3B
+table_1AA88:    dc.w 0
+                dc.w 0
+                dc.w $53B
                 dc.b 0
                 dc.b $20
 
@@ -1846,7 +1818,6 @@ table_1AA88:    dc.b 0
 
 spellanimationSetup_Bolt:
                 
-                bsr.w   nullsub_1A476
                 move.w  d1,-(sp)
                 sndCom  SFX_SPELL_CAST
                 move.w  #BOLT_FLASH_COLOR,d0
@@ -1862,9 +1833,9 @@ spellanimationSetup_Bolt:
                 move.l  (a1),((byte_FFB532-$1000000)).w
                 moveq   #$10,d0
                 btst    #SPELLANIMATION_BIT_MIRRORED,((SPELLANIMATION_VARIATION_AND_MIRRORED_BIT-$1000000)).w
-                beq.s   loc_1AACC
+                beq.s   @Mirrored
                 addi.w  #$80,d0 
-loc_1AACC:
+@Mirrored:
                 
                 move.w  d0,((dword_FFB536-$1000000)).w
                 move.w  (a1),d1
@@ -1872,7 +1843,7 @@ loc_1AACC:
 loc_1AAD4:
                 
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 moveq   #$20,d6 
                 jsr     (GenerateRandomNumber).w
                 addq.w  #1,d7
@@ -1912,84 +1883,64 @@ loc_1AB4A:
 
     ; End of function spellanimationSetup_Bolt
 
-                dc.b 0
-                dc.b 1
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 2
-                dc.b 0
-                dc.b 1
-                dc.b 0
-                dc.b 3
-                dc.b 0
-                dc.b 2
-                dc.b 0
-                dc.b 4
-                dc.b 0
-                dc.b 4
-table_1AB5E:    dc.b 0
-                dc.b $C8
-                dc.b 0
-                dc.b $C0
-                dc.b 5
-                dc.b $B3
+                ; Variation 1
+                dc.l $10000
+				
+                ; Variation 2
+                dc.l $20001
+				
+                ; Variation 3
+                dc.l $30002
+				
+                ; Variation 4
+                dc.l $40004
+				
+table_1AB5E:    dc.w $C8
+                dc.w $C0
+                dc.w $5B3
                 dc.b $F
                 dc.b $20
-                dc.b 0
-                dc.b $98
-                dc.b 0
-                dc.b $D8
-                dc.b 5
-                dc.b $C3
+				
+                dc.w $98
+                dc.w $D8
+                dc.w $5C3
                 dc.b $F
                 dc.b $20
-                dc.b 0
+				
+                dc.w $F8
+                dc.w $C8
+                dc.w $5B3
+                dc.b $F
+                dc.b $20
+				
+                dc.w $130
+                dc.w $B8
+                dc.w $5C3
+                dc.b $F
+                dc.b $20
+				
+				;mirror
                 dc.b $F8
-                dc.b 0
                 dc.b $C8
-                dc.b 5
-                dc.b $B3
+                dc.w $5B3
                 dc.b $F
                 dc.b $20
-                dc.b 1
-                dc.b $30
-                dc.b 0
-                dc.b $B8
-                dc.b 5
-                dc.b $C3
+				
+                dc.w $130
+                dc.w $B8
+                dc.w $5C3
                 dc.b $F
                 dc.b $20
-                dc.b 0
-                dc.b $F8
-                dc.b 0
-                dc.b $C8
-                dc.b 5
-                dc.b $B3
+				
+                dc.w $C8
+                dc.w $C0
+                dc.w $5B3
                 dc.b $F
                 dc.b $20
-                dc.b 1
-                dc.b $30
-                dc.b 0
-                dc.b $B8
-                dc.b 5
-                dc.b $C3
-                dc.b $F
-                dc.b $20
-                dc.b 0
-                dc.b $C8
-                dc.b 0
-                dc.b $C0
-                dc.b 5
-                dc.b $B3
-                dc.b $F
-                dc.b $20
-                dc.b 0
-                dc.b $98
-                dc.b 0
-                dc.b $D8
-                dc.b 5
-                dc.b $C3
+				
+                dc.w $98
+                dc.w $D8
+                dc.w $5C3
                 dc.b $F
                 dc.b $20
 
@@ -2028,7 +1979,7 @@ loc_1ABAC:
                 movem.w (sp)+,d0-d1
                 move.w  d0,((byte_FFB532-$1000000)).w
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #1,2(a0)
                 move.w  d1,4(a0)
                 move.w  #$11D,((byte_FFB404-$1000000)).w
@@ -2045,7 +1996,7 @@ loc_1ABAC:
 
 spellanimationSetup_Debuff1:
                 
-                lea     table_1ACC6(pc), a0
+                lea     plt_Debuff1(pc), a0
                 bra.w   loc_1AC08
 
     ; End of function spellanimationSetup_Debuff1
@@ -2056,7 +2007,7 @@ spellanimationSetup_Debuff1:
 
 spellanimationSetup_Debuff2:
                 
-                lea     table_1ACCC(pc), a0
+                lea     plt_Debuff2(pc), a0
                 bra.w   loc_1AC08
 
     ; End of function spellanimationSetup_Debuff2
@@ -2067,7 +2018,7 @@ spellanimationSetup_Debuff2:
 
 spellanimationSetup_Debuff3:
                 
-                lea     table_1ACD2(pc), a0
+                lea     plt_Debuff3(pc), a0
 
     ; End of function spellanimationSetup_Debuff3
 
@@ -2095,33 +2046,33 @@ loc_1AC08:
                 jsr     (ApplyVIntCramDma).w
                 lea     ((byte_FFB532-$1000000)).w,a0
                 btst    #SPELLANIMATION_BIT_MIRRORED,((SPELLANIMATION_VARIATION_AND_MIRRORED_BIT-$1000000)).w
-                bne.s   loc_1AC5C
+                bne.s   @Mirror
                 move.w  #$40,(a0)+ 
                 move.w  #$20,(a0) 
                 bra.s   loc_1AC64
-loc_1AC5C:
+@Mirror:
                 
                 move.w  #$A8,(a0)+ 
                 move.w  #$30,(a0) 
 loc_1AC64:
                 
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #1,4(a0)
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 moveq   #4,d6
                 jsr     (GenerateRandomNumber).w
                 addq.w  #6,d7
                 move.w  d7,4(a0)
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 moveq   #4,d6
                 jsr     (GenerateRandomNumber).w
                 addi.w  #$C,d7
                 move.w  d7,4(a0)
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 moveq   #4,d6
                 jsr     (GenerateRandomNumber).w
                 addi.w  #$12,d7
@@ -2134,24 +2085,17 @@ loc_1AC64:
 
 ; END OF FUNCTION CHUNK FOR spellanimationSetup_Debuff1
 
-table_1ACC6:    dc.b 8
-                dc.b $88
-                dc.b $B
-                dc.b $BB
-                dc.b $D
-                dc.b $DD
-table_1ACCC:    dc.b 8
-                dc.b $4E
-                dc.b $E
-                dc.b $C6
-                dc.b $F
-                dc.b $DA
-table_1ACD2:    dc.b 8
-                dc.b $4E
-                dc.b 9
-                dc.b $8E
-                dc.b $D
-                dc.b $BF
+plt_Debuff1:    dc.w $888
+                dc.w $BBB
+                dc.w $DDD
+				
+plt_Debuff2:    dc.w $84E
+                dc.w $EC6
+                dc.w $FDA
+				
+plt_Debuff3:    dc.w $84E
+                dc.w $98E
+                dc.w $DBF
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2228,7 +2172,7 @@ loc_1AD6A:
                 addi.w  #$2C,d1 
                 move.w  d1,4(a1)
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  (a1),2(a0)
                 move.w  #$11D,((byte_FFB404-$1000000)).w
                 move.b  #SPELLANIMATION_FLAME_BREATH,((CURRENT_SPELLANIMATION-$1000000)).w
@@ -2253,11 +2197,11 @@ spellanimationSetup_ArrowsAndSpears:
                 clr.w   d1
                 lea     table_1AE40(pc), a0
                 lea     (loc_1AE16+2)(pc), a1
-                bclr    #7,d0
-                beq.s   loc_1ADCA
+                bclr    #SPELLANIMATION_BIT_MIRRORED,d0
+                beq.s   @Mirrored
                 lea     $30(a0),a0
                 lea     $18(a1),a1
-loc_1ADCA:
+@Mirrored:
                 
                 cmpi.b  #2,d0
                 bcs.s   loc_1ADDA
@@ -2281,7 +2225,7 @@ loc_1ADDA:
                 clr.w   d3
                 bsr.w   sub_19FAA
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #$72,((byte_FFB404-$1000000)).w 
                 move.b  #SPELLANIMATION_ARROWS_AND_SPEARS,((CURRENT_SPELLANIMATION-$1000000)).w
                 move.b  #1,((byte_FFB585-$1000000)).w
@@ -2293,148 +2237,105 @@ loc_1AE16:
 
     ; End of function spellanimationSetup_ArrowsAndSpears
 
-table_1AE20:    dc.b $F2
-                dc.b 0
-                dc.b 1
-                dc.b $90
-                dc.b 0
-                dc.b 1
-                dc.b 0
-                dc.b $E8
-                dc.b $F2
-                dc.b 0
-                dc.b 1
-                dc.b $90
-                dc.b 1
-                dc.b $98
-                dc.b 0
-                dc.b $E8
-                dc.b $F2
-                dc.b 0
-                dc.b 1
-                dc.b $90
-                dc.b 1
-                dc.b $B0
-                dc.b 0
-                dc.b $E8
-                dc.b $E
-                dc.b 0
-                dc.b 0
-                dc.b $60
-                dc.b 0
-                dc.b 1
-                dc.b 0
-                dc.b $F0
-table_1AE40:    dc.b $E
-                dc.b 0
-                dc.b 0
-                dc.b $58
-                dc.b 0
-                dc.b $78
-                dc.b 0
-                dc.b $F0
-                dc.b $E
-                dc.b 0
-                dc.b 0
-                dc.b $40
-                dc.b 0
-                dc.b $60
-                dc.b 0
-                dc.b $F0
-                dc.b 0
-                dc.b $98
-                dc.b 0
-                dc.b $6C
-                dc.b 5
-                dc.b $20
+table_1AE20:    ; Variation 1
+                dc.l $F2000190
+                dc.l $100E8
+
+                ; Variation 2
+                dc.l $F2000190
+                dc.l $19800E8
+
+                ; Variation 3
+                dc.l $F2000190
+                dc.l $1B000E8
+
+                ; Variation 1
+                dc.l $E000060
+                dc.l $100F0
+				
+                ; Variation 2
+table_1AE40:    dc.l $E000058
+                dc.l $7800F0
+				
+                ; Variation 3
+                dc.l $E000040
+                dc.l $6000F0
+				
+				
+                dc.w $98
+                dc.w $6C
+                dc.w $520
                 dc.b $C
                 dc.b $11
-                dc.b 0
-                dc.b 1
-                dc.b 0
-                dc.b 1
-                dc.b 0
-                dc.b 0
+				
+                dc.w 1
+                dc.w 1
+                dc.w 0
                 dc.b 0
                 dc.b 0
-                dc.b 0
-                dc.b $98
-                dc.b 0
-                dc.b $6C
-                dc.b 5
-                dc.b $28
+				
+				
+                dc.w $98
+                dc.w $6C
+                dc.w $528
                 dc.b 0
                 dc.b $11
-                dc.b 0
-                dc.b $A0
-                dc.b 0
-                dc.b $6C
-                dc.b 5
-                dc.b $24
+				
+                dc.w $A0
+                dc.w $6C
+                dc.w $524
                 dc.b $C
                 dc.b $11
-                dc.b 0
-                dc.b $68
-                dc.b 0
-                dc.b $60
-                dc.b 5
-                dc.b $2D
+				
+				; mirror
+                dc.w $68
+                dc.w $60
+                dc.w $52D
                 dc.b $C
                 dc.b $11
-                dc.b 0
-                dc.b $88
-                dc.b 0
-                dc.b $60
-                dc.b 5
-                dc.b $29
+				
+                dc.w $88
+                dc.w $60
+                dc.w $529
                 dc.b $C
                 dc.b $11
-                dc.b 0
-                dc.b $50
-                dc.b 0
-                dc.b $64
-                dc.b 5
-                dc.b $20
+				
+				
+                dc.w $50
+                dc.w $64
+                dc.w $520
                 dc.b $C
                 dc.b $10
-                dc.b 0
-                dc.b 1
-                dc.b 0
-                dc.b 1
-                dc.b 0
-                dc.b 0
+				
+                dc.w 1
+                dc.w 1
+                dc.w 0
                 dc.b 0
                 dc.b 0
-                dc.b 0
-                dc.b $50
-                dc.b 0
-                dc.b $64
-                dc.b 5
-                dc.b $24
+				
+				
+                dc.w $50
+                dc.w $64
+                dc.w $524
                 dc.b $C
                 dc.b $10
-                dc.b 0
-                dc.b $70
-                dc.b 0
-                dc.b $64
-                dc.b 5
-                dc.b $28
+				
+                dc.w $70
+                dc.w $64
+                dc.w $528
                 dc.b 0
                 dc.b $10
-                dc.b 0
-                dc.b $50
-                dc.b 0
-                dc.b $62
-                dc.b 5
-                dc.b $29
+				
+				
+                dc.w $50
+                dc.w $62
+                dc.w $529
                 dc.b $C
                 dc.b $10
-                dc.b 0
-                dc.b $70
-                dc.b 0
-                dc.b $62
-                dc.b 5
-                dc.b $2D
+				
+                dc.w $70
+                dc.w $62
+                dc.w $52D
                 dc.b $C
                 dc.b $10
 
@@ -2449,7 +2350,7 @@ spellanimationSetup_CannonProjectile:
                 bsr.w   LoadSpellGraphics
                 move.w  (sp)+,d0
                 lea     table_1AEFA(pc), a1
-                btst    #7,d0
+                btst    #SPELLANIMATION_BIT_MIRRORED,d0
                 beq.s   loc_1AECA
                 addq.w  #8,a1
 loc_1AECA:
@@ -2458,7 +2359,7 @@ loc_1AECA:
                 move.l  (a1)+,(a2)+
                 move.l  (a1),(a2)
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #$11D,((byte_FFB404-$1000000)).w
                 move.b  #SPELLANIMATION_CANNON_PROJECTILE,((CURRENT_SPELLANIMATION-$1000000)).w
                 move.b  #1,((byte_FFB585-$1000000)).w
@@ -2468,22 +2369,12 @@ loc_1AECA:
 
     ; End of function spellanimationSetup_CannonProjectile
 
-table_1AEFA:    dc.b $F3
-                dc.b 0
-                dc.b $FF
-                dc.b $C0
-                dc.b 1
-                dc.b $80
-                dc.b 0
-                dc.b $E8
-                dc.b $D
-                dc.b 0
-                dc.b 0
-                dc.b $40
-                dc.b 0
-                dc.b $70
-                dc.b 0
-                dc.b $F0
+table_1AEFA:    dc.l $F300FFC0
+                dc.l $18000E8
+				
+				; mirror
+                dc.l $D000040
+                dc.l $07000F0
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2497,7 +2388,7 @@ spellanimationSetup_ShotProjectile:
                 move.w  (sp)+,d0
                 lea     table_1AF7C(pc), a0
                 lea     table_1AF64(pc), a1
-                btst    #7,d0
+                btst    #SPELLANIMATION_BIT_MIRRORED,d0
                 beq.s   loc_1AF2C
                 addq.w  #8,a0
                 lea     $C(a1),a1
@@ -2510,7 +2401,7 @@ loc_1AF2C:
                 moveq   #$26,d0 
                 bsr.w   sub_19F5E
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #$11D,((byte_FFB404-$1000000)).w
                 move.b  #SPELLANIMATION_SHOT_PROJECTILE,((CURRENT_SPELLANIMATION-$1000000)).w
                 move.b  #1,((byte_FFB585-$1000000)).w
@@ -2520,44 +2411,24 @@ loc_1AF2C:
 
     ; End of function spellanimationSetup_ShotProjectile
 
-table_1AF64:    dc.b $F4
-                dc.b 0
-                dc.b $FF
-                dc.b $C0
-                dc.b 1
-                dc.b $80
-                dc.b 0
-                dc.b $E8
-                dc.b 0
-                dc.b $50
-                dc.b 0
-                dc.b $60
-                dc.b $C
-                dc.b 0
-                dc.b 0
-                dc.b $40
-                dc.b 0
-                dc.b $70
-                dc.b 0
-                dc.b $F0
-                dc.b 0
-                dc.b $B8
-                dc.b 0
-                dc.b $70
-table_1AF7C:    dc.b 1
-                dc.b $20
-                dc.b 0
-                dc.b $E8
-                dc.b 5
-                dc.b $6C
+table_1AF64:    dc.l $F400FFC0
+                dc.l $18000E8
+                dc.l $500060
+				
+				; mirror
+                dc.l $C000040
+                dc.l $7000F0
+                dc.l $B80070
+				
+table_1AF7C:    dc.w $120
+                dc.w $E8
+                dc.w $56C
                 dc.b 5
                 dc.b $10
-                dc.b 0
-                dc.b $C8
-                dc.b 0
-                dc.b $E0
-                dc.b 5
-                dc.b $6C
+				
+                dc.w $C8
+                dc.w $E0
+                dc.w $56C
                 dc.b 5
                 dc.b $11
 
@@ -2573,7 +2444,7 @@ spellanimationSetup_GunnerProjectile:
                 move.w  (sp)+,d0
                 lea     table_1B002(pc), a0
                 lea     table_1AFEA(pc), a1
-                btst    #7,d0
+                btst    #SPELLANIMATION_BIT_MIRRORED,d0
                 beq.s   loc_1AFAE
                 addq.w  #8,a0
                 lea     $C(a1),a1
@@ -2597,44 +2468,24 @@ loc_1AFAE:
 
     ; End of function spellanimationSetup_GunnerProjectile
 
-table_1AFEA:    dc.b $F3
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 1
-                dc.b $80
-                dc.b 0
-                dc.b $E8
-                dc.b 0
-                dc.b $20
-                dc.b 0
-                dc.b $38
-                dc.b $D
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b $70
-                dc.b 0
-                dc.b $F0
-                dc.b 0
-                dc.b $88
-                dc.b 0
-                dc.b $48
-table_1B002:    dc.b 1
-                dc.b $3E
-                dc.b 0
-                dc.b $FA
-                dc.b 5
-                dc.b $20
+table_1AFEA:    dc.l $F3000000
+                dc.l $18000E8
+                dc.l $200038
+				
+				; mirror
+                dc.l $D000000
+                dc.l $7000F0
+                dc.l $880048
+				
+table_1B002:    dc.w $13E
+                dc.w $FA
+                dc.w $520
                 dc.b 5
                 dc.b $10
-                dc.b 0
-                dc.b $D0
-                dc.b 0
-                dc.b $E0
-                dc.b 5
-                dc.b $20
+				
+                dc.w $D0
+                dc.w $E0
+                dc.w $520
                 dc.b 5
                 dc.b $10
 
@@ -2674,7 +2525,7 @@ loc_1B040:
                 moveq   #SPELLGRAPHICS_DAO,d0
                 bsr.w   LoadSpellGraphics
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #$5A,((byte_FFB532-$1000000)).w 
                 lea     (FF8804_LOADING_SPACE).l,a0
                 move.w  #1023,d0
@@ -2907,16 +2758,16 @@ loc_1B2BE:
                 moveq   #SPELLGRAPHICS_NEPTUN,d0
                 bsr.w   LoadSpellGraphics
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.b  #1,4(a0)
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #2,4(a0)
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #5,4(a0)
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #8,4(a0)
                 lea     (BATTLESCENE_BATTLESPRITE_TOGGLE).l,a0
                 moveq   #15,d0
@@ -2947,38 +2798,38 @@ loc_1B314:
 table_1B358:    dc.b 1
                 dc.b 0
                 dc.b 0
-                dc.b -80
+                dc.b $B0
+                dc.b 0
+                dc.b 1
+				
                 dc.b 0
                 dc.b 1
                 dc.b 0
                 dc.b 1
                 dc.b 0
                 dc.b 1
-                dc.b 0
-                dc.b 1
-table_1B364:    dc.b 1
-                dc.b 40
-                dc.b 0
-                dc.b -64
-                dc.b 7
-                dc.b -128
+				
+table_1B364:    dc.w $128
+                dc.w $C0
+                dc.w $780
                 dc.b 6
-                dc.b 32
+                dc.b $20
+				
 table_NeptunBackgroundModification:
                 dc.b 0
-                dc.b 56
+                dc.b $38
                 dc.b 4
-                dc.b 96
+                dc.b $60
                 dc.b 0
                 dc.b 1
-                dc.b -77
-                dc.b 116
+                dc.b $B3
+                dc.b $74
                 dc.b 0
                 dc.b 1
                 dc.b 0
                 dc.b 0
-                dc.b -1
-                dc.b -1
+                dc.b $FF
+                dc.b $FF
                 dc.b 0
                 dc.b 0
 
@@ -3049,7 +2900,7 @@ loc_1B42C:
 loc_1B42E:
                 
                 moveq   #1,d0
-                jsr     sub_1A2F6(pc)   
+                jsr     sub_1A2F6(pc)
                 moveq   #$10,d6
                 jsr     (GenerateRandomNumber).w
                 addq.w  #1,d7
@@ -3118,12 +2969,9 @@ loc_1B4CE:
 
     ; End of function spellanimationSetup_BubbleBreath
 
-table_1B4F0:    dc.b $C
-                dc.b $BF
-                dc.b $B
-                dc.b $9A
-                dc.b $B
-                dc.b $46
+table_1B4F0:    dc.w $CBF
+                dc.w $B9A
+                dc.w $B46
                 
 
 ; =============== S U B R O U T I N E =======================================
@@ -3334,7 +3182,7 @@ loc_1B6B8:
                 
                 bsr.w   LoadSpellGraphics
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 move.w  #$D0,4(a0) 
                 move.w  #$64,((byte_FFB404-$1000000)).w 
                 move.b  #SPELLANIMATION_PHOENIX_ATTACK,((CURRENT_SPELLANIMATION-$1000000)).w
@@ -3416,34 +3264,22 @@ loc_1B764:
 
     ; End of function spellanimationSetup_OddEyeBeam
 
-table_1B794:    dc.b 1
-                dc.b 4
-                dc.b 0
-                dc.b $E9
-                dc.b 8
-                dc.b 0
-                dc.b 1
-                dc.b $1C
-                dc.b 0
-                dc.b $E5
-                dc.b 5
-                dc.b $20
+table_1B794:    dc.l $10400E9
+                dc.w $800
+				
+                dc.w $11C
+                dc.w $E5
+                dc.w $520
                 dc.b 5
                 dc.b $21
-                
-                ; mirror
-                dc.b 0
-                dc.b $D2
-                dc.b 0
-                dc.b $CC
-                dc.b 0
-                dc.b 0
-                dc.b 0
-                dc.b $D2
-                dc.b 0
-                dc.b $CC
-                dc.b 5
-                dc.b $24
+				
+				;mirror
+                dc.l $D200CC
+                dc.w $0
+				
+                dc.w $D2
+                dc.w $CC
+                dc.w $524
                 dc.b $C
                 dc.b $20
 
@@ -3955,7 +3791,7 @@ loc_1BBFA:
                 
                 movem.w (sp)+,d0-d1
                 addq.w  #1,d0
-                addq.w  #VDP_SPRITE_ENTRY_SIZE,a4
+                addq.w  #VDP_SPRITE_SIZE,a4
                 lea     $C(a5),a5
                 dbf     d1,loc_1BA00
 loc_1BC0A:
@@ -3967,7 +3803,7 @@ loc_1BC0A:
                 bne.s   loc_1BC20
                 rts
 loc_1BC20:
-                
+				; variations 1-3
                 addq.w  #1,(a5)
                 move.w  6(a5),d2
                 tst.b   $F(a5)
@@ -4112,7 +3948,7 @@ sub_1BD4C:
                 lea     ((byte_FFB496-$1000000)).w,a2
                 lsl.w   #2,d0
                 move.w  d0,-(sp)
-                lea     table_1BE82(pc), a3
+                lea     word_1BE82(pc), a3
                 moveq   #6,d1
 loc_1BD6C:
                 
@@ -4310,18 +4146,25 @@ table_1BE5A:    dc.b 0
                 dc.b $EE
                 dc.b $F
                 dc.b $20
-table_1BE82:    dc.w $C
+				
+word_1BE82:     dc.w $C
                 dc.w 4
+				
                 dc.w $C
                 dc.w 4
+				
                 dc.w $C
                 dc.w 4
+				
                 dc.w $C
                 dc.w 4
+				
                 dc.w $C
                 dc.w 4
+				
                 dc.w 8
                 dc.w 8
+				
                 dc.w 8
                 dc.w 8
 
@@ -4536,7 +4379,7 @@ loc_1C0BA:
                 lsr.w   #2,d1
                 swap    d1
                 move.w  4(a5),d1
-                jsr     (sub_1812).w    
+                jsr     (sub_1812).w
                 add.w   $A(a3),d2
                 move.w  d2,VDPSPRITE_OFFSET_X(a4)
                 swap    d2
@@ -4951,7 +4794,7 @@ loc_1C3E6:
                 subi.w  #$80,d2 
                 move.w  (a4),d3
                 subi.w  #$70,d3 
-                bsr.w   sub_19FAA       
+                bsr.w   sub_19FAA
                 addi.w  #$30,VDPSPRITE_OFFSET_TILE(a4) 
                 addi.w  #$30,$C(a4) 
                 addi.w  #$30,$14(a4) 
@@ -5569,6 +5412,7 @@ loc_1C9A0:
                 lea     $C(a5),a5
                 addq.w  #8,a4
                 dbf     d1,loc_1C804
+				
                 tst.w   (a5)
                 beq.w   loc_1CAA8
                 addq.w  #1,(a5)
@@ -6221,7 +6065,7 @@ loc_1CEDA:
                 moveq   #8,d3
 loc_1CEDC:
                 
-                bsr.w   sub_19FAA       
+                bsr.w   sub_19FAA
                 addq.w  #1,2(a5)
                 move.w  #2,4(a5)
                 bra.w   loc_1CF84
@@ -6327,7 +6171,7 @@ loc_1CFDE:
                 dbf     d1,loc_1CFA8
 loc_1CFEA:
                 
-                bsr.w   sub_1B90C       
+                bsr.w   sub_1B90C
                 lea     table_1CFF6(pc), a0
                 bra.w   sub_1B8B2
 
@@ -6415,7 +6259,7 @@ loc_1D090:
                 jsr     (GenerateRandomNumber).w
                 add.w   2(a3),d7
                 move.w  d7,d3
-                jsr     sub_19FAA       
+                jsr     sub_19FAA
                 bra.w   loc_1D0D4
 loc_1D0C2:
                 
@@ -6431,6 +6275,7 @@ loc_1D0D4:
                 lea     $C(a5),a5
                 addq.w  #8,a4
                 dbf     d1,loc_1D048
+				
                 tst.w   ((byte_FFB404-$1000000)).w
                 beq.w   sub_1B82A
                 rts
@@ -6443,12 +6288,16 @@ table_1D0EE:    dc.b 0
                 dc.b 0
                 dc.b 5
                 dc.b $20
+				
                 dc.b $F
                 dc.b $20
+				
 table_1D0F6:    dc.b 0
                 dc.b $10
+				
                 dc.b 0
                 dc.b $20
+				
                 dc.b 0
                 dc.b $10
                 dc.b 0
@@ -6705,13 +6554,13 @@ loc_1D2F6:
                 beq.w   loc_1D33C
                 addq.w  #8,a0
                 move.w  ((BATTLESCENE_ENEMYBATTLESPRITE-$1000000)).w,d2
-                cmpi.w  #$E,d2
+                cmpi.w  #ENEMYBATTLESPRITE_CERBERUS,d2
                 beq.w   loc_1D33C
                 addq.w  #8,a0
-                cmpi.w  #$13,d2
+                cmpi.w  #ENEMYBATTLESPRITE_HYDRA,d2
                 beq.w   loc_1D33C
                 addq.w  #8,a0
-                cmpi.w  #$1A,d2
+                cmpi.w  #ENEMYBATTLESPRITE_WYVERN,d2
                 beq.w   loc_1D33C
                 addq.w  #8,a0
 loc_1D33C:
@@ -6793,7 +6642,7 @@ loc_1D3D8:
 loc_1D3E4:
                 
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 cmpi.w  #-1,d0
                 beq.w   loc_1D424
                 
@@ -6864,7 +6713,7 @@ loc_1D494:
 
     ; End of function spellanimationUpdate_FlameBreath
 
-table_1D4A0:    dc.b 1
+table_1D4A0:    dc.b 1      ; ally
                 dc.b $1C
                 dc.b 0
                 dc.b $DE
@@ -6872,7 +6721,8 @@ table_1D4A0:    dc.b 1
                 dc.b $20
                 dc.b 0
                 dc.b $20
-                dc.b 0
+				
+                dc.b 0      ; enemy
                 dc.b $D2
                 dc.b 0
                 dc.b $EC
@@ -6880,7 +6730,8 @@ table_1D4A0:    dc.b 1
                 dc.b $20
                 dc.b 0
                 dc.b $20
-                dc.b 0
+				
+                dc.b 0      ; cerberus
                 dc.b $DF
                 dc.b 0
                 dc.b $D6
@@ -6888,7 +6739,8 @@ table_1D4A0:    dc.b 1
                 dc.b $20
                 dc.b 0
                 dc.b $20
-                dc.b 0
+				
+                dc.b 0       ; hydra
                 dc.b $D0
                 dc.b 0
                 dc.b $D8
@@ -6896,7 +6748,8 @@ table_1D4A0:    dc.b 1
                 dc.b $20
                 dc.b 0
                 dc.b $20
-                dc.b 0
+				
+                dc.b 0       ; wyvern
                 dc.b $D4
                 dc.b 0
                 dc.b $CC
@@ -6904,6 +6757,7 @@ table_1D4A0:    dc.b 1
                 dc.b $20
                 dc.b 0
                 dc.b $20
+				
 table_1D4C8:    dc.b 0
                 dc.b 5
                 dc.b 0
@@ -7118,7 +6972,7 @@ loc_1D668:
                 cmpi.b  #8,((UPDATE_SPELLANIMATION_TOGGLE-$1000000)).w
                 bcc.s   loc_1D68A
                 moveq   #1,d0
-                bsr.w   sub_1A2F6       
+                bsr.w   sub_1A2F6
                 addq.b  #1,((UPDATE_SPELLANIMATION_TOGGLE-$1000000)).w
 loc_1D68A:
                 
@@ -7201,6 +7055,7 @@ loc_1D748:
                 addq.w  #8,a4
                 lea     $C(a5),a5
                 dbf     d1,loc_1D5D6
+				
                 tst.b   ((UPDATE_SPELLANIMATION_TOGGLE-$1000000)).w
                 beq.w   sub_1B82A
                 rts
@@ -9583,7 +9438,7 @@ loc_1EAD4:
                 clr.w   d2
                 clr.w   d3
                 lea     table_1EBAA(pc), a0
-                bsr.w   sub_19FAA       
+                bsr.w   sub_19FAA
                 sndCom  SFX_DESOUL_HOVERING
                 addq.w  #1,2(a5)
                 bra.w   loc_1EB7E
@@ -9602,7 +9457,7 @@ loc_1EB12:
                 andi.w  #BYTE_MASK,d0
                 move.w  d0,4(a5)
                 move.w  #$3000,d1
-                jsr     (sub_17EC).w    
+                jsr     (sub_17EC).w
                 addi.w  #$D8,d2 
                 move.w  d2,VDPSPRITE_OFFSET_X(a4)
                 move.w  d2,$E(a4)
@@ -10096,7 +9951,7 @@ UpdateWeaponsprite:
 
 sub_1EF2E:
                 
-                bsr.w   LoadBattlesceneEnemyLayout
+                bsr.w   sub_1EF50
                 bra.w   loc_1EFB0
 
     ; End of function sub_1EF2E
@@ -10109,7 +9964,7 @@ sub_1EF2E:
 
 sub_1EF36:
                 
-                bsr.w   LoadBattlesceneEnemyLayout
+                bsr.w   sub_1EF50
                 lea     (PLANE_B_LAYOUT).l,a0
                 lea     ($E000).l,a1
                 move.w  #$400,d0
@@ -10122,61 +9977,60 @@ sub_1EF36:
 ; =============== S U B R O U T I N E =======================================
 
 
-LoadBattlesceneEnemyLayout:
+sub_1EF50:
                 
-                lea     layout_BattlesceneEnemy(pc), a0
-                lea     (BATTLESCENE_ENEMY_LAYOUT).l,a1
+                lea     table_1F6B6(pc), a0
+                lea     (byte_FFE184).l,a1
                 bchg    #2,((byte_FFB56E-$1000000)).w
-                beq.s   @loc1
-                move.w  #$220|VDPTILE_PALETTE2|VDPTILE_PRIORITY,d0
-                bra.s   @loc2
-@loc1:
+                beq.s   loc_1EF68
+                move.w  #$A220,d0
+                bra.s   loc_1EF6C
+loc_1EF68:
                 
-                move.w  #$2E0|VDPTILE_PALETTE2|VDPTILE_PRIORITY,d0
-@loc2:
+                move.w  #$A2E0,d0
+loc_1EF6C:
                 
                 btst    #2,((byte_FFB56F-$1000000)).w
-                bne.s   @loc5
+                bne.s   loc_1EF8E
+                moveq   #$B,d7
+loc_1EF76:
                 
-                moveq   #11,d7
-@loc3:
-                
-                moveq   #15,d6
-@loc4:
+                moveq   #$F,d6
+loc_1EF78:
                 
                 clr.w   d5
                 move.b  (a0)+,d5
                 add.w   d0,d5
                 move.w  d5,(a1)+
-                dbf     d6,@loc4
+                dbf     d6,loc_1EF78
                 
-                lea     32(a1),a1
-                dbf     d7,@loc3
+                lea     $20(a1),a1
+                dbf     d7,loc_1EF76
                 
-                bra.s   @return
-@loc5:
+                bra.s   return_1EFAE
+loc_1EF8E:
                 
-                bset    #11,d0
-                lea     32(a1),a1
-                moveq   #11,d7
-@loc6:
+                bset    #$B,d0
+                lea     $20(a1),a1
+                moveq   #$B,d7
+loc_1EF98:
                 
-                moveq   #15,d6
-@loc7:
+                moveq   #$F,d6
+loc_1EF9A:
                 
                 clr.w   d5
                 move.b  (a0)+,d5
                 add.w   d0,d5
                 move.w  d5,-(a1)
-                dbf     d6,@loc7
+                dbf     d6,loc_1EF9A
                 
-                lea     96(a1),a1
-                dbf     d7,@loc6
-@return:
+                lea     $60(a1),a1
+                dbf     d7,loc_1EF98
+return_1EFAE:
                 
                 rts
 
-    ; End of function LoadBattlesceneEnemyLayout
+    ; End of function sub_1EF50
 
 
 ; START OF FUNCTION CHUNK FOR sub_1EF2E
@@ -10184,8 +10038,7 @@ LoadBattlesceneEnemyLayout:
 loc_1EFB0:
                 
                 tst.b   ((WAITING_FOR_BATTLESCENE_GRAPHICS_UPDATE-$1000000)).w
-                bne.s   @return
-                
+                bne.s   return_1EFD6
                 move.b  #1,((WAITING_FOR_BATTLESCENE_GRAPHICS_UPDATE-$1000000)).w
                 lea     (PLANE_B_LAYOUT).l,a0
                 lea     ($E000).l,a1
@@ -10193,7 +10046,7 @@ loc_1EFB0:
                 moveq   #2,d1
                 jsr     (ApplyVIntVramDma).w
                 jsr     (EnableDmaQueueProcessing).w
-@return:
+return_1EFD6:
                 
                 rts
 
@@ -10609,7 +10462,7 @@ sub_1F2F6:
                 bsr.w   sub_1F1F0
                 btst    #2,((byte_FFB56F-$1000000)).w
                 beq.s   loc_1F32A
-                moveq   #96,d6
+                moveq   #$60,d6 
                 bra.s   loc_1F32C
 loc_1F32A:
                 
@@ -11007,268 +10860,296 @@ sprite_BattlesceneGround:
                 vdpSprite 268, V4|H4|0, 1936|MIRROR|PALETTE3, 296
                 vdpSprite 268, V4|H4|0, 1952|MIRROR|PALETTE3, 264
                 
-layout_BattlesceneEnemy:
-                dc.b 0
-                dc.b 4
+table_1F6B6:    ;vdpSprite
+				dc.w 4
                 dc.b 8
                 dc.b $C
-                dc.b $30
-                dc.b $34
-                dc.b $38
-                dc.b $3C
-                dc.b $60
-                dc.b $64
+                dc.w $3034
+                dc.w $383C
+				
+				;vdpSprite
+                dc.w $6064
                 dc.b $68
                 dc.b $6C
-                dc.b $90
-                dc.b $94
-                dc.b $98
-                dc.b $9C
-                dc.b 1
-                dc.b 5
+                dc.w $9094
+                dc.w $989C
+				
+				;vdpSprite
+                dc.w $105
                 dc.b 9
                 dc.b $D
-                dc.b $31
-                dc.b $35
-                dc.b $39
-                dc.b $3D
-                dc.b $61
-                dc.b $65
+                dc.w $3135
+                dc.w $393D
+				
+				;vdpSprite
+                dc.w $6165
                 dc.b $69
                 dc.b $6D
-                dc.b $91
-                dc.b $95
-                dc.b $99
-                dc.b $9D
-                dc.b 2
-                dc.b 6
+                dc.w $9195
+                dc.w $999D
+				
+				;vdpSprite
+                dc.w $206
                 dc.b $A
                 dc.b $E
-                dc.b $32
-                dc.b $36
-                dc.b $3A
-                dc.b $3E
-                dc.b $62
-                dc.b $66
+                dc.w $3236
+                dc.w $3A3E
+				
+				;vdpSprite
+                dc.w $6266
                 dc.b $6A
                 dc.b $6E
-                dc.b $92
-                dc.b $96
-                dc.b $9A
-                dc.b $9E
-                dc.b 3
-                dc.b 7
+                dc.w $9296
+                dc.w $9A9E
+				
+				;vdpSprite
+                dc.w $307
                 dc.b $B
                 dc.b $F
-                dc.b $33
-                dc.b $37
-                dc.b $3B
-                dc.b $3F
-                dc.b $63
-                dc.b $67
+                dc.w $3337
+                dc.w $3B3F
+				
+				;vdpSprite
+                dc.w $6367
                 dc.b $6B
                 dc.b $6F
-                dc.b $93
-                dc.b $97
-                dc.b $9B
-                dc.b $9F
-                dc.b $10
-                dc.b $14
+                dc.w $9397
+                dc.w $9B9F
+				
+				;vdpSprite
+                dc.w $1014
                 dc.b $18
                 dc.b $1C
-                dc.b $40
-                dc.b $44
-                dc.b $48
-                dc.b $4C
-                dc.b $70
-                dc.b $74
+                dc.w $4044
+                dc.w $484C
+				
+				;vdpSprite
+                dc.w $7074
                 dc.b $78
                 dc.b $7C
-                dc.b $A0
-                dc.b $A4
-                dc.b $A8
-                dc.b $AC
-                dc.b $11
-                dc.b $15
+                dc.w $A0A4
+                dc.w $A8AC
+				
+				;vdpSprite
+                dc.w $1115
                 dc.b $19
                 dc.b $1D
-                dc.b $41
-                dc.b $45
-                dc.b $49
-                dc.b $4D
-                dc.b $71
-                dc.b $75
+                dc.w $4145
+                dc.w $494D
+				
+				;vdpSprite
+                dc.w $7175
                 dc.b $79
                 dc.b $7D
-                dc.b $A1
-                dc.b $A5
-                dc.b $A9
-                dc.b $AD
-                dc.b $12
-                dc.b $16
+                dc.w $A1A5
+                dc.w $A9AD
+				
+				;vdpSprite
+                dc.w $1216
                 dc.b $1A
                 dc.b $1E
-                dc.b $42
-                dc.b $46
-                dc.b $4A
-                dc.b $4E
-                dc.b $72
-                dc.b $76
+                dc.w $4246
+                dc.w $4A4E
+				
+				;vdpSprite
+                dc.w $7276
                 dc.b $7A
                 dc.b $7E
-                dc.b $A2
-                dc.b $A6
-                dc.b $AA
-                dc.b $AE
-                dc.b $13
-                dc.b $17
+                dc.w $A2A6
+                dc.w $AAAE
+				
+				;vdpSprite
+                dc.w $1317
                 dc.b $1B
                 dc.b $1F
-                dc.b $43
-                dc.b $47
-                dc.b $4B
-                dc.b $4F
-                dc.b $73
-                dc.b $77
+                dc.w $4347
+                dc.w $4B4F
+				
+				;vdpSprite
+                dc.w $7377
                 dc.b $7B
                 dc.b $7F
-                dc.b $A3
-                dc.b $A7
-                dc.b $AB
-                dc.b $AF
-                dc.b $20
-                dc.b $24
+                dc.w $A3A7
+                dc.w $ABAF
+				
+				;vdpSprite
+                dc.w $2024
                 dc.b $28
                 dc.b $2C
-                dc.b $50
-                dc.b $54
-                dc.b $58
-                dc.b $5C
-                dc.b $80
-                dc.b $84
+                dc.w $5054
+                dc.w $585C
+				
+				;vdpSprite
+                dc.w $8084
                 dc.b $88
                 dc.b $8C
-                dc.b $B0
-                dc.b $B4
-                dc.b $B8
-                dc.b $BC
-                dc.b $21
-                dc.b $25
+                dc.w $B0B4
+                dc.w $B8BC
+				
+				;vdpSprite
+                dc.w $2125
                 dc.b $29
                 dc.b $2D
-                dc.b $51
-                dc.b $55
-                dc.b $59
-                dc.b $5D
-                dc.b $81
-                dc.b $85
+                dc.w $5155
+                dc.w $595D
+				
+				;vdpSprite
+                dc.w $8185
                 dc.b $89
                 dc.b $8D
-                dc.b $B1
-                dc.b $B5
-                dc.b $B9
-                dc.b $BD
-                dc.b $22
-                dc.b $26
+                dc.w $B1B5
+                dc.w $B9BD
+				
+				;vdpSprite
+                dc.w $2226
                 dc.b $2A
                 dc.b $2E
-                dc.b $52
-                dc.b $56
-                dc.b $5A
-                dc.b $5E
-                dc.b $82
-                dc.b $86
+                dc.w $5256
+                dc.w $5A5E
+				
+				;vdpSprite
+                dc.w $8286
                 dc.b $8A
                 dc.b $8E
-                dc.b $B2
-                dc.b $B6
-                dc.b $BA
-                dc.b $BE
-                dc.b $23
-                dc.b $27
+                dc.w $B2B6
+                dc.w $BABE
+				
+				;vdpSprite
+                dc.w $2327
                 dc.b $2B
                 dc.b $2F
-                dc.b $53
-                dc.b $57
-                dc.b $5B
-                dc.b $5F
-                dc.b $83
-                dc.b $87
+                dc.w $5357
+                dc.w $5B5F
+				
+				;vdpSprite
+                dc.w $8387
                 dc.b $8B
                 dc.b $8F
-                dc.b $B3
-                dc.b $B7
-                dc.b $BB
-                dc.b $BF
-table_1F776:    dc.w $8100
-                dc.w $8110
+                dc.w $B3B7
+                dc.w $BBBF
+				
+table_1F776:    ;vdpSprite
+				dc.w $8100
+                dc.b $81
+                dc.b $10
                 dc.w $8120
                 dc.w $8130
+				
+				;vdpSprite
                 dc.w $8140
-                dc.w $8150
+                dc.b $81
+                dc.b $50
                 dc.w $8160
                 dc.w $8170
+				
+				;vdpSprite
                 dc.w $8180
-                dc.w $8190
+                dc.b $81
+                dc.b $90
                 dc.w $81A0
                 dc.w $81B0
+				
+				;vdpSprite
                 dc.w $81C0
-                dc.w $81D0
+                dc.b $81
+                dc.b $D0
                 dc.w $81E0
                 dc.w $81F0
+				
+				;vdpSprite
                 dc.w $8200
-                dc.w $8210
+                dc.b $82
+                dc.b $10
                 dc.w $8520
                 dc.w $8530
+				
+				;vdpSprite
                 dc.w $8540
-                dc.w $8550
+                dc.b $85
+                dc.b $50
                 dc.w $8560
                 dc.w $8570
+				
+				;vdpSprite
                 dc.w $8580
-                dc.w $8590
+                dc.b $85
+                dc.b $90
                 dc.w $85A0
                 dc.w $85B0
+				
+				;vdpSprite
                 dc.w $85C0
-                dc.w $85D0
+                dc.b $85
+                dc.b $D0
                 dc.w $85E0
                 dc.w $85F0
+				
+				;vdpSprite
                 dc.w $86C0
-                dc.w $86D0
+                dc.b $86
+                dc.b $D0
                 dc.w $86E0
                 dc.w $86F0
-table_1F7BE:    dc.w $8100
-                dc.w $8110
+				
+table_1F7BE:    ;vdpSprite
+				dc.w $8100
+                dc.b $81
+                dc.b $10
                 dc.w $8190
                 dc.w $81A0
+				
+				;vdpSprite
                 dc.w $8120
-                dc.w $8130
+                dc.b $81
+                dc.b $30
                 dc.w $81B0
                 dc.w $81C0
+				
+				;vdpSprite
                 dc.w $8140
-                dc.w $8150
+                dc.b $81
+                dc.b $50
                 dc.w $81D0
                 dc.w $81E0
+				
+				;vdpSprite
                 dc.w $8160
-                dc.w $8170
+                dc.b $81
+                dc.b $70
                 dc.w $81F0
                 dc.w $8200
+				
+				;vdpSprite
                 dc.w 0
-                dc.w 0
+                dc.b 0
+                dc.b 0
                 dc.w $8520
                 dc.w $8530
+				
+				;vdpSprite
                 dc.w $85B0
-                dc.w $85C0
+                dc.b $85
+                dc.b $C0
                 dc.w $8540
                 dc.w $8550
+				
+				;vdpSprite
                 dc.w $85D0
-                dc.w $85E0
+                dc.b $85
+                dc.b $E0
                 dc.w $8560
                 dc.w $8570
+				
+				;vdpSprite
                 dc.w $85F0
-                dc.w $86C0
+                dc.b $86
+                dc.b $C0
                 dc.w $8580
                 dc.w $8590
+				
+				;vdpSprite
                 dc.w $86D0
-                dc.w $86E0
+                dc.b $86
+                dc.b $E0
                 dc.w 0
                 dc.w 0

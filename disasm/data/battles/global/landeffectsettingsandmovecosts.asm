@@ -241,3 +241,57 @@ table_LandEffectSettingsAndMovecosts:
                 landEffectAndMoveCost OBSTRUCTED
                 landEffectAndMoveCost OBSTRUCTED
                 
+; 15: 
+                landEffectAndMoveCost LE0|2		; 0: Low Sky
+                landEffectAndMoveCost LE0|2		; 1: Plains
+                landEffectAndMoveCost LE0|2		; 2: Path
+                landEffectAndMoveCost LE0|2		; 3: Grass
+                landEffectAndMoveCost LE0|2		; 4: Forest
+                landEffectAndMoveCost LE0|2		; 5: Hills
+                landEffectAndMoveCost LE0|2		; 6: Desert
+                landEffectAndMoveCost LE0|2		; 7: High Sky
+                landEffectAndMoveCost LE0|2		; 8: Water
+                landEffectAndMoveCost OBSTRUCTED	; 9: Deep Forest
+                landEffectAndMoveCost OBSTRUCTED	; 10: Ocean
+                landEffectAndMoveCost OBSTRUCTED	; 11: Marsh
+                landEffectAndMoveCost OBSTRUCTED	; 12: Mountain
+                landEffectAndMoveCost OBSTRUCTED	; 13: Darkness
+                landEffectAndMoveCost OBSTRUCTED	; 14: Object
+                landEffectAndMoveCost OBSTRUCTED	; 15: Border
+                
+; 15: 
+                landEffectAndMoveCost LE0|2		; 0: Low Sky
+                landEffectAndMoveCost LE0|2		; 1: Plains
+                landEffectAndMoveCost LE0|2		; 2: Path
+                landEffectAndMoveCost LE0|2		; 3: Grass
+                landEffectAndMoveCost LE0|2		; 4: Forest
+                landEffectAndMoveCost LE0|2		; 5: Hills
+                landEffectAndMoveCost LE0|2		; 6: Desert
+                landEffectAndMoveCost LE0|2		; 7: High Sky
+                landEffectAndMoveCost LE0|2		; 8: Water
+                landEffectAndMoveCost OBSTRUCTED	; 9: Deep Forest
+                landEffectAndMoveCost OBSTRUCTED	; 10: Ocean
+                landEffectAndMoveCost OBSTRUCTED	; 11: Marsh
+                landEffectAndMoveCost OBSTRUCTED	; 12: Mountain
+                landEffectAndMoveCost OBSTRUCTED	; 13: Darkness
+                landEffectAndMoveCost OBSTRUCTED	; 14: Object
+                landEffectAndMoveCost OBSTRUCTED	; 15: Border
+                
+; 15: 
+                landEffectAndMoveCost LE0|2		; 0: Low Sky
+                landEffectAndMoveCost LE0|2		; 1: Plains
+                landEffectAndMoveCost LE0|2		; 2: Path
+                landEffectAndMoveCost LE0|2		; 3: Grass
+                landEffectAndMoveCost LE0|2		; 4: Forest
+                landEffectAndMoveCost LE0|2		; 5: Hills
+                landEffectAndMoveCost LE0|2		; 6: Desert
+                landEffectAndMoveCost LE0|2		; 7: High Sky
+                landEffectAndMoveCost LE0|2		; 8: Water
+                landEffectAndMoveCost OBSTRUCTED	; 9: Deep Forest
+                landEffectAndMoveCost OBSTRUCTED	; 10: Ocean
+                landEffectAndMoveCost OBSTRUCTED	; 11: Marsh
+                landEffectAndMoveCost OBSTRUCTED	; 12: Mountain
+                landEffectAndMoveCost OBSTRUCTED	; 13: Darkness
+                landEffectAndMoveCost OBSTRUCTED	; 14: Object
+                landEffectAndMoveCost OBSTRUCTED	; 15: Border
+                

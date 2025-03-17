@@ -21,26 +21,6 @@ WaitDmaEnd:
 
 ; =============== S U B R O U T I N E =======================================
 
-; unused
-; 
-; VDP Reg Status -> d0.w
-
-
-GetVdpRegStatus:
-            if (VANILLA_BUILD=1)
-                movem.l a0,-(sp)
-                lea     (VDP_REG00_STATUS).l,a0
-                add.w   d0,d0
-                move.w  (a0,d0.w),d0
-                movem.l (sp)+,a0
-                rts
-            endif
-
-    ; End of function GetVdpRegStatus
-
-
-; =============== S U B R O U T I N E =======================================
-
 
 SetVdpReg:
                 
@@ -171,8 +151,6 @@ DisableDisplayAndInterrupts:
 
 
 ; =============== S U B R O U T I N E =======================================
-
-; unused
 
 
 ActivateVIntDmaQueueProcessing:

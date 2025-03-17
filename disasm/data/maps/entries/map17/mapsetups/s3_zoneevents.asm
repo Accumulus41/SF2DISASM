@@ -13,10 +13,10 @@ ms_map17_ZoneEvents:
 Map17_ZoneEvent0:
                 
                  
-                chkFlg  661             ; Set after prison scene, ending in Slade unlocking/Sarah accusing
+                chkFlg  FLAG_CASTLEGALAM3             ; Set after prison scene, ending in Slade unlocking/Sarah accusing
                 bne.s   return_52404
                 script  cs_52530
-                setFlg  661             ; Set after prison scene, ending in Slade unlocking/Sarah accusing
+                setFlg  FLAG_CASTLEGALAM3             ; Set after prison scene, ending in Slade unlocking/Sarah accusing
 return_52404:
                 
                 rts
@@ -30,11 +30,11 @@ return_52404:
 Map17_ZoneEvent1:
                 
                  
-                chkFlg  662             ; Set after you try to go upstairs, and Slade opens the secret tunnel
+                chkFlg  FLAG_CASTLEGALAM4             ; Set after you try to go upstairs, and Slade opens the secret tunnel
                 bne.s   byte_5241E      
                 script  cs_528D4
                 script  cs_528CA
-                setFlg  662             ; Set after you try to go upstairs, and Slade opens the secret tunnel
+                setFlg  FLAG_CASTLEGALAM4             ; Set after you try to go upstairs, and Slade opens the secret tunnel
                 bra.s   return_5242C
 byte_5241E:
                 
@@ -54,10 +54,10 @@ return_5242C:
 Map17_ZoneEvent2:
                 
                  
-                chkFlg  662             ; Set after you try to go upstairs, and Slade opens the secret tunnel
+                chkFlg  FLAG_CASTLEGALAM4             ; Set after you try to go upstairs, and Slade opens the secret tunnel
                 beq.s   return_5243E
                 script  cs_52938
-                setFlg  73              ; Slade is a follower
+                setFlg  FLAG_FOLLOWER_SLADE              ; Slade is a follower
 return_5243E:
                 
                 rts

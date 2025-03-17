@@ -17,10 +17,10 @@ ms_map20_EntityEvents:
 Map20_EntityEvent2:
                 
                  
-                chkFlg  256             ; TEMP FLAG #00
+                chkFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 bne.s   byte_537DA      
                 txt     570             ; "Legend regarding the{N}tower?  Mmmm, do I have{N}"
-                setFlg  256             ; TEMP FLAG #00
+                setFlg  FLAG_TEMP00             ; TEMP FLAG #00
 byte_537DA:
                 
                 txt     571             ; "to go to school again?{W1}"
@@ -95,10 +95,10 @@ Map20_EntityEvent5:
 Map20_EntityEvent6:
                 
                  
-                chkFlg  257             ; TEMP FLAG #01
+                chkFlg  FLAG_TEMP01             ; TEMP FLAG #01
                 bne.s   byte_53810      
                 script  cs_53816
-                setFlg  257             ; TEMP FLAG #01
+                setFlg  FLAG_TEMP01             ; TEMP FLAG #01
                 bra.s   Map20_DefaultEntityEvent
 byte_53810:
                 

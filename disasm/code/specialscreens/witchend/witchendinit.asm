@@ -21,11 +21,7 @@ WitchEnd:
                 trap    #VINT_FUNCTIONS
                 dc.w VINTS_REMOVE
                 dc.l VInt_WitchBlink
-            if (STANDARD_BUILD=1)
                 jmp     EndGame
-            else
-                jmp     j_EndGame
-            endif
 
     ; End of function WitchEnd
 

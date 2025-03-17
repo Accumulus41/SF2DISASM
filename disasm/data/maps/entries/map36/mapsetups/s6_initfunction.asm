@@ -8,7 +8,7 @@
 ms_map36_InitFunction:
                 
                  
-                chkFlg  22              ; Frayja joined
+                chkFlg  ALLY_FRAYJA              ; Frayja joined
                 beq.s   return_5DA26
                 move.w  #ALLY_FRAYJA,d0
                 jsr     MoveEntityOutOfMap

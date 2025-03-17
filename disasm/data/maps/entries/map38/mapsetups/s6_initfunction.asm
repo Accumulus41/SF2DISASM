@@ -8,22 +8,22 @@
 ms_map38_InitFunction:
                 
                  
-                chkFlg  921             ; Set after Zynk leaves you at the Galam Drawbridge (for Roft/Petro death scene)
+                chkFlg  FLAG_GALAM1             ; Set after Zynk leaves you at the Galam Drawbridge (for Roft/Petro death scene)
                 beq.s   byte_5DD78      
-                setFlg  911             ; Set after the Petro death scene in Roft
-                chkFlg  26              ; Zynk joined
+                setFlg  FLAG_ROFT2             ; Set after the Petro death scene in Roft
+                chkFlg  ALLY_ZYNK              ; Zynk joined
                 bne.s   byte_5DD78      
-                chkFlg  260             ; TEMP FLAG #04
+                chkFlg  FLAG_TEMP04             ; TEMP FLAG #04
                 bne.s   byte_5DD78      
                 script  cs_5DD8E
-                setFlg  260             ; TEMP FLAG #04
+                setFlg  FLAG_TEMP04             ; TEMP FLAG #04
 byte_5DD78:
                 
-                chkFlg  910             ; Set after the initial scene on entering Roft (where the guy thinks you're Galam)
+                chkFlg  FLAG_ROFT1             ; Set after the initial scene on entering Roft (where the guy thinks you're Galam)
                 bne.s   return_5DD8C
                 script  cs_5DD9C
-                setFlg  910             ; Set after the initial scene on entering Roft (where the guy thinks you're Galam)
-                setFlg  258             ; TEMP FLAG #02
+                setFlg  FLAG_ROFT1             ; Set after the initial scene on entering Roft (where the guy thinks you're Galam)
+                setFlg  FLAG_TEMP02             ; TEMP FLAG #02
 return_5DD8C:
                 
                 rts
@@ -39,7 +39,7 @@ cs_5DD9C:       setPos 128,14,26,DOWN
                 setPos ALLY_BOWIE,14,28,UP
                 setPos ALLY_PETER,13,29,UP
                 setPos FOLLOWER_B,14,29,UP
-                jumpIfFlagSet 76,cs_5DE22 ; Zynk is a follower
+                jumpIfFlagSet FLAG_FOLLOWER_ZYNK,cs_5DE22 ; Zynk is a follower
 cs_5DDC2:       playSound MUSIC_TOWN
                 fadeInB
                 setCameraEntity 128

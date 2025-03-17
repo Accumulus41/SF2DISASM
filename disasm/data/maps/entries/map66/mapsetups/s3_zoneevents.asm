@@ -13,11 +13,11 @@ ms_map66_ZoneEvents:
 Map66_ZoneEvent0:
                 
                  
-                chkFlg  537             ; Battle 37 completed - BATTLE_VERSUS_RED_BARON            
+                chkFlg  FLAG_BATTLE37_COMPLETE             ; Battle 37 completed - BATTLE_VERSUS_RED_BARON            
                 beq.s   return_4FAB8
-                chkFlg  538             ; Battle 38 completed - BATTLE_VERSUS_GESHP                
+                chkFlg  FLAG_BATTLE38_COMPLETE             ; Battle 38 completed - BATTLE_VERSUS_GESHP                
                 bne.s   return_4FAB8
-                setFlg  438             ; Battle 38 unlocked - BATTLE_VERSUS_GESHP              
+                setFlg  FLAG_BATTLE38_AVAILABLE             ; Battle 38 unlocked - BATTLE_VERSUS_GESHP              
                 move.l  #MAP_EVENT_RELOADMAP,((MAP_EVENT_TYPE-$1000000)).w
 return_4FAB8:
                 
@@ -32,11 +32,11 @@ return_4FAB8:
 Map66_ZoneEvent2:
                 
                  
-                chkFlg  538             ; Battle 38 completed - BATTLE_VERSUS_GESHP                
+                chkFlg  FLAG_BATTLE38_COMPLETE             ; Battle 38 completed - BATTLE_VERSUS_GESHP                
                 beq.s   return_4FAD2
-                chkFlg  539             ; Battle 39 completed - BATTLE_TO_ANCIENT_SHRINE           
+                chkFlg  FLAG_BATTLE39_COMPLETE             ; Battle 39 completed - BATTLE_TO_ANCIENT_SHRINE           
                 bne.s   return_4FAD2
-                setFlg  439             ; Battle 39 unlocked - BATTLE_TO_ANCIENT_SHRINE         
+                setFlg  FLAG_BATTLE39_AVAILABLE             ; Battle 39 unlocked - BATTLE_TO_ANCIENT_SHRINE         
                 move.l  #MAP_EVENT_RELOADMAP,((MAP_EVENT_TYPE-$1000000)).w
 return_4FAD2:
                 

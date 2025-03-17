@@ -11,7 +11,3 @@ p_BoltAnimData_A:
                 dc.l BoltAnimData_A
 p_BoltAnimData_B:
                 dc.l BoltAnimData_B
-p_pt_AllyAnimations:
-                dc.l pt_AllyAnimations
-p_pt_EnemyAnimations:
-                dc.l pt_EnemyAnimations

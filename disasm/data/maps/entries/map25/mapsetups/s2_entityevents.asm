@@ -83,7 +83,7 @@ Map25_EntityEvent4:
 Map25_EntityEvent5:
                 
                  
-                chkFlg  800             ; Set after the merchant in Ketto runs to his store
+                chkFlg  FLAG_KETTO1             ; Set after the merchant in Ketto runs to his store
                 bne.s   loc_5D2C4
                 getSavedByte MESSAGE_SPEED, d0
                 movem.l d0,-(sp)
@@ -97,13 +97,13 @@ Map25_EntityEvent5:
                 txt     1969            ; "Do you want to buy one?{N}Oh, you do?!  OK, come to my{N}shop!{W1}"
                 movem.l (sp)+,d0
                 setSavedByte d0, MESSAGE_SPEED
-                setFlg  800             ; Set after the merchant in Ketto runs to his store
+                setFlg  FLAG_KETTO1             ; Set after the merchant in Ketto runs to his store
                 script  cs_5D3B8
                 bra.s   return_5D2D0
 loc_5D2C4:
                 
                 move.b  #SHOP_WEAPON_KETTO,((CURRENT_SHOP_INDEX-$1000000)).w
-                jsr     j_ShopMenu
+                jsr     ShopMenu
 return_5D2D0:
                 
                 rts
@@ -117,13 +117,13 @@ return_5D2D0:
 Map25_EntityEvent6:
                 
                  
-                chkFlg  256             ; TEMP FLAG #00
+                chkFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 bne.s   loc_5D2E0
                 txt     1971            ; "Sorry, I can't open my{N}church for you.{N}Please understand.{W1}"
-                setFlg  256             ; TEMP FLAG #00
+                setFlg  FLAG_TEMP00             ; TEMP FLAG #00
 loc_5D2E0:
                 
-                jsr     j_ChurchMenu
+                jsr     ChurchMenu
                 rts
 
     ; End of function Map25_EntityEvent6
@@ -145,12 +145,12 @@ nullsub_5D2E8:
 Map25_EntityEvent7:
                 
                  
-                chkFlg  800             ; Set after the merchant in Ketto runs to his store
+                chkFlg  FLAG_KETTO1             ; Set after the merchant in Ketto runs to his store
                 bne.s   loc_5D32A
-                chkFlg  257             ; TEMP FLAG #01
+                chkFlg  FLAG_TEMP01             ; TEMP FLAG #01
                 bne.s   byte_5D324      
                 txt     1972            ; "Hey, listen to me.{W1}"
-                jsr     j_YesNoPrompt
+                jsr     YesNoPrompt
                 clsTxt
                 tst.w   d0
                 bne.s   byte_5D316      
@@ -164,7 +164,7 @@ byte_5D316:
                 txt     1977            ; "I don't want to bother you.{W1}"
 byte_5D31E:
                 
-                setFlg  257             ; TEMP FLAG #01
+                setFlg  FLAG_TEMP01             ; TEMP FLAG #01
                 bra.s   loc_5D328
 byte_5D324:
                 
@@ -175,7 +175,7 @@ loc_5D328:
 loc_5D32A:
                 
                 move.b  #SHOP_ITEM_KETTO,((CURRENT_SHOP_INDEX-$1000000)).w
-                jsr     j_ShopMenu
+                jsr     ShopMenu
 return_5D336:
                 
                 rts

@@ -53,10 +53,10 @@ Map20_1F5_EntityEvent2:
 Map20_1F5_EntityEvent3:
                 
                  
-                chkFlg  259             ; TEMP FLAG #03
+                chkFlg  FLAG_TEMP03             ; TEMP FLAG #03
                 bne.s   byte_53872      
                 txt     593             ; "I saw a devil enter the{N}King's body...{W2}"
-                setFlg  259             ; TEMP FLAG #03
+                setFlg  FLAG_TEMP03             ; TEMP FLAG #03
 byte_53872:
                 
                 txt     594             ; "and the King became{N}violent!{W1}"
@@ -71,10 +71,10 @@ byte_53872:
 Map20_1F5_EntityEvent4:
                 
                  
-                chkFlg  260             ; TEMP FLAG #04
+                chkFlg  FLAG_TEMP04             ; TEMP FLAG #04
                 bne.s   byte_53886      
                 txt     595             ; "Hurry to the Princess's{N}bedroom!  Hold the King{N}down!{W1}"
-                setFlg  260             ; TEMP FLAG #04
+                setFlg  FLAG_TEMP04             ; TEMP FLAG #04
 byte_53886:
                 
                 txt     596             ; "The King knocked down{N}the Princess....{W1}"
@@ -89,10 +89,10 @@ byte_53886:
 Map20_1F5_EntityEvent5:
                 
                  
-                chkFlg  261             ; TEMP FLAG #05
+                chkFlg  FLAG_TEMP05             ; TEMP FLAG #05
                 bne.s   byte_5389A      
                 txt     588             ; "Ooo, ouch!{N}I didn't think he could{N}be so strong!{W2}"
-                setFlg  261             ; TEMP FLAG #05
+                setFlg  FLAG_TEMP05             ; TEMP FLAG #05
 byte_5389A:
                 
                 txt     589             ; "Ouch!  I was knocked down!{W1}"
@@ -107,10 +107,10 @@ byte_5389A:
 Map20_1F5_EntityEvent6:
                 
                  
-                chkFlg  262             ; TEMP FLAG #06
+                chkFlg  FLAG_TEMP06             ; TEMP FLAG #06
                 bne.s   byte_538AE      
                 txt     590             ; "Princess Elis!{N}I can't let you up there.{W2}"
-                setFlg  262             ; TEMP FLAG #06
+                setFlg  FLAG_TEMP06             ; TEMP FLAG #06
 byte_538AE:
                 
                 txt     591             ; "Trust Sir Astral!{N}He knows how to cure{N}the King!{W1}"

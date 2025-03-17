@@ -400,7 +400,6 @@ loc_DD0A:
 
 BuildAiMoveString:
                 
-                module
                 movem.l d0-d6/a0-a5,-(sp)
                 bsr.w   alt_BuildCancelMoveString
                 lea     ((BATTLE_ENTITY_MOVE_STRING-$1000000)).w,a1
@@ -413,49 +412,34 @@ BuildAiMoveString:
                 
                 move.w  d0,d2
                 lsr.w   #1,d2
-                bcc.s   loc_DD30
+                bcc.s   @loc_DD30
                 addq.w  #1,d2
-loc_DD30:
+@loc_DD30:
                 
                 subq.w  #1,d2
                 suba.w  #1,a0
-loc_DD36:
+@loc_DD36:
                 
                 move.b  (a0),d0
                 move.b  (a1),d1
                 eori.b  #2,d1
                 move.b  d1,(a0)
                 cmpa.w  a0,a1
-                bne.s   loc_DD48
+                bne.s   @loc_DD48
                 bra.w   @Done
-loc_DD48:
+@loc_DD48:
                 
                 eori.b  #2,d0
                 move.b  d0,(a1)
                 suba.w  #1,a0
                 adda.w  #1,a1
-                dbf     d2,loc_DD36
+                dbf     d2,@loc_DD36
 @Done:
                 
                 movem.l (sp)+,d0-d6/a0-a5
                 rts
 
     ; End of function BuildAiMoveString
-
-                modend
-
-; =============== S U B R O U T I N E =======================================
-
-; unused
-
-
-AddAllToStack:
-                
-                movem.l d0-a5,-(sp)
-                movem.l (sp)+,d0-a5
-                rts
-
-    ; End of function AddAllToStack
 
 
 ; =============== S U B R O U T I N E =======================================

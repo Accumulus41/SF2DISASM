@@ -13,9 +13,9 @@ cs_4FFDA:       textCursor 3341
                 setActscriptWait 128,eas_DeactivateAutoFacing
                 setActscriptWait 129,eas_DeactivateAutoFacing
                 setCamDest 21,33
-                setDest 32798,27,39
-                setDest 32799,28,37
-                setDest 32775,25,37
+                setDest (FOLLOWER_A+$8000),27,39
+                setDest (FOLLOWER_B+$8000),28,37
+                setDest (ALLY_PETER+$8000),25,37
                 setDest ALLY_BOWIE,26,37
                 csWait 60
                 setPos 128,27,36,LEFT
@@ -137,16 +137,16 @@ cs_4FFDA:       textCursor 3341
                 followEntity FOLLOWER_A,ALLY_BOWIE,2
                 followEntity ALLY_PETER,FOLLOWER_A,1
                 followEntity FOLLOWER_B,FOLLOWER_A,3
-                setStoryFlag 25         ; Battle 25 unlocked - BATTLE_NORTH_CAVE                
+                setF FLAG_BATTLE25_AVAILABLE        ; Battle 25 unlocked - BATTLE_NORTH_CAVE                
                 csc_end
 cs_5023E:       textCursor 3357
                 setActscriptWait ALLY_PETER,eas_Init
                 setActscriptWait FOLLOWER_B,eas_Init
                 setActscriptWait FOLLOWER_A,eas_Init
                 setCamDest 21,33
-                setDest 32798,27,39
-                setDest 32799,28,37
-                setDest 32775,25,37
+                setDest (FOLLOWER_A+$8000),27,39
+                setDest (FOLLOWER_B+$8000),28,37
+                setDest (ALLY_PETER+$8000),25,37
                 setDest ALLY_BOWIE,26,37
                 waitIdle FOLLOWER_A
                 waitIdle FOLLOWER_B

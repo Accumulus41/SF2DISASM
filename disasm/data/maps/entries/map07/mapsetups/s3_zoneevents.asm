@@ -15,30 +15,28 @@ ms_map7_ZoneEvents:
 Map7_ZoneEvent0:
                 
                  
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   byte_557D8      
-                chkFlg  701             ; Set after the scene with Peter and the kids in New Granseal
+                chkFlg  FLAG_NEWGRANS1             ; Set after the scene with Peter and the kids in New Granseal
                 beq.s   loc_557D6
-                chkFlg  702             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
+                chkFlg  FLAG_NEWGRANS2             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
                 bne.s   loc_557D6
                 script  cs_55A36
-            if (STANDARD_BUILD&FIX_GOLD_GIFT=1)
-                move.w  #GOLD_GIFT,d1
-                ext.l   d1
-                jsr     IncreaseGold
-            endif
-                setFlg  702             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
-                setFlg  67              ; Peter is a follower
+                jsr     GetGold
+                addi.l  #GOLD_GIFT,d1
+                jsr     SetGold
+                setFlg  FLAG_NEWGRANS2             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
+                setFlg  FLAG_FOLLOWER_PETER              ; Peter is a follower
 loc_557D6:
                 
                 bra.s   Map7_DefaultZoneEvent
 byte_557D8:
                 
-                chkFlg  805             ; Set after coming back to New Granseal after Creed's Mansion,when Astral joins
+                chkFlg  FLAG_CASTLENEWGRANS2             ; Set after coming back to New Granseal after Creed's Mansion,when Astral joins
                 bne.s   Map7_DefaultZoneEvent
                 script  cs_55BEE
-                setFlg  805             ; Set after coming back to New Granseal after Creed's Mansion,when Astral joins
-                setFlg  70              ; Astral is a follower
+                setFlg  FLAG_CASTLENEWGRANS2             ; Set after coming back to New Granseal after Creed's Mansion,when Astral joins
+                setFlg  FLAG_FOLLOWER_ASTRAL              ; Astral is a follower
 Map7_DefaultZoneEvent:
                 
                 rts

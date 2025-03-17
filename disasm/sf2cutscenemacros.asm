@@ -200,9 +200,9 @@ csc13: macro
     dc.w \1
     endm
     
-setStoryFlag: macro ;alias
-    csc13 \1
-    endm
+;setStoryFlag: macro ;alias
+;    csc13 \1
+;    endm
     
 csc14: macro
     dc.w $14
@@ -436,21 +436,12 @@ shiver: macro ;alias
     endm    
     
 csc2B: macro
-    if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
     dc.w $2B
     dc.w \1
     dc.b \2
     dc.b \3
     dc.w \4
     dc.w \5
-    else
-    dc.w $2B
-    dc.w \1
-    dc.b \2
-    dc.b \3
-    dc.b \4
-    dc.b \5
-    endc
     endm    
     
 newEntity: macro ;alias
@@ -909,6 +900,7 @@ cscNop: macro
 
 csc_end: macro
     dc.w $FFFF
+	align
     endm
 
 
@@ -921,27 +913,19 @@ mainEntity: macro
     endm
 
 entity: macro
-    if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
     dc.b \1
     dc.b \2
     dc.w \3
     dc.w \4
     dc.l \5
-    else
-    dc.b \1
-    dc.b \2
-    dc.b \3
-    dc.b \4
-    dc.l \5
-    endc
     endm
     
 cscEntitiesEnd: macro
     dc.w $FFFF
+	align
     endm
     
 entityRandomWalk: macro
-    if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
     dc.b \1
     dc.b \2
     dc.w \3
@@ -950,16 +934,6 @@ entityRandomWalk: macro
     dc.b \5
     dc.b \6
     dc.b \7
-    else
-    dc.b \1
-    dc.b \2
-    dc.b \3
-    dc.b \4
-    dc.b $FF
-    dc.b \5
-    dc.b \6
-    dc.b \7
-    endc
     endm    
     
     

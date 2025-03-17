@@ -29,10 +29,10 @@ Map20_261_EntityEvent0:
 Map20_261_EntityEvent1:
                 
                  
-                chkFlg  257             ; TEMP FLAG #01
+                chkFlg  FLAG_TEMP01             ; TEMP FLAG #01
                 bne.s   byte_538E8      
                 txt     601             ; "Thank you, {LEADER}.{N}You've saved the King's{N}life.{W2}{N}I heard that you are going{N}to Yeel.{W2}{N}I'll take care of Sir Astral{N}for you.{W2}"
-                setFlg  257             ; TEMP FLAG #01
+                setFlg  FLAG_TEMP01             ; TEMP FLAG #01
 byte_538E8:
                 
                 txt     602             ; "Please be careful.{W1}"
@@ -47,10 +47,10 @@ byte_538E8:
 Map20_261_EntityEvent2:
                 
                  
-                chkFlg  258             ; TEMP FLAG #02
+                chkFlg  FLAG_TEMP02             ; TEMP FLAG #02
                 bne.s   byte_538FC      
                 txt     603             ; "Are you going to see{N}Mr. Hawel?{W2}"
-                setFlg  258             ; TEMP FLAG #02
+                setFlg  FLAG_TEMP02             ; TEMP FLAG #02
 byte_538FC:
                 
                 txt     604             ; "I wouldn't let you go alone{N}if I weren't...{W2}{N}I trust you, son.{W1}"
@@ -65,10 +65,10 @@ byte_538FC:
 Map20_261_EntityEvent4:
                 
                  
-                chkFlg  260             ; TEMP FLAG #04
+                chkFlg  FLAG_TEMP04             ; TEMP FLAG #04
                 bne.s   byte_53910      
                 txt     605             ; "Princess Elis has not rested{N}since the King collapsed.{W2}"
-                setFlg  260             ; TEMP FLAG #04
+                setFlg  FLAG_TEMP04             ; TEMP FLAG #04
 byte_53910:
                 
                 txt     606             ; "I understand her reasoning,{N}but she might get sick, too.{W1}"

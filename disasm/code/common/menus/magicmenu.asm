@@ -1,6 +1,6 @@
 
 ; ASM FILE code\common\menus\magicmenu.asm :
-; 0x10A4A..0x10E1C : Battlefield magic menu actions
+; 0x10A4A..0x10E1C : Magic menu actions
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -14,7 +14,7 @@ animationDirection = -10
 subroutineAddress = -8
 menuIndex = -4
 
-ExecuteBattlefieldMagicMenu:
+ExecuteMagicMenu:
                 
                 addq.b  #1,((WINDOW_IS_PRESENT-$1000000)).w
                 link    a6,#65524
@@ -191,7 +191,7 @@ loc_10C02:
                 subq.b  #1,((WINDOW_IS_PRESENT-$1000000)).w
                 rts
 
-    ; End of function ExecuteBattlefieldMagicMenu
+    ; End of function ExecuteMagicMenu
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -217,7 +217,7 @@ BuildMagicMenu:
                 move.w  (a0,d0.w),d1
                 move.w  d1,((TEMP_ITEM_OR_SPELL-$1000000)).w
                 move.w  d1,-(sp)
-                jsr     j_GetSpellName
+                jsr     FindSpellName
                 move.w  windowSlot(a6),d0
                 move.w  #MENU_MAGIC_SPELL_NAME_COORDS,d1
                 jsr     (GetWindowTileAddress).w
@@ -236,22 +236,12 @@ BuildMagicMenu:
                 lsr.w   #NIBBLE_SHIFT_COUNT,d1
                 adda.w  d1,a0
                 moveq   #12,d7
-                jsr     (CopyBytes).w   
-            if (STANDARD_BUILD=1)
+                jsr     (CopyBytes).w
                 move.w  (sp)+,d1
                 jsr     GetSpellCost
                 move.w  d1,d0
                 moveq   #3,d7
-                adda.w  #MENU_MAGIC_OFFSET_MP_COST,a1
-            else
-                move.w  windowSlot(a6),d0
-                move.w  #MENU_MAGIC_MP_COST_COORDS,d1
-                jsr     (GetWindowTileAddress).w
-                move.w  (sp)+,d1
-                jsr     j_GetSpellCost
-                move.w  d1,d0
-                moveq   #3,d7
-            endif
+				adda.w  #MENU_MAGIC_OFFSET_MP_COST,a1
                 bsr.w   WriteTilesFromNumber
                 rts
 
@@ -380,7 +370,7 @@ sub_10D56:
                 andi.w  #SPELLENTRY_MASK_INDEX,d1
                 or.w    d5,d1
                 move.w  d1,((TEMP_ITEM_OR_SPELL-$1000000)).w
-                jsr     j_GetSpellCost
+                jsr     GetSpellCost
                 move.w  d1,d0
                 moveq   #3,d7
                 adda.w  #MENU_MAGIC_OFFSET_MP_COST,a1
@@ -395,14 +385,14 @@ loc_10DAE:
                 move.w  #$8080,d1
                 jsr     (SetWindowDestination).w
                 movem.w (sp)+,d0-d5
-                moveq   #19,d6
+                moveq   #$13,d6
 loc_10DC0:
                 
-                bsr.w   LoadSpellLevelHighlightSprites
+                bsr.w   sub_10DE2
                 jsr     (WaitForVInt).w
                 subq.w  #1,d6
                 bne.s   loc_10DCE
-                moveq   #20,d6
+                moveq   #$14,d6
 loc_10DCE:
                 
                 bra.w   loc_10CF4
@@ -427,10 +417,8 @@ sprite_SpellLevelHighlight:
 
 ; =============== S U B R O U T I N E =======================================
 
-; In: d6.w = blinking frame timer
 
-
-LoadSpellLevelHighlightSprites:
+sub_10DE2:
                 
                 lea     (SPRITE_BATTLE_CURSOR).l,a1
                 lea     sprite_SpellLevelHighlight(pc), a0
@@ -438,21 +426,19 @@ LoadSpellLevelHighlightSprites:
                 move.l  (a0)+,(a1)+
                 move.l  (a0)+,(a1)+
                 move.l  (a0)+,(a1)+
-                cmpi.w  #10,d6
-                bge.s   @loc_1
-                
-                move.w  #1,-16(a1)
+                cmpi.w  #$A,d6
+                bge.s   loc_10E06
+                move.w  #1,-$10(a1)
                 move.w  #1,-8(a1)
-@loc_1:
+loc_10E06:
                 
                 tst.b   ((HIDE_WINDOWS_TOGGLE-$1000000)).w
-                beq.s   @loc_2
-                
-                move.w  #1,-16(a1)
+                beq.s   loc_10E18
+                move.w  #1,-$10(a1)
                 move.w  #1,-8(a1)
-@loc_2:
+loc_10E18:
                 
-                bra.w   LinkHighlightSprites
+                bra.w   sub_101E6
 
-    ; End of function LoadSpellLevelHighlightSprites
+    ; End of function sub_10DE2
 

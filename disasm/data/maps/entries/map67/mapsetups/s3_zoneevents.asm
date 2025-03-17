@@ -15,7 +15,7 @@ ms_map67_ZoneEvents:
 Map67_ZoneEvent1:
                 
                  
-                chkFlg  520             ; Battle 20 completed - BATTLE_HARPIES_POND                
+                chkFlg  FLAG_BATTLE20_COMPLETE             ; Battle 20 completed - BATTLE_HARPIES_POND                
                 bne.s   return_4FB30
                 script  cs_4FB64
 return_4FB30:
@@ -31,16 +31,16 @@ return_4FB30:
 Map67_ZoneEvent0:
                 
                  
-                chkFlg  751             ; Set after Elric opens the passage to Devil's Tail
+                chkFlg  FLAG_MAPDEVILSTAIL1             ; Set after Elric opens the passage to Devil's Tail
                 bne.s   return_4FB56
                 chkFlg  13              ; Elric joined
                 beq.s   return_4FB56
                 move.w  #$D,d0
-                jsr     j_GetCurrentHp
+                jsr     GetCurrentHp
                 tst.w   d1
                 beq.s   return_4FB56
                 script  cs_4FC32
-                setFlg  751             ; Set after Elric opens the passage to Devil's Tail
+                setFlg  FLAG_MAPDEVILSTAIL1             ; Set after Elric opens the passage to Devil's Tail
 return_4FB56:
                 
                 rts

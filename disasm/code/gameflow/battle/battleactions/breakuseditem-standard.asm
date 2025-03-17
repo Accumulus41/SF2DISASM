@@ -14,7 +14,7 @@ battlesceneScript_BreakUsedItem:
                 
                 movem.l d0-d3/a0,-(sp)
                 move.w  ((BATTLESCENE_ITEM-$1000000)).w,d1  ; d1.w = item entry
-                bsr.w   GetItemDefinitionAddress
+                bsr.w   GetItemDefAddress
                 move.b  ITEMDEF_OFFSET_TYPE(a0),d2      ; d2.b = item type bitfield
                 btst    #ITEMTYPE_BIT_CONSUMABLE,d2
                 beq.s   @Continue                       ; continue if item is not a consumable
@@ -50,15 +50,6 @@ battlesceneScript_BreakUsedItem:
                 moveq   #1,d0
                 bsr.s   DisplayItemBreakMessage
 @RemoveItem:    bsr.w   RemoveItemBySlot
-            if (SEND_DESTROYED_ITEMS_TO_DEALS=1)
-                ; Add destroyed item to deals if rare and if not a consumable
-                btst    #ITEMTYPE_BIT_CONSUMABLE,d2
-                bne.s   @Done
-                btst    #ITEMTYPE_BIT_RARE,d2
-                beq.s   @Done
-                move.w  ((BATTLESCENE_ITEM-$1000000)).w,d1
-                bsr.w   AddItemToDeals
-            endif
 @Done:          movem.l (sp)+,d0-d3/a0
 @Return:        rts
 

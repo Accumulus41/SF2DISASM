@@ -116,7 +116,7 @@ cs_58FA4:       textCursor 2262
 cs_59122:       textCursor 2275
                 nextText $0,128         ; "Would you go to North{N}Cliff and check on his{N}friend?{D1}"
                 yesNo
-                jumpIfFlagSet 89,cs_59142 ; YES/NO prompt answer
+                jumpIfFlagSet FLAG_YESNO,cs_59142 ; YES/NO prompt answer
                 nextText $0,128         ; "What did you say?{N}I didn't hear you.{W2}"
                 nextText $0,128         ; "OK, once again!{W1}"
                 jump cs_59122
@@ -184,7 +184,7 @@ cs_59142:       textCursor 2278
                 nextSingleText $0,ALLY_SARAH ; "Are you leaving?{N}Say it isn't so!{W1}"
                 nextSingleText $0,ALLY_KAZIN ; "I think it's too dangerous{N}out there alone.{W1}"
                 nextText $0,131         ; "And...{W2}"
-                nextSingleText $0,131   ; "It would be safer if we came{N}along.  Let's go.{W1}"
+                nextSingleText $0,ALLY_JAHA   ; "It would be safer if we came{N}along.  Let's go.{W1}"
                 csWait 60
                 setCameraEntity 65535
                 entityActions 131
@@ -211,7 +211,7 @@ cs_59142:       textCursor 2278
                 entityActionsWait ALLY_KIWI
                  moveDown 7
                 endActions
-                setStoryFlag 8          ; Battle 8 unlocked - BATTLE_NORTH_CLIFF               
+                setF FLAG_BATTLE08_AVAILABLE   ; Battle 8 unlocked - BATTLE_NORTH_CLIFF               
                 warp MAP_OVERWORLD_NORTH_SOUTH_PARMECIA_JUNCTION,1,1,DOWN
                 csc_end
 ce_59270:       mainEntity 13,11,DOWN
@@ -228,4 +228,4 @@ ce_59270:       mainEntity 13,11,DOWN
                 entity 12,11,RIGHT,MAPSPRITE_OBJECT2,eas_InitFixedSprite
                 entity 13,11,DOWN,MAPSPRITE_OBJECT2,eas_InitFixedSprite
                 entity 14,11,LEFT,MAPSPRITE_OBJECT2,eas_InitFixedSprite
-                dc.w $FFFF
+                cscEntitiesEnd

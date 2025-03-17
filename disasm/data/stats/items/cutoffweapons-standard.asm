@@ -5,5 +5,14 @@
 table_CutOffWeapons:
                 
                 dc.b ITEM_GISARME
+				dc.b ITEM_ANGEL_WING
+				dc.b ITEM_ANGEL_WING
+				dc.b ITEM_ANGEL_WING
+				dc.b ITEM_ANGEL_WING
+				dc.b ITEM_ANGEL_WING
+				dc.b ITEM_ANGEL_WING
+				dc.b ITEM_ANGEL_WING
+				dc.b ITEM_ANGEL_WING
+				dc.b ITEM_ANGEL_WING
                 
                 tableEnd.b

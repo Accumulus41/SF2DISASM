@@ -21,7 +21,7 @@ Map59_21F_DefaultZoneEvent:
 Map59_21F_ZoneEvent0:
                 
                  
-                chkFlg  543             ; Battle 43 completed - BATTLE_VERSUS_ZEON                 
+                chkFlg  FLAG_BATTLE43_COMPLETE             ; Battle 43 completed - BATTLE_VERSUS_ZEON                 
                 beq.s   return_615CC
                 script  cs_62658
 return_615CC:

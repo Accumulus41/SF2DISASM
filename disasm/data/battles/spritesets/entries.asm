@@ -47,6 +47,25 @@ pt_BattleSpritesets:
                 dc.l BattleSpriteset42
                 dc.l BattleSpriteset43
                 dc.l BattleSpriteset44
+                dc.l BattleSpriteset45
+                dc.l BattleSpriteset46
+                dc.l BattleSpriteset47
+                dc.l BattleSpriteset48
+                dc.l BattleSpriteset49
+				dc.l BattleSpriteset50
+				dc.l BattleSpriteset51
+				dc.l BattleSpriteset52
+				dc.l BattleSpriteset53
+				dc.l BattleSpriteset54
+				dc.l BattleSpriteset55
+				dc.l BattleSpriteset56
+				dc.l BattleSpriteset57
+				dc.l BattleSpriteset58
+				dc.l BattleSpriteset59
+				dc.l BattleSpriteset60
+				dc.l BattleSpriteset61
+				dc.l BattleSpriteset62
+				dc.l BattleSpriteset63
                 include "data\battles\spritesets\spriteset00.asm"    ; Battle Spritesets 00
                 include "data\battles\spritesets\spriteset01.asm"    ; Battle Spritesets 01
                 include "data\battles\spritesets\spriteset02.asm"    ; Battle Spritesets 02
@@ -92,3 +111,22 @@ pt_BattleSpritesets:
                 include "data\battles\spritesets\spriteset42.asm"    ; Battle Spritesets 42
                 include "data\battles\spritesets\spriteset43.asm"    ; Battle Spritesets 43
                 include "data\battles\spritesets\spriteset44.asm"    ; Battle Spritesets 44
+                include "data\battles\spritesets\spriteset45.asm"    ; Battle Spritesets 45
+                include "data\battles\spritesets\spriteset46.asm"    ; Battle Spritesets 46
+                include "data\battles\spritesets\spriteset47.asm"    ; Battle Spritesets 47
+                include "data\battles\spritesets\spriteset48.asm"    ; Battle Spritesets 48
+                include "data\battles\spritesets\spriteset49.asm"    ; Battle Spritesets 49
+                include "data\battles\spritesets\spriteset50.asm"
+                include "data\battles\spritesets\spriteset51.asm"
+                include "data\battles\spritesets\spriteset52.asm"
+                include "data\battles\spritesets\spriteset53.asm"
+                include "data\battles\spritesets\spriteset54.asm"
+                include "data\battles\spritesets\spriteset55.asm"
+                include "data\battles\spritesets\spriteset56.asm"
+                include "data\battles\spritesets\spriteset57.asm"
+                include "data\battles\spritesets\spriteset58.asm"
+                include "data\battles\spritesets\spriteset59.asm"
+                include "data\battles\spritesets\spriteset60.asm"
+                include "data\battles\spritesets\spriteset61.asm"
+                include "data\battles\spritesets\spriteset62.asm"
+                include "data\battles\spritesets\spriteset63.asm"

@@ -346,7 +346,7 @@ cs_585FE:       playSound $FD
                 endActions
                 nextText $0,128         ; "You still dare to resist us?!{W2}"
                 nextSingleText $0,128   ; "For that you shall die!!{W1}"
-                setStoryFlag 13         ; Battle 13 unlocked - BATTLE_POLCA_VILLAGE             
+                setF FLAG_BATTLE13_AVAILABLE         ; Battle 13 unlocked - BATTLE_POLCA_VILLAGE             
                 warp MAP_POLCA,0,0,RIGHT
                 csc_end
 cs_58856:       textCursor 1487
@@ -536,7 +536,7 @@ cs_58AE2:       textCursor 1517
                 nextText $80,ALLY_PETER ; "{LEADER}, will you take{N}"
                 nextText $80,ALLY_PETER ; "him with us?{W1}"
                 yesNo
-                jumpIfFlagSet 89,cs_58B7A ; YES/NO prompt answer
+                jumpIfFlagSet FLAG_YESNO,cs_58B7A ; YES/NO prompt answer
                 nextText $0,ALLY_PETER  ; "I agree.  Our journey will{N}be too difficult on him,{N}as he is blind.{W2}"
                 csWait 30
                 setFacing ALLY_BOWIE,UP
@@ -598,7 +598,7 @@ cs_58BEA:       textCursor 1541
                 nextText $80,ALLY_PETER ; "{LEADER}, will you take{N}"
                 nextText $80,ALLY_PETER ; "him with us?{W1}"
                 yesNo
-                jumpIfFlagSet 89,cs_58D4C ; YES/NO prompt answer
+                jumpIfFlagSet FLAG_YESNO,cs_58D4C ; YES/NO prompt answer
                 textCursor 1543
                 hideText
                 nextSingleText $0,140   ; "Huh?{W1}"
@@ -721,7 +721,7 @@ cs_58DD2:       textCursor 1536
                 followEntity ALLY_PETER,ALLY_BOWIE,2
                 followEntity 140,ALLY_PETER,2
                 followEntity ALLY_LUKE,140,2
-                setF 68                 ; Oddler is a follower
-                clearF 75               ; Luke is a follower
-                setF 718                ; Set after Oddler runs after you as you leave Polca, and tags along
+                setF FLAG_FOLLOWER_ODDLER                 ; Oddler is a follower
+                clearF FLAG_FOLLOWER_LUKE               ; Luke is a follower
+                setF FLAG_POLCA6                ; Set after Oddler runs after you as you leave Polca, and tags along
                 csc_end

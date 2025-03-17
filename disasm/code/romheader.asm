@@ -7,7 +7,7 @@ InitialStack:   ; File Name   : D:\SEGADEV\IDB\SF2\sf2.bin
                 dc.l InitialStack       ; Initial Stack Pointer Address
 p_Start:        dc.l Start              ; Program Start Address
                 dc.l Int_OtherError     ; Bus Error
-                dc.l Int_AddressError   ; Address Error
+off_C:          dc.l Int_AddressError   ; Address Error
                 dc.l Int_IllegalInstruction ; Illegal instruction
                 dc.l Int_ZeroDivide     ; Zero Divide
                 dc.l Int_OtherError     ; CHK instruction
@@ -83,8 +83,8 @@ aJ:             dc.b 'J               '
 RomEndAddress:  declareRomEnd           ; ROM End Address
                 dc.l $FF0000            ; RAM Start Address
                 dc.l $FFFFFF            ; RAM End Address
-                dc.l $5241F820          ; SRAM data
-                dc.l $200001            ; SRAM Start Address
+                dc.b 'RA',$E0,$20       ; SRAM data
+                dc.l $200000            ; SRAM Start Address
                 declareSramEnd          ; SRAM End Address
                 dc.b '            '     ; Modem data
                 dc.b '                    ' ; Memo

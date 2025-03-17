@@ -76,7 +76,7 @@ cs_5E0F8:       textCursor 2053
 cs_5E20A:       textCursor 2073
                 nextSingleText $0,ALLY_ZYNK ; "I happened to overhear your{N}conversation with {NAME;24}.{W2}"
                 nextSingleText $0,ALLY_ZYNK ; "I want to go to Grans, too.{W1}"
-                nextSingleText $0,128   ; "They decide to take the{N}ancient soldier {NAME;26}{N}with them.{W1}"
+                nextSingleText $FF,255   ; "They decide to take the{N}ancient soldier {NAME;26}{N}with them.{W1}"
                 setFacing ALLY_ZYNK,DOWN
                 shiver ALLY_ZYNK
                 nextSingleText $0,ALLY_ZYNK ; "There is no time to waste!{W1}"

@@ -8,12 +8,12 @@
 ms_map30_InitFunction:
                 
                  
-                chkFlg  761             ; Set after the dwarf gives Bowie the cannon
+                chkFlg  FLAG_DWARVENMINE3             ; Set after the dwarf gives Bowie the cannon
                 beq.s   byte_5A2FE      
                 script  cs_5A30C
 byte_5A2FE:
                 
-                chkFlg  760             ; Set after the fairy cures the sick dwarf in the mine
+                chkFlg  FLAG_DWARVENMINE2             ; Set after the fairy cures the sick dwarf in the mine
                 bne.s   return_5A30A
                 script  cs_5A31E
 return_5A30A:

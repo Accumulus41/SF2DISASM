@@ -152,47 +152,37 @@ loc_3690:
 ; =============== S U B R O U T I N E =======================================
 
 
-SetViewDestination:
+SetViewDest:
                 
                 movem.w d0-d7,-(sp)
-            if (VANILLA_BUILD=1)
-                bra.w   loc_36BE
-            endif
-
-    ; End of function SetViewDestination
-
-
-; =============== S U B R O U T I N E =======================================
-
-; unused
-
-
-sub_36B2:
-            if (VANILLA_BUILD=1)
-                movem.w d0-d7,-(sp)
-                lsl.w   #7,d0
-                lsl.w   #7,d1
-                lsl.w   #7,d2
-                lsl.w   #7,d3
-            endif
-loc_36BE:
                 
-                move.w  ((MAP_AREA_LAYER2_STARTX-$1000000)).w,d4
-                move.w  ((MAP_AREA_LAYER2_STARTY-$1000000)).w,d5
-                move.w  ((MAP_AREA_BACKGROUND_STARTX-$1000000)).w,d6
-                move.w  ((MAP_AREA_BACKGROUND_STARTY-$1000000)).w,d7
+                clr.w   d4
+                clr.w   d5
+                clr.w   d6
+                clr.w   d7
+                move.b  ((MAP_AREA_LAYER2_STARTX-$1000000)).w,d4
+                move.b  ((MAP_AREA_LAYER2_STARTY-$1000000)).w,d5
+                move.b  ((MAP_AREA_BACKGROUND_STARTX-$1000000)).w,d6
+                move.b  ((MAP_AREA_BACKGROUND_STARTY-$1000000)).w,d7
                 lsl.w   #7,d4
                 lsl.w   #7,d5
                 lsl.w   #7,d6
                 lsl.w   #7,d7
-                mulu.w  ((MAP_AREA_LAYER1_PARALLAX_X-$1000000)).w,d0
-                lsr.l   #BYTE_SHIFT_COUNT,d0
-                mulu.w  ((MAP_AREA_LAYER1_PARALLAX_Y-$1000000)).w,d1
-                lsr.l   #BYTE_SHIFT_COUNT,d1
-                mulu.w  ((MAP_AREA_LAYER2_PARALLAX_X-$1000000)).w,d2
-                lsr.l   #BYTE_SHIFT_COUNT,d2
-                mulu.w  ((MAP_AREA_LAYER2_PARALLAX_Y-$1000000)).w,d3
-                lsr.l   #BYTE_SHIFT_COUNT,d3
+                move.l  d7,-(sp)
+                clr.w   d7
+                move.b  ((MAP_AREA_LAYER1_PARALLAX_X-$1000000)).w,d7
+                mulu.w  d7,d0
+                lsr.l   #4,d0
+                move.b  ((MAP_AREA_LAYER1_PARALLAX_Y-$1000000)).w,d7
+                mulu.w  d7,d1
+                lsr.l   #4,d1
+                move.b  ((MAP_AREA_LAYER2_PARALLAX_X-$1000000)).w,d7
+                mulu.w  d7,d2
+                lsr.l   #4,d2
+                move.b  ((MAP_AREA_LAYER2_PARALLAX_Y-$1000000)).w,d7
+                mulu.w  d7,d3
+                lsr.l   #4,d3
+                move.l  (sp)+,d7
                 add.w   d4,d0
                 add.w   d5,d1
                 add.w   d6,d2

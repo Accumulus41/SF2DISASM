@@ -22,7 +22,7 @@ ms_map3_flag609_EntityEvents:
                 msEntityEvent 145, UP, Map3_261_EntityEvent17-ms_map3_flag609_EntityEvents
                 msEntityEvent 146, UP, Map3_261_EntityEvent18-ms_map3_flag609_EntityEvents
                 msEntityEvent 147, UP, Map3_261_EntityEvent19-ms_map3_flag609_EntityEvents
-                msEntityEvent ALLY_KIWI, UP, Map3_261_EntityEvent20-ms_map3_flag609_EntityEvents
+                msEntityEvent 6, UP, Map3_261_EntityEvent20-ms_map3_flag609_EntityEvents
                 msEntityEvent 148, DOWN, Map3_261_EntityEvent21-ms_map3_flag609_EntityEvents
                 msEntityEvent 149, DOWN, Map3_261_EntityEvent22-ms_map3_flag609_EntityEvents
                 msEntityEvent 150, UP, Map3_261_EntityEvent23-ms_map3_flag609_EntityEvents
@@ -37,10 +37,10 @@ ms_map3_flag609_EntityEvents:
 Map3_261_EntityEvent0:
                 
                  
-                chkFlg  256             ; TEMP FLAG #00
+                chkFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 bne.s   byte_510DA      
                 txt     627             ; "The castle guard said the{N}King chose you to lead a{N}mission.{N}{LEADER}, my dear,{W2}{N}I didn't know you were old{N}enough to work for the{N}King.{W1}"
-                setFlg  256             ; TEMP FLAG #00
+                setFlg  FLAG_TEMP00             ; TEMP FLAG #00
 byte_510DA:
                 
                 txt     628             ; "Good luck, {LEADER}.{N}Your father would have{N}been proud of you.{W1}"
@@ -55,10 +55,10 @@ byte_510DA:
 Map3_261_EntityEvent1:
                 
                  
-                chkFlg  257             ; TEMP FLAG #01
+                chkFlg  FLAG_TEMP01             ; TEMP FLAG #01
                 bne.s   byte_510EE      
                 txt     629             ; "I knew your father very{N}well.{N}He was a great leader.{W2}"
-                setFlg  257             ; TEMP FLAG #01
+                setFlg  FLAG_TEMP01             ; TEMP FLAG #01
 byte_510EE:
                 
                 txt     630             ; "{LEADER}, you have to{N}study hard and be a fine{N}man like him.{W1}"
@@ -85,7 +85,7 @@ Map3_261_EntityEvent2:
 Map3_261_EntityEvent3:
                 
                 move.b  #SHOP_WEAPON_GRANSEAL,((CURRENT_SHOP_INDEX-$1000000)).w
-                jsr     j_ShopMenu
+                jsr     ShopMenu
                 rts
 
     ; End of function Map3_261_EntityEvent3
@@ -290,7 +290,7 @@ Map3_261_EntityEvent20:
 
 Map3_261_EntityEvent21:
                 
-                jsr     j_ChurchMenu
+                jsr     ChurchMenu
                 rts
 
     ; End of function Map3_261_EntityEvent21
@@ -314,10 +314,10 @@ Map3_261_EntityEvent22:
 Map3_261_EntityEvent23:
                 
                  
-                chkFlg  278             ; TEMP FLAG #16
+                chkFlg  FLAG_TEMP16             ; TEMP FLAG #16
                 bne.s   byte_5118E      
                 txt     651             ; "A pet shop has newly opened,{N}but Mom never lets me go?{N}Why?{W1}"
-                setFlg  278             ; TEMP FLAG #16
+                setFlg  FLAG_TEMP16             ; TEMP FLAG #16
                 bra.s   return_51192
 byte_5118E:
                 
@@ -335,10 +335,10 @@ return_51192:
 Map3_261_EntityEvent24:
                 
                  
-                chkFlg  279             ; TEMP FLAG #17
+                chkFlg  FLAG_TEMP17             ; TEMP FLAG #17
                 bne.s   byte_511A2      
                 txt     658             ; "Strangers from the mainland{N}opened a pet shop.{W2}"
-                setFlg  279             ; TEMP FLAG #17
+                setFlg  FLAG_TEMP17             ; TEMP FLAG #17
 byte_511A2:
                 
                 txt     659             ; "I don't think it's right{N}to hold animals captive.{W1}"
@@ -353,10 +353,10 @@ byte_511A2:
 Map3_261_EntityEvent25:
                 
                  
-                chkFlg  280             ; TEMP FLAG #18
+                chkFlg  FLAG_TEMP18             ; TEMP FLAG #18
                 bne.s   byte_511B6      
                 txt     660             ; "(Sniff, sniff)...have you{N}seen or smelt any sulfur?{W2}"
-                setFlg  280             ; TEMP FLAG #18
+                setFlg  FLAG_TEMP18             ; TEMP FLAG #18
 byte_511B6:
                 
                 txt     661             ; "I'm an inventor.{N}I'm looking for some sulfur.{W1}"
@@ -371,7 +371,7 @@ byte_511B6:
 Map3_261_EntityEvent26:
                 
                 move.b  #SHOP_ITEM_GRANSEAL,((CURRENT_SHOP_INDEX-$1000000)).w
-                jsr     j_ShopMenu
+                jsr     ShopMenu
                 rts
 
     ; End of function Map3_261_EntityEvent26

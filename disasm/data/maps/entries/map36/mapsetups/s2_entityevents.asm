@@ -2,7 +2,7 @@
 ; ASM FILE data\maps\entries\map36\mapsetups\s2_entityevents.asm :
 ; 0x5D84A..0x5D924 : 
 ms_map36_EntityEvents:
-                msEntityEvent ALLY_FRAYJA, UP, Map36_EntityEvent0-ms_map36_EntityEvents
+                msEntityEvent 22, UP, Map36_EntityEvent0-ms_map36_EntityEvents
                 msEntityEvent 128, UP, Map36_EntityEvent1-ms_map36_EntityEvents
                 msEntityEvent 129, UP, Map36_EntityEvent2-ms_map36_EntityEvents
                 msEntityEvent 130, UP, Map36_EntityEvent3-ms_map36_EntityEvents
@@ -71,12 +71,12 @@ Map36_EntityEvent3:
 Map36_EntityEvent4:
                 
                  
-                chkFlg  810             ; Set after speaking to a centaur at Pacalon castle (the one who moves and shivers)
+                chkFlg  FLAG_CASTLEPACALON1             ; Set after speaking to a centaur at Pacalon castle (the one who moves and shivers)
                 bne.s   byte_5D8B6      
                 txt     3286            ; "Devils are coming to town?{N}OK, I'll beat them up!{W1}"
                 clsTxt
                 script  cs_5DA7A
-                setFlg  810             ; Set after speaking to a centaur at Pacalon castle (the one who moves and shivers)
+                setFlg  FLAG_CASTLEPACALON1             ; Set after speaking to a centaur at Pacalon castle (the one who moves and shivers)
 byte_5D8B6:
                 
                 txt     3287            ; "Oh, I can't.  I'm too hungry!{W1}"
@@ -198,7 +198,7 @@ Map36_EntityEvent11:
 
 Map36_EntityEvent12:
                 
-                jsr     j_ChurchMenu
+                jsr     ChurchMenu
                 rts
 
     ; End of function Map36_EntityEvent12

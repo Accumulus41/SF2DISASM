@@ -21,11 +21,11 @@ Map11_DefaultZoneEvent:
 Map11_ZoneEvent0:
                 
                  
-                chkFlg  722             ; Set after speaking with Volcanon
+                chkFlg  FLAG_SHRINEVOLCANON1             ; Set after speaking with Volcanon
                 bne.s   return_57A86
                 script  cs_57AAA
-                setFlg  722             ; Set after speaking with Volcanon
-                setFlg  711             ; Set after you dislodge the turtle/fairy in Polca, also set after you speak to Volcanon
+                setFlg  FLAG_SHRINEVOLCANON1             ; Set after speaking with Volcanon
+                setFlg  FLAG_POLCA2             ; Set after you dislodge the turtle/fairy in Polca, also set after you speak to Volcanon
 return_57A86:
                 
                 rts

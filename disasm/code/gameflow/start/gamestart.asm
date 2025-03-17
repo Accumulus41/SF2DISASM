@@ -175,14 +175,3 @@ loc_3DE:
                 bra.w   InitializeSystem
 
     ; End of function Start
-
-            if (VANILLA_BUILD=1)
-                dc.b $F3                ; Unused Z80 code
-                dc.b $31                ; di
-                dc.b $F0                ; ld      sp, 1FF0h
-                dc.b $1F                ; jp      loc_0
-                dc.b $C3
-                dc.b 0
-                dc.b 0
-                dc.b 0
-            endif

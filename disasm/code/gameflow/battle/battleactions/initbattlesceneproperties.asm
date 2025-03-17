@@ -37,31 +37,31 @@ battlesceneScript_InitializeBattlesceneProperties:
                 movem.l d0-d3/a0,-(sp)
                 lea     allCombatantsCurrentHpTable(a2),a0
                 move.w  #COMBATANT_ALLIES_START,d0
-                bra.s   @PopulateAlliesCurrentHp
-@PopulateAlliesCurrentHp_Loop:
+                bra.s   @CreateListOfAlliesCurrentHP
+@CreateListOfAlliesCurrentHP_Loop:
                 
                 addq.w  #1,d0
-@PopulateAlliesCurrentHp:
+@CreateListOfAlliesCurrentHP:
                 
                 cmpi.w  #COMBATANT_ALLIES_END,d0
                 bgt.s   @Break1
                 jsr     GetCurrentHp
                 move.w  d1,-(a0)
-                bra.s   @PopulateAlliesCurrentHp_Loop
+                bra.s   @CreateListOfAlliesCurrentHP_Loop
 @Break1:
                 
                 move.w  #COMBATANT_ENEMIES_START,d0
-                bra.s   @PopulateEnemiesCurrentHp
-@PopulateEnemiesCurrentHp_Loop:
+                bra.s   @CreateListOfEnemiesCurrentHP
+@CreateListOfEnemiesCurrentHP_Loop:
                 
                 addq.w  #1,d0
-@PopulateEnemiesCurrentHp:
+@CreateListOfEnemiesCurrentHP:
                 
                 cmpi.w  #COMBATANT_ENEMIES_END,d0
                 bgt.s   @Break2
                 jsr     GetCurrentHp
                 move.w  d1,-(a0)
-                bra.s   @PopulateEnemiesCurrentHp_Loop
+                bra.s   @CreateListOfEnemiesCurrentHP_Loop
 @Break2:
                 
                 cmpi.w  #BATTLEACTION_BURST_ROCK,(a3)
@@ -85,7 +85,7 @@ battlesceneScript_InitializeBattlesceneProperties:
                 bne.s   @CheckCastSpell
                 move.b  (a4),d0
                 move.b  (a5),d1
-                jsr     GetDistanceBetweenCombatants
+                jsr     GetDistanceBetweenBattleEntities
                 cmpi.w  #2,d2           ; check if block distance between actor and target is >= 2
                 bcs.s   @CheckInactionCurse
                 tst.b   muddledActor(a2)
@@ -126,7 +126,7 @@ battlesceneScript_InitializeBattlesceneProperties:
                 andi.w  #SPELLENTRY_LOWERMASK_LV,d0
                 move.w  d0,((BATTLESCENE_SPELL_LEVEL-$1000000)).w
                 move.w  ((BATTLESCENE_SPELL_INDEX-$1000000)).w,d1
-                jsr     j_GetSpellDefAddress
+                jsr     FindSpellDefAddress
                 btst    #SPELLPROPS_BIT_AFFECTEDBYSILENCE,SPELLDEF_OFFSET_PROPS(a0)
                 beq.s   @Skip2
                 move.b  (a4),d0

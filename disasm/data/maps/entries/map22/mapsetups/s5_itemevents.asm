@@ -10,11 +10,11 @@ ms_map22_Section5:
 
 Map22_ItemEvent0:
                 
-                moveq   #ITEM_COTTON_BALLOON,d1
-                jsr     j_GetItemInventoryLocation
+                move.b  #ITEM_COTTON_BALLOON,d1
+                jsr     GetItemInventoryLocation
                 cmpi.w  #-1,d0
                 beq.s   byte_59624
-                jsr     j_RemoveItemBySlot
+                jsr     RemoveItemBySlot
 byte_59624:
                 
                 script  cs_599B2

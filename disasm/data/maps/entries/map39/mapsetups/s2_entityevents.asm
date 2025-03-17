@@ -2,7 +2,7 @@
 ; ASM FILE data\maps\entries\map39\mapsetups\s2_entityevents.asm :
 ; 0x5E038..0x5E0B2 : 
 ms_map39_EntityEvents:
-                msEntityEvent ALLY_ZYNK, RIGHT, Map39_EntityEvent0-ms_map39_EntityEvents
+                msEntityEvent 26, RIGHT, Map39_EntityEvent0-ms_map39_EntityEvents
                 msEntityEvent 128, UP, Map39_EntityEvent1-ms_map39_EntityEvents
                 msEntityEvent 129, UP, Map39_EntityEvent2-ms_map39_EntityEvents
                 msEntityEvent 130, UP, Map39_EntityEvent3-ms_map39_EntityEvents
@@ -18,11 +18,11 @@ ms_map39_EntityEvents:
 Map39_EntityEvent0:
                 
                  
-                chkFlg  830             ; Set after the Gyan join scene in the Moun underground
+                chkFlg  FLAG_MOUNUNDERGROUND1             ; Set after the Gyan join scene in the Moun underground
                 beq.s   return_5E070
                 script  cs_5E20A
-                setFlg  76              ; Zynk is a follower
-                setFlg  836             ; Set after the scene where Zynk stops you as you leave the Moun underground
+                setFlg  FLAG_FOLLOWER_ZYNK              ; Zynk is a follower
+                setFlg  FLAG_MOUNUNDERGROUND2             ; Set after the scene where Zynk stops you as you leave the Moun underground
 return_5E070:
                 
                 rts
@@ -109,7 +109,7 @@ Map39_EntityEvent6:
 Map39_EntityEvent7:
                 
                  
-                chkFlg  830             ; Set after the Gyan join scene in the Moun underground
+                chkFlg  FLAG_MOUNUNDERGROUND1             ; Set after the Gyan join scene in the Moun underground
                 bne.s   byte_5E0AA      
                 txt     2050            ; "{NAME;24} of Ribble is{N}behind me.{W2}"
                 txt     2051            ; "He stood guard at the west{N}gate.{W1}"

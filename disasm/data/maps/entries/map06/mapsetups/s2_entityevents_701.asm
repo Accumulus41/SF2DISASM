@@ -24,19 +24,19 @@ ms_map6_flag701_EntityEvents:
 Map6_EntityEvent0:
                 
                  
-                chkFlg  702             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
+                chkFlg  FLAG_NEWGRANS2             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
                 bne.s   byte_549D0      
                 txt     1023            ; "May I help...oh, sorry.{W2}"
                 txt     1024            ; "Old habits die hard.{W1}"
                 bra.s   return_54A0C
 byte_549D0:
                 
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   loc_549F2
                 cmpi.b  #1,((byte_FFB651-$1000000)).w
                 bne.s   byte_549EC      
                 move.b  #SHOP_ITEM_NEW_GRANSEAL_0,((CURRENT_SHOP_INDEX-$1000000)).w
-                jsr     j_ShopMenu
+                jsr     ShopMenu
                 bra.s   loc_549F0
 byte_549EC:
                 
@@ -49,7 +49,7 @@ loc_549F2:
                 cmpi.b  #1,((byte_FFB651-$1000000)).w
                 bne.s   byte_54A08      
                 move.b  #SHOP_ITEM_NEW_GRANSEAL_1,((CURRENT_SHOP_INDEX-$1000000)).w
-                jsr     j_ShopMenu
+                jsr     ShopMenu
                 bra.s   return_54A0C
 byte_54A08:
                 
@@ -67,9 +67,9 @@ return_54A0C:
 Map6_EntityEvent1:
                 
                  
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   byte_54A2E      
-                chkFlg  702             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
+                chkFlg  FLAG_NEWGRANS2             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
                 bne.s   byte_54A24      
                 txt     1021            ; "Papa is out now.{W2}"
                 txt     1022            ; "He ran outside to see{N}the bird.{W1}"
@@ -97,11 +97,11 @@ return_54A32:
 Map6_EntityEvent2:
                 
                  
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   byte_54A60      
-                chkFlg  702             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
+                chkFlg  FLAG_NEWGRANS2             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
                 bne.s   byte_54A56      
-                chkFlg  701             ; Set after the scene with Peter and the kids in New Granseal
+                chkFlg  FLAG_NEWGRANS1             ; Set after the scene with Peter and the kids in New Granseal
                 bne.s   byte_54A50      
                 txt     1027            ; "{LEADER}!  Your father{N}was also very curious.{W2}"
                 txt     1028            ; "He must be indigenous to{N}the mainland.{W1}"
@@ -136,11 +136,11 @@ return_54A68:
 Map6_EntityEvent3:
                 
                  
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   byte_54A96      
-                chkFlg  702             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
+                chkFlg  FLAG_NEWGRANS2             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
                 bne.s   byte_54A8C      
-                chkFlg  701             ; Set after the scene with Peter and the kids in New Granseal
+                chkFlg  FLAG_NEWGRANS1             ; Set after the scene with Peter and the kids in New Granseal
                 bne.s   byte_54A86      
                 txt     1030            ; "Wow!  It's very big!{N}He doesn't wear anything!{W2}"
                 txt     1031            ; "I've seen many animal-like{N}races here, but they all{N}wore clothes!{W1}"
@@ -174,11 +174,11 @@ return_54A9A:
 Map6_EntityEvent4:
                 
                  
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   loc_54AD0
-                chkFlg  702             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
+                chkFlg  FLAG_NEWGRANS2             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
                 bne.s   loc_54ABA
-                chkFlg  701             ; Set after the scene with Peter and the kids in New Granseal
+                chkFlg  FLAG_NEWGRANS1             ; Set after the scene with Peter and the kids in New Granseal
                 bne.s   byte_54AB4      
                 txt     1032            ; "Mmmmm!  He's shining.{N}Is this a bird or a god?{W1}"
                 bra.s   loc_54AB8
@@ -192,7 +192,7 @@ loc_54ABA:
                 
                 cmpi.b  #1,((byte_FFB651-$1000000)).w
                 bne.s   byte_54ACA      
-                jsr     j_ChurchMenu
+                jsr     ChurchMenu
                 bra.s   loc_54ACE
 byte_54ACA:
                 
@@ -202,7 +202,7 @@ loc_54ACE:
                 bra.s   return_54AD6
 loc_54AD0:
                 
-                jsr     j_ChurchMenu
+                jsr     ChurchMenu
 return_54AD6:
                 
                 rts
@@ -216,9 +216,9 @@ return_54AD6:
 Map6_EntityEvent5:
                 
                  
-                chkFlg  702             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
+                chkFlg  FLAG_NEWGRANS2             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
                 bne.s   byte_54AF4      
-                chkFlg  701             ; Set after the scene with Peter and the kids in New Granseal
+                chkFlg  FLAG_NEWGRANS1             ; Set after the scene with Peter and the kids in New Granseal
                 bne.s   byte_54AEE      
                 txt     1025            ; "You know, I never leave{N}my shop.{W2}"
                 txt     1026            ; "I didn't know birds like{N}this existed!{W1}"
@@ -231,12 +231,12 @@ loc_54AF2:
                 bra.s   return_54B34
 byte_54AF4:
                 
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   loc_54B1A
                 cmpi.b  #1,((byte_FFB651-$1000000)).w
                 bne.s   byte_54B10      
                 move.b  #SHOP_WEAPON_NEW_GRANSEAL_0,((CURRENT_SHOP_INDEX-$1000000)).w
-                jsr     j_ShopMenu
+                jsr     ShopMenu
                 bra.s   loc_54B18
 byte_54B10:
                 
@@ -250,7 +250,7 @@ loc_54B1A:
                 cmpi.b  #1,((byte_FFB651-$1000000)).w
                 bne.s   byte_54B30      
                 move.b  #SHOP_WEAPON_NEW_GRANSEAL_1,((CURRENT_SHOP_INDEX-$1000000)).w
-                jsr     j_ShopMenu
+                jsr     ShopMenu
                 bra.s   return_54B34
 byte_54B30:
                 
@@ -268,9 +268,9 @@ return_54B34:
 Map6_EntityEvent6:
                 
                  
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   byte_54B4E      
-                chkFlg  702             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
+                chkFlg  FLAG_NEWGRANS2             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
                 bne.s   byte_54B48      
                 txt     1029            ; "What a big bird!{N}How beautiful!{N}It's legendary!{W1}"
                 bra.s   loc_54B4C
@@ -296,11 +296,11 @@ return_54B52:
 Map6_EntityEvent7:
                 
                  
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   byte_54B78      
-                chkFlg  702             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
+                chkFlg  FLAG_NEWGRANS2             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
                 bne.s   byte_54B72      
-                chkFlg  701             ; Set after the scene with Peter and the kids in New Granseal
+                chkFlg  FLAG_NEWGRANS1             ; Set after the scene with Peter and the kids in New Granseal
                 bne.s   byte_54B6C      
                 txt     1033            ; "Hey, why don't you touch it?{N}It may be a stuffed animal!{W1}"
                 bra.s   loc_54B70
@@ -332,9 +332,9 @@ return_54B7C:
 Map6_EntityEvent8:
                 
                  
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   byte_54B96      
-                chkFlg  702             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
+                chkFlg  FLAG_NEWGRANS2             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
                 bne.s   byte_54B90      
                 txt     1035            ; "This is boring!{W1}"
                 bra.s   loc_54B94
@@ -361,7 +361,7 @@ return_54B9E:
 Map6_EntityEvent9:
                 
                  
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   byte_54BAC      
                 txt     1049            ; "Are you ready?!{N}Hey, did you see my friends?{W1}"
                 bra.s   return_54BB0
@@ -381,7 +381,7 @@ return_54BB0:
 Map6_EntityEvent10:
                 
                  
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   byte_54BC2      
                 txt     1050            ; "I'm looking towards the{N}north.{W2}"
                 txt     1051            ; "The northern half of this{N}landmass is always cloudy.{W1}"
@@ -403,11 +403,11 @@ return_54BCA:
 Map6_EntityEvent11:
                 
                  
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   byte_54BF8      
-                chkFlg  702             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
+                chkFlg  FLAG_NEWGRANS2             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
                 bne.s   byte_54BEE      
-                chkFlg  701             ; Set after the scene with Peter and the kids in New Granseal
+                chkFlg  FLAG_NEWGRANS1             ; Set after the scene with Peter and the kids in New Granseal
                 bne.s   byte_54BE4      
                 txt     1034            ; "I can't see!{N}I can't see!{W1}"
                 bra.s   loc_54BEC
@@ -441,7 +441,7 @@ return_54BFC:
 Map6_EntityEvent12:
                 
                  
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.s   byte_54C0A      
                 txt     1054            ; "Are my friends still playing?{N}Nobody came to find me.{W1}"
                 bra.s   return_54C0E
@@ -461,9 +461,9 @@ return_54C0E:
 Map6_EntityEvent13:
                 
                  
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 bne.w   byte_54C32      
-                chkFlg  702             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
+                chkFlg  FLAG_NEWGRANS2             ; Set after the scene with Peter at the Castle (ends with you leaving the Castle)
                 bne.s   byte_54C24      
                 txt     1055            ; "Mmmmmm....{W1}"
                 bra.s   Map6_DefaultEntityEvent
@@ -477,26 +477,26 @@ Map6_DefaultEntityEvent:
                 rts
 byte_54C32:
                 
-                chkFlg  804             ; Set after the dwarf gives you dynamite
+                chkFlg  FLAG_NEWGRANS5             ; Set after the dwarf gives you dynamite
                 bne.w   byte_54CC0      
-                chkFlg  805             ; Set after coming back to New Granseal after Creed's Mansion,when Astral joins
+                chkFlg  FLAG_CASTLENEWGRANS2             ; Set after coming back to New Granseal after Creed's Mansion,when Astral joins
                 bne.s   loc_54C4C
                 txt     1114            ; "Sir Astral forbids me to use{N}the dynamite.{W2}"
                 txt     1115            ; "I need his permission to give{N}it to you.{W1}"
                 bra.w   loc_54CBE
 loc_54C4C:
                 
-                moveq   #ITEM_CANNON,d1
-                jsr     j_GetItemInventoryLocation
+                move.b  #ITEM_CANNON,d1
+                jsr     GetItemInventoryLocation
                 cmpi.w  #-1,d0
-                bne.s   byte_54C8E      
+                bne.s   byte_54C8E
                 txt     1116            ; "Sir Astral, may I give him{N}the dynamite?{W1}"
                 clsTxt
-                move.w  ((CURRENT_SPEECH_SFX-$1000000)).w,((SPEECH_SFX_COPY-$1000000)).w
+                move.w  ((SPEECH_SFX-$1000000)).w,((SPEECH_SFX_BACKUP-$1000000)).w
                 move.w  #FOLLOWER_B,d0
                 jsr     GetEntityPortaitAndSpeechSfx
                 move.w  d1,((CURRENT_PORTRAIT-$1000000)).w
-                move.w  d2,((CURRENT_SPEECH_SFX-$1000000)).w
+                move.w  d2,((SPEECH_SFX-$1000000)).w
                 jsr     LoadAndDisplayCurrentPortrait
                 txt     1117            ; "It's too dangerous to use it{N}as it is.{W2}"
                 txt     1118            ; "We need some way to{N}detonate the dynamite{N}safely.{W1}"
@@ -511,14 +511,10 @@ byte_54C8E:
                 clsTxt
                 move.w  #ITEM_DYNAMITE,d0
                 moveq   #0,d1
-            if (STANDARD_BUILD=1)
-                jsr     ReceiveMandatoryItem
-            else
                 bsr.w   ReceiveMandatoryItem
-            endif
                 btst    #0,d0
                 bne.s   byte_54CBA      
-                setFlg  804             ; Set after the dwarf gives you dynamite
+                setFlg  FLAG_NEWGRANS5             ; Set after the dwarf gives you dynamite
                 bra.s   loc_54CBE
 byte_54CBA:
                 

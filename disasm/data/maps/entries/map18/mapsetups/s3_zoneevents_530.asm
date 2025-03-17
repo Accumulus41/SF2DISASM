@@ -11,11 +11,11 @@ ms_map18_flag530_ZoneEvents:
 Map18_212_ZoneEvent0:
                 
                  
-                chkFlg  76              ; Zynk is a follower
+                chkFlg  FLAG_FOLLOWER_ZYNK              ; Zynk is a follower
                 beq.s   Map18_212_DefaultZoneEvent
                 script  cs_6143C
-                clrFlg  76              ; Zynk is a follower
-                setFlg  921             ; Set after Zynk leaves you at the Galam Drawbridge (for Roft/Petro death scene)
+                clrFlg  FLAG_FOLLOWER_ZYNK              ; Zynk is a follower
+                setFlg  FLAG_GALAM1             ; Set after Zynk leaves you at the Galam Drawbridge (for Roft/Petro death scene)
 Map18_212_DefaultZoneEvent:
                 
                 rts

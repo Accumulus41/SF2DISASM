@@ -1,9 +1,11 @@
 
-; ASM FILE data\scripting\map\mapswithnofollowers-standard.asm :
+; ASM FILE data\stats\items\mapswithnofollowers-standard.asm :
 
 ; Maps on which followers do not appear.
 table_MapsWithNoFollowers:
                 
+                dc.b MAP_NEW_GRANSEAL_HQ
+                dc.b MAP_NAZCA_SHIP_INTERIOR
                 dc.b MAP_NEW_GRANSEAL_HQ
                 dc.b MAP_NAZCA_SHIP_INTERIOR
                 

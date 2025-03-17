@@ -12,16 +12,16 @@ ms_map62_EntityEvents:
 Map62_EntityEvent0:
                 
                  
-                chkFlg  732             ; Set after the old man fails to open the way to Grans in the Wooden Panel shrine
+                chkFlg  FLAG_RUINS4             ; Set after the old man fails to open the way to Grans in the Wooden Panel shrine
                 bne.s   byte_5C7F0      
-                chkFlg  258             ; TEMP FLAG #02
+                chkFlg  FLAG_TEMP02             ; TEMP FLAG #02
                 bne.s   byte_5C7E6      
                 txt     3624            ; "He spent all his spare time{N}studying the Sky Orb.{W2}"
                 txt     3625            ; "It is quite old.{N}He deduced that our{N}ancestors could fly.{W2}"
                 txt     3626            ; "The last known location of{N}the Nazca Ship was Grans.{W1}"
-                chkFlg  729             ; ???
+                chkFlg  FLAG_RUINS2             ; ???
                 beq.s   loc_5C7E4
-                setFlg  258             ; TEMP FLAG #02
+                setFlg  FLAG_TEMP02             ; TEMP FLAG #02
 loc_5C7E4:
                 
                 bra.s   loc_5C7EE
@@ -48,17 +48,17 @@ return_5C7F4:
 Map62_EntityEvent1:
                 
                  
-                chkFlg  729             ; ???
+                chkFlg  FLAG_RUINS2             ; ???
                 bne.s   byte_5C81A      
-                chkFlg  728             ; ???
+                chkFlg  FLAG_RUINS1             ; ???
                 bne.s   byte_5C80E
                 script  cs_5C8D4
-                setFlg  728             ; ???
+                setFlg  FLAG_RUINS1             ; ???
                 bra.s   loc_5C818
 byte_5C80E:
                 
                 script  cs_5C914
-                setFlg  729             ; ???
+                setFlg  FLAG_RUINS2             ; ???
 loc_5C818:
                 
                 bra.s   Map62_DefaultEntityEvent

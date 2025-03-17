@@ -20,12 +20,14 @@ Map77_DefaultItemEvent1:
 
 Map77_ItemEvent0:
                 
-                move.w  #ITEM_DRY_STONE,((DIALOGUE_NAME_INDEX_1-$1000000)).w
+                move.w  #ITEM_DRY_STONE,((DIALOGUE_NAME_INDEX_1-$1000000)).w 
                 txt     421             ; "{LEADER} uses the {ITEM}.{D3}"
-                chkFlg  900             ; Set after using the Dry Stone to open the way to the Dwarven Village
+                chkFlg  FLAG_GALAMBORDER1             ; Set after using the Dry Stone to open the way to the Dwarven Village
                 bne.s   byte_50AB6      
-                setFlg  900             ; Set after using the Dry Stone to open the way to the Dwarven Village
+                setFlg  FLAG_GALAMBORDER1             ; Set after using the Dry Stone to open the way to the Dwarven Village
                 script  cs_50ABE
+				move.b   #ITEM_DRY_STONE,d0 
+                jsr     RemoveItemFromInventory
                 bra.s   loc_50ABA
 byte_50AB6:
                 

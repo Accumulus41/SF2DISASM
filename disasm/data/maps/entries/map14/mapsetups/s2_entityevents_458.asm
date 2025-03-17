@@ -10,7 +10,7 @@ ms_map14_flag458_EntityEvents:
 
 Map14_1CA_EntityEvent0:
                 
-                jsr     j_ChurchMenu
+                jsr     ChurchMenu
                 rts
 
     ; End of function Map14_1CA_EntityEvent0

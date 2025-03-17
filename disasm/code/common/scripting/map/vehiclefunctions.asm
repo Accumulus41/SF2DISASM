@@ -192,7 +192,7 @@ cs_45470:       setActscriptWait FOLLOWER_D,eas_45360
                 setSprite ALLY_BOWIE,ALLY_BOWIE
                 setActscriptWait ALLY_BOWIE,eas_4548C
                 csc_end
-byte_45488:      ac_clonePos $1F        ; ENTITY_RAFT
+byte_45488:      ac_clonePos ENTITY_RAFT
 eas_4548C:       ac_moveFacRelPos 0,1
                  ac_soundCommand SFX_WARP
                  ac_waitDest

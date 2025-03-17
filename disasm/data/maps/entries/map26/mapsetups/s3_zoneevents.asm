@@ -11,10 +11,10 @@ ms_map26_ZoneEvents:
 Map26_ZoneEvent0:
                 
                  
-                chkFlg  780             ; Set after the man tries to lift the giant ring in Floor World
+                chkFlg  FLAG_FLOOR2             ; Set after the man tries to lift the giant ring in Floor World
                 bne.s   return_59DCE
                 script  cs_59F20
-                setFlg  780             ; Set after the man tries to lift the giant ring in Floor World
+                setFlg  FLAG_FLOOR2             ; Set after the man tries to lift the giant ring in Floor World
 return_59DCE:
                 
                 rts

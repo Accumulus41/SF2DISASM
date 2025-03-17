@@ -7,7 +7,7 @@
 
 SetMoveSfx:
                 
-                compareToSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
+                checkSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
                 bne.s   @Continue
                 
                 clr.w   ((MOVE_SFX-$1000000)).w ; no move sfx outside battle
@@ -18,7 +18,7 @@ SetMoveSfx:
 @CheckEquipment:
                 
                 movem.w d0-d7,-(sp)
-                jsr     j_GetEquippedRing
+                jsr     GetEquippedRing
                 cmpi.w  #ITEM_CHIRRUP_SANDALS,d1 ; HARDCODED chirrup sandals item index for specific sfx
                 bne.s   @Done
                 move.w  #SFX_BLOAB,((MOVE_SFX-$1000000)).w

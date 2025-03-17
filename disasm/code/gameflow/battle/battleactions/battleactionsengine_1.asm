@@ -42,22 +42,9 @@ WriteBattlesceneScript:
                 move.b  #0,debugCritical(a2)
                 move.b  #0,debugDouble(a2)
                 move.b  #0,debugCounter(a2)
-                tst.b   (DEBUG_MODE_TOGGLE).l
-                beq.s   @InitializeBattlesceneData
-                
-                ; Debug mode
-                btst    #INPUT_BIT_START,((PLAYER_1_INPUT-$1000000)).w
-                beq.s   @loc_1
-                bsr.w   DebugModeActionSelect
-@loc_1:
-                
-                btst    #INPUT_BIT_START,((PLAYER_2_INPUT-$1000000)).w
-                beq.s   @InitializeBattlesceneData
-                bsr.w   DebugModeSelectHits
-@InitializeBattlesceneData:
-                
                 move.b  d0,((BATTLESCENE_ATTACKER-$1000000)).w
                 move.b  d0,((BATTLESCENE_ATTACKER_COPY-$1000000)).w
+				
                 moveq   #0,d1
                 move.w  d1,((BATTLESCENE_EXP-$1000000)).w
                 move.w  d1,((BATTLESCENE_GOLD-$1000000)).w
@@ -217,7 +204,7 @@ battlesceneScript_DetermineTargetsByAction:
                 bne.s   @IsCastSpell
                 
                 move.w  #1,((TARGETS_LIST_LENGTH-$1000000)).w
-                move.b  BATTLEACTION_OFFSET_ITEM_OR_SPELL_LOWER_BYTE(a3),((TARGETS_LIST-$1000000)).w
+                move.b  BATTLEACTION_OFFSET_TARGET(a3),((TARGETS_LIST-$1000000)).w
                 bra.s   @Done
 @IsCastSpell:
                 
@@ -225,7 +212,7 @@ battlesceneScript_DetermineTargetsByAction:
                 bne.s   @IsUseItem
                 
                 move.w  BATTLEACTION_OFFSET_ITEM_OR_SPELL(a3),d1
-                move.w  BATTLEACTION_OFFSET_TARGET(a3),d0
+                move.w  BATTLEACTION_OFFSET_ACTOR(a3),d0
                 jsr     PopulateTargetableGrid_CastSpell
                 bra.s   @Done
 @IsUseItem:
@@ -234,7 +221,7 @@ battlesceneScript_DetermineTargetsByAction:
                 bne.w   @IsBurstRock
                 
                 move.w  BATTLEACTION_OFFSET_ITEM_OR_SPELL(a3),d1
-                move.w  BATTLEACTION_OFFSET_TARGET(a3),d0
+                move.w  BATTLEACTION_OFFSET_ACTOR(a3),d0
                 jsr     PopulateTargetableGrid_UseItem
                 bra.s   @Done
 @IsBurstRock:
@@ -260,10 +247,10 @@ battlesceneScript_DetermineTargetsByAction:
                 jsr     PopulateTargetsArrayWithAllCombatants
                 move.b  #-1,((TARGETS_LIST-$1000000)).w
                 move.b  (a4),d0
-                jsr     j_GetLaserFacing
+                jsr     GetLaserFacing
 @Done:
                 
-                bsr.w   battlesceneScript_SortTargets
+                bsr.w   SortTargets
                 rts
 
     ; End of function battlesceneScript_DetermineTargetsByAction

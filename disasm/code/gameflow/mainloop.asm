@@ -25,13 +25,13 @@ MainLoop:
                 beq.w   @Exploration    ; If battle index available, enter battle loop
                 
                 move.w  d7,d1
-                jsr     j_BattleLoop    ; Return when battle ends
+                jsr     BattleLoop    ; Return when battle ends
 alt_MainLoopEntry:
                 
                 bsr.w   SwitchMap       ; Check table "FlagSwitchedMaps" for possible flag-triggered map switch
 @Exploration:
                 
-                jsr     j_ExplorationLoop
+                jsr     ExplorationLoop
                 bra.s   @Start          ; Return in case of warp event
 
     ; End of function MainLoop

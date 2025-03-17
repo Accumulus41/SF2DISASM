@@ -49,7 +49,7 @@ sub_156CE:
                 move.w  #48,d7
                 jsr     (CopyBytes).w   
                 movem.l (sp)+,d7-a1
-                jsr     j_GetCombatantName
+                jsr     GetCombatantName
                 move.w  d1,d7
                 lea     ((byte_FFB812-$1000000)).w,a1
                 moveq   #-16,d1
@@ -61,7 +61,7 @@ sub_156CE:
 
     ; End of function sub_156CE
 
-layout_15706:   dc.w $C080              ; unused layout
+layout_15706:   dc.w $C080
                 dc.w $C081
                 dc.w $C081
                 dc.w $C081

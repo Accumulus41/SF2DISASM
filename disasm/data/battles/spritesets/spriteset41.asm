@@ -7,9 +7,9 @@ BattleSpriteset41:
                 ; # Enemies
                 dc.b 20
                 ; # AI Regions
-                dc.b 5
+                dc.b 15
                 ; # AI Points
-                dc.b 1
+                dc.b 15
                 
                 ; Allies
                 allyCombatant 0, 16, 26
@@ -187,6 +187,110 @@ BattleSpriteset41:
                 dc.b 0
                 dc.b 0
                 
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
                 ; AI Points
                 dc.b 17, 7
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
                 

@@ -15,6 +15,10 @@ table_HealPriorityMoveTypes:
                 dc.b MOVETYPE_LOWER_CENTAUR
                 dc.b MOVETYPE_LOWER_REGULAR
                 dc.b MOVETYPE_LOWER_AQUATIC
+				dc.b MOVETYPE_LOWER_14
+				dc.b MOVETYPE_LOWER_15
+				dc.b MOVETYPE_LOWER_16
+				dc.b $FF
                 
 table_AttackPriority_Regular:
                 dc.b CLASS_SDMN

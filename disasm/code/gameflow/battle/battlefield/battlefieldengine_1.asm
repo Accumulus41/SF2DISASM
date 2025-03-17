@@ -210,26 +210,6 @@ PopulateMovecostsTable:
 
 ; =============== S U B R O U T I N E =======================================
 
-; unused
-
-
-sub_C1BE:
-                
-                movem.l d0/d2-a6,-(sp)
-                bsr.s   PopulateMovecostsTable
-                lea     ((MOVECOSTS_TABLE-$1000000)).w,a0
-                bsr.w   GetCurrentTerrainType
-                andi.w  #BYTE_LOWER_NIBBLE_MASK,d0
-                adda.w  d0,a0
-                move.b  (a0),d1
-                movem.l (sp)+,d0/d2-a6
-                rts
-
-    ; End of function sub_C1BE
-
-
-; =============== S U B R O U T I N E =======================================
-
 ; In:  d0.b = combatant index
 ; Out: d1.w = land effect setting (0 = 0%, 1 = 15%, 2 = 30%)
 

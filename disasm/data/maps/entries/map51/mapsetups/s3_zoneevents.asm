@@ -16,10 +16,10 @@ ms_map51_ZoneEvents:
 Map51_ZoneEvent0:
                 
                  
-                chkFlg  470             ; Set after you approach the pond to rescue Elric at the Harpy Pond
+                chkFlg  FLAG_BATTLE20_PRESCENE             ; Set after you approach the pond to rescue Elric at the Harpy Pond
                 bne.s   return_5C302
                 script  cs_5C312
-                setFlg  470             ; Set after you approach the pond to rescue Elric at the Harpy Pond
+                setFlg  FLAG_BATTLE20_PRESCENE             ; Set after you approach the pond to rescue Elric at the Harpy Pond
 return_5C302:
                 
                 rts
@@ -33,7 +33,7 @@ return_5C302:
 Map51_ZoneEvent4:
                 
                  
-                chkFlg  470             ; Set after you approach the pond to rescue Elric at the Harpy Pond
+                chkFlg  FLAG_BATTLE20_PRESCENE             ; Set after you approach the pond to rescue Elric at the Harpy Pond
                 bne.s   Map51_DefaultZoneEvent
                 script  cs_5C3AA
 Map51_DefaultZoneEvent:
@@ -70,7 +70,7 @@ cs_5C312:       textCursor 2555
                 nextSingleText $C0,128  ; "Did you guys bring the{N}ketchup? No? Oh, well.{W1}"
                 setActscript 129,eas_Jump
                 setActscriptWait 130,eas_Jump
-                setStoryFlag 20         ; Battle 20 unlocked - BATTLE_HARPIES_POND              
+                setF FLAG_BATTLE20_AVAILABLE    ; Battle 20 unlocked - BATTLE_HARPIES_POND              
                 warp MAP_HARPY_POOL,0,0,RIGHT
                 csc_end
 cs_5C3AA:       textCursor 2565

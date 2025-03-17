@@ -33,7 +33,7 @@ Map31_33E_EntityEvent0:
 Map31_33E_EntityEvent1:
                 
                 move.b  #SHOP_WEAPON_MOUN,((CURRENT_SHOP_INDEX-$1000000)).w
-                jsr     j_ShopMenu
+                jsr     ShopMenu
                 rts
 
     ; End of function Map31_33E_EntityEvent1
@@ -71,8 +71,7 @@ Map31_33E_EntityEvent4:
                 
                  
                 txt     2040            ; "Did you see the Arm of Golem{N}in town?{N}"
-                jsr     j_YesNoPrompt
-                btst    #0,d0
+                jsr     YesNoPrompt
                 bne.s   byte_5D508      
                 txt     2041            ; "It moves around as if it's{N}searching for something.{N}Maybe it's body?{W1}"
                 bra.s   return_5D50C
@@ -116,7 +115,7 @@ Map31_33E_EntityEvent6:
 
 Map31_33E_EntityEvent7:
                 
-                jsr     j_ChurchMenu
+                jsr     ChurchMenu
                 rts
 
     ; End of function Map31_33E_EntityEvent7
@@ -128,9 +127,9 @@ Map31_33E_EntityEvent7:
 Map31_33E_EntityEvent8:
                 
                  
-                chkFlg  832             ; Set after talking to the painter in Moun for the first time
+                chkFlg  FLAG_MOUN2             ; Set after talking to the painter in Moun for the first time
                 bne.s   byte_5D538
-                setFlg  832             ; Set after talking to the painter in Moun for the first time
+                setFlg  FLAG_MOUN2             ; Set after talking to the painter in Moun for the first time
                 script  cs_5D652
                 bra.s   return_5D53E
 byte_5D538:
@@ -159,7 +158,7 @@ nullsub_5D540:
 Map31_33E_EntityEvent9:
                 
                 move.b  #SHOP_ITEM_MOUN,((CURRENT_SHOP_INDEX-$1000000)).w
-                jsr     j_ShopMenu
+                jsr     ShopMenu
                 rts
 
     ; End of function Map31_33E_EntityEvent9

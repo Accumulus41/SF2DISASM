@@ -11,7 +11,7 @@ Trap4_CheckFlag:
                 movea.l $A(sp),a0
                 move.w  (a0),d1
                 addq.l  #2,$A(sp)
-                jsr     j_CheckFlag
+                jsr     CheckFlag
                 movem.l (sp)+,d1/a0
                 addq.l  #2,sp
                 rts
@@ -28,7 +28,7 @@ Trap2_SetFlag:
                 movea.l $A(sp),a0
                 move.w  (a0),d1
                 addq.l  #2,$A(sp)
-                jsr     j_SetFlag
+                jsr     SetFlag
                 movem.l (sp)+,d1/a0
                 addq.l  #2,sp
                 rts
@@ -45,7 +45,7 @@ Trap1_CheckFlag:
                 movea.l $A(sp),a0
                 move.w  (a0),d1
                 addq.l  #2,$A(sp)
-                jsr     j_CheckFlag
+                jsr     CheckFlag
                 movem.l (sp)+,d1/a0
                 addq.l  #2,sp
                 rts
@@ -62,7 +62,7 @@ Trap3_ClearFlag:
                 movea.l $A(sp),a0
                 move.w  (a0),d1
                 addq.l  #2,$A(sp)
-                jsr     j_ClearFlag
+                jsr     ClearFlag
                 movem.l (sp)+,d1/a0
                 addq.l  #2,sp
                 rts

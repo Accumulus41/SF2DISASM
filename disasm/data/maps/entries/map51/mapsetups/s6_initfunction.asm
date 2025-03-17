@@ -8,7 +8,7 @@
 ms_map51_InitFunction:
                 
                  
-                chkFlg  470             ; Set after you approach the pond to rescue Elric at the Harpy Pond
+                chkFlg  FLAG_BATTLE20_PRESCENE             ; Set after you approach the pond to rescue Elric at the Harpy Pond
                 bne.s   return_5C3D6
                 script  cs_5C3D8
 return_5C3D6:
@@ -45,5 +45,3 @@ cs_5C3D8:       textCursor 2550
                 followEntity ALLY_PETER,ALLY_BOWIE,2
                 followEntity FOLLOWER_B,ALLY_PETER,2
                 csc_end
-                dc.b $FF
-                dc.b $FF

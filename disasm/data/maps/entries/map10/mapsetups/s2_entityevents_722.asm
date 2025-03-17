@@ -37,15 +37,15 @@ ms_map10_flag722_EntityEvents:
 Map10_2D2_EntityEvent19:
                 
                  
-                chkFlg  799             ; Set after you agree to kill Zeon in Bedoe (King's yes/no dialog)
+                chkFlg  FLAG_BEDOE6             ; Set after you agree to kill Zeon in Bedoe (King's yes/no dialog)
                 bne.s   byte_56F3A      
                 txt     1603            ; "God Volcanon has forsaken{N}the people of the Earth.{W2}"
                 txt     1604            ; "Are you going to kill Zeon{N}as he demanded?{W1}"
-                jsr     j_YesNoPrompt
+                jsr     YesNoPrompt
                 tst.w   d0
                 bne.s   byte_56F30      
                 script  cs_5797A
-                setFlg  799             ; Set after you agree to kill Zeon in Bedoe (King's yes/no dialog)
+                setFlg  FLAG_BEDOE6             ; Set after you agree to kill Zeon in Bedoe (King's yes/no dialog)
                 bra.s   loc_56F38
 byte_56F30:
                 
@@ -122,10 +122,10 @@ Map10_2D2_EntityEvent24:
 Map10_2D2_EntityEvent25:
                 
                  
-                chkFlg  723             ; Set after the hatchling in Bedoe shows you he can almost fly
+                chkFlg  FLAG_BEDOE4             ; Set after the hatchling in Bedoe shows you he can almost fly
                 bne.s   byte_56F7A      
                 script  cs_5766C
-                setFlg  723             ; Set after the hatchling in Bedoe shows you he can almost fly
+                setFlg  FLAG_BEDOE4             ; Set after the hatchling in Bedoe shows you he can almost fly
                 bra.s   return_56F7E
 byte_56F7A:
                 

@@ -13,10 +13,10 @@ pt_AiCommandsets:
                 dc.l AiCommandset08
                 dc.l AiCommandset09
                 dc.l AiCommandset10
-                dc.l AiCommandset10
+                dc.l AiCommandset11
                 dc.l AiCommandset12
                 dc.l AiCommandset13
-                dc.l AiCommandset13
+                dc.l AiCommandset14
                 dc.l AiCommandset15
 AiCommandset00: 
 ; Syntax        aiCommandset [AICOMMAND_]enum,..[AICOMMAND_]enum
@@ -27,6 +27,13 @@ AiCommandset00:
                              SUPPORT, &
                              ATTACK, &
                              MOVE, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
                              STAY
 AiCommandset01: 
                 aiCommandset SPECIAL_MOVE, &
@@ -34,6 +41,12 @@ AiCommandset01:
                              SUPPORT, &
                              ATTACK, &
                              MOVE2, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
                              STAY
 AiCommandset02: 
                 aiCommandset HEAL2, &
@@ -41,6 +54,12 @@ AiCommandset02:
                              SUPPORT, &
                              ATTACK3, &
                              MOVE2, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
                              STAY
 AiCommandset03: 
                 aiCommandset HEAL2, &
@@ -48,6 +67,12 @@ AiCommandset03:
                              SUPPORT, &
                              ATTACK3, &
                              MOVE, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
                              STAY
 AiCommandset04: 
                 aiCommandset HEAL3, &
@@ -55,6 +80,12 @@ AiCommandset04:
                              SUPPORT, &
                              ATTACK2, &
                              MOVE3, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
                              STAY
 AiCommandset05: 
                 aiCommandset HEAL3, &
@@ -62,12 +93,25 @@ AiCommandset05:
                              SUPPORT, &
                              ATTACK2, &
                              MOVE3, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
                              STAY
 AiCommandset06: 
                 aiCommandset ATTACK, &
                              HEAL, &
                              SUPPORT, &
                              MOVE, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
                              STAY
 AiCommandset07: 
                 aiCommandset SPECIAL_MOVE, &
@@ -75,14 +119,26 @@ AiCommandset07:
                              HEAL, &
                              SUPPORT, &
                              MOVE, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
                              STAY
 AiCommandset08: 
                 aiCommandset ATTACK, &
                              HEAL, &
                              SUPPORT, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
                              STAY
-AiCommandset10: 
-                aiCommandset STAY
 AiCommandset09: 
                 aiCommandset SPECIAL_MOVE3, &
                              ATTACK3, &
@@ -90,6 +146,37 @@ AiCommandset09:
                              SUPPORT, &
                              SPECIAL_MOVE4, &
                              MOVE2, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY
+AiCommandset10: 
+                aiCommandset STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY
+AiCommandset11: 
+                aiCommandset STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
                              STAY
 AiCommandset12: 
                 aiCommandset SPECIAL_MOVE4, &
@@ -98,6 +185,11 @@ AiCommandset12:
                              HEAL2, &
                              MOVE, &
                              MOVE2, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
                              STAY
 AiCommandset13: 
                 aiCommandset SPECIAL_MOVE5, &
@@ -106,6 +198,24 @@ AiCommandset13:
                              SUPPORT, &
                              SPECIAL_MOVE2, &
                              MOVE3, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY
+AiCommandset14: 
+                aiCommandset STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
                              STAY
 AiCommandset15: 
                 aiCommandset SPECIAL_MOVE, &
@@ -114,9 +224,13 @@ AiCommandset15:
                              SUPPORT, &
                              SPECIAL_MOVE2, &
                              MOVE2, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
+                             STAY, &
                              STAY
-table_AiSecondaryCharacteristics:
-                
+table_E249:     
 ; These seem to correspond to the secondary characteristics of each AI script
 ;  for Heal, Attack, and Special Move, but not for Support or normal Move
 ;  with one byte per AI.

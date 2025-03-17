@@ -24,12 +24,12 @@ ExecuteAiCommand_Move:
                 
                 cmpi.b  #1,d1
                 bne.s   @loc_1
-                jsr     j_AdjustObstructionFlagsForAiWithSecondaryCharacteristic1
+                jsr     GetMoveListForEnemyTarget
 @loc_1:
                 
                 cmpi.b  #2,d1
                 bne.s   @loc_2
-                jsr     j_AdjustObstructionFlagsForAiWithSecondaryCharacteristic2
+                jsr     sub_1AC4F0      
 @loc_2:
                 
                 bsr.w   InitializeMovementArrays
@@ -157,9 +157,6 @@ ExecuteAiCommand_Move:
                 
                 clr.w   d0
                 move.b  d7,d0
-            if (STANDARD_BUILD=1)
-                moveq   #0,d1           ; make sure d1 upper word is clear
-            endif
                 bsr.w   GetMoveType     
                 lea     (pt_AttackPriorityForMoveType).l,a1
                 lsl.l   #2,d1
@@ -253,7 +250,7 @@ ExecuteAiCommand_Move:
                 bra.w   @BasicMovement
 @SpecialMovecosts:
                 
-                jsr     j_ClearBattleTerrainArrayObstructionFlags
+                jsr     ClearBattleTerrainArrayObstructionFlags
                 move.b  d6,d0
                 bsr.w   GetCombatantY
                 move.w  d1,d4
@@ -268,7 +265,7 @@ ExecuteAiCommand_Move:
                 bra.w   @CommitMoveString
 @BasicMovement:
                 
-                jsr     j_ClearBattleTerrainArrayObstructionFlags
+                jsr     ClearBattleTerrainArrayObstructionFlags
                 clr.w   d0
                 move.b  d7,d0
                 bsr.w   PopulateMovecostsTable
@@ -310,15 +307,13 @@ ExecuteAiCommand_Move:
                 cmpi.b  #1,d1
                 bne.s   @loc_39
                 move.b  d7,d0           ; d7 = character index of the moving unit
-                jsr     j_AdjustObstructionFlagsForAiWithSecondaryCharacteristic1 
-                                                        ; if d1 = 1
+                jsr     GetMoveListForEnemyTarget ; if d1 = 1
 @loc_39:
                 
                 cmpi.b  #2,d1
                 bne.s   @loc_40
                 move.b  d7,d0
-                jsr     j_AdjustObstructionFlagsForAiWithSecondaryCharacteristic2 
-                                                        ; if d1 = 2
+                jsr     sub_1AC4F0      ; if d1 = 2
 @loc_40:
                 
                 move.w  d7,d0
@@ -359,7 +354,7 @@ ExecuteAiCommand_Move:
                 bsr.w   BuildAiMoveString
 @loc_42:
                 
-                jsr     j_ClearBattleTerrainArrayObstructionFlags
+                jsr     ClearBattleTerrainArrayObstructionFlags
                 clr.w   d1
                 unlk    a6
                 movem.l (sp)+,d0/d3-a6

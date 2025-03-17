@@ -17,27 +17,23 @@ CheckBattle:
                 move.w  d1,d4
                 move.w  d2,d5
                 move.w  d0,-(sp)
-                cmpi.b  #MAP_CURRENT,d0 
+                cmpi.b  #MAP_CURRENT,d0
                 bne.s   @Continue
                 
                 ; Get current map
                 clr.w   d0
                 getSavedByte CURRENT_MAP, d0
 @Continue:
-            if (STANDARD_BUILD=1)
                 getPointer p_table_BattleMapCoordinates, a0
-            else
-                lea     table_BattleMapCoordinates(pc), a0
-            endif
                 moveq   #BATTLES_MAX_INDEX,d6
                 clr.w   d7
 @Loop:
                 
                 cmp.b   (a0),d0
                 bne.s   @Next
-                move.w  #BATTLE_UNLOCKED_FLAGS_START,d1
+                move.w  #FLAG_BATTLE00_AVAILABLE,d1
                 add.w   d7,d1
-                jsr     j_CheckFlag
+                jsr     CheckFlag
                 beq.s   @Next
                 
                 ; Check Trigger X
@@ -58,18 +54,18 @@ CheckBattle:
                 setSavedByte BATTLEMAPCOORDINATES_OFFSET_Y(a0), BATTLE_AREA_Y
                 setSavedByte BATTLEMAPCOORDINATES_OFFSET_WIDTH(a0), BATTLE_AREA_WIDTH
                 setSavedByte BATTLEMAPCOORDINATES_OFFSET_HEIGHT(a0), BATTLE_AREA_HEIGHT
-                addi.w  #BATTLE_UNLOCKED_TO_COMPLETED_FLAGS_OFFSET,d1
-                jsr     j_CheckFlag
+                addi.w  #FLAG_BATTLE00_COMPLETE,d1
+                jsr     CheckFlag
                 beq.s   @TriggerBattle
-                subi.w  #BATTLE_UNLOCKED_TO_COMPLETED_FLAGS_OFFSET,d1
-                jsr     j_ClearFlag
+                subi.w  #FLAG_BATTLE00_COMPLETE,d1
+                jsr     ClearFlag
 @TriggerBattle:
                 
                 move.w  (sp)+,d1
                 bra.w   @Done
 @Next:
                 
-                addq.l  #BATTLEMAPCOORDINATES_ENTRY_SIZE_FULL,a0
+                addq.l  #BATTLEMAPCOORDINATES_ENTRY_SIZE,a0
                 addq.w  #1,d7
                 dbf     d6,@Loop
                 

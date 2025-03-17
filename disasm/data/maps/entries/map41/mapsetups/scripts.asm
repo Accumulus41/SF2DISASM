@@ -1,6 +1,35 @@
 
 ; ASM FILE data\maps\entries\map41\mapsetups\scripts.asm :
 ; 0x5F4B8..0x5F630 : 
+cs_5C6CA:       textCursor $E3A
+                setActscriptWait ALLY_PETER,eas_Init
+                setActscriptWait FOLLOWER_A,eas_Init
+                setActscriptWait FOLLOWER_B,eas_Init
+                setDest ALLY_BOWIE,22,7
+                setFacing ALLY_BOWIE,UP
+                setDest ALLY_PETER,24,7
+                setFacing ALLY_PETER,UP
+                setCamDest 18,3
+                setDest FOLLOWER_A,23,5
+                setDest FOLLOWER_B,23,7
+                setFacing FOLLOWER_B,UP
+                setFacing FOLLOWER_A,DOWN
+                nextSingleText $0,FOLLOWER_A ; "It's my job!{W1}"
+                setFacing FOLLOWER_A,UP
+                nextSingleText $0,FOLLOWER_A ; "Row...sham...bow!{W1}"
+                entityFlashWhite FOLLOWER_A,$28
+                playSound SFX_BATTLEFIELD_DEATH
+                setQuake 2
+                setBlocks 30,0,1,1,23,4
+                csWait 30
+                setQuake 0
+                setFacing FOLLOWER_A,DOWN
+                nextSingleText $0,FOLLOWER_A ; "OK, you go first!{W1}"
+                setF FLAG_BATTLE15_AVAILABLE        ; Battle 15 unlocked
+                followEntity ALLY_PETER,ALLY_BOWIE,2
+                followEntity FOLLOWER_B,ALLY_PETER,2
+                followEntity FOLLOWER_A,FOLLOWER_B,2
+                csc_end
 cs_5F4B8:       setActscriptWait ALLY_BOWIE,eas_Init
                 setActscriptWait ALLY_PETER,eas_Init
                 setActscriptWait FOLLOWER_B,eas_Init

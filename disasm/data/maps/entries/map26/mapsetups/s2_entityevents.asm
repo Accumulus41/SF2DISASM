@@ -2,15 +2,13 @@
 ; ASM FILE data\maps\entries\map26\mapsetups\s2_entityevents.asm :
 ; 0x59D6A..0x59DB6 : 
 ms_map26_EntityEvents:
-                msEntityEvent ALLY_RANDOLF, UP, Map26_EntityEvent0-ms_map26_EntityEvents
-                msEntityEvent ALLY_TYRIN, UP, Map26_EntityEvent1-ms_map26_EntityEvents
+                msEntityEvent 16, UP, Map26_EntityEvent0-ms_map26_EntityEvents
+                msEntityEvent 17, UP, Map26_EntityEvent1-ms_map26_EntityEvents
                 msEntityEvent 128, UP, Map26_EntityEvent2-ms_map26_EntityEvents
                 msEntityEvent 129, UP, Map26_EntityEvent3-ms_map26_EntityEvents
                 msEntityEvent 133, DOWN, Map26_EntityEvent4-ms_map26_EntityEvents
                 msEntityEvent 134, RIGHT, Map26_EntityEvent5-ms_map26_EntityEvents
-            if (STANDARD_BUILD&MINIATURES_SHOP=1)
                 msEntityEvent 135, RIGHT, Map26_EntityEvent6-ms_map26_EntityEvents
-            endif
                 msDefaultEntityEvent Map26_EntityEvent3-ms_map26_EntityEvents
 
 ; =============== S U B R O U T I N E =======================================
@@ -57,7 +55,7 @@ Map26_EntityEvent2:
 
 Map26_EntityEvent4:
                 
-                jsr     j_ChurchMenu
+                jsr     ChurchMenu
                 rts
 
     ; End of function Map26_EntityEvent4
@@ -68,7 +66,7 @@ Map26_EntityEvent4:
 
 Map26_EntityEvent5:
                 
-                jsr     j_CaravanMenu
+                jsr     CaravanMenu
                 rts
 
     ; End of function Map26_EntityEvent5
@@ -79,10 +77,8 @@ Map26_EntityEvent5:
 
 Map26_EntityEvent6:
                 
-            if (STANDARD_BUILD&MINIATURES_SHOP=1)
                 move.b  #SHOP_MINATURES_ROOM,((CURRENT_SHOP_INDEX-$1000000)).w
                 jmp     ShopMenu
-            endif
                 
 Map26_EntityEvent3:
                 

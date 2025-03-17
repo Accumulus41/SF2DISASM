@@ -34,7 +34,7 @@ byte_5D584:     msDesc 8, 26, 4, 0      ; "{NAME} investigated{N}the book shelve
 Map31_DescFunc0:
                 
                  
-                chkFlg  832             ; Set after talking to the painter in Moun for the first time
+                chkFlg  FLAG_MOUN2             ; Set after talking to the painter in Moun for the first time
                 beq.s   return_5D5BC
                 script  cs_5D732
 return_5D5BC:
@@ -50,13 +50,13 @@ return_5D5BC:
 Map31_DescFunc1:
                 
                  
-                chkFlg  834             ; Set after making the Arm of Golem appear in Moun
+                chkFlg  FLAG_MOUN4             ; Set after making the Arm of Golem appear in Moun
                 beq.s   return_5D60C
-                chkFlg  835             ; Set after picking up the Arm of Golem in Moun
+                chkFlg  FLAG_MOUN5             ; Set after picking up the Arm of Golem in Moun
                 bne.s   return_5D60C
                 txt     2017            ; "{LEADER} found the Arm of{N}Golem.{W2}"
                 txt     2018            ; "Pick it up?"
-                jsr     j_YesNoPrompt
+                jsr     YesNoPrompt
                 tst.w   d0
                 bne.s   byte_5D608      
                 move.w  #ITEM_ARM_OF_GOLEM,d0
@@ -64,7 +64,7 @@ Map31_DescFunc1:
                 jsr     ReceiveMandatoryItem
                 btst    #0,d0
                 bne.s   byte_5D5FE      
-                setFlg  835             ; Set after picking up the Arm of Golem in Moun
+                setFlg  FLAG_MOUN5             ; Set after picking up the Arm of Golem in Moun
                 move.w  #137,d0
                 jsr     MoveEntityOutOfMap
                 bra.s   loc_5D606

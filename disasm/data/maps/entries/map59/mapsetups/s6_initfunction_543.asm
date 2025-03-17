@@ -8,7 +8,7 @@
 ms_map59_flag543_InitFunction:
                 
                  
-                chkFlg  543             ; Battle 43 completed - BATTLE_VERSUS_ZEON                 
+                chkFlg  FLAG_BATTLE43_COMPLETE             ; Battle 43 completed - BATTLE_VERSUS_ZEON                 
                 beq.s   return_615E4
                 script  cs_615E6
 return_615E4:
@@ -1119,8 +1119,8 @@ cs_62658:       setQuake 5
                 textCursor 3908
                 nextSingleText $FF,255  ; "Two years have passed{N}since Mitula resealed Zeon.{W1}"
                 nextSingleText $0,136   ; "Wow, is it true?{N}Did Elis' face turn pink?{W1}"
-                clearF 384              ; Set after Bowie obtains the jewel of light/evil... whichever it is
-                clearF 385              ; Set after Bowie obtains King Galam's jewel
+                clearF FLAG_JEWELLIGHT              ; Set after Bowie obtains the jewel of light/evil... whichever it is
+                clearF FLAG_JEWELEVIL              ; Set after Bowie obtains King Galam's jewel
                 resetForceBattleStats
                 warp MAP_GRANSEAL,56,3,DOWN
                 csc_end
@@ -1131,7 +1131,7 @@ cs_62658:       setQuake 5
 csub_6269C:
                 
                 moveq   #1,d0
-                jsr     j_ClosePortraitEyes
+                jsr     ClosePortraitEyes
                 rts
 
     ; End of function csub_6269C

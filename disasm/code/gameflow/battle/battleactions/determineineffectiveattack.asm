@@ -32,9 +32,9 @@ cutoff = -1
 battlesceneScript_DetermineIneffectiveAttack:
                 
                 movem.l d0-d1,-(sp)
-                compareToSavedByte #BATTLE_VERSUS_TAROS, CURRENT_BATTLE
+                checkSavedByte #BATTLE_VERSUS_TAROS, CURRENT_BATTLE
                 bne.w   @Skip
-                clrFlg  112             ; Currently attacking Taros with Achilles Sword
+                clrFlg  FLAG_DAMAGE_TAROS             ; Currently attacking Taros with Achilles Sword
                 tst.b   (a4)
                 bne.w   @CheckFlag
                 cmpi.w  #BATTLEACTION_ATTACK,(a3)
@@ -47,14 +47,14 @@ battlesceneScript_DetermineIneffectiveAttack:
                 jsr     GetEquippedWeapon
                 cmpi.w  #ITEM_ACHILLES_SWORD,d1
                 bne.w   @CheckFlag
-                setFlg  112             ; Currently attacking Taros with Achilles Sword
+                setFlg  FLAG_DAMAGE_TAROS             ; Currently attacking Taros with Achilles Sword
 @CheckFlag:
                 
                 move.b  (a5),d0
                 jsr     GetEnemy        
                 cmpi.w  #ENEMY_TAROS,d1
                 bne.s   @Skip
-                chkFlg  112             ; Currently attacking Taros with Achilles Sword
+                chkFlg  FLAG_DAMAGE_TAROS             ; Currently attacking Taros with Achilles Sword
                 bne.s   @Skip
                 move.b  #-1,ineffectiveAttackToggle(a2)
 @Skip:

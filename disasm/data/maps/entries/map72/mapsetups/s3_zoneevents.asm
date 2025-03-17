@@ -31,27 +31,27 @@ Map72_ZoneEvent0:
 Map72_ZoneEvent3:
                 
                  
-                chkFlg  750             ; Set after Rohde clears the blockage at the North Cliff cave
+                chkFlg  FLAG_MAPNEWGRANS3             ; Set after Rohde clears the blockage at the North Cliff cave
                 bne.s   return_4FF04
-                chkFlg  805             ; Set after coming back to New Granseal after Creed's Mansion,when Astral joins
+                chkFlg  FLAG_CASTLENEWGRANS2             ; Set after coming back to New Granseal after Creed's Mansion,when Astral joins
                 beq.s   return_4FF04
-                chkFlg  256             ; TEMP FLAG #00
+                chkFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 bne.s   return_4FF04
-                clrFlg  256             ; TEMP FLAG #00
-                moveq   #ITEM_CANNON,d1
-                jsr     j_GetItemInventoryLocation
+                clrFlg  FLAG_TEMP00             ; TEMP FLAG #00
+                move.b  #ITEM_CANNON,d1
+                jsr     GetItemInventoryLocation
                 cmpi.w  #-1,d0
                 beq.s   loc_4FEF4
-                moveq   #ITEM_DYNAMITE,d1
-                jsr     j_GetItemInventoryLocation
+                move.b  #ITEM_DYNAMITE,d1
+                jsr     GetItemInventoryLocation
                 cmpi.w  #-1,d0
                 beq.s   loc_4FEE6
-                moveq   #ITEM_CANNON,d0 
+                move.b  #ITEM_CANNON,d0 
                 jsr     RemoveItemFromInventory
-                moveq   #ITEM_DYNAMITE,d0 
+                move.b  #ITEM_DYNAMITE,d0 
                 jsr     RemoveItemFromInventory
                 script  cs_4FFDA
-                setFlg  750             ; Set after Rohde clears the blockage at the North Cliff cave
+                setFlg  FLAG_MAPNEWGRANS3             ; Set after Rohde clears the blockage at the North Cliff cave
                 bra.s   loc_4FEF2
 loc_4FEE6:
                 
@@ -66,7 +66,7 @@ loc_4FEF4:
                 script  cs_5023E
 byte_4FF00:
                 
-                setFlg  256             ; TEMP FLAG #00
+                setFlg  FLAG_TEMP00             ; TEMP FLAG #00
 return_4FF04:
                 
                 rts
@@ -80,7 +80,7 @@ return_4FF04:
 Map72_DefaultZoneEvent:
                 
                  
-                chkFlg  523             ; Battle 23 completed - BATTLE_VERSUS_WILLARD              
+                chkFlg  FLAG_BATTLE23_COMPLETE             ; Battle 23 completed - BATTLE_VERSUS_WILLARD              
                 bne.s   loc_4FF18
                 move.w  #BATTLE_NORTH_CLIFF,d0
                 jsr     CheckRandomBattle

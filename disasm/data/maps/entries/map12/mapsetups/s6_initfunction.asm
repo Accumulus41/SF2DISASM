@@ -8,12 +8,12 @@
 ms_map12_InitFunction:
                 
                  
-                chkFlg  725             ; Set after telling Rohde that you're going to get the Caravan
+                chkFlg  FLAG_HASSAN1             ; Set after telling Rohde that you're going to get the Caravan
                 bne.s   byte_57D10      
                 script  cs_57D22
 byte_57D10:
                 
-                chkFlg  518             ; Battle 18 completed - BATTLE_VERSUS_TAROS                
+                chkFlg  FLAG_BATTLE18_COMPLETE             ; Battle 18 completed - BATTLE_VERSUS_TAROS                
                 beq.s   return_57D20
                 move.w  #128,d0
                 jsr     MoveEntityOutOfMap

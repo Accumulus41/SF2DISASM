@@ -133,10 +133,10 @@ Map1_EntityEvent7:
 Map1_EntityEvent8:
                 
                  
-                chkFlg  841             ; Set after the Taya join scene has played inside the Mitula Shrine
+                chkFlg  FLAG_SHRINEMITULA1             ; Set after the Taya join scene has played inside the Mitula Shrine
                 bne.s   return_5E71E
                 script  cs_5E772
-                setFlg  841             ; Set after the Taya join scene has played inside the Mitula Shrine
+                setFlg  FLAG_SHRINEMITULA1             ; Set after the Taya join scene has played inside the Mitula Shrine
 return_5E71E:
                 
                 rts

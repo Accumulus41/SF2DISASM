@@ -10,18 +10,13 @@ ms_map24_InitFunction:
                  
                 sndCom  MUSIC_HEADQUARTERS
                 jsr     (FadeInFromBlack).w
-                move.w  #$46,((CURRENT_SPEECH_SFX-$1000000)).w 
-                chkFlg  544             ; Battle 44 completed - BATTLE_FAIRY_WOODS                 
+                move.w  #SFX_DIALOG_BLEEP_2,((SPEECH_SFX-$1000000)).w 
+                chkFlg  FLAG_BATTLE44_COMPLETE             ; Battle 44 completed - BATTLE_FAIRY_WOODS                 
                 bne.w   loc_59CB2
                 txt     467             ; "Welcome to the fairy woods{N}special stage!{W2}"
                 txt     468             ; "How quickly can you defeat{N}all the hidden monsters?{W2}"
                 txt     469             ; "Now, set a new record.{W2}"
-            if (STANDARD_BUILD=1)
-                loadSavedDataAddress SPECIAL_BATTLE_RECORD, a0
-                getSavedWord a0, d0
-            else
                 move.l  ((SPECIAL_BATTLE_RECORD-$1000000)).w,d0
-            endif
                 divs.w  #$3C,d0 
                 move.w  d0,d1
                 ext.l   d1
@@ -32,7 +27,7 @@ ms_map24_InitFunction:
                 move.l  d0,((DIALOGUE_NUMBER-$1000000)).w
                 txt     471             ; "{DICT} {#} sec.{W2}"
                 txt     472             ; "Are you ready?"
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 tst.w   d0
                 bne.s   byte_59C92      
                 txt     473             ; "...set...GO!{W2}"
@@ -47,7 +42,7 @@ return_59C9C:
                 rts
 cs_StartSpecialBattle:
                 
-                setStoryFlag 44         ; Battle 44 unlocked - BATTLE_FAIRY_WOODS               
+                setF FLAG_BATTLE44_AVAILABLE         ; Battle 44 unlocked - BATTLE_FAIRY_WOODS               
                 warp MAP_SECRET_MONK_FOREST_BATTLEFIELD,1,24,LEFT
                 csc_end
 cs_LeaveSpecialBattle:
@@ -66,27 +61,15 @@ loc_59CB2:
                 ext.l   d0
                 move.l  d0,((DIALOGUE_NUMBER-$1000000)).w
                 txt     476             ; "{DICT} {#} sec.{W2}"
-            if (STANDARD_BUILD=1)
-                loadSavedDataAddress SPECIAL_BATTLE_RECORD, a0
-                getSavedWord a0, d0
-                cmp.l   ((SPECIAL_BATTLE_TIME-$1000000)).w,d0
-                blo.s   byte_59CF0  
-            else
                 move.l  ((SPECIAL_BATTLE_TIME-$1000000)).w,d0
                 cmp.l   ((SPECIAL_BATTLE_RECORD-$1000000)).w,d0
-                bhs.s   byte_59CF0  
-            endif
+                bhs.s   byte_59CF0
                 
                 txt     477             ; "Congratulations!{N}You made it!"
                 
-            if (STANDARD_BUILD=1)
-                loadSavedDataAddress SPECIAL_BATTLE_RECORD, a0
-                setSavedWord d0, a0
-            else
                 move.l  d0,((SPECIAL_BATTLE_RECORD-$1000000)).w
-            endif
                 sndCom  MUSIC_ITEM
-                jsr     j_FadeOut_WaitForP1Input
+                jsr     FadeOut_WaitForP1Input ; fade out music and wait for P2 input ?!
                 bra.s   byte_59CF4      
 byte_59CF0:
                 
@@ -96,7 +79,7 @@ byte_59CF4:
                 txt     479             ; "Come back again!{N}See ya!{W1}"
                 clsTxt
                 script  cs_LeaveSpecialBattle
-                clrFlg  544             ; Battle 44 completed - BATTLE_FAIRY_WOODS                 
+                clrFlg  FLAG_BATTLE44_COMPLETE             ; Battle 44 completed - BATTLE_FAIRY_WOODS                 
                 rts
 
     ; End of function ms_map24_InitFunction

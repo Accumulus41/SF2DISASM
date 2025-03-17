@@ -147,7 +147,7 @@ trap9_SetTrigger:
 @loc_1:
                 
                 cmp.l   (a0)+,d0
-                beq.w   @loc_2          
+                beq.w   @loc_2
                 addq.w  #1,d1
                 dbf     d7,@loc_1
                 

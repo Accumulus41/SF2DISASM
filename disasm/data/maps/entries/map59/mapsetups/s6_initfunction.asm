@@ -8,23 +8,23 @@
 ms_map59_InitFunction:
                 
                  
-                chkFlg  999             ; Set after the Nazca ship shootdown scene
+                chkFlg  FLAG_NASKA_FLIGHT             ; Set after the Nazca ship shootdown scene
                 bne.s   byte_5EB18      
                 script  cs_5EB44
                 script  cs_5EBFC
                 script  cs_5ED06
                 script  cs_5EDB8
                 script  cs_5EF60
-                setFlg  999             ; Set after the Nazca ship shootdown scene
+                setFlg  FLAG_NASKA_FLIGHT             ; Set after the Nazca ship shootdown scene
                 setSavedByte #MAP_DOJO, EGRESS_MAP
-                setFlg  436             ; Battle 36 unlocked - BATTLE_VERSUS_PRISM_FLOWERS      
-                setFlg  440             ; Battle 40 unlocked - BATTLE_VERSUS_ODD_EYE            
-                setFlg  442             ; Battle 42 unlocked - BATTLE_VERSUS_GALAM              
-                setFlg  443             ; Battle 43 unlocked - BATTLE_VERSUS_ZEON               
+                setFlg  FLAG_BATTLE36_AVAILABLE             ; Battle 36 unlocked - BATTLE_VERSUS_PRISM_FLOWERS      
+                setFlg  FLAG_BATTLE40_AVAILABLE             ; Battle 40 unlocked - BATTLE_VERSUS_ODD_EYE            
+                setFlg  FLAG_BATTLE42_AVAILABLE             ; Battle 42 unlocked - BATTLE_VERSUS_GALAM              
+                setFlg  FLAG_BATTLE43_AVAILABLE             ; Battle 43 unlocked - BATTLE_VERSUS_ZEON               
                 rts
 byte_5EB18:
                 
-                chkFlg  443             ; Battle 43 unlocked - BATTLE_VERSUS_ZEON               
+                chkFlg  FLAG_BATTLE43_AVAILABLE             ; Battle 43 unlocked - BATTLE_VERSUS_ZEON               
                 beq.s   return_5EB24
                 script  cs_5EB26
 return_5EB24:
@@ -475,13 +475,13 @@ ce_5F19E:       mainEntity 0,0,UP
                 entity 13,4,UP,MAPSPRITE_ZEON,eas_Init
                 entity 13,8,UP,MAPSPRITE_GESHP,eas_Init
                 entity 13,25,UP,MAPSPRITE_ODD_EYE,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd
 ce_5F1BE:       mainEntity 63,63,UP
                 entity 5,5,UP,MAPSPRITE_NAZCA_SHIP,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd
 ce_5F1CE:       mainEntity 63,63,UP
                 entity 25,19,UP,MAPSPRITE_NAZCA_SHIP,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd
 ce_5F1DE:       mainEntity 0,0,UP
                 entity 11,19,UP,MAPSPRITE_EXECUTIONER,eas_Init
                 entity 63,63,RIGHT,MAPSPRITE_GESHP,eas_Init
@@ -494,7 +494,7 @@ ce_5F1DE:       mainEntity 0,0,UP
                 entity 11,16,LEFT,MAPSPRITE_DRAGONEWT,eas_Init
                 entity 15,19,DOWN,MAPSPRITE_CHAOS_WIZARD,eas_Init
                 entity 13,19,RIGHT,MAPSPRITE_CHAOS_WIZARD,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd
 ce_5F23E:       mainEntity 0,0,UP
                 entity 12,16,RIGHT,MAPSPRITE_PRISM_FLOWER,eas_Init
                 entity 16,18,RIGHT,MAPSPRITE_GESHP,eas_Init
@@ -505,7 +505,7 @@ ce_5F23E:       mainEntity 0,0,UP
                 entity 12,17,RIGHT,MAPSPRITE_CHAOS_WIZARD,eas_Init
                 entity 13,19,RIGHT,MAPSPRITE_DRAGONEWT,eas_Init
                 entity 14,20,RIGHT,MAPSPRITE_CHAOS_WIZARD,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd
 ce_5F28E:       mainEntity 0,0,UP
                 entity 11,16,RIGHT,MAPSPRITE_DRAGONEWT,eas_Init
                 entity 16,18,RIGHT,MAPSPRITE_GESHP,eas_Init
@@ -524,7 +524,7 @@ ce_5F28E:       mainEntity 0,0,UP
                 entity 13,17,RIGHT,MAPSPRITE_PRISM_FLOWER,eas_Init
                 entity 14,19,RIGHT,MAPSPRITE_PRISM_FLOWER,eas_Init
                 entity 15,20,RIGHT,MAPSPRITE_PRISM_FLOWER,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd
 
 ; =============== S U B R O U T I N E =======================================
 

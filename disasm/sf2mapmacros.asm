@@ -47,23 +47,23 @@ mainLayerEnd: macro
     endm
 
 scndLayerFgndStart: macro
-    dc.w \1
-    dc.w \2
+    dc.b \1
+    dc.b \2
     endm
 
 scndLayerBgndStart: macro
-    dc.w \1
-    dc.w \2
+    dc.b \1
+    dc.b \2
     endm
 
 mainLayerParallax: macro
-    dc.w \1
-    dc.w \2
+    dc.b \1
+    dc.b \2
     endm
 
 scndLayerParallax: macro
-    dc.w \1
-    dc.w \2
+    dc.b \1
+    dc.b \2
     endm
 
 mainLayerAutoscroll: macro
@@ -88,7 +88,7 @@ areaDefaultMusic: macro
 ; Flag block copies
 
 fbcFlag: macro
-    dc.w \1
+	defineShorthand.w FLAG_,\1
     endm
 
 fbcSource: macro
@@ -189,7 +189,7 @@ warpFacing: macro
 mapItem: macro
     dc.b \1
     dc.b \2
-    dc.b \3
+	defineShorthand.b SEARCHFLAG_,\3
     defineShorthand.b ITEM_,\4
     endm
     

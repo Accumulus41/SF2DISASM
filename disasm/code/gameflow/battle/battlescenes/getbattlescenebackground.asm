@@ -15,7 +15,7 @@ GetBattlesceneBackground:
                 beq.s   @CheckCustomBackground
                 cmpi.w  #COMBATANT_ENEMIES_START,d0
                 bcs.s   @CheckCustomBackground
-                jsr     j_GetEnemy
+                jsr     GetEnemy
                 cmpi.w  #ENEMY_ZEON,d1  ; HARDCODED : if enemy is Zeon, get his own background
                 bne.s   @CheckCustomBackground
                 moveq   #BATTLEBACKGROUND_VERSUS_ZEON,d1
@@ -36,7 +36,7 @@ GetBattlesceneBackground:
                 clr.w   d0
 @GetTerrainBackground:
                 
-                jsr     j_GetCurrentTerrainType
+                jsr     GetCurrentTerrainType
                 andi.w  #BYTE_LOWER_NIBBLE_MASK,d0 ; get background according to terrain type
                 move.b  table_TerrainBackgrounds(pc,d0.w),d1
                 ext.w   d1

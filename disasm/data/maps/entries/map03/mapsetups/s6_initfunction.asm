@@ -8,13 +8,13 @@
 ms_map3_InitFunction:
                 
                  
-                chkFlg  1               ; Sarah joined
+                chkFlg  ALLY_SARAH               ; Sarah joined
                 beq.s   byte_51390      
                 script  cs_513BA
                 bra.s   byte_513A8      
 byte_51390:
                 
-                chkFlg  602             ; Set after Astral's second basement line
+                chkFlg  FLAG_GRANSEAL3             ; Set after Astral's second basement line
                 beq.s   byte_513A8      
                 script  cs_513A0
                 bra.w   byte_513A8      
@@ -24,7 +24,7 @@ cs_513A0:
                 csc_end
 byte_513A8:
                 
-                chkFlg  603             ; Set after the messenger scene
+                chkFlg  FLAG_GRANSEAL4             ; Set after the messenger scene
                 beq.s   return_513B8
                 move.w  #142,d0
                 jsr     MoveEntityOutOfMap

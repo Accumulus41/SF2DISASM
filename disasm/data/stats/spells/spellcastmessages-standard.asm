@@ -21,7 +21,9 @@ table_SpellcastMessagesForIndexes:
 ; Spells that display a different special message for each level.
 table_SpellcastMessagesForEntries:
                 
-                dc.w SPELL_AQUA|SPELL_LV1, MESSAGE_SPELLCAST_BLEW_OUT_AQUA_BREATH   ; {NAME} blew out{N}aqua-breath!
+                dc.w SPELL_AQUA|SPELL_LV1, MESSAGE_SPELLCAST_BLEW_OUT_BUBBLE_BREATH   ; {NAME} blew out{N}aqua-breath!
                 dc.w SPELL_AQUA|SPELL_LV2, MESSAGE_SPELLCAST_BLEW_OUT_BUBBLE_BREATH ; {NAME} blew out{N}bubble-breath!
+                dc.w SPELL_AQUA|SPELL_LV3, MESSAGE_SPELLCAST_BLEW_OUT_AQUA_BREATH   ; {NAME} blew out{N}aqua-breath!
+                dc.w SPELL_AQUA|SPELL_LV4, MESSAGE_SPELLCAST_BLEW_OUT_AQUA_BREATH ; {NAME} blew out{N}bubble-breath!
                 
                 tableEnd

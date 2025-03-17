@@ -8,13 +8,13 @@
 ms_map10_flag722_InitFunction:
                 
                  
-                chkFlg  799             ; Set after you agree to kill Zeon in Bedoe (King's yes/no dialog)
+                chkFlg  FLAG_BEDOE6             ; Set after you agree to kill Zeon in Bedoe (King's yes/no dialog)
                 beq.s   byte_5709E      
                 move.w  #ALLY_LUKE,d0
                 jsr     MoveEntityOutOfMap
 byte_5709E:
                 
-                chkFlg  724             ; Set after the scene where Skreech falls in Bedoe
+                chkFlg  FLAG_BEDOE5             ; Set after the scene where Skreech falls in Bedoe
                 beq.s   return_570AE
                 move.w  #152,d0
                 jsr     MoveEntityOutOfMap

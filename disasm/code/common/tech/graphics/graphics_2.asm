@@ -13,9 +13,9 @@ sub_1942:
                 lea     (SPRITE_00_LINK).l,a1
                 clr.w   d1
                 moveq   #2,d0
-                bsr.w   sub_196C        
-                bsr.w   sub_196C        
-                bsr.w   sub_198C        
+                bsr.w   sub_196C
+                bsr.w   sub_196C
+                bsr.w   sub_198C
                 clr.w   d2
                 move.b  d2,(a1,d1.w)
                 move.w  d2,d1

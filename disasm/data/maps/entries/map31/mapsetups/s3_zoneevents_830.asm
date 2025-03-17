@@ -21,10 +21,10 @@ Map31_DefaultZoneEvent:
 Map31_33E_ZoneEvent0:
                 
                  
-                chkFlg  834             ; Set after making the Arm of Golem appear in Moun
+                chkFlg  FLAG_MOUN4             ; Set after making the Arm of Golem appear in Moun
                 bne.s   return_5D570
                 script  cs_5D644
-                setFlg  834             ; Set after making the Arm of Golem appear in Moun
+                setFlg  FLAG_MOUN4             ; Set after making the Arm of Golem appear in Moun
 return_5D570:
                 
                 rts

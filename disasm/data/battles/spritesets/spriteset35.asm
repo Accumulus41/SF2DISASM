@@ -5,11 +5,11 @@ BattleSpriteset35:
                 ; # Allies
                 dc.b 12
                 ; # Enemies
-                dc.b 18
+                dc.b 20
                 ; # AI Regions
-                dc.b 4
+                dc.b 15
                 ; # AI Points
-                dc.b 1
+                dc.b 15
                 
                 ; Allies
                 allyCombatant 0, 45, 8
@@ -133,6 +133,14 @@ BattleSpriteset35:
                 combatantAiAndItem ATTACKER1, NOTHING
                 combatantBehavior FOLLOW_TARGET|0, 3, NONE, 15, 0, HIDDEN
                 
+                enemyCombatant GIZMO, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
+                enemyCombatant GIZMO, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
                 ; AI Regions
                 dc.b 4
                 dc.b 0
@@ -170,6 +178,119 @@ BattleSpriteset35:
                 dc.b 0
                 dc.b 0
                 
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
                 ; AI Points
                 dc.b 23, 25
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
                 

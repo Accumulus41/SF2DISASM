@@ -8,7 +8,7 @@
 ms_map19_flag506_InitFunction:
                 
                  
-                chkFlg  620             ; Set after Astral talks Lemon into heading to the Ancient Tower
+                chkFlg  FLAG_CASTLEGRANS5             ; Set after Astral talks Lemon into heading to the Ancient Tower
                 beq.s   byte_5314C      
                 move.w  #ALLY_LEMON,d0
                 jsr     MoveEntityOutOfMap
@@ -20,7 +20,7 @@ ms_map19_flag506_InitFunction:
                 jsr     MoveEntityOutOfMap
 byte_5314C:
                 
-                chkFlg  621             ; Set after stepping in front of the Minister
+                chkFlg  FLAG_CASTLEGRANS6             ; Set after stepping in front of the Minister
                 beq.s   return_53166
                 move.w  #129,d0
                 jsr     MoveEntityOutOfMap

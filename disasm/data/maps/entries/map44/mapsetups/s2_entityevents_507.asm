@@ -202,14 +202,14 @@ Map44_1FB_EntityEvent7:
                  
                 txt     1008            ; "Sire!  Sir Astral!{N}Glad to see you again!{N}Can we put out now?{W1}"
                 clsTxt
-                move.w  ((CURRENT_SPEECH_SFX-$1000000)).w,((SPEECH_SFX_COPY-$1000000)).w
+                move.w  ((SPEECH_SFX-$1000000)).w,((SPEECH_SFX_BACKUP-$1000000)).w
                 move.w  #FOLLOWER_B,d0
                 jsr     GetEntityPortaitAndSpeechSfx
                 move.w  d1,((CURRENT_PORTRAIT-$1000000)).w
-                move.w  d2,((CURRENT_SPEECH_SFX-$1000000)).w
+                move.w  d2,((SPEECH_SFX-$1000000)).w
                 jsr     LoadAndDisplayCurrentPortrait
                 txt     1009            ; "{LEADER}, are you ready{N}to leave port?{W1}"
-                jsr     j_YesNoPrompt
+                jsr     YesNoPrompt
                 bne.s   byte_5454A      
                 script  cs_54578
                 bra.s   return_5454E

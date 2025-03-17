@@ -3,13 +3,13 @@
 ; 0x1B3720..0x1B3822 : Battle Spritesets 07
 BattleSpriteset07:
                 ; # Allies
-                dc.b 7
+                dc.b 12
                 ; # Enemies
-                dc.b 10
+                dc.b 20
                 ; # AI Regions
-                dc.b 4
+                dc.b 15
                 ; # AI Points
-                dc.b 1
+                dc.b 15
                 
                 ; Allies
                 allyCombatant 0, 13, 33
@@ -39,6 +39,26 @@ BattleSpriteset07:
                 allyCombatant 6, 14, 35
                 combatantAiAndItem HEALER1, NOTHING
                 combatantBehavior NONE, 15, NONE, 15, 0, STARTING
+                
+                allyCombatant 7, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
+                allyCombatant 8, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
+                allyCombatant 9, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
+                allyCombatant 10, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
+                allyCombatant 11, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
                 
                 ; Enemies
                 enemyCombatant DARK_SMOKE, 10, 14
@@ -81,6 +101,46 @@ BattleSpriteset07:
                 combatantAiAndItem ATTACKER1, NOTHING
                 combatantBehavior NONE, 15, NONE, 15, 0, STARTING
                 
+                enemyCombatant GIZMO, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
+                enemyCombatant GIZMO, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
+                enemyCombatant GIZMO, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
+                enemyCombatant GIZMO, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
+                enemyCombatant GIZMO, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
+                enemyCombatant GIZMO, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
+                enemyCombatant GIZMO, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
+                enemyCombatant GIZMO, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
+                enemyCombatant GIZMO, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
+                enemyCombatant GIZMO, 0, 0
+                combatantAiAndItem SENTRY, NOTHING
+                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
+                
                 ; AI Regions
                 dc.b 4
                 dc.b 0
@@ -118,6 +178,119 @@ BattleSpriteset07:
                 dc.b 0
                 dc.b 0
                 
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
+                dc.b 4
+                dc.b 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0, 0
+                dc.b 0
+                dc.b 0
+                
                 ; AI Points
                 dc.b 13, 16
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
+				dc.b 0, 0
                 

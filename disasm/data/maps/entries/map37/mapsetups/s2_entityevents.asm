@@ -2,34 +2,33 @@
 ; ASM FILE data\maps\entries\map37\mapsetups\s2_entityevents.asm :
 ; 0x5F86C..0x5F9D2 : 
 ms_map37_EntityEvents:
-                msEntityEvent ALLY_SARAH, DOWN, Map37_EntityEvent0-ms_map37_EntityEvents
-                msEntityEvent ALLY_CHESTER, DOWN, Map37_EntityEvent1-ms_map37_EntityEvents
-                msEntityEvent ALLY_JAHA, DOWN, Map37_EntityEvent2-ms_map37_EntityEvents
-                msEntityEvent ALLY_KAZIN, DOWN, Map37_EntityEvent3-ms_map37_EntityEvents
-                msEntityEvent ALLY_SLADE, DOWN, Map37_EntityEvent4-ms_map37_EntityEvents
-                msEntityEvent ALLY_KIWI, DOWN, Map37_EntityEvent5-ms_map37_EntityEvents
-                msEntityEvent ALLY_PETER, DOWN, Map37_EntityEvent6-ms_map37_EntityEvents
-                msEntityEvent ALLY_MAY, DOWN, Map37_EntityEvent7-ms_map37_EntityEvents
-                msEntityEvent ALLY_GERHALT, DOWN, Map37_EntityEvent8-ms_map37_EntityEvents
-                msEntityEvent ALLY_LUKE, DOWN, Map37_EntityEvent9-ms_map37_EntityEvents
-                msEntityEvent ALLY_ROHDE, DOWN, Map37_EntityEvent10-ms_map37_EntityEvents
-                msEntityEvent ALLY_RICK, DOWN, Map37_EntityEvent11-ms_map37_EntityEvents
-                msEntityEvent ALLY_ELRIC, DOWN, Map37_EntityEvent12-ms_map37_EntityEvents
-                msEntityEvent ALLY_ERIC, DOWN, Map37_EntityEvent13-ms_map37_EntityEvents
-                msEntityEvent ALLY_KARNA, DOWN, Map37_EntityEvent14-ms_map37_EntityEvents
-                msEntityEvent ALLY_RANDOLF, DOWN, Map37_EntityEvent15-ms_map37_EntityEvents
-                msEntityEvent ALLY_TYRIN, DOWN, Map37_EntityEvent16-ms_map37_EntityEvents
-                msEntityEvent ALLY_JANET, DOWN, Map37_EntityEvent17-ms_map37_EntityEvents
-                msEntityEvent ALLY_HIGINS, DOWN, Map37_EntityEvent18-ms_map37_EntityEvents
-                msEntityEvent ALLY_SKREECH, DOWN, Map37_EntityEvent19-ms_map37_EntityEvents
-                msEntityEvent ALLY_TAYA, DOWN, Map37_EntityEvent20-ms_map37_EntityEvents
-                msEntityEvent ALLY_FRAYJA, DOWN, Map37_EntityEvent21-ms_map37_EntityEvents
-                msEntityEvent ALLY_JARO, DOWN, Map37_EntityEvent22-ms_map37_EntityEvents
-                msEntityEvent ALLY_GYAN, DOWN, Map37_EntityEvent23-ms_map37_EntityEvents
-                msEntityEvent ALLY_ZYNK, UP, Map37_EntityEvent24-ms_map37_EntityEvents
-                msEntityEvent ALLY_CLAUDE, DOWN, Map37_EntityEvent25-ms_map37_EntityEvents
+                msEntityEvent 1, DOWN, Map37_EntityEvent0-ms_map37_EntityEvents
+                msEntityEvent 2, DOWN, Map37_EntityEvent1-ms_map37_EntityEvents
+                msEntityEvent 3, DOWN, Map37_EntityEvent2-ms_map37_EntityEvents
+                msEntityEvent 4, DOWN, Map37_EntityEvent3-ms_map37_EntityEvents
+                msEntityEvent 5, DOWN, Map37_EntityEvent4-ms_map37_EntityEvents
+                msEntityEvent 6, DOWN, Map37_EntityEvent5-ms_map37_EntityEvents
+                msEntityEvent 7, DOWN, Map37_EntityEvent6-ms_map37_EntityEvents
+                msEntityEvent 8, DOWN, Map37_EntityEvent7-ms_map37_EntityEvents
+                msEntityEvent 9, DOWN, Map37_EntityEvent8-ms_map37_EntityEvents
+                msEntityEvent 10, DOWN, Map37_EntityEvent9-ms_map37_EntityEvents
+                msEntityEvent 11, DOWN, Map37_EntityEvent10-ms_map37_EntityEvents
+                msEntityEvent 12, DOWN, Map37_EntityEvent11-ms_map37_EntityEvents
+                msEntityEvent 13, DOWN, Map37_EntityEvent12-ms_map37_EntityEvents
+                msEntityEvent 14, DOWN, Map37_EntityEvent13-ms_map37_EntityEvents
+                msEntityEvent 15, DOWN, Map37_EntityEvent14-ms_map37_EntityEvents
+                msEntityEvent 16, DOWN, Map37_EntityEvent15-ms_map37_EntityEvents
+                msEntityEvent 17, DOWN, Map37_EntityEvent16-ms_map37_EntityEvents
+                msEntityEvent 18, DOWN, Map37_EntityEvent17-ms_map37_EntityEvents
+                msEntityEvent 19, DOWN, Map37_EntityEvent18-ms_map37_EntityEvents
+                msEntityEvent 20, DOWN, Map37_EntityEvent19-ms_map37_EntityEvents
+                msEntityEvent 21, DOWN, Map37_EntityEvent20-ms_map37_EntityEvents
+                msEntityEvent 22, DOWN, Map37_EntityEvent21-ms_map37_EntityEvents
+                msEntityEvent 23, DOWN, Map37_EntityEvent22-ms_map37_EntityEvents
+                msEntityEvent 24, DOWN, Map37_EntityEvent23-ms_map37_EntityEvents
+                msEntityEvent 26, UP, Map37_EntityEvent24-ms_map37_EntityEvents
+                msEntityEvent 29, DOWN, Map37_EntityEvent25-ms_map37_EntityEvents
                 msEntityEvent 128, DOWN, Map37_EntityEvent26-ms_map37_EntityEvents
-                msEntityEvent 129, RIGHT, Map37_EntityEvent27-ms_map37_EntityEvents
                 msDefaultEntityEvent Map37_DefaultEntityEvent-ms_map37_EntityEvents
 
 ; =============== S U B R O U T I N E =======================================
@@ -191,12 +190,8 @@ Map37_EntityEvent13:
 
 Map37_EntityEvent14:
                 
-            if (STANDARD_BUILD&TEST_BUILD=1)
-                jmp     SoundTest
-            else
                 moveq   #ALLY_KARNA,d0
                 jmp     DisplayTacticalBaseQuote
-            endif
 
     ; End of function Map37_EntityEvent14
 
@@ -206,22 +201,8 @@ Map37_EntityEvent14:
 
 Map37_EntityEvent15:
                 
-            if (STANDARD_BUILD&TEST_BUILD=1)
-                move.w  ((TEST_BUILD_CURRENT_MESSAGE-$1000000)).w,d0
-                cmpi.w  #MESSAGES_MAX_INDEX,d0
-                bhi.s   @Continue
-                move.w  #MESSAGES_MAX_INDEX,d0
-@Continue:      moveq   #0,d1
-                move.w  #MESSAGES_MAX_INDEX,d2
-                jsr     NumberPrompt
-                bmi.s   @Return
-                move.w  d0,((TEST_BUILD_CURRENT_MESSAGE-$1000000)).w
-                jsr     (DisplayText).w
-@Return:        rts
-            else
                 moveq   #ALLY_RANDOLF,d0
                 jmp     DisplayTacticalBaseQuote
-            endif
 
     ; End of function Map37_EntityEvent15
 
@@ -264,12 +245,8 @@ Map37_EntityEvent18:
 
 Map37_EntityEvent19:
                 
-            if (STANDARD_BUILD&TEST_BUILD=1)
-                jmp     RenameAllAllies
-            else
                 moveq   #ALLY_SKREECH,d0
                 jmp     DisplayTacticalBaseQuote
-            endif
 
     ; End of function Map37_EntityEvent19
 
@@ -279,12 +256,8 @@ Map37_EntityEvent19:
 
 Map37_EntityEvent20:
                 
-            if (STANDARD_BUILD&TEST_BUILD=1)
-                jmp     StartMapTest
-            else
                 moveq   #ALLY_TAYA,d0
                 jmp     DisplayTacticalBaseQuote
-            endif
 
     ; End of function Map37_EntityEvent20
 
@@ -327,12 +300,8 @@ Map37_EntityEvent23:
 
 sub_5F9A0:
                 
-            if (STANDARD_BUILD&TEST_BUILD=1)
-                jmp     StartBattleTest
-            else
                 moveq   #ALLY_SHEELA,d0
                 jmp     DisplayTacticalBaseQuote
-            endif
 
     ; End of function sub_5F9A0
 
@@ -342,12 +311,8 @@ sub_5F9A0:
 
 Map37_EntityEvent24:
                 
-            if (STANDARD_BUILD&TEST_BUILD=1)
-                jmp     StartConfiguration
-            else
                 txt     3376            ; "You can start the ship by{N}placing the Sky Orb into{N}the cockpit.{W1}"
                 rts
-            endif
 
     ; End of function Map37_EntityEvent24
 
@@ -388,36 +353,9 @@ Map37_EntityEvent25:
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5F9C6:
-                
-                 
-                txt     11              ; "{LEADER}, take it easy!{W1}"
-                rts
-
-    ; End of function sub_5F9C6
-
-
-; =============== S U B R O U T I N E =======================================
-
-
 Map37_EntityEvent26:
-                
-            if (STANDARD_BUILD&TEST_BUILD=1)
-                jsr     CaravanMenu
-                txt     460             ; "Shop number?{D1}"
-                moveq   #SHOP_DEBUG,d0
-                moveq   #0,d1
-                moveq   #SHOPS_MAX_INDEX,d2
-                jsr     NumberPrompt
-                bmi.s   @Skip
-                move.b  d0,((CURRENT_SHOP_INDEX-$1000000)).w
-                jsr     ShopMenu
-@Skip:          jmp     ChurchMenu
-            else
+               
                 txt     11              ; "{LEADER}, take it easy!{W1}"
-            endif
-Map37_EntityEvent27:
-                
                 rts
 
     ; End of function Map37_EntityEvent26

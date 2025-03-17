@@ -21,8 +21,8 @@ GetCombatantMapsprite:
 @Enemy:         move.w  d1,-(sp)
                 jsr     GetEnemy
                 add.w   d1,d1
-                lea     table_EnemyMapsprites(pc),a0
-                move.w  (a0,d1.w),d4
+                clr.w   d4
+                move.w  table_EnemyMapsprites(pc,d1.w),d4
                 move.w  (sp)+,d1
                 
 @Done:          move.w  (sp)+,d0

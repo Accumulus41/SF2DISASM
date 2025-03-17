@@ -8,7 +8,7 @@
 ms_map40_InitFunction:
                 
                  
-                chkFlg  507             ; Battle 7 completed - BATTLE_VERSUS_DARK_SMOKES           
+                chkFlg  FLAG_BATTLE07_COMPLETE             ; Battle 7 completed - BATTLE_VERSUS_DARK_SMOKES           
                 beq.s   return_53FD6
                 script  cs_53FD8
 return_53FD6:

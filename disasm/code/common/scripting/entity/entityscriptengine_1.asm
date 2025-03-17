@@ -74,7 +74,7 @@ VInt_UpdateSprites:
                 tst.w   d7
                 bne.s   @DetermineWalkingFrame
                 move.b  ENTITYDEF_OFFSET_LAYER(a0),d5
-                jsr     j_UpdateSpecialSprite
+                jsr     UpdateSpecialSprite
                 bra.w   @NextEntity
 @DetermineWalkingFrame:
                 
@@ -148,7 +148,7 @@ loc_4DBE:
 @NextEntity:
                 
                 adda.w  #ENTITYDEF_SIZE,a0
-                addq.l  #VDP_SPRITE_ENTRY_SIZE,a1
+                addq.l  #VDP_SPRITE_SIZE,a1
                 dbf     d7,@Loop
                 
                 clr.b   -5(a1)
@@ -166,18 +166,13 @@ loc_4DBE:
                 blt.w   loc_4E0A
                 cmpi.w  #256,d1
                 bgt.w   loc_4E0A
-                jsr     j_UpdateCursorSprites
+                jsr     UpdateCursorSprites
                 bra.w   loc_4E10
 loc_4E0A:
                 
-                jsr     j_UpdateSpritesHelper
+                jsr     UpdateSpritesHelper
 loc_4E10:
-            if (STANDARD_BUILD=1)
                 bra.s   sub_4E24
-            else
-                bsr.w   sub_4E24
-                rts
-            endif
 
     ; End of function VInt_UpdateSprites
 
@@ -213,7 +208,7 @@ loc_4E30:
                 
                 cmpi.b  #16,VDPSPRITE_OFFSET_LINK(a1,d6.w)
                 beq.s   loc_4E3E
-                addq.w  #VDP_SPRITE_ENTRY_SIZE,d6
+                addq.w  #VDP_SPRITE_SIZE,d6
                 dbf     d7,loc_4E30
 loc_4E3E:
                 

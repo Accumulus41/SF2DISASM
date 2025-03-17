@@ -11,9 +11,9 @@ ExplorationLoop:
             if (MUSIC_RESUMING=1)
                 activateMusicResuming
             endif
-                subi.w  #20000,((word_FFB196-$1000000)).w
+                subi.w  #20000,((STEP_COUNTER-$1000000)).w
                 bge.s   loc_257D0
-                clr.w   ((word_FFB196-$1000000)).w
+                clr.w   ((STEP_COUNTER-$1000000)).w
 loc_257D0:
                 
                 jsr     HealLivingAndImmortalAllies
@@ -34,17 +34,17 @@ loc_257D0:
                 bsr.w   WaitForFadeToFinish
                 trap    #VINT_FUNCTIONS
                 dc.w VINTS_CLEAR
-                jsr     j_GetMapSetupEntities
-                jsr     j_InitializeMapEntities
+                jsr     GetMapSetupEntityList
+                jsr     InitializeMapEntities
                 jsr     (LoadEntityMapsprites).w
                 bsr.w   ClearMapSetupTempFlags
-                setFlg  80              ; Set @ loc_257D0, also set during exploration loop at 0x25824
+                setFlg  FLAG_BATTLEEXPLORE              ; Set @ loc_257D0, also set during exploration loop at 0x25824
                 bra.s   loc_25836
 @MapIndexNotProvided:
                 
                 bsr.w   WaitForFadeToFinish
                 bsr.w   UpdateMainEntityProperties
-                jsr     j_DeclareRaftEntity
+                jsr     DeclareRaftEntity
 loc_25836:
                 
                 jsr     (InitializeExplorationSpritesFrameCounter).w
@@ -53,15 +53,11 @@ loc_25836:
                 move.b  #0,((VIEW_TARGET_ENTITY-$1000000)).w
                 jsr     (LoadMap).w     
                 bsr.w   SetBaseVIntFunctions
-                jsr     j_RunMapSetupInitFunction
+                jsr     RunMapSetupInitFunction
                 move.l  (PALETTE_1_BASE_02).l,d0
                 cmp.l   (PALETTE_1_CURRENT_02).l,d0
-                beq.s   loc_2586A       
-            if (STANDARD_BUILD=1)
+                beq.s   loc_2586A
                 bsr.w   PlayMapMusic
-            else
-                jsr     (PlayMapMusic).w
-            endif
                 jsr     (FadeInFromBlack).w
 loc_2586A:
                 
@@ -91,11 +87,11 @@ loc_25888:
 ClearMapSetupTempFlags:
                 
                 movem.w d1/d7,-(sp)
-                move.w  #MAPSETUP_TEMP_FLAGS_START,d1
-                move.w  #MAPSETUP_TEMP_FLAGS_COUNTER,d7
+                move.w  #FLAG_MAPSETUP_START,d1
+                move.w  #FLAG_MAPSETUP_COUNTER,d7
 @Loop:
                 
-                jsr     j_ClearFlag
+                jsr     ClearFlag
                 addq.w  #1,d1
                 dbf     d7,@Loop
                 
@@ -128,7 +124,7 @@ loc_258CE:
                 
                 move.b  d3,ENTITYDEF_OFFSET_FACING(a0)
                 clr.w   d0
-                jsr     j_GetAllyMapsprite
+                jsr     GetAllyMapsprite
                 move.w  d3,d1
                 moveq   #-1,d2
                 move.w  d4,d3
@@ -184,7 +180,7 @@ WaitForEvent:
                 bne.s   loc_25930       
                 move.b  #0,((VIEW_TARGET_ENTITY-$1000000)).w ; Follow main entity
                 clr.w   d0
-                jsr     j_SetControlledEntityActScript
+                jsr     SetControlledEntityActScript
 loc_25930:
                 
                 clr.w   d0              ; SECONDARY EXPLORATION LOOP - Wait for event OR player action (A/C button)
@@ -242,7 +238,7 @@ ProcessMapEventType1_Warp:
                 clr.w   ((WARP_SFX-$1000000)).w
                 movem.w (sp)+,d0
                 clr.w   d0
-                jsr     j_MakeEntityIdle
+                jsr     MakeEntityIdle
                 movem.l (sp)+,d0        ; Alter stack pointer to exit from exploration loop and return to MainLoop
                 clr.w   d0
                 clr.w   d1
@@ -267,11 +263,11 @@ loc_259C2:
 loc_259CC:
                 
                 clr.w   d0
-                jsr     j_MakeEntityIdle
+                jsr     MakeEntityIdle
                 move.b  ((MAP_EVENT_PARAM_2-$1000000)).w,d0
                 cmpi.b  #MAP_OVERWORLD_AROUND_PACALON,d0
                 bne.s   @Continue       ; HARDCODED check if map is overworld pacalon, switch if water not restored
-                chkFlg  530             ; Battle 30 completed - BATTLE_VERSUS_ZALBARD              
+                chkFlg  FLAG_BATTLE30_COMPLETE             ; Battle 30 completed - BATTLE_VERSUS_ZALBARD              
                 beq.s   @Continue
                 move.w  #MAP_OVERWORLD_PACALON_2,d0
 @Continue:
@@ -298,7 +294,7 @@ loc_25A18:
                 clr.w   d2
                 clr.w   d3
                 bsr.w   UpdatePlayerPosFromMapEvent
-                jsr     j_DeclareRaftEntity
+                jsr     DeclareRaftEntity
                 rts
 
     ; End of function ProcessMapEventType1_Warp
@@ -330,7 +326,7 @@ UpdatePlayerPosFromMapEvent:
 
 ProcessMapEventType2_GetIntoCaravan:
                 
-                jsr     j_MapEventType2 
+                jsr     MapEventType2 
                 rts
 
     ; End of function ProcessMapEventType2_GetIntoCaravan
@@ -341,7 +337,7 @@ ProcessMapEventType2_GetIntoCaravan:
 
 ProcessMapEventType3_GetIntoRaft:
                 
-                jsr     j_MapEventType3
+                jsr     MapEventType3
                 rts
 
     ; End of function ProcessMapEventType3_GetIntoRaft
@@ -352,7 +348,7 @@ ProcessMapEventType3_GetIntoRaft:
 
 ProcessMapEventType4_GetOutOfCaravan:
                 
-                jsr     j_MapEventType4
+                jsr     MapEventType4
                 rts
 
     ; End of function ProcessMapEventType4_GetOutOfCaravan
@@ -363,7 +359,7 @@ ProcessMapEventType4_GetOutOfCaravan:
 
 ProcessMapEventType5_GetOutOfRaft:
                 
-                jsr     j_MapEventType5
+                jsr     MapEventType5
                 rts
 
     ; End of function ProcessMapEventType5_GetOutOfRaft
@@ -372,35 +368,13 @@ ProcessMapEventType5_GetOutOfRaft:
 ; =============== S U B R O U T I N E =======================================
 
 
-j_j_ShrinkInBowieAndFollowers:
-                
-                jsr     j_ShrinkIntoCaravanBowieAndFollowers
-                rts
-
-    ; End of function j_j_ShrinkInBowieAndFollowers
-
-
-; =============== S U B R O U T I N E =======================================
-
-
-j_j_GrowOutBowieAndFollowers:
-                
-                jsr     j_GrowOutBowieAndFollowers
-                rts
-
-    ; End of function j_j_GrowOutBowieAndFollowers
-
-
-; =============== S U B R O U T I N E =======================================
-
-
 ProcessMapEventType6_ZoneEvent:
                 
                 clr.w   d0
-                jsr     j_ApplyInitActscript
+                jsr     ApplyInitActscript
                 move.w  ((MAP_EVENT_PARAM_1-$1000000)).w,d1 ; X
                 move.w  ((MAP_EVENT_PARAM_3-$1000000)).w,d2 ; Y
-                jsr     j_RunMapSetupZoneEvent
+                jsr     RunMapSetupZoneEvent
                 rts
 
     ; End of function ProcessMapEventType6_ZoneEvent

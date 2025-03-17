@@ -9,7 +9,7 @@ cs_5D652:       textCursor 2024
                 nextText $0,136         ; "May I paint your portrait?"
 cs_5D65E:       textCursor 2027
                 yesNo
-                jumpIfFlagClear 89,cs_5D712 ; YES/NO prompt answer
+                jumpIfFlagClear FLAG_YESNO,cs_5D712 ; YES/NO prompt answer
                 hideText
                 nextSingleText $0,136   ; "Excellent!{W1}"
                 nextSingleText $0,136   ; "Then, would you stand over{N}there, in front of the{N}flowers?{W1}"
@@ -75,7 +75,7 @@ sub_5D73E:
                 move.w  #PORTRAIT_BOWIE_PAINTING,d0 ; Bowie painting portrait index
                 moveq   #-1,d1
                 clr.w   d2
-                jsr     j_OpenPortraitWindow
+                jsr     OpenPortraitWindow
                 movem.l (sp)+,d0-d2/a0
                 rts
 

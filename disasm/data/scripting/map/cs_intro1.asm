@@ -1,10 +1,7 @@
 
 ; ASM FILE data\scripting\map\cs_intro1.asm :
 ; 0x47F7E..0x48380 : Intro cutscene 1
-IntroCutscene1: textCursor 4186
-            if (STANDARD_BUILD&CHAPTER_SCREEN=1)
-                executeSubroutine ChapterScreen1
-            endif
+IntroCutscene1: textCursor STORYTEXT_OFFSET_SLADE_ENTERS_SWORD_SHRINE
                 mapLoad MAP_FORCE_SWORD_SHRINE,2,5
                 csWait 1
                 loadMapEntities ce_48340
@@ -264,4 +261,4 @@ ce_48340:       mainEntity 63,63,UP
                 entity 63,63,LEFT,MAPSPRITE_EFFECT4,eas_Init
                 entity 63,63,UP,MAPSPRITE_EFFECT4,eas_Init
                 entity 63,63,UP,MAPSPRITE_EFFECT4,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd

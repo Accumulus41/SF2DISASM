@@ -544,7 +544,7 @@ cs_60F18:       textCursor 3471
 cs_60F64:       textCursor 3480
                 nextText $FF,255        ; "It's a fine-looking piano.{N}Will you play it?{W1}"
                 yesNo
-                jumpIfFlagClear 89,cs_60FA4 ; YES/NO prompt answer
+                jumpIfFlagClear FLAG_YESNO,cs_60FA4 ; YES/NO prompt answer
                 textCursor 3481
                 playSound MUSIC_PIANO_THEME
                 csWait 120
@@ -555,7 +555,7 @@ cs_60F64:       textCursor 3480
                 csWait 30
                 nextSingleText $FF,255  ; "Something opened somewhere.{W1}"
                 setBlocks 32,45,1,1,11,4
-                setF 940                ; Set after playing the piano in Yeel (during the late game)
+                setF FLAG_YEEL2                ; Set after playing the piano in Yeel (during the late game)
                 csc_end
 cs_60FA4:       textCursor 3482
                 nextSingleText $FF,255  ; "{LEADER}, can't you play?{W1}"

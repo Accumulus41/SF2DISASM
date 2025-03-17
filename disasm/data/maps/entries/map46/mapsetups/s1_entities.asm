@@ -17,11 +17,7 @@ ms_map46_Entities:
                 msFixedEntity 4, 11, DOWN, ALLY_ELRIC, eas_Init
                 msWalkingEntity 12, 13, RIGHT, ALLY_ERIC, 12, 13, 1
                 msFixedEntity 9, 19, RIGHT, ALLY_KARNA, eas_Init
-            if (STANDARD_BUILD&TEST_BUILD=1)
-                msFixedEntity 15, 20, RIGHT, ALLY_RANDOLF, eas_Init
-            else
                 msWalkingEntity 14, 21, UP, ALLY_RANDOLF, 14, 21, 1
-            endif
                 msFixedEntity 11, 8, DOWN, ALLY_TYRIN, eas_Init
                 msFixedEntity 4, 12, UP, ALLY_JANET, eas_Init
                 msFixedEntity 9, 3, DOWN, ALLY_HIGINS, eas_Init
@@ -35,5 +31,6 @@ ms_map46_Entities:
                 msFixedEntity 14, 9, LEFT, ALLY_CHAZ, eas_Init
                 msFixedEntity 11, 3, DOWN, ALLY_LEMON, eas_Init
                 msFixedEntity 14, 3, DOWN, ALLY_CLAUDE, eas_Init
+				msFixedEntity 14,5, LEFT, ALLY_JOGURT, eas_Init
                 msFixedEntity 10, 18, DOWN, MAPSPRITE_ASTRAL, eas_Init
                 msEntitiesEnd

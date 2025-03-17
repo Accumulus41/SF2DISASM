@@ -8,13 +8,13 @@
 ms_map6_InitFunction:
                 
                  
-                chkFlg  802             ; Set after the event in the basement of Creed's Mansion
+                chkFlg  FLAG_EVILSPIRIT2             ; Set after the event in the basement of Creed's Mansion
                 beq.s   byte_54E62      
                 script  cs_54E70
                 rts
 byte_54E62:
                 
-                chkFlg  706             ; Set after the scene with the sailor and soldier in New Granseal (Peter intro)
+                chkFlg  FLAG_NEWGRANS3             ; Set after the scene with the sailor and soldier in New Granseal (Peter intro)
                 beq.s   return_54E6E
                 script  cs_54E78
 return_54E6E:

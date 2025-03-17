@@ -23,10 +23,10 @@ Map19_DefaultZoneEvent:
 Map19_1FA_ZoneEvent0:
                 
                  
-                chkFlg  620             ; Set after Astral talks Lemon into heading to the Ancient Tower
+                chkFlg  FLAG_CASTLEGRANS5             ; Set after Astral talks Lemon into heading to the Ancient Tower
                 bne.s   return_52DC6
                 script  cs_534D2
-                setFlg  620             ; Set after Astral talks Lemon into heading to the Ancient Tower
+                setFlg  FLAG_CASTLEGRANS5             ; Set after Astral talks Lemon into heading to the Ancient Tower
 return_52DC6:
                 
                 rts
@@ -40,11 +40,11 @@ return_52DC6:
 Map19_1FA_ZoneEvent1:
                 
                  
-                chkFlg  621             ; Set after stepping in front of the Minister
+                chkFlg  FLAG_CASTLEGRANS6             ; Set after stepping in front of the Minister
                 bne.s   return_52DDC
                 script  cs_535FA
-                setFlg  83              ; King + Minister are followers
-                setFlg  621             ; Set after stepping in front of the Minister
+                setFlg  FLAG_FOLLOWER_KINGMINISTER              ; King + Minister are followers
+                setFlg  FLAG_CASTLEGRANS6             ; Set after stepping in front of the Minister
 return_52DDC:
                 
                 rts
@@ -58,10 +58,10 @@ return_52DDC:
 Map19_1FB_ZoneEvent0:
                 
                  
-                chkFlg  622             ; Set after Astral delivers an "oh crap, earthquake" line in the castle
+                chkFlg  FLAG_CASTLEGRANS7             ; Set after Astral delivers an "oh crap, earthquake" line in the castle
                 bne.s   return_52DEE
                 script  cs_53620
-                setFlg  622             ; Set after Astral delivers an "oh crap, earthquake" line in the castle
+                setFlg  FLAG_CASTLEGRANS7             ; Set after Astral delivers an "oh crap, earthquake" line in the castle
 return_52DEE:
                 
                 rts
@@ -75,10 +75,10 @@ return_52DEE:
 Map19_1FB_ZoneEvent1:
                 
                  
-                chkFlg  623             ; Set after Astral delivers his "should be safe" line in castle
+                chkFlg  FLAG_CASTLEGRANS8             ; Set after Astral delivers his "should be safe" line in castle
                 bne.s   return_52E00
                 script  cs_5362A
-                setFlg  623             ; Set after Astral delivers his "should be safe" line in castle
+                setFlg  FLAG_CASTLEGRANS8             ; Set after Astral delivers his "should be safe" line in castle
 return_52E00:
                 
                 rts

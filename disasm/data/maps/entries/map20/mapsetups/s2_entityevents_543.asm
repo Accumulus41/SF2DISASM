@@ -26,7 +26,7 @@ Map20_21F_DefaultEntityEvent:
 Map20_21F_EntityEvent0:
                 
                  
-                chkFlg  982
+                chkFlg  FLAG_CASTLEGRANS9
                 bne.s   byte_63266      
                 txt     3942            ; "{LEADER}!{W2}"
                 txt     3943            ; "I'm waiting for Sir Astral.{W2}"
@@ -49,7 +49,7 @@ return_6326E:
 Map20_21F_EntityEvent1:
                 
                 moveq   #1,d0
-                jsr     j_ClosePortraitEyes
+                jsr     ClosePortraitEyes
                 txt     4015            ; "Zzzzz....{W1}"
                 rts
 

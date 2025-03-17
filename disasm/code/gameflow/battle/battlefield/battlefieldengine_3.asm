@@ -11,7 +11,7 @@
 GetSpellRange:
                 
                 movem.l d0-d2/d5-a6,-(sp)
-                jsr     GetSpellDefAddress
+                jsr     FindSpellDefAddress
                 move.b  SPELLDEF_OFFSET_MAX_RANGE(a0),d3
                 move.b  SPELLDEF_OFFSET_MIN_RANGE(a0),d4
                 movem.l (sp)+,d0-d2/d5-a6
@@ -29,7 +29,7 @@ GetSpellRange:
 GetItemRange:
                 
                 movem.l d0-d2/d5-a6,-(sp)
-                jsr     GetItemDefinitionAddress
+                jsr     GetItemDefAddress
                 move.b  ITEMDEF_OFFSET_MAX_RANGE(a0),d3
                 move.b  ITEMDEF_OFFSET_MIN_RANGE(a0),d4
                 movem.l (sp)+,d0-d2/d5-a6
@@ -143,7 +143,7 @@ CreateItemRangeGrid:
                 bsr.w   ClearTargetsArray
                 bsr.w   ClearTotalMovecostsAndMovableGridArrays
                 move.w  #0,((TARGETS_LIST_LENGTH-$1000000)).w
-                jsr     GetItemDefinitionAddress
+                jsr     GetItemDefAddress
                 move.b  ITEMDEF_OFFSET_USE_SPELL(a0),d1
                 cmpi.b  #SPELL_NOTHING,d1
                 beq.s   @Done
@@ -170,7 +170,7 @@ CreateSpellRangeGrid:
                 bsr.w   ClearTargetsArray
                 bsr.w   ClearTotalMovecostsAndMovableGridArrays
                 move.w  #0,((TARGETS_LIST_LENGTH-$1000000)).w
-                jsr     GetSpellDefAddress
+                jsr     FindSpellDefAddress
                 btst    #COMBATANT_BIT_ENEMY,d0
                 bne.s   loc_C4AA
                 btst    #SPELLPROPS_BIT_TARGETING,SPELLDEF_OFFSET_PROPS(a0)
@@ -302,12 +302,10 @@ pt_SpellRanges: dc.l SpellRange0
                 dc.l SpellRange1
                 dc.l SpellRange2
                 dc.l SpellRange3
-            if (STANDARD_BUILD&EXPANDED_RANGES=1)
                 dc.l SpellRange4
                 dc.l SpellRange5
                 dc.l SpellRange6
                 dc.l SpellRange7
-            endif
             
 SpellRange0:    dc.b 1
                 dc.b  0,  0
@@ -342,7 +340,6 @@ SpellRange3:    dc.b 12
                 dc.b -2,  1
                 dc.b -1,  2
                 
-            if (STANDARD_BUILD&EXPANDED_RANGES=1)
 SpellRange4:    dc.b 16
                 dc.b  0, -4
                 dc.b -1, -3
@@ -438,7 +435,6 @@ SpellRange7:    dc.b 28
                 dc.b  3, -4
                 dc.b  2, -5
                 dc.b  1, -6
-            endif
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -450,7 +446,7 @@ PopulateTargetableGrid_UseItem:
                 
                 movem.l d0-a6,-(sp)
                 move.w  #0,((TARGETS_LIST_LENGTH-$1000000)).w
-                jsr     GetItemDefinitionAddress
+                jsr     GetItemDefAddress
                 move.b  ITEMDEF_OFFSET_USE_SPELL(a0),d1
                 cmpi.b  #-1,d1
                 beq.s   @Done
@@ -473,7 +469,7 @@ sub_C5FA:
                 
                 movem.l d0-a6,-(sp)
                 move.w  #0,((TARGETS_LIST_LENGTH-$1000000)).w
-                jsr     GetItemDefinitionAddress
+                jsr     GetItemDefAddress
                 move.b  ITEMDEF_OFFSET_USE_SPELL(a0),d1
                 cmpi.b  #-1,d1
                 beq.s   @Done
@@ -513,12 +509,9 @@ PopulateTargetableGrid_CastSpell:
 
 PopulateTargetableGrid:
                 
-            if (STANDARD_BUILD=1)
-                include "code\gameflow\battle\battlefield\populatetargetablegrid-standard.asm"
-            else
                 movem.l d0-a6,-(sp)
                 move.w  #0,((TARGETS_LIST_LENGTH-$1000000)).w
-                jsr     GetSpellDefAddress
+                jsr     FindSpellDefAddress
                 cmpi.b  #SPELL_AURA|SPELL_LV4,d1
                 beq.w   @ChooseTargets
                 cmpi.b  #SPELL_SHINE,d1
@@ -556,7 +549,6 @@ PopulateTargetableGrid:
                 
                 movem.l (sp)+,d0-a6
                 rts
-            endif
 
     ; End of function PopulateTargetableGrid
 
@@ -1038,7 +1030,7 @@ PrioritizeReachableTargets:
                 move.l  (sp)+,d1        ; d1 = attack item index
                 lea     (ATTACK_COMMAND_ITEM_SLOT).l,a0
                 move.w  d2,(a0)
-                jsr     GetItemDefinitionAddress
+                jsr     GetItemDefAddress
                 move.b  ITEMDEF_OFFSET_USE_SPELL(a0),d1
                 lea     ((TARGETS_REACHABLE_BY_ITEM_LIST-$1000000)).w,a0
                 lea     ((ITEM_MOVEMENT_TO_REACHABLE_TARGETS-$1000000)).w,a1
@@ -1385,7 +1377,7 @@ GetSpellPowerAdjustedForResistance:
                 
                 movem.l d0-d5/d7-a0,-(sp)
                 bsr.w   GetResistanceToSpell
-                jsr     GetSpellDefAddress
+                jsr     FindSpellDefAddress
                 moveq   #0,d6
                 move.b  SPELLDEF_OFFSET_POWER(a0),d6
                 move.w  d6,d3
@@ -1523,11 +1515,7 @@ TargetPriorityScript3:
                 
                 movem.l d0-d5/d7-a6,-(sp)
                 moveq   #3,d6
-            if (STANDARD_BUILD=1)
-                jsr     (GenerateRandomNumberUnderD6).w
-            else
-                jsr     j_GenerateRandomNumberUnderD6
-            endif
+                jsr     GenerateRandomNumberUnderD6
                 tst.b   d7
                 beq.w   loc_CD3C        ; If d7=0, then check for death of target
                 move.b  d5,d0           ; Otherwise, prioritize closer targets

@@ -8,9 +8,9 @@
 ms_map72_InitFunction:
                 
                  
-                chkFlg  716             ; Set after your raft-giving conversation with the mayor in Polca
+                chkFlg  FLAG_POLCA4             ; Set after your raft-giving conversation with the mayor in Polca
                 beq.s   return_4FF40
-                chkFlg  10              ; Luke joined
+                chkFlg  ALLY_LUKE              ; Luke joined
                 bne.s   return_4FF40
                 script  cs_4FF5A
 return_4FF40:
@@ -19,13 +19,6 @@ return_4FF40:
 
     ; End of function ms_map72_InitFunction
 
-                resetMap
-                reloadMap 0,0
-                playSound MUSIC_SAD_THEME_3
-                fadeInB
-                textCursor 240
-                nextSingleText $0,ALLY_BOWIE ; "That's it for today?{W2}{N}Yes, you had better take a{N}rest now.{N}Come back again.{W1}"
-                csc_end
 cs_4FF5A:       textCursor 1556
                 newEntity ALLY_LUKE,43,47,DOWN,NOTHING_BYTE
                 csWait 1
@@ -55,5 +48,5 @@ cs_4FF5A:       textCursor 1556
                  moveDown 1
                 endActions
                 hide ALLY_LUKE
-                setStoryFlag 16         ; Battle 16 unlocked - BATTLE_VERSUS_KRAKEN             
+                setF FLAG_BATTLE16_AVAILABLE    ; Battle 16 unlocked - BATTLE_VERSUS_KRAKEN             
                 csc_end

@@ -26,7 +26,7 @@ cs_53176:       setCameraEntity 65535
                 entityActionsWait 144
                  moveUp 1
                 endActions
-                nextSingleText $80,138  ; "So, all we have to do is{N}find the evil Gizmo and{N}kill him.{W1}"
+                nextSingleText $80,144  ; "So, all we have to do is{N}find the evil Gizmo and{N}kill him.{W1}"
                 nod 138
                 nextSingleText $80,138  ; "That's right.  Kill him{N}before he possesses{N}somebody else.{W2}"
                 nextSingleText $80,138  ; "You may go.{W1}"
@@ -202,7 +202,7 @@ cs_53176:       setCameraEntity 65535
                 nextText $0,140         ; "Why don't you go to Yeel{N}and bring Hawel back here?{W2}"
                 nextText $0,140         ; "I don't think this is a{N}difficult job.{N}Will you go?{W1}"
 cs_53482:       yesNo
-                jumpIfFlagSet 89,cs_534AC ; YES/NO prompt answer
+                jumpIfFlagSet FLAG_YESNO,cs_534AC ; YES/NO prompt answer
                 hideText
                 textCursor 757
                 setActscriptWait 138,eas_Jump

@@ -5,5 +5,9 @@
 table_DisplayTimerBattles:
                 
                 dc.b BATTLE_FAIRY_WOODS     ; battle 44
+				dc.b $FF
+				dc.b $FF
+				dc.b $FF
+				dc.b $FF
                 
                 tableEnd.b

@@ -24,7 +24,7 @@ currentGold = -4
 CountPromotableMembers:
                 
                 movem.l d7-a1,-(sp)
-                jsr     j_UpdateForce
+                jsr     UpdateForce
                 clr.w   promotableMembersCount(a6)
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,d7
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,((GENERIC_LIST_LENGTH-$1000000)).w
@@ -35,12 +35,12 @@ CountPromotableMembers:
                 
                 clr.w   d0
                 move.b  (a0),d0
-                jsr     j_GetClass
+                jsr     GetClass
                 move.w  #PROMOTIONSECTION_REGULAR_BASE,d2
                 bsr.w   GetPromotionData
                 cmpi.w  #0,cannotPromoteFlag(a6)
                 bne.w   @Next
-                jsr     j_GetCurrentLevel
+                jsr     GetCurrentLevel
                 cmpi.w  #CHURCHMENU_MIN_PROMOTABLE_LEVEL,d1
                 bcs.w   @Next
                 addi.w  #1,promotableMembersCount(a6)
@@ -157,27 +157,27 @@ membersListLength = -10
 actionCost = -8
 currentGold = -4
 
-ReplaceSpellsWithSorcDefaults:
+AlterSpells:
+							
+                cmpi.w  #CLASS_SORC,d1
+                beq.s	@SORC_Spells
+                bra.w   @EndSpells
+				
+@SORC_Spells:
                 
-                move.w  member(a6),d0
-                jsr     j_GetCombatantEntryAddress
+                jsr     GetCombatantEntryAddress
                 lea     COMBATANT_OFFSET_SPELLS(a0),a0
-                move.w  #COMBATANT_SPELLSLOTS_COUNTER,d7
+                move.w  #SORCEROR_SPELLSLOTS_COUNTER,d7
 @Loop:
                 
                 setSavedByteWithPostIncrement #SPELL_NOTHING, a0
                 dbf     d7,@Loop
-                
-            if (STANDARD_BUILD=1)
-                jmp     LearnSpell
-            else
-                move.w  member(a6),d0
-                move.w  #SPELL_DAO,d1
-                jsr     j_LearnSpell
+				
+				
+@EndSpells:
                 rts
-            endif
 
-    ; End of function ReplaceSpellsWithSorcDefaults
+    ; End of function AlterSpells
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -203,7 +203,7 @@ currentGold = -4
 
 Church_GetCurrentForceMemberInfo:
                 
-                jsr     j_UpdateForce
+                jsr     UpdateForce
                 lea     ((TARGETS_LIST-$1000000)).w,a0
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,membersListLength(a6)
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,d7
@@ -241,13 +241,9 @@ Church_CureStun:
                 move.b  (a0)+,d0
                 movem.l a0,-(sp)
                 move.w  d0,member(a6)
-                jsr     j_GetCombatantEntryAddress
-            if (STANDARD_BUILD=1)
-                getSavedWord a0, d2, COMBATANT_OFFSET_STATUSEFFECTS
-            else
+                jsr     GetCombatantEntryAddress
                 lea     COMBATANT_OFFSET_STATUSEFFECTS(a0),a0
                 move.w  (a0),d2
-            endif
                 move.w  d2,d3
                 andi.w  #STATUSEFFECT_STUN,d3
                 beq.w   @Next
@@ -255,7 +251,6 @@ Church_CureStun:
                 move.w  member(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
                 txt     132             ; "Gosh!  {NAME} is{N}paralyzed.{W2}"
                 
-            if (STANDARD_BUILD&PER_LEVEL_CHURCH_COST=1)
                 jsr     GetCurrentLevel
                 mulu.w  #CHURCHMENU_PER_LEVEL_CURE_STUN_COST,d1
                 move.l  d1,actionCost(a6)
@@ -269,21 +264,18 @@ Church_CureStun:
                 addi.l  #CHURCHMENU_CURE_STUN_COST_EXTRA_WHEN_PROMOTED,d1
                 add.l   d1,actionCost(a6)
 @CureParalysis_Unpromoted:
-            else
-                move.l  #CHURCHMENU_CURE_STUN_COST,actionCost(a6)
-            endif
                 move.l  actionCost(a6),((DIALOGUE_NUMBER-$1000000)).w
                 txt     123             ; "But I can treat you.{N}It will cost {#} gold{N}coins.  OK?"
-                jsr     j_OpenGoldWindow
-                jsr     j_alt_YesNoPrompt
-                jsr     j_CloseGoldWindow
+                jsr     OpenGoldWindow
+                jsr     alt_YesNoPrompt
+                jsr     CloseGoldWindow
                 cmpi.w  #0,d0
                 beq.w   @CheckGold
                 txt     124             ; "You don't need my help?{W2}"
                 bra.w   @Next
 @CheckGold:
                 
-                jsr     j_GetGold
+                jsr     GetGold
                 move.l  d1,currentGold(a6)
                 move.l  actionCost(a6),d0
                 cmp.l   d0,d1
@@ -295,11 +287,11 @@ Church_CureStun:
                 
                 moveq   #0,d1
                 move.l  actionCost(a6),d1
-                jsr     j_DecreaseGold
+                jsr     DecreaseGold
                 move.w  member(a6),d0
                 move.w  d2,d1
                 andi.w  #STATUSEFFECT_POISON|STATUSEFFECT_CURSE|STATUSEFFECT_MUDDLE2|STATUSEFFECT_MUDDLE|STATUSEFFECT_SLEEP|STATUSEFFECT_SILENCE|STATUSEFFECT_SLOW|STATUSEFFECT_BOOST|STATUSEFFECT_ATTACK,d1
-                jsr     j_SetStatusEffects
+                jsr     SetStatusEffects
                 sndCom  MUSIC_CURE
                 jsr     WaitForMusicResumeAndPlayerInput(pc)
                 nop
@@ -345,7 +337,7 @@ UpdateAllyMapsprite:
                 
                 movem.l d0-d4/a0,-(sp)
                 move.w  d0,d1
-                jsr     j_GetAllyMapsprite
+                jsr     GetAllyMapsprite
                 move.w  d4,d3
                 tst.b   d1
                 beq.w   @Skip           ; skip getting entity index if player character

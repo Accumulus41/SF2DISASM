@@ -31,6 +31,6 @@ ms_map37_flag999_Entities:
                 msFixedEntity 63, 10, DOWN, ALLY_CHAZ, eas_Init
                 msFixedEntity 63, 10, DOWN, ALLY_LEMON, eas_Init
                 msFixedEntity 23, 12, UP, ALLY_CLAUDE, eas_Init
+				msFixedEntity 25, 11, UP, ALLY_JOGURT, eas_Init
                 msFixedEntity 16, 12, UP, MAPSPRITE_ASTRAL, eas_Init
-                msFixedEntity 25, 11, UP, MAPSPRITE_CARAVAN, eas_Init
                 msEntitiesEnd

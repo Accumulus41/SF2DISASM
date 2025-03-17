@@ -66,7 +66,7 @@ loc_47566:
 loc_4756A:
                 
                 jsr     (a0)
-                jsr     j_ClosePortraitWindow
+                jsr     ClosePortraitWindow
                 clsTxt
 loc_47576:
                 
@@ -90,7 +90,7 @@ loc_47576:
 RunMapSetupItemEvent:
                 
                 movem.l d0-d5/d7-a1,-(sp)
-                clr.w   ((CURRENT_SPEECH_SFX-$1000000)).w
+                clr.w   ((SPEECH_SFX-$1000000)).w
                 andi.w  #ITEMENTRY_MASK_INDEX,d4
                 move.b  d2,((byte_FFB651-$1000000)).w
                 moveq   #0,d6
@@ -141,7 +141,7 @@ loc_475FA:
 loc_475FE:
                 
                 jsr     (a0)
-                jsr     j_ClosePortraitWindow
+                jsr     ClosePortraitWindow
                 clsTxt
 loc_4760A:
                 
@@ -168,7 +168,7 @@ RunMapSetupEntityEvent:
                 beq.w   loc_476D6
                 
                 movem.w d1-d2,-(sp)
-                movea.l MAPSETUP_OFFSET_ENTITY_EVENTS(a0),a0
+                movea.l MAPSETUP_OFFSET_EVENT_ENTITY(a0),a0
                 clr.w   d7
 loc_47638:
                 
@@ -193,7 +193,7 @@ loc_4765A:
 loc_4765E:
                 
                 bsr.w   GetEntityPortaitAndSpeechSfx
-                move.w  d2,((CURRENT_SPEECH_SFX-$1000000)).w
+                move.w  d2,((SPEECH_SFX-$1000000)).w
                 move.w  d1,((CURRENT_PORTRAIT-$1000000)).w
                 blt.s   loc_47670
                 bsr.w   LoadAndDisplayCurrentPortrait
@@ -234,7 +234,7 @@ loc_476A8:
                 jsr     (UpdateEntityProperties).w
 loc_476C4:
                 
-                jsr     j_ClosePortraitWindow
+                jsr     ClosePortraitWindow
                 clsTxt
                 trap    #VINT_FUNCTIONS
                 dc.w VINTS_ACTIVATE
@@ -249,21 +249,6 @@ loc_476D6:
 
 ; =============== S U B R O U T I N E =======================================
 
-; unused
-
-
-sub_476DC:
-                
-                trap    #VINT_FUNCTIONS
-                dc.w VINTS_ACTIVATE
-                dc.l VInt_UpdateEntities
-                bra.w   ExecuteMapScript
-
-    ; End of function sub_476DC
-
-
-; =============== S U B R O U T I N E =======================================
-
 ; Get index of current portrait for dialogue window and load it
 
 
@@ -274,7 +259,7 @@ LoadAndDisplayCurrentPortrait:
                 blt.s   loc_476FC
                 clr.w   d1
                 clr.w   d2
-                jsr     j_OpenPortraitWindow
+                jsr     OpenPortraitWindow
 loc_476FC:
                 
                 movem.w (sp)+,d0-d2
@@ -345,7 +330,7 @@ loc_4774C:
                 jsr     (DisplayText).w 
 loc_4776E:
                 
-                jsr     j_ClosePortraitWindow
+                jsr     ClosePortraitWindow
                 clsTxt
                 moveq   #-1,d7
                 rts
@@ -393,41 +378,37 @@ GetCurrentMapSetup:
                 movem.l d0-d1/a1,-(sp)
                 clr.w   d0
                 getSavedByte CURRENT_MAP, d0
-            if (STANDARD_BUILD=1)
-                getPointer p_MapSetups, a1
-            else
-                lea     MapSetups(pc), a1
-            endif
-loc_477AC:
+                lea     MapSetups, a1
+@NextMap_Loop:
                 
                 cmpi.w  #-1,(a1)
-                bne.s   loc_477BA
-                
+                bne.s   @Continue
+				
                 lea     ms_Void(pc), a0
-                bra.w   loc_477E2
-loc_477BA:
+                bra.w   @Return
+@Continue:
                 
                 cmp.w   (a1)+,d0
-                bne.s   loc_477DA
+                bne.s   @CheckNextWord
                 movea.l (a1)+,a0
-loc_477C0:
+@CheckFlag_Loop:
                 
                 move.w  (a1)+,d1
                 cmpi.w  #$FFFD,d1
-                beq.w   loc_477E2
-                jsr     j_CheckFlag
-                beq.s   loc_477D4
+                beq.w   @Return
+                jsr     CheckFlag
+                beq.s   @NextFlag
                 movea.l (a1),a0
-loc_477D4:
+@NextFlag:
                 
                 adda.w  #4,a1
-                bra.s   loc_477C0
-loc_477DA:
+                bra.s   @CheckFlag_Loop
+@CheckNextWord:
                 
                 cmpi.w  #$FFFD,(a1)+
-                bne.s   loc_477DA
-                bra.s   loc_477AC
-loc_477E2:
+                bne.s   @CheckNextWord
+                bra.s   @NextMap_Loop
+@Return:
                 
                 movem.l (sp)+,d0-d1/a1
                 rts
@@ -442,10 +423,10 @@ ms_Void:        dc.w $FFFF
 MoveEntityOutOfMap:
                 
                 movem.l d0-d3,-(sp)
-                jsr     j_GetEntityIndexForCombatant
+                jsr     GetEntityIndexForCombatant
                 move.w  #$7000,d1
                 move.w  #$7000,d2
-                jsr     j_SetEntityPosition
+                jsr     SetEntityPosition
                 movem.l (sp)+,d0-d3
                 rts
 
@@ -458,7 +439,7 @@ MoveEntityOutOfMap:
 MakeEntityWalk:
                 
                 move.l  d0,-(sp)
-                jsr     j_GetEntityIndexForCombatant
+                jsr     GetEntityIndexForCombatant
                 jsr     SetWalkingActscript
                 move.l  (sp)+,d0
                 rts
@@ -474,7 +455,7 @@ MakeEntityWalk:
 sub_4781A:
                 
                 movem.l d0-d3,-(sp)
-                jsr     j_GetEntityIndexForCombatant
+                jsr     GetEntityIndexForCombatant
                 moveq   #-1,d2
                 moveq   #-1,d3
                 jsr     (UpdateEntityProperties).w
@@ -489,10 +470,10 @@ sub_4781A:
 ; reset entity flags and sprite and facing ?
 
 
-sub_47832:
+GetRhodeFacing:
                 
                 movem.l d0-d3,-(sp)
-                jsr     j_GetEntityIndexForCombatant
+                jsr     GetEntityIndexForCombatant
                 move.b  ((byte_FFB651-$1000000)).w,d1
                 addi.w  #2,d1
                 andi.w  #3,d1
@@ -502,7 +483,7 @@ sub_47832:
                 movem.l (sp)+,d0-d3
                 rts
 
-    ; End of function sub_47832
+    ; End of function GetRhodeFacing
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -512,19 +493,16 @@ sub_47832:
 
 CheckRandomBattle:
                 
-            if (STANDARD_BUILD&NO_RANDOM_BATTLES=1)
-                ; Do nothing
-            else
                 movem.l d1/d6-d7,-(sp)
-                move.w  #BATTLE_COMPLETED_FLAGS_START,d1
+                move.w  #FLAG_BATTLE00_COMPLETE,d1
                 add.w   d0,d1
-                jsr     j_CheckFlag
+                jsr     CheckFlag
                 bne.s   loc_4786E
                 moveq   #-1,d1
                 bra.w   loc_47896
 loc_4786E:
                 
-                tst.w   ((word_FFB196-$1000000)).w
+                tst.w   ((STEP_COUNTER-$1000000)).w
                 beq.s   loc_4787A
                 clr.w   d1
                 bra.w   loc_47896
@@ -542,23 +520,22 @@ loc_47888:
                 moveq   #4,d6
                 jsr     (GenerateRandomNumber).w
                 addq.l  #2,d7
-                move.w  d7,((word_FFB196-$1000000)).w
+                move.w  d7,((STEP_COUNTER-$1000000)).w
 loc_47896:
                 
                 tst.w   d1
                 beq.s   loc_478C0
-                move.w  #BATTLE_UNLOCKED_FLAGS_START,d1
+                move.w  #FLAG_BATTLE00_AVAILABLE,d1
                 add.w   d0,d1
-                jsr     j_SetFlag
+                jsr     SetFlag
                 move.l  #MAP_EVENT_RELOADMAP,((MAP_EVENT_TYPE-$1000000)).w
-                move.w  #$7530,((word_FFB196-$1000000)).w
+                move.w  #30000,((STEP_COUNTER-$1000000)).w
                 jsr     (WaitForViewScrollEnd).w
                 sndCom  SFX_BOOST
                 bsr.w   ExecuteFlashScreenScript
 loc_478C0:
                 
                 movem.l (sp)+,d1/d6-d7
-            endif
                 rts
 
     ; End of function CheckRandomBattle

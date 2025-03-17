@@ -8,10 +8,10 @@
 ms_map18_flag530_InitFunction:
                 
                  
-                chkFlg  920             ; Set after the scene with Zeon plays as you leave the Galam Drawbridge area
+                chkFlg  FLAG_MAPGRANS2             ; Set after the scene with Zeon plays as you leave the Galam Drawbridge area
                 bne.s   loc_612A8
                 script  cs_612BE
-                setFlg  920             ; Set after the scene with Zeon plays as you leave the Galam Drawbridge area
+                setFlg  FLAG_MAPGRANS2             ; Set after the scene with Zeon plays as you leave the Galam Drawbridge area
 loc_612A8:
                 
                 move.w  #128,d0

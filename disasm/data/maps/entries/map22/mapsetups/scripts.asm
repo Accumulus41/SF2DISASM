@@ -6,7 +6,7 @@ cs_5994E:       textCursor 1792
                 setCamDest 10,0
                 nextText $0,134         ; "Are you ready?{W2}"
                 nextSingleText $0,134   ; "Now, start the battle!{N}Do your best!{W1}"
-                setStoryFlag 22         ; Battle 22 unlocked - BATTLE_CHESSBOARD                
+                setF FLAG_BATTLE22_AVAILABLE   ; Battle 22 unlocked - BATTLE_CHESSBOARD                
                 warp MAP_CREED_DESKTOP_WORLD,0,0,RIGHT
                 csc_end
 cs_5996E:       textCursor 1794
@@ -17,7 +17,6 @@ cs_5996E:       textCursor 1794
                 setPos FOLLOWER_B,25,13,UP
                 fadeInB
                 nextSingleText $0,134   ; "Checkmate!{N}This is for you.{W1}"
-                setCamDest 20,7
                 nextText $0,134         ; "A Cotton Balloon is inside.{W2}"
                 nextSingleText $0,134   ; "With it you can leave{N}Desktop Kingdom safely.{N}Good luck!{W1}"
                 csc_end

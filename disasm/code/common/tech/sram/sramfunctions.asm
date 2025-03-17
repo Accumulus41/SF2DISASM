@@ -32,7 +32,7 @@ CheckSram:
                 lea     (SAVE2_DATA).l,a0
                 lea     (FF8804_LOADING_SPACE).l,a1
                 move.w  #SAVE_SLOT_REAL_SIZE,d7
-                bsr.w   CopySavedDataFromSram
+                bsr.w   CopyBytesFromSram
                 cmp.b   (SAVE2_CHECKSUM).l,d0
                 bne.s   @ClearSlot2
                 moveq   #1,d1
@@ -52,7 +52,7 @@ CheckSram:
                 lea     (SAVE1_DATA).l,a0
                 lea     (FF8804_LOADING_SPACE).l,a1
                 move.w  #SAVE_SLOT_REAL_SIZE,d7
-                bsr.w   CopySavedDataFromSram
+                bsr.w   CopyBytesFromSram
                 cmp.b   (SAVE1_CHECKSUM).l,d0
                 bne.s   @ClearSlot1
                 moveq   #1,d0
@@ -77,7 +77,7 @@ CheckSram:
                 lea     SramCheckString(pc), a0
                 lea     (SRAM_STRING).l,a1
                 moveq   #SRAM_STRING_WRITE_COUNTER,d7
-                bsr.w   CopySavedDataToSram 
+                bsr.w   CopyBytesToSram 
                 clr.b   (SAVE_FLAGS).l  
                 clr.w   d0
                 clr.w   d1
@@ -95,7 +95,7 @@ CheckSram:
 SaveGame:
                 
                 movem.l d0-d1/d7-a2,-(sp)
-                lea     (COMBATANT_DATA).l,a0
+                lea     (COMBATANT_ENTRIES).l,a0
                 tst.b   d0
                 bne.s   @Slot2
                 lea     (SAVE1_DATA).l,a1
@@ -110,7 +110,7 @@ SaveGame:
 @Continue:
                 
                 move.w  #SAVE_SLOT_REAL_SIZE,d7
-                bsr.w   CopySavedDataToSram 
+                bsr.w   CopyBytesToSram 
                 move.b  d0,(a2)         ; d0 = save checksum
                 bset    d1,(SAVE_FLAGS).l ; indicate busy save slot
                 movem.l (sp)+,d0-d1/d7-a2
@@ -125,7 +125,7 @@ SaveGame:
 LoadGame:
                 
                 movem.l d0-d1/d7-a2,-(sp)
-                lea     (COMBATANT_DATA).l,a1
+                lea     (COMBATANT_ENTRIES).l,a1
                 tst.b   d0
                 bne.s   @Slot2
                 lea     (SAVE1_DATA).l,a0
@@ -138,7 +138,7 @@ LoadGame:
 @Continue:
                 
                 move.w  #SAVE_SLOT_REAL_SIZE,d7
-                bsr.w   CopySavedDataFromSram
+                bsr.w   CopyBytesFromSram
                 movem.l (sp)+,d0-d1/d7-a2
                 rts
 
@@ -186,7 +186,7 @@ ClearSaveSlotFlag:
 ; Out: d0.b = checksum
 
 
-CopySavedDataToSram:
+CopyBytesToSram:
                 
                 movem.l d7-a1,-(sp)
                 clr.w   d0
@@ -201,7 +201,7 @@ CopySavedDataToSram:
                 movem.l (sp)+,d7-a1
                 rts
 
-    ; End of function CopySavedDataToSram
+    ; End of function CopyBytesToSram
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -209,7 +209,7 @@ CopySavedDataToSram:
 ; and calculate checksum
 
 
-CopySavedDataFromSram:
+CopyBytesFromSram:
                 
                 movem.l d7-a1,-(sp)
                 clr.w   d0
@@ -224,5 +224,5 @@ CopySavedDataFromSram:
                 movem.l (sp)+,d7-a1
                 rts
 
-    ; End of function CopySavedDataFromSram
+    ; End of function CopyBytesFromSram
 

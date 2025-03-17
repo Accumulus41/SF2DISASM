@@ -79,7 +79,7 @@ battlesceneScript_DropEnemyItem:
                 move.b  ENEMYITEMDROP_OFFSET_FLAG(a1),d0
                 loadSavedDataAddress ENEMY_ITEM_DROPPED_FLAGS, a0
                 divu.w  #8,d0
-                addToSavedBytePointer d0, a0
+                adda.w  d0,a0
                 swap    d0
                 bset    d0,(a0)
                 bne.s   @Done           ; done if item dropped flag was already set
@@ -87,7 +87,7 @@ battlesceneScript_DropEnemyItem:
                 move.w  d4,d1
                 bsr.w   RemoveItemBySlot
                 move.b  (a4),d0
-                bsr.w   GetCurrentHp
+                bsr.w   GetCurrentHP
                 beq.s   @AddRareItemToDeals
                 move.w  d3,d1
                 bsr.w   AddItem
@@ -100,12 +100,10 @@ battlesceneScript_DropEnemyItem:
 @AddRareItemToDeals:
                 
                 move.w  d3,d1
-            if (SEND_DROPPED_ITEMS_TO_CARAVAN=1)
                 ; Try adding item to the Caravan first, and continue adding to deals if there is no room
                 bsr.w   AddItemToCaravan
                 bcc.s   @Done
-            endif
-                bsr.w   GetItemDefinitionAddress
+                bsr.w   GetItemDefAddress
                 btst    #ITEMTYPE_BIT_RARE,ITEMDEF_OFFSET_TYPE(a0)
                 beq.s   @Done
                 bsr.w   AddItemToDeals

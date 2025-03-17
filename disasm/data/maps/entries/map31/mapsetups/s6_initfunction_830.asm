@@ -8,16 +8,16 @@
 ms_map31_flag830_InitFunction:
                 
                  
-                chkFlg  832             ; Set after talking to the painter in Moun for the first time
+                chkFlg  FLAG_MOUN2             ; Set after talking to the painter in Moun for the first time
                 beq.s   byte_5D62A      
                 script  cs_5D63C
 byte_5D62A:
                 
-                chkFlg  834             ; Set after making the Arm of Golem appear in Moun
+                chkFlg  FLAG_MOUN4             ; Set after making the Arm of Golem appear in Moun
                 beq.s   return_5D63A
-                chkFlg  835             ; Set after picking up the Arm of Golem in Moun
+                chkFlg  FLAG_MOUN5             ; Set after picking up the Arm of Golem in Moun
                 bne.s   return_5D63A
-                clrFlg  834             ; Set after making the Arm of Golem appear in Moun
+                clrFlg  FLAG_MOUN4             ; Set after making the Arm of Golem appear in Moun
 return_5D63A:
                 
                 rts

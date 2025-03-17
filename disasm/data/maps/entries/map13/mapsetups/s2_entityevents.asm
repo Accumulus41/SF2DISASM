@@ -2,7 +2,7 @@
 ; ASM FILE data\maps\entries\map13\mapsetups\s2_entityevents.asm :
 ; 0x5801E..0x5814C : 
 ms_map13_EntityEvents:
-                msEntityEvent ALLY_GERHALT, UP, Map13_EntityEvent0-ms_map13_EntityEvents
+                msEntityEvent 9, UP, Map13_EntityEvent0-ms_map13_EntityEvents
                 msEntityEvent 128, UP, Map13_EntityEvent1-ms_map13_EntityEvents
                 msEntityEvent 129, UP, Map13_EntityEvent2-ms_map13_EntityEvents
                 msEntityEvent 130, RIGHT, Map13_EntityEvent3-ms_map13_EntityEvents
@@ -23,11 +23,11 @@ ms_map13_EntityEvents:
 Map13_EntityEvent1:
                 
                  
-                chkFlg  256             ; TEMP FLAG #00
+                chkFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 bne.s   byte_58068      
                 txt     1420            ; "How did you come to{N}Polca Village?{W2}"
                 txt     1421            ; "Through the cave?{N}Nobody has come to this{N}village since...{W2}"
-                setFlg  256             ; TEMP FLAG #00
+                setFlg  FLAG_TEMP00             ; TEMP FLAG #00
 byte_58068:
                 
                 txt     1422            ; "Oh, you defeated that{N}hobgoblin?  Wow!{W2}"
@@ -55,10 +55,10 @@ Map13_EntityEvent2:
 Map13_EntityEvent3:
                 
                  
-                chkFlg  711             ; Set after you dislodge the turtle/fairy in Polca, also set after you speak to Volcanon
+                chkFlg  FLAG_POLCA2             ; Set after you dislodge the turtle/fairy in Polca, also set after you speak to Volcanon
                 bne.s   byte_5808A      
                 script  cs_58512
-                setFlg  711             ; Set after you dislodge the turtle/fairy in Polca, also set after you speak to Volcanon
+                setFlg  FLAG_POLCA2             ; Set after you dislodge the turtle/fairy in Polca, also set after you speak to Volcanon
                 bra.s   return_5808E
 byte_5808A:
                 
@@ -76,7 +76,7 @@ return_5808E:
 Map13_EntityEvent4:
                 
                 move.b  #SHOP_WEAPON_POLCA,((CURRENT_SHOP_INDEX-$1000000)).w
-                jsr     j_ShopMenu
+                jsr     ShopMenu
                 rts
 
     ; End of function Map13_EntityEvent4
@@ -88,7 +88,7 @@ Map13_EntityEvent4:
 Map13_EntityEvent5:
                 
                 move.b  #SHOP_ITEM_POLCA,((CURRENT_SHOP_INDEX-$1000000)).w
-                jsr     j_ShopMenu
+                jsr     ShopMenu
                 rts
 
     ; End of function Map13_EntityEvent5
@@ -100,7 +100,7 @@ Map13_EntityEvent5:
 Map13_EntityEvent6:
                 
                  
-                chkFlg  710             ; Set after Oddler wanders down from the mountain
+                chkFlg  FLAG_POLCA1             ; Set after Oddler wanders down from the mountain
                 bne.s   byte_580B8      
                 txt     1426            ; "To the east is the sacred{N}area of Volcanon.{W1}"
                 bra.s   return_580C4
@@ -121,7 +121,7 @@ return_580C4:
 
 Map13_EntityEvent7:
                 
-                jsr     j_ChurchMenu
+                jsr     ChurchMenu
                 rts
 
     ; End of function Map13_EntityEvent7
@@ -157,12 +157,12 @@ Map13_EntityEvent9:
 Map13_EntityEvent10:
                 
                  
-                chkFlg  710             ; Set after Oddler wanders down from the mountain
+                chkFlg  FLAG_POLCA1             ; Set after Oddler wanders down from the mountain
                 bne.s   byte_580FC      
-                chkFlg  257             ; TEMP FLAG #01
+                chkFlg  FLAG_TEMP01             ; TEMP FLAG #01
                 bne.s   byte_580F2      
                 script  cs_58116
-                setFlg  257             ; TEMP FLAG #01
+                setFlg  FLAG_TEMP01             ; TEMP FLAG #01
                 bra.s   loc_580FA
 byte_580F2:
                 

@@ -9,7 +9,7 @@ cs_513D6:       entityActionsWait ALLY_SARAH
 cs_513E2:       textCursor 534
                 nextText $0,ALLY_SARAH  ; "{LEADER}, so you decided{N}to go?{W1}"
                 yesNo
-                jumpIfFlagSet 89,cs_51406 ; YES/NO prompt answer
+                jumpIfFlagSet FLAG_YESNO,cs_51406 ; YES/NO prompt answer
                 textCursor 532
                 nextText $0,ALLY_SARAH  ; "No?  Really?{N}Then I'm not going either!{W2}"
                 nextSingleText $0,ALLY_SARAH ; "But, if you change your{N}mind, let me know right{N}away!{W1}"
@@ -18,8 +18,8 @@ cs_51406:       textCursor 535
                 nextSingleText $0,ALLY_SARAH ; "Great!{N}Let's go right now!{N}Hurry!{W1}"
                 setFacing ALLY_CHESTER,LEFT
                 nextSingleText $0,ALLY_CHESTER ; "What?  {LEADER}, are you{N}going?  I'm going too!{W1}"
-                setF 600                ; Set after agreeing to try getting into the castle
-                setF 66                 ; Sarah + Chester are followers
+                setF FLAG_GRANSEAL1                ; Set after agreeing to try getting into the castle
+                setF FLAG_FOLLOWER_START                 ; Sarah + Chester are followers
                 join 128
                 followEntity ALLY_SARAH,ALLY_BOWIE,2
                 followEntity ALLY_CHESTER,ALLY_SARAH,2
@@ -150,7 +150,7 @@ cs_5149A:       textCursor 517
                 setFacing ALLY_SARAH,UP
                 nextText $C0,ALLY_SARAH ; "{LEADER}, maybe we can{N}meet the Princess!{N}Are you going with us?{W1}"
                 yesNo
-                jumpIfFlagSet 89,cs_51614 ; YES/NO prompt answer
+                jumpIfFlagSet FLAG_YESNO,cs_51614 ; YES/NO prompt answer
                 nextText $0,ALLY_SARAH  ; "No?  Really?{N}Then I'm not going either!{W2}"
                 nextSingleText $0,ALLY_SARAH ; "But, if you change your{N}mind, let me know right{N}away!{W1}"
                 entityActionsWait ALLY_SARAH
@@ -163,8 +163,8 @@ cs_51614:       textCursor 535
                 nextSingleText $0,ALLY_SARAH ; "Great!{N}Let's go right now!{N}Hurry!{W1}"
                 setFacing ALLY_CHESTER,LEFT
                 nextSingleText $0,ALLY_CHESTER ; "What?  {LEADER}, are you{N}going?  I'm going too!{W1}"
-                setF 600                ; Set after agreeing to try getting into the castle
-                setF 66                 ; Sarah + Chester are followers
+                setF FLAG_GRANSEAL1                ; Set after agreeing to try getting into the castle
+                setF FLAG_FOLLOWER_START                 ; Sarah + Chester are followers
                 join 128
                 followEntity ALLY_SARAH,ALLY_BOWIE,2
                 followEntity ALLY_CHESTER,ALLY_SARAH,2

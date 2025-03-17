@@ -8,19 +8,19 @@
 ms_map73_InitFunction:
                 
                  
-                chkFlg  700             ; Set after ship arrives in Parmecia and you regain control of Bowie
+                chkFlg  FLAG_MAPNEWGRANS1             ; Set after ship arrives in Parmecia and you regain control of Bowie
                 bne.s   byte_50354      
                 script  cs_503A6
-                setFlg  700             ; Set after ship arrives in Parmecia and you regain control of Bowie
+                setFlg  FLAG_MAPNEWGRANS1             ; Set after ship arrives in Parmecia and you regain control of Bowie
                 rts
 byte_50354:
                 
-                chkFlg  508             ; Battle 8 completed - BATTLE_NORTH_CLIFF                  
+                chkFlg  FLAG_BATTLE08_COMPLETE             ; Battle 8 completed - BATTLE_NORTH_CLIFF                  
                 beq.s   return_5036C
-                chkFlg  705             ; Set after you automatically walk into New Granseal after it is built
+                chkFlg  FLAG_MAPNEWGRANS2             ; Set after you automatically walk into New Granseal after it is built
                 bne.s   return_5036C
                 script  cs_50806
-                setFlg  705             ; Set after you automatically walk into New Granseal after it is built
+                setFlg  FLAG_MAPNEWGRANS2             ; Set after you automatically walk into New Granseal after it is built
                 rts
 return_5036C:
                 
@@ -104,7 +104,7 @@ cs_503A6:       textCursor 2239
                 nextSingleText $FF,255  ; "And so the ship heads east{N}for Parmecia.{W1}"
                 csWait 120
                 nextSingleText $0,ALLY_SARAH ; "I feel...sick...to my...{N}stomach...ohhh....{W1}"
-                jumpIfFlagClear 6,cs_50426 ; Kiwi joined
+                jumpIfFlagClear ALLY_KIWI,cs_50426 ; Kiwi joined
                 nextSingleText $C0,ALLY_KIWI ; "{NAME;1}, look!{W1}"
                 nextSingleText $0,ALLY_SARAH ; "Sorry, {NAME;6}...I can't{N}do anything right now....{W1}"
                 nextSingleText $C0,ALLY_KIWI ; "That's not what...{W1}"
@@ -218,7 +218,7 @@ cs_50426:       textCursor 2229
                 stopEntity 131
                 stopEntity 132
                 stopEntity 133
-                jumpIfFlagSet 6,cs_50624 ; Kiwi joined
+                jumpIfFlagSet ALLY_KIWI,cs_50624 ; Kiwi joined
                 hide ALLY_KIWI
 cs_50624:       fadeInB
                 entityActionsWait ALLY_JAHA
@@ -279,7 +279,7 @@ ce_506DE:       mainEntity 63,63,UP
                 entity 63,63,DOWN,MAPSPRITE_SAILOR,eas_Init
                 entity 63,63,DOWN,ALLY_SLADE,eas_Init
                 entity 5,5,RIGHT,MAPSPRITE_BOAT,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd
 ce_5072E:       mainEntity 0,0,UP
                 entity 23,30,DOWN,MAPSPRITE_MINISTER,eas_Init
                 entity 19,29,UP,MAPSPRITE_MAN3,eas_Init
@@ -294,7 +294,7 @@ ce_5072E:       mainEntity 0,0,UP
                 entity 26,31,UP,MAPSPRITE_MAN1,eas_Init
                 entity 24,26,UP,MAPSPRITE_WOMAN2,eas_Init
                 entity 23,27,UP,MAPSPRITE_MAN2,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd
 ce_5079E:       mainEntity 40,8,LEFT
                 entity 51,8,DOWN,ALLY_SARAH,eas_Init
                 entity 41,10,DOWN,ALLY_CHESTER,eas_Init
@@ -308,7 +308,7 @@ ce_5079E:       mainEntity 40,8,LEFT
                 entity 44,6,RIGHT,MAPSPRITE_OBJECT2,eas_Init
                 entity 45,6,DOWN,MAPSPRITE_OBJECT2,eas_Init
                 entity 46,6,LEFT,MAPSPRITE_OBJECT2,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd
 cs_50806:       textCursor 2288
                 loadMapEntities ce_5094A
                 setActscriptWait ALLY_BOWIE,eas_Init
@@ -386,4 +386,4 @@ ce_5094A:       mainEntity 61,48,LEFT
                 entity 62,48,LEFT,MAPSPRITE_WORKER,eas_Init
                 entity 63,48,LEFT,MAPSPRITE_WORKER,eas_Init
                 entity 28,49,RIGHT,MAPSPRITE_BOAT,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd

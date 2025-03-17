@@ -8,20 +8,20 @@
 ms_map17_InitFunction:
                 
                  
-                chkFlg  660             ; Set after initial wake-up in prison sequence
+                chkFlg  FLAG_CASTLEGALAM2             ; Set after initial wake-up in prison sequence
                 bne.s   byte_52460      
                 script  cs_5249E
-                setFlg  660             ; Set after initial wake-up in prison sequence
+                setFlg  FLAG_CASTLEGALAM2             ; Set after initial wake-up in prison sequence
 byte_52460:
                 
-                chkFlg  663             ; Set after Galam and Lemon leave with their army
+                chkFlg  FLAG_CASTLEGALAM5             ; Set after Galam and Lemon leave with their army
                 beq.s   byte_52476      
                 move.w  #131,d0
                 jsr     MoveEntityOutOfMap
                 script  cs_5247C
 byte_52476:
                 
-                setFlg  611             ; Set after prison wake-up sequence IF 0297 is *not* also set
+                setFlg  FLAG_CASTLEGALAM1             ; Set after prison wake-up sequence IF 0297 is *not* also set
                 rts
 
     ; End of function ms_map17_InitFunction

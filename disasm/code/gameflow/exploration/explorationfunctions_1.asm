@@ -12,7 +12,7 @@ loc_239C8:
                 blt.s   loc_239EE
                 bsr.s   GetChestGoldAmount
                 move.l  d1,((DIALOGUE_NUMBER-$1000000)).w
-                jsr     j_IncreaseGold
+                jsr     IncreaseGold
                 sndCom  MUSIC_ITEM
                 txt     414             ; "{NAME} found {#} gold{N}coins."
                 bsr.w   FadeOut_WaitForP1Input
@@ -22,18 +22,18 @@ loc_239EE:
                 move.w  d2,((DIALOGUE_NAME_INDEX_2-$1000000)).w
                 txt     413             ; "{NAME} found{N}{ITEM}.{W2}{CLEAR}"
                 clr.w   d1
-                jsr     j_GetItemBySlotAndHeldItemsNumber
+                jsr     GetItemBySlotAndHeldItemsNumber
                 cmpi.w  #COMBATANT_ITEMSLOTS,d2
                 bge.s   loc_23A1E
                 move.w  ((DIALOGUE_NAME_INDEX_2-$1000000)).w,d1
-                jsr     j_AddItem
+                jsr     AddItem
                 sndCom  MUSIC_ITEM
                 txt     415             ; "{NAME} recieved{N}{ITEM}."
                 bsr.w   FadeOut_WaitForP1Input
                 bra.w   byte_23994
 loc_23A1E:
                 
-                jsr     j_UpdateForce
+                jsr     UpdateForce
                 lea     ((OTHER_FORCE_MEMBERS_LIST-$1000000)).w,a0
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,d7
                 subq.w  #2,d7
@@ -43,11 +43,11 @@ loc_23A32:
                 clr.w   d0
                 move.b  (a0)+,d0
                 clr.w   d1
-                jsr     j_GetItemBySlotAndHeldItemsNumber
+                jsr     GetItemBySlotAndHeldItemsNumber
                 cmpi.w  #COMBATANT_ITEMSLOTS,d2
                 bge.s   loc_23A62
                 move.w  ((DIALOGUE_NAME_INDEX_2-$1000000)).w,d1
-                jsr     j_AddItem
+                jsr     AddItem
                 move.w  d0,((DIALOGUE_NAME_INDEX_3-$1000000)).w
                 sndCom  MUSIC_ITEM
                 txt     416             ; "{NAME} passed the{N}{ITEM} to {NAME}."
@@ -64,7 +64,7 @@ loc_23A66:
                 txt     417             ; "But, everyone's hands are{N}full.{W1}"
                 move.w  d4,d0
                 move.w  d5,d1
-                jsr     (CloseChest).w  
+                jsr     (CloseChest).w
                 jsr     (RefillNonChestItem).w
                 bra.w   byte_23994
 

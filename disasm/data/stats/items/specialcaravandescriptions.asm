@@ -12,5 +12,12 @@ table_SpecialCaravanDescriptions:
                 specialCaravanDescription CHIRRUP_SANDALS, 2, CHIRRUP_SANDALS 
                                                         ; "Chirrup sandals.{W2}"
                                         ; "They make you happy when{N}you wear them.{W1}"
+                specialCaravanDescription CHIRRUP_SANDALS, 2, CHIRRUP_SANDALS 
+                specialCaravanDescription CHIRRUP_SANDALS, 2, CHIRRUP_SANDALS 
+                specialCaravanDescription CHIRRUP_SANDALS, 2, CHIRRUP_SANDALS 
+                specialCaravanDescription CHIRRUP_SANDALS, 2, CHIRRUP_SANDALS 
+                specialCaravanDescription CHIRRUP_SANDALS, 2, CHIRRUP_SANDALS 
+                specialCaravanDescription CHIRRUP_SANDALS, 2, CHIRRUP_SANDALS 
+                specialCaravanDescription CHIRRUP_SANDALS, 2, CHIRRUP_SANDALS 
                 
                 tableEnd.w

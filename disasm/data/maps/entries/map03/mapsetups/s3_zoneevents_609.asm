@@ -12,11 +12,11 @@ ms_map3_flag609_ZoneEvents:
 Map3_261_ZoneEvent1:
                 
                  
-                chkFlg  3               ; Jaha joined
+                chkFlg  ALLY_JAHA               ; Jaha joined
                 bne.s   Map3_261_ZoneEvent0
                 script  cs_516A8
-                setFlg  402             ; Battle 2 unlocked - BATTLE_TO_YEEL                   
-                clrFlg  66              ; Sarah + Chester are followers
+                setFlg  FLAG_BATTLE02_AVAILABLE             ; Battle 2 unlocked - BATTLE_TO_YEEL                   
+                clrFlg  FLAG_FOLLOWER_START              ; Sarah + Chester are followers
 Map3_261_ZoneEvent0:
                 
                 rts

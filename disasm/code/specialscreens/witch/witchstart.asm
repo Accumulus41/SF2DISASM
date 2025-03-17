@@ -19,13 +19,13 @@ StartWitchScreen:
                 bsr.w   InitializeDisplay
                 bsr.w   DisableDisplayAndInterrupts
                 clr.b   ((MOUTH_CONTROL_TOGGLE-$1000000)).w
-                move.w  #SFX_DIALOG_BLEEP_4,((CURRENT_SPEECH_SFX-$1000000)).w 
+                move.w  #SFX_DIALOG_BLEEP_4,((SPEECH_SFX-$1000000)).w 
                                                         ; Witch speech SFX
                 bsr.w   BuildWitchScreen
                 move.w  #30,((BLINK_COUNTER-$1000000)).w
                 move.w  #6,((word_FFB07C-$1000000)).w
                 move.b  #0,((BLINK_CONTROL_TOGGLE-$1000000)).w
-                jsr     j_ClearEntities
+                jsr     ClearEntities
                 movea.l (p_tiles_SpeechBalloon).l,a0
                 lea     ($8000).l,a1
                 move.w  #1024,d0
@@ -58,7 +58,7 @@ StartWitchScreen:
                 move.l  #1,((DIALOGUE_NUMBER-$1000000)).w
                 sndCom  MUSIC_CORRUPTED_SAVE
                 txt     237             ; "Ooops!  Record {#} has{N}vanished!{W2}"
-                jsr     j_FadeOut_WaitForP1Input
+                jsr     FadeOut_WaitForP1Input
 @IsSaveSlot2Corrupted:
                 
                 tst.w   d1
@@ -67,7 +67,7 @@ StartWitchScreen:
                 move.l  #2,((DIALOGUE_NUMBER-$1000000)).w
                 sndCom  MUSIC_CORRUPTED_SAVE
                 txt     237             ; "Ooops!  Record {#} has{N}vanished!{W2}"
-                jsr     j_FadeOut_WaitForP1Input
+                jsr     FadeOut_WaitForP1Input
 @StartWitchDialogue:
                 
                 btst    #INPUT_BIT_START,((PLAYER_1_INPUT-$1000000)).w
@@ -122,7 +122,7 @@ byte_73C2:
 @WitchMenu:
                 
                 clr.w   d1
-                jsr     j_ExecuteWitchMainMenu
+                jsr     ExecuteWitchMainMenu
                 tst.w   d0
                 bmi.s   byte_73C2       
                 
@@ -160,15 +160,15 @@ witchMenuAction_New:
 @loc_9:
                 
                 moveq   #1,d1
-                jsr     j_ExecuteWitchMainMenu
+                jsr     ExecuteWitchMainMenu
                 tst.w   d0
                 bmi.s   byte_73C2       
                 subq.w  #1,d0
                 setCurrentSaveSlot d0
-                jsr     j_NewGame
+                jsr     NewGame
                 clsTxt
                 clr.w   d0
-                jsr     j_NameAlly
+                jsr     NameAlly
                 btst    #7,(SAVE_FLAGS).l ; "Game completed" bit
                 beq.w   byte_7476       ; @Configuration
                 btst    #INPUT_BIT_START,((PLAYER_1_INPUT-$1000000)).w
@@ -178,7 +178,7 @@ witchMenuAction_New:
                 moveq   #COMBATANT_ALLIES_MINUS_PLAYER_AND_CREATURE_COUNTER,d7
 @NameAlly_Loop:
                 
-                jsr     j_NameAlly
+                jsr     NameAlly
 @SkipNaming:
                 
                 addq.w  #1,d0
@@ -194,7 +194,7 @@ byte_7476:
                 clr.w   d0
                 moveq   #3,d1
                 moveq   #%1111,d2
-                jsr     j_ExecuteWitchMainMenu
+                jsr     ExecuteWitchMainMenu
                 tst.w   d0
                 bpl.s   @loc_13
                 clr.w   d0
@@ -251,7 +251,7 @@ witchMenuAction_Load:
 @loc_17:
                 
                 moveq   #2,d1
-                jsr     j_ExecuteWitchMainMenu
+                jsr     ExecuteWitchMainMenu
                 tst.w   d0
                 bmi.w   byte_73C2       
                 subq.w  #1,d0
@@ -264,7 +264,7 @@ witchMenuAction_Load:
                 clr.b   ((DEACTIVATE_WINDOW_HIDING-$1000000)).w
                 chkFlg  88              ; checks if a game has been saved for copying purposes ? (or if saved from battle?)
                 beq.s   @loc_18
-                jsr     j_BattleLoop
+                jsr     BattleLoop
                 bra.w   alt_MainLoopEntry
 @loc_18:
                 
@@ -285,7 +285,7 @@ witchMenuAction_Copy:
                 
                  
                 txt     227             ; "Copy?  Really?"
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 tst.w   d0
                 bne.w   byte_73C2       
                 move.b  (SAVE_FLAGS).l,d0
@@ -318,13 +318,13 @@ witchMenuAction_Del:
 @loc_20:
                 
                 moveq   #2,d1
-                jsr     j_ExecuteWitchMainMenu
+                jsr     ExecuteWitchMainMenu
                 tst.w   d0
                 bmi.w   byte_73C2       
                 subq.w  #1,d0
                 setCurrentSaveSlot d0
                 txt     230             ; "Delete?  Are you sure?"
-                jsr     j_alt_YesNoPrompt
+                jsr     alt_YesNoPrompt
                 tst.w   d0
                 bne.w   byte_73C2       
                 getCurrentSaveSlot d0

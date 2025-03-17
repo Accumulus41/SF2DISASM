@@ -80,7 +80,7 @@ ExecuteAiCommand_Support:
 @CheckMpCost:
                 
                 move.w  d1,d6           ; d6 = copy of debuff spell entry
-                bsr.w   GetSpellDefAddress
+                bsr.w   FindSpellDefAddress
                 clr.w   d2
                 move.b  SPELLDEF_OFFSET_MP_COST(a0),d2
                 move.b  SPELLDEF_OFFSET_PROPS(a0),d5
@@ -263,10 +263,10 @@ ExecuteAiCommand_Support:
                 lea     ((CURRENT_BATTLEACTION-$1000000)).w,a0
                 move.w  #BATTLEACTION_CAST_SPELL,(a0)
                 move.w  d6,BATTLEACTION_OFFSET_ITEM_OR_SPELL(a0)
-                move.w  d0,BATTLEACTION_OFFSET_TARGET(a0)
+                move.w  d0,BATTLEACTION_OFFSET_ACTOR(a0)
                 move.w  d6,d1
                 bsr.w   GetSpellRange   
-                move.w  BATTLEACTION_OFFSET_TARGET(a0),d0
+                move.w  BATTLEACTION_OFFSET_ACTOR(a0),d0
                 bsr.w   PopulateTargetsArrayWithAllCombatants
                 jsr     GetCombatantY
                 move.w  d1,d2

@@ -78,7 +78,7 @@ cs_5DE76:       textCursor 2169
                 nextSingleText $0,ALLY_ZYNK ; "I have overridden my{N}restrictions on fighting.{W2}"
                 nextSingleText $0,ALLY_ZYNK ; "I am joining your force as{N}a soldier!{W1}"
                 join ALLY_ZYNK
-                clearF 76               ; Zynk is a follower
+                clearF FLAG_FOLLOWER_ZYNK               ; Zynk is a follower
                 nextSingleText $0,ALLY_ZYNK ; "Let us go defeat the Devil{N}Army!{W1}"
                 followEntity ALLY_PETER,ALLY_BOWIE,2
                 followEntity FOLLOWER_B,ALLY_PETER,2

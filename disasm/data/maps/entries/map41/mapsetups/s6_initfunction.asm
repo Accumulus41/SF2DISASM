@@ -8,7 +8,7 @@
 ms_map41_InitFunction:
                 
                  
-                chkFlg  930             ; Set after opening Devil's Head with the Force Sword
+                chkFlg  FLAG_DEVILSHEAD1             ; Set after opening Devil's Head with the Force Sword
                 beq.s   return_5F4AC
                 script  cs_5F4AE
 return_5F4AC:

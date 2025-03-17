@@ -8,7 +8,7 @@
 ms_map55_InitFunction:
                 
                  
-                chkFlg  999             ; Set after the Nazca ship shootdown scene
+                chkFlg  FLAG_NASKA_FLIGHT             ; Set after the Nazca ship shootdown scene
                 beq.s   return_5E27A
                 script  cs_5E320
                 script  cs_5E346

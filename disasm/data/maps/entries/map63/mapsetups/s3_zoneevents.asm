@@ -14,15 +14,15 @@ ms_map63_ZoneEvents:
 Map63_ZoneEvent0:
                 
                  
-                chkFlg  256             ; TEMP FLAG #00
+                chkFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 bne.s   byte_5CA08
                 script  cs_5CA6E
-                setFlg  256             ; TEMP FLAG #00
+                setFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 bra.s   return_5CA12
 byte_5CA08:
                 
                 script  cs_5CB34
-                clrFlg  256             ; TEMP FLAG #00
+                clrFlg  FLAG_TEMP00             ; TEMP FLAG #00
 return_5CA12:
                 
                 rts

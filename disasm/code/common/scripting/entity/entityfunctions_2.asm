@@ -30,9 +30,9 @@ SetControlledEntityActScript:
                 move.w  d0,-(sp)
                 move.l  a0,-(sp)
                 bsr.w   GetEntityEntryAddress
-                testSavedByte PLAYER_TYPE ; 0 = player character
+                checkSavedByte #PLAYERTYPE_BOWIE, PLAYER_TYPE
                 beq.s   loc_44B86
-                compareToSavedByte #PLAYERTYPE_CARAVAN, PLAYER_TYPE
+                checkSavedByte #PLAYERTYPE_CARAVAN, PLAYER_TYPE
                 bne.s   loc_44B7C
                 move.l  #eas_Raft,ENTITYDEF_OFFSET_ACTSCRIPTADDR(a0)
                 bra.s   loc_44B84

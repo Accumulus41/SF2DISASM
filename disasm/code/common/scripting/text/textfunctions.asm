@@ -44,7 +44,7 @@ loc_62A8:
                 move.b  #1,((USE_REGULAR_DIALOGUE_FONT-$1000000)).w
                 cmpi.b  #1,((COMPRESSED_STRING_LENGTH-$1000000)).w ; check length
                 beq.w   loc_62FE
-                jsr     j_InitializeHuffmanDecoder ; initialize decoder
+                jsr     InitializeHuffmanDecoder ; initialize decoder
                 move.l  a0,((COMPRESSED_STRING_POINTER-$1000000)).w ; keep string pointer
 loc_62CA:
                 
@@ -123,7 +123,7 @@ GetNextTextSymbol:
                 bne.w   @Continue
                 
                 movea.l ((COMPRESSED_STRING_POINTER-$1000000)).w,a0
-                jsr     j_HuffmanDecode
+                jsr     HuffmanDecode
                 move.l  a0,((COMPRESSED_STRING_POINTER-$1000000)).w
                 rts
 @Continue:
@@ -228,7 +228,7 @@ loc_6472:
                 movem.l d6-d7,-(sp)
                 move.w  #$100,d6
                 bsr.w   GenerateRandomNumber
-                move.b  d7,((RANDOM_SEED_COPY-$1000000)).w
+                move.b  d7,((RANDOM_WAITING_FOR_INPUT-$1000000)).w
                 movem.l (sp)+,d6-d7
                 bsr.s   sub_64A8
                 bsr.w   WaitForVInt
@@ -297,7 +297,7 @@ return_64F4:
 
 UpdateForceAndGetFirstBattlePartyMemberIndex:
                 
-                jsr     j_UpdateForce
+                jsr     UpdateForce
                 clr.w   d0
                 move.b  (BATTLE_PARTY_MEMBERS).l,d0
                 rts
@@ -310,14 +310,14 @@ UpdateForceAndGetFirstBattlePartyMemberIndex:
 symbol_leader:
                 
                 bsr.s   UpdateForceAndGetFirstBattlePartyMemberIndex
-                jsr     j_GetCombatantName
+                jsr     GetCombatantName
                 moveq   #ALLYNAME_MAX_LENGTH,d7
                 bsr.w   CopyAsciiBytesForDialogueString
                 bra.w   loc_62CA
 symbol_player:
                 
                 bsr.w   GetNextTextSymbol
-                jsr     j_GetCombatantName
+                jsr     GetCombatantName
                 moveq   #ALLYNAME_MAX_LENGTH,d7
                 bsr.w   CopyAsciiBytesForDialogueString
                 bra.w   loc_62CA
@@ -325,13 +325,13 @@ symbol_name:
                 
                 bsr.w   GetCurrentDialogueNameIndex
                 move.w  d1,d0
-                jsr     j_GetCombatantName
+                jsr     GetCombatantName
                 bsr.w   CopyAsciiBytesForDialogueString
                 bra.w   loc_62CA
 symbol_item:
                 
                 bsr.w   GetCurrentDialogueNameIndex
-                jsr     j_GetItemName
+                jsr     FindItemName
                 bsr.w   CopyAsciiBytesForDialogueString
                 bra.w   loc_62CA
 symbol_number:
@@ -358,11 +358,7 @@ loc_6574:
 symbol_class:
                 
                 bsr.w   GetCurrentDialogueNameIndex
-            if (STANDARD_BUILD&FULL_CLASS_NAMES=1)
-                jsr     GetFullClassName
-            else
-                jsr     j_GetClassName
-            endif
+                bsr.w   GetFullClassName
                 bsr.w   CopyAsciiBytesForDialogueString
                 bra.w   loc_62CA
 symbol_wait1:
@@ -376,7 +372,7 @@ loc_659C:
                 movem.l d6-d7,-(sp)
                 move.w  #$100,d6
                 bsr.w   GenerateRandomNumber
-                move.b  d7,((RANDOM_SEED_COPY-$1000000)).w
+                move.b  d7,((RANDOM_WAITING_FOR_INPUT-$1000000)).w
                 movem.l (sp)+,d6-d7
                 bsr.w   WaitForVInt
 loc_65B4:
@@ -418,7 +414,7 @@ symbol_delay3:
 symbol_spell:
                 
                 bsr.w   GetCurrentDialogueNameIndex
-                jsr     j_GetSpellName
+                jsr     FindSpellName
                 bsr.w   CopyAsciiBytesForDialogueString
                 bra.w   loc_62CA
 symbol_clear:
@@ -926,7 +922,7 @@ loc_68C2:
                 eori.b  #1,((SPEECH_SOUND_TOGGLE-$1000000)).w
                 beq.s   loc_68DC
                 move.w  d0,-(sp)
-                move.w  ((CURRENT_SPEECH_SFX-$1000000)).w,d0
+                move.w  ((SPEECH_SFX-$1000000)).w,d0
                 sndCom  SOUND_COMMAND_GET_D0_PARAMETER
                 move.w  (sp)+,d0
 loc_68DC:

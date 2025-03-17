@@ -11,10 +11,10 @@ ms_map9_Section5:
 Map9_ItemEvent0:
                 
                  
-                chkFlg  727             ; Set after presenting the Achilles Sword to Rohde (yes/no to the Caravan regardless)
+                chkFlg  FLAG_HASSAN3             ; Set after presenting the Achilles Sword to Rohde (yes/no to the Caravan regardless)
                 bne.s   Map9_DefaultItemEvent1
                 script  cs_569BC
-                setFlg  727             ; Set after presenting the Achilles Sword to Rohde (yes/no to the Caravan regardless)
+                setFlg  FLAG_HASSAN3             ; Set after presenting the Achilles Sword to Rohde (yes/no to the Caravan regardless)
                 moveq   #-1,d6
 Map9_DefaultItemEvent1:
                 

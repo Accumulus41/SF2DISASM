@@ -8,7 +8,7 @@
 ms_map3_flag609_InitFunction:
                 
                  
-                chkFlg  3               ; Jaha joined
+                chkFlg  ALLY_JAHA               ; Jaha joined
                 beq.s   return_513CC
                 script  cs_513CE
 return_513CC:

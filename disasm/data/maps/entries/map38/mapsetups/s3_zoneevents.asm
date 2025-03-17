@@ -22,10 +22,10 @@ Map38_DefaultZoneEvent:
 Map38_ZoneEvent0:
                 
                  
-                chkFlg  911             ; Set after the Petro death scene in Roft
+                chkFlg  FLAG_ROFT2             ; Set after the Petro death scene in Roft
                 bne.s   return_5DCEE
                 script  cs_5DE2E
-                setFlg  911             ; Set after the Petro death scene in Roft
+                setFlg  FLAG_ROFT2             ; Set after the Petro death scene in Roft
 return_5DCEE:
                 
                 rts
@@ -39,23 +39,23 @@ return_5DCEE:
 Map38_ZoneEvent1:
                 
                  
-                chkFlg  911             ; Set after the Petro death scene in Roft
+                chkFlg  FLAG_ROFT2             ; Set after the Petro death scene in Roft
                 beq.s   return_5DD24
-                chkFlg  76              ; Zynk is a follower
+                chkFlg  FLAG_FOLLOWER_ZYNK              ; Zynk is a follower
                 beq.s   byte_5DD08      
                 script  cs_5DE76
-                clrFlg  76              ; Zynk is a follower
+                clrFlg  FLAG_FOLLOWER_ZYNK              ; Zynk is a follower
                 bra.s   return_5DD24
 byte_5DD08:
                 
-                chkFlg  921             ; Set after Zynk leaves you at the Galam Drawbridge (for Roft/Petro death scene)
+                chkFlg  FLAG_GALAM1             ; Set after Zynk leaves you at the Galam Drawbridge (for Roft/Petro death scene)
                 beq.s   return_5DD24
-                chkFlg  26              ; Zynk joined
+                chkFlg  ALLY_ZYNK              ; Zynk joined
                 bne.s   return_5DD24
-                chkFlg  256             ; TEMP FLAG #00
+                chkFlg  FLAG_TEMP00             ; TEMP FLAG #00
                 beq.s   return_5DD24
                 script  cs_5DE76
-                clrFlg  76              ; Zynk is a follower
+                clrFlg  FLAG_FOLLOWER_ZYNK              ; Zynk is a follower
 return_5DD24:
                 
                 rts

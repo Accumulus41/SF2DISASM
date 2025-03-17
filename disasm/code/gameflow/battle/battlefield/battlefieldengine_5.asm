@@ -26,9 +26,9 @@ GetTargetsReachableByItem:
                 lea     ((TARGETS_REACHABLE_BY_ITEM_NUMBER-$1000000)).w,a1
                 lea     ((TARGETS_REACHABLE_BY_ITEM_LIST-$1000000)).w,a2
                 lea     ((ITEM_MOVEMENT_TO_REACHABLE_TARGETS-$1000000)).w,a3
-                jsr     GetItemDefinitionAddress
+                jsr     GetItemDefAddress
                 move.b  ITEMDEF_OFFSET_USE_SPELL(a0),d1
-                jsr     GetSpellDefAddress
+                jsr     FindSpellDefAddress
                 move.b  SPELLDEF_OFFSET_MAX_RANGE(a0),d3
                 move.b  SPELLDEF_OFFSET_MIN_RANGE(a0),d4
                 bra.w   MakeReachableTargetsList
@@ -45,7 +45,7 @@ GetTargetsReachableBySpell:
                 lea     ((TARGETS_REACHABLE_BY_SPELL_NUMBER-$1000000)).w,a1
                 lea     ((TARGETS_REACHABLE_BY_SPELL_LIST-$1000000)).w,a2
                 lea     ((SPELL_MOVEMENT_TO_REACHABLE_TARGETS-$1000000)).w,a3
-                jsr     GetSpellDefAddress
+                jsr     FindSpellDefAddress
                 move.b  SPELLDEF_OFFSET_MAX_RANGE(a0),d3
                 move.b  SPELLDEF_OFFSET_MIN_RANGE(a0),d4
 MakeReachableTargetsList:
@@ -130,26 +130,6 @@ IsCombatantAtLessThanHalfHp:
 
 ; =============== S U B R O U T I N E =======================================
 
-; unused
-
-
-sub_D2D2:
-                
-                movem.l d1-d2,-(sp)
-                jsr     GetCurrentHp
-                move.w  d1,d2
-                jsr     GetMaxHp
-                bra.w   loc_D304
-                movem.l d1-d2,-(sp)
-                move.w  d1,d2
-                jsr     GetMaxHp
-                bra.w   loc_D304
-
-    ; End of function sub_D2D2
-
-
-; =============== S U B R O U T I N E =======================================
-
 ; Set the carry flag if less than 2/3rds of defenders remaining HP
 ;   is expected to be taken by the attack.
 ; 
@@ -173,73 +153,6 @@ loc_D304:
 
 ; =============== S U B R O U T I N E =======================================
 
-; unused
-
-
-sub_D310:
-                
-                movem.l d1-d2,-(sp)
-                jsr     GetCurrentHp
-                move.w  d1,d2
-                jsr     GetMaxHp
-                bra.w   loc_D342
-
-    ; End of function sub_D310
-
-
-; =============== S U B R O U T I N E =======================================
-
-; unused
-
-
-sub_D326:
-                
-                movem.l d1-d2,-(sp)
-                move.w  d1,d2
-                jsr     GetMaxHp
-                bra.w   loc_D342
-
-    ; End of function sub_D326
-
-
-; =============== S U B R O U T I N E =======================================
-
-; unused
-
-
-sub_D336:
-                
-                movem.l d1-d2,-(sp)
-                move.w  d1,d2
-                jsr     GetCurrentHp
-loc_D342:
-                
-                lsl.w   #2,d2
-                cmp.w   d2,d1
-                movem.l (sp)+,d1-d2
-                rts
-
-    ; End of function sub_D336
-
-
-; =============== S U B R O U T I N E =======================================
-
-; unused
-
-
-sub_D34C:
-                
-                movem.l d1-d2,-(sp)
-                jsr     GetCurrentHp
-                move.w  d1,d2
-                jsr     GetMaxHp
-                bra.w   loc_D37E
-
-    ; End of function sub_D34C
-
-
-; =============== S U B R O U T I N E =======================================
-
 ; In: D0 = defender index
 ;     D1 = defenders theoretical remaining HP after attack
 ; 
@@ -252,12 +165,6 @@ sub_D362:
                 movem.l d1-d2,-(sp)
                 move.w  d1,d2
                 jsr     GetMaxHp
-                bra.w   loc_D37E
-                movem.l d1-d2,-(sp)     ; unreachable code
-                move.w  d1,d2
-                jsr     GetCurrentHp
-loc_D37E:
-                
                 mulu.w  #5,d2
                 cmp.w   d2,d1           ; Compare defender's max HP to 5x their theoretical remaining HP after the attack
                 movem.l (sp)+,d1-d2

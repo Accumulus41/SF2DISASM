@@ -2,7 +2,7 @@
 ; ASM FILE data\maps\entries\map36\mapsetups\s2_entityevents_530.asm :
 ; 0x5D924..0x5D9C0 : 
 ms_map36_flag530_EntityEvents:
-                msEntityEvent ALLY_FRAYJA, UP, Map36_212_EntityEvent0-ms_map36_flag530_EntityEvents
+                msEntityEvent 22, UP, Map36_212_EntityEvent0-ms_map36_flag530_EntityEvents
                 msEntityEvent 128, UP, Map36_212_EntityEvent1-ms_map36_flag530_EntityEvents
                 msEntityEvent 129, UP, Map36_212_EntityEvent2-ms_map36_flag530_EntityEvents
                 msEntityEvent 130, UP, Map36_212_EntityEvent3-ms_map36_flag530_EntityEvents
@@ -21,14 +21,11 @@ ms_map36_flag530_EntityEvents:
 Map36_212_EntityEvent0:
                 
                  
-                chkFlg  811             ; Set after Frayja asks to go to Moun with you
+                chkFlg  FLAG_CASTLEPACALON2             ; Set after Frayja asks to go to Moun with you
                 bne.s   return_5D968
                 script  cs_5DA28
-                setFlg  811             ; Set after Frayja asks to go to Moun with you
-                setFlg  82              ; Frayja is a follower
-            if (STANDARD_BUILD&FIX_BATTLE_TO_MOUN_SKIP=1)
-                setSavedByte #MAP_PACALON, EGRESS_MAP
-            endif
+                setFlg  FLAG_CASTLEPACALON2             ; Set after Frayja asks to go to Moun with you
+                setFlg  FLAG_FOLLOWER_FRAYJA              ; Frayja is a follower
 return_5D968:
                 
                 rts
@@ -92,10 +89,10 @@ Map36_212_EntityEvent4:
 Map36_212_EntityEvent5:
                 
                  
-                chkFlg  257             ; TEMP FLAG #01
+                chkFlg  FLAG_TEMP01             ; TEMP FLAG #01
                 bne.s   byte_5D998      
                 txt     3314            ; "Practice!  Who needs{N}practice?!  Ha!{W2}"
-                setFlg  257             ; TEMP FLAG #01
+                setFlg  FLAG_TEMP01             ; TEMP FLAG #01
 byte_5D998:
                 
                 txt     3315            ; "Oooh...I can't lift this{N}spear!{W1}"

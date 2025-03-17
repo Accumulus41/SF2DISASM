@@ -80,10 +80,10 @@ cs_55A36:       textCursor 1198
                 nextText $C0,ALLY_PETER ; "I'm {NAME;7}.{W2}"
                 nextText $C0,ALLY_PETER ; "I really appreciate your{N}kindness.{W2}"
                 nextSingleText $C0,ALLY_PETER ; "Mt. Volcano is in the east....{N}It's very far away.{W1}"
-                nextSingleText $FF,255  ; "{CLEAR}{LEADER} decides to take{N}{NAME;7} with him.{W1}{CLEAR}"
             if (STANDARD_BUILD&NO_AI_PETER=1)
                 join ALLY_PETER
             else
+                nextSingleText $FF,255  ; "{CLEAR}{LEADER} decides to take{N}{NAME;7} with him.{W1}{CLEAR}"
                 joinForceAI ALLY_PETER,$FFFF ; 0054 JOIN FORCE WITH AI
             endif
                 entityActionsWait ALLY_PETER
@@ -313,13 +313,13 @@ cs_55BEE:       textCursor 1249
                 nextSingleText $0,139   ; "I'm going with you as an{N}adviser.{W1}"
                 playSound MUSIC_JOIN
                 nextText $FF,255        ; "Adviser Astral has joined the{N}force."
-                executeSubroutine j_FadeOut_WaitForP1Input
+                executeSubroutine FadeOut_WaitForP1Input
                 hideText
                 nextSingleText $0,139   ; "We have to remove the rocks{N}blocking the passageway{N}leading to North Parmecia.{W2}{N}Maybe we can use an{N}explosive!{W1}"
                 nod ALLY_BOWIE
                 followEntity ALLY_PETER,ALLY_BOWIE,2
                 addNewFollower 139
-                setF 70                 ; Astral is a follower
+                setF FLAG_FOLLOWER_ASTRAL                 ; Astral is a follower
                 csc_end
 
 ; =============== S U B R O U T I N E =======================================
@@ -394,7 +394,7 @@ palette_55F6A:  dc.w $E0C
 sub_55F82:
                 
                 clr.b   ((FADING_TIMER_BYTE-$1000000)).w
-                lea     ((PALETTE_1_COPY-$1000000)).w,a0
+                lea     ((PALETTE_1_BACKUP-$1000000)).w,a0
                 jmp     (UpdateBasePalettesAndBackupCurrent).w
 
     ; End of function sub_55F82

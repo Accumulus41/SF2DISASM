@@ -59,7 +59,7 @@ ClearSpriteTable:
                 
                 move.l  d0,(a0)
                 clr.l   VDPSPRITE_OFFSET_TILE(a0)
-                addq.w  #VDP_SPRITE_ENTRY_SIZE,a0
+                addq.w  #VDP_SPRITE_SIZE,a0
                 addq.b  #1,d0
                 dbf     d1,@Loop
                 
@@ -103,39 +103,6 @@ ClearScrollTableData:
                 rts
 
     ; End of function ClearScrollTableData
-
-
-; =============== S U B R O U T I N E =======================================
-
-; unused
-
-
-ClearCram:
-                
-                movem.l d0-d3,-(sp)
-                move.w  (VDP_REG01_STATUS).l,d3
-                ori.b   #$10,d3
-                move.w  d3,(VDP_Control).l
-                move.w  #$8F01,(VDP_Control).l ; auto increment : 1
-                move.w  #$9300,(VDP_Control).l ; DMA length : $100
-                move.w  #$9401,(VDP_Control).l
-                move.w  #$9780,(VDP_Control).l ; VRAM fill
-                move.w  #$C000,(VDP_Control).l
-                move.w  #$80,(VDP_Control).l  ; CRAM address 0x80
-                move.w  #0,(VDP_Data).l
-@WaitForDmaFree:
-                
-                move.w  (VDP_Control).l,d0
-                andi.w  #2,d0
-                bne.s   @WaitForDmaFree
-                
-                move.w  (VDP_REG01_STATUS).l,d3
-                move.w  d3,(VDP_Control).l
-                move.w  #$8F02,(VDP_Control).l ; auto increment : 2
-                movem.l (sp)+,d0-d3
-                rts
-
-    ; End of function ClearCram
 
 
 ; =============== S U B R O U T I N E =======================================

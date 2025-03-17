@@ -158,7 +158,7 @@ cs_56422:       textCursor 1294
                 setBlocks 32,2,1,1,22,24
                 setBlocks 32,2,1,1,7,25
                 setBlocks 32,3,2,1,6,15
-                setF 709                ; Set after the mayor in Ribble scene... this flag unlocks the doors
+                setF FLAG_RIBBLE2         ; Set after the mayor in Ribble scene... this flag unlocks the doors
                 executeSubroutine j_csub_40F2
                 followEntity ALLY_PETER,ALLY_BOWIE,2
                 csWait 50

@@ -17,7 +17,7 @@ j_GameIntro:
 
 j_j_DisplaySegaLogo:
                 
-                jsr     j_DisplaySegaLogo
+                jsr     DisplaySegaLogo
                 bne.w   AfterGameIntro
 
     ; End of function j_j_DisplaySegaLogo
@@ -31,7 +31,7 @@ GameIntro:
                 move.l  #AfterGameIntro,((AFTER_INTRO_JUMP_POINTER-$1000000)).w
                 jsr     (EnableDisplayAndInterrupts).w
                 clr.w   d0
-                jsr     j_PlayIntroOrEndCutscene
+                jsr     PlayIntroOrEndCutscene
                 clr.l   ((AFTER_INTRO_JUMP_POINTER-$1000000)).w
 AfterGameIntro:
                 

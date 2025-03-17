@@ -1,7 +1,7 @@
 
 ; ASM FILE data\scripting\map\cs_intro2.asm :
 ; 0x48380..0x48540 : Intro cutscene 2
-IntroCutscene2: textCursor 4202
+IntroCutscene2: textCursor STORYTEXT_OFFSET_STORMY_AT_GRANSEAL_CASTLE
                 mapLoad MAP_GRANSEAL_CASTLE,7,2
                 loadMapEntities ce_48510
                 setActscriptWait ALLY_BOWIE,eas_Init
@@ -115,4 +115,4 @@ ce_48510:       mainEntity 63,63,UP
                 entity 12,13,UP,MAPSPRITE_SOLDIER1,eas_Init
                 entity 9,6,LEFT,MAPSPRITE_EFFECT6,eas_Init
                 entity 15,6,LEFT,MAPSPRITE_EFFECT6,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd

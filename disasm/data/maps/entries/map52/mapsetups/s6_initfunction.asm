@@ -8,7 +8,7 @@
 ms_map52_InitFunction:
                 
                  
-                chkFlg  714             ; Set after winning the cliff battle outside Bedoe, before Peter delivers lines
+                chkFlg  FLAG_VOLCANO3             ; Set after winning the cliff battle outside Bedoe, before Peter delivers lines
                 beq.s   return_5C4EC
 
     ; End of function ms_map52_InitFunction
@@ -20,10 +20,10 @@ ms_map52_InitFunction:
 sub_5C4DC:
                 
                  
-                chkFlg  712             ; Set after Peter delivers his lines after the cliffs before Bedoe battle
+                chkFlg  FLAG_VOLCANO1             ; Set after Peter delivers his lines after the cliffs before Bedoe battle
                 bne.s   return_5C4EC
                 script  cs_5C622
-                setFlg  712             ; Set after Peter delivers his lines after the cliffs before Bedoe battle
+                setFlg  FLAG_VOLCANO1             ; Set after Peter delivers his lines after the cliffs before Bedoe battle
 return_5C4EC:
                 
                 rts

@@ -15,14 +15,13 @@ combatant = -2
 ExecuteIndividualTurn:
                 
                 jsr     (InitializeBattlefieldSpritesFrameCounter).w
-                clr.w   ((CURRENT_SPEECH_SFX-$1000000)).w
+                clr.w   ((SPEECH_SFX-$1000000)).w
                 link    a6,#-10
                 move.w  d0,combatant(a6)
                 clr.b   aiControlFlag(a6)
                 
 @Start:         clr.w   ((DEAD_COMBATANTS_LIST_LENGTH-$1000000)).w
-                
-            if (ORIGINAL_TAROS_INVULNERABILITY=1)
+                bra.s   @IsActorAlive
                 ;
                 ; Re-implement the original Japanese version behavior,
                 ; i.e., other characters can join in the fight after Bowie delivers a hit with the Achilles Sword, 
@@ -31,7 +30,7 @@ ExecuteIndividualTurn:
                 movem.l d1-d2/a0,-(sp)
                 
                 ; Currently in a battle with an invulnerable enemy?
-                lea     table_InvulnerableEnemyBattles, a0
+                ;lea     table_InvulnerableEnemyBattles, a0
                 getSavedByte CURRENT_BATTLE,d1
                 moveq   #2,d2
                 jsr     (FindSpecialPropertyBytesAddressForObject).w
@@ -49,15 +48,10 @@ ExecuteIndividualTurn:
                 ; If all of the above is true, then the enemy becomes invulnerable again
                 clrFlg  112             ; Currently attacking Taros with Achilles Sword
 @TarosEnd:      movem.l (sp)+,d1-d2/a0
-            endif
-                
-                ; Is actor alive?
-                jsr     GetCurrentHp
-                tst.w   d1
+@IsActorAlive:  jsr     GetCurrentHP
                 beq.w   @Done           ; skip turn if actor is dead
                 
                 ; Actor is alive
-                move.w  combatant(a6),d0
                 jsr     GetCombatantX
                 move.w  d1,((BATTLE_ACTOR_X-$1000000)).w
                 move.w  d1,((BATTLE_TARGET_X-$1000000)).w
@@ -67,12 +61,10 @@ ExecuteIndividualTurn:
                 move.w  d1,((BATTLE_TARGET_Y-$1000000)).w
                 move.w  d1,d3
                 clr.b   ((CURSOR_RADIUS-$1000000)).w
-                move.w  combatant(a6),d0
                 bsr.w   GetEntityIndexForCombatant
                 move.w  d0,battleEntity(a6)
                 move.b  d0,((VIEW_TARGET_ENTITY-$1000000)).w
-                move.w  combatant(a6),d0
-                bsr.w   SetCursorDestinationToNextCombatant ; In: d2.w, d3.w = entity X,Y coordinates
+                bsr.w   SetCursorDestinationToNextBattleEntity ; In: d2.w, d3.w = entity X,Y coordinates
                 move.w  combatant(a6),d0
                 jsr     GetStatusEffects
                 move.w  d1,statusEffects(a6)
@@ -83,11 +75,11 @@ ExecuteIndividualTurn:
                 bne.s   @AiControl1
                 tst.b   d0
                 bpl.s   @IsAutoBattle       ; check auto battle if ally
-                tst.b   ((CONTROL_OPPONENT_TOGGLE-$1000000)).w
+                btst    #CONFIG_CONTROL_OPPONENT,((CONFIG_BITFIELD-$1000000)).w
                 beq.s   @AiControl1
                 bra.s   @PlayerControl
                 
-@IsAutoBattle:  tst.b   ((AUTO_BATTLE_TOGGLE-$1000000)).w
+@IsAutoBattle:  btst    #CONFIG_AUTOBATTLE,((CONFIG_BITFIELD-$1000000)).w
                 beq.s   @PlayerControl
                 
 @AiControl1:    st      aiControlFlag(a6)
@@ -116,7 +108,7 @@ ExecuteIndividualTurn:
                 jsr     (WaitForViewScrollEnd).w
                 clr.b   ((IS_TARGETING-$1000000)).w
                 jsr     CloseLandEffectWindow
-                jsr     CloseBattlefieldMiniStatusWindow
+                jsr     CloseMiniStatusWindow
                 move.w  combatant(a6),d0
                 bsr.w   SetEntityBlinkingFlag
                 move.w  battleEntity(a6),d0
@@ -138,7 +130,7 @@ ExecuteIndividualTurn:
                 moveq   #-1,d3
                 jsr     (UpdateEntityProperties).w
                 jsr     CloseLandEffectWindow
-                jsr     CloseBattlefieldMiniStatusWindow
+                jsr     CloseMiniStatusWindow
                 bra.w   @Done
                 
 @AiControl2:    bsr.w   ExecuteAiControl
@@ -162,23 +154,15 @@ ExecuteIndividualTurn:
                 ; Check if casting Egress
 @CastSpell:     move.w  ((BATTLEACTION_ITEM_OR_SPELL-$1000000)).w,d0
                 andi.w  #SPELLENTRY_MASK_INDEX,d0
-                lea     table_EgressSpells(pc), a0
-                move.w  d0,d1
-                clr.w   d2
-                jsr     (FindSpecialPropertyBytesAddressForObject).w
-                bcs.s   @Continue
-                
+                cmpi.w  #SPELL_EGRESS,d0
+                bne.s   @Continue
                 bra.w   ExecuteBattleaction_Egress
                 
-                ; Check if using an "Egress item" (e.g., Angel Wing)
+                ; Check if using Angel Wing
 @UseItem:       move.w  ((BATTLEACTION_ITEM_OR_SPELL-$1000000)).w,d0
                 andi.w  #ITEMENTRY_MASK_INDEX,d0
-                lea     table_EgressItems(pc), a0
-                move.w  d0,d1
-                clr.w   d2
-                jsr     (FindSpecialPropertyBytesAddressForObject).w
-                bcs.s   @Continue
-                
+                cmpi.w  #ITEM_ANGEL_WING,d0
+                bne.s   @Continue
                 bra.w   ExecuteBattleaction_AngelWing
                 
                 ; Prepare enemy attack coming out of a trapped chest 
@@ -189,13 +173,8 @@ ExecuteIndividualTurn:
                 
 @Attack:        bsr.w   DetermineRandomAttackSpell
                 
-@Continue:      movem.l d1-d2/a0,-(sp)
-                lea     table_DisplayTimerBattles(pc), a0
-                getSavedByte CURRENT_BATTLE, d1
-                moveq   #0,d2
-                jsr     (FindSpecialPropertyBytesAddressForObject).w
-                movem.l (sp)+,d1-d2/a0
-                bcs.s   @WriteBattlesceneScript
+@Continue:      checkSavedByte #BATTLE_FAIRY_WOODS, CURRENT_BATTLE   ; HARDCODED Battle check : Fairy wood secret battle
+                bne.s   @WriteBattlesceneScript
                 jsr     CloseTimerWindow
 @WriteBattlesceneScript:
                 
@@ -222,7 +201,7 @@ ExecuteIndividualTurn:
                 
                 move.l  a6,-(sp)
                 jsr     InitializeBattlescene
-                st      ((DEACTIVATE_WINDOW_HIDING-$1000000)).w
+                move.b  #$FF,((DEACTIVATE_WINDOW_HIDING-$1000000)).w
                 jsr     ExecuteBattlesceneScript
                 jsr     EndBattlescene
                 jsr     ApplyPositionsAfterEnemyLeaderDies ; After-battlescene listener used to prepare entity positions for end cutscene before the enemy leader dies. Only used in battle 5.
@@ -232,7 +211,7 @@ ExecuteIndividualTurn:
                 bsr.w   LoadBattle
                 jsr     (WaitForVInt).w
                 clr.b   ((DEACTIVATE_WINDOW_HIDING-$1000000)).w
-                st      ((VIEW_TARGET_ENTITY-$1000000)).w
+                move.b  #$FF,((VIEW_TARGET_ENTITY-$1000000)).w
                 movea.l (sp)+,a6
 @Done:          unlk    a6
                 rts
@@ -247,51 +226,28 @@ ExecuteIndividualTurn:
 DetermineRandomAttackSpell:
                 
                 movem.l d1-d2/a0,-(sp)
+                moveq   #5,d2
                 move.w  combatant(a6),d0
-                
-                ; Check equipped weapon
-                jsr     GetEquippedWeapon ; -> d1.w = item entry, d2.w = slot
-                moveq   #5,d2             ; d2.w = object property bytes number
-                tst.w   d1
-                bmi.s   @IsEnemy
-                
-                lea     table_RandomAttackSpellsForWeapons(pc), a0
-                bra.s   @Continue
-                
-@IsEnemy:       tst.b   d0
+                tst.b   d0
                 bmi.s   @Enemy
-                
-                ; Check ally class
                 lea     table_RandomAttackSpellsForClasses(pc), a0
                 jsr     GetClass
                 bra.s   @Continue
-                
-                ; Check enemy
 @Enemy:         lea     table_RandomAttackSpellsForEnemies(pc), a0
                 jsr     GetEnemy
-                
-                ; Find object
 @Continue:      jsr     (FindSpecialPropertyBytesAddressForObject).w
                 bcs.s   @Done
                 
                 ; Randomly determine if spell is cast
                 move.w  #256,d6
                 jsr     (GenerateRandomNumber).w
-                move.b  (a0)+,d1
-                bne.s   @Compare
-                
-                move.w  d6,d1
-@Compare:       cmp.b   d1,d7             ; d6/256 chance to cast spell
+                cmp.b   (a0)+,d7                     ; d6/256 chance to cast spell
                 bhs.s   @Done
                 
                 ; Determine spell level
                 move.w  ((BATTLEACTION_ITEM_OR_SPELL-$1000000)).w,((BATTLEACTION_ITEM_OR_SPELL_COPY-$1000000)).w
                 move.w  #BATTLEACTION_CAST_SPELL,((CURRENT_BATTLEACTION-$1000000)).w
-            if (FIX_KIWI_BREATH_UPGRADE_LEVELS=1)
-                jsr     CalculateEffectiveLevel
-            else
                 jsr     GetCurrentLevel
-            endif
                 clr.w   d0
                 
                 ; Check upgrade level 1

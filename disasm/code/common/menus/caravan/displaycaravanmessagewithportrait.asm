@@ -21,11 +21,11 @@ DisplayCaravanMessageWithPortrait:
 @DeliverLines:
                 
                 moveq   #0,d1
-                jsr     j_OpenPortraitWindow
+                jsr     OpenPortraitWindow
                 move.l  (sp)+,d0
                 jsr     (DisplayText).w 
                 clsTxt
-                jsr     j_ClosePortraitWindow
+                jsr     ClosePortraitWindow
                 movem.l (sp)+,d0-d1
                 rts
 

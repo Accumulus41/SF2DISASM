@@ -24,57 +24,30 @@ msEnd: macro
     endm
 
 msFixedEntity: macro
-    if (STANDARD_BUILD=1)
-    dc.b \1 ; EXPANDED_MAPSPRITES
-    dc.b \2
-    dc.w \3 ; word-sized facing direction value
-    dc.w \4 ; word-sized mapsprite index
-    dc.l \5
-    else
     dc.b \1
     dc.b \2
-    dc.b \3
-    dc.b \4
+    dc.w \3
+    dc.w \4
     dc.l \5
-    endc
     endm
 
 msSequencedEntity: macro
-    if (STANDARD_BUILD=1)
-    dc.b \1 ; EXPANDED_MAPSPRITES
-    dc.b \2
-    dc.w \3 ; word-sized facing direction value
-    dc.w \4 ; word-sized mapsprite index
-    dc.l \5+$FE000000
-    else
     dc.b \1
     dc.b \2
-    dc.b \3
-    dc.b \4
+    dc.w \3
+    dc.w \4
     dc.l \5+$FE000000
-    endc
     endm
     
 msWalkingEntity: macro
-    if (STANDARD_BUILD=1)
-    dc.b \1 ; EXPANDED_MAPSPRITES
-    dc.b \2
-    dc.w \3 ; word-sized facing direction value
-    dc.w \4 ; word-sized mapsprite index
-    dc.b $FF
-    dc.b \5
-    dc.b \6
-    dc.b \7
-    else
     dc.b \1
     dc.b \2
-    dc.b \3
-    dc.b \4
+    dc.w \3
+    dc.w \4
     dc.b $FF
     dc.b \5
     dc.b \6
     dc.b \7
-    endc
     endm
     
 msEntitiesEnd: macro

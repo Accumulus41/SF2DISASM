@@ -8,16 +8,12 @@
 ms_map7_InitFunction:
                 
                  
-                chkFlg  707             ; Set after the "one year has passed" text, after New Granseal is built
+                chkFlg  FLAG_CASTLENEWGRANS1             ; Set after the "one year has passed" text, after New Granseal is built
                 bne.s   return_55830
                 setSavedByte #MAP_NEW_GRANSEAL, EGRESS_MAP
-            if (STANDARD_BUILD&TEST_BUILD&TEST_BUILD_SKIP_NEW_GRANSEAL_CUTSCENE=1)
-                ; do nothing
-            else
                 script  cs_55832
-            endif
-                setFlg  707             ; Set after the "one year has passed" text, after New Granseal is built
-                setFlg  411             ; Battle 11 unlocked - BATTLE_CAVE_OF_DARKNESS          
+                setFlg  FLAG_CASTLENEWGRANS1             ; Set after the "one year has passed" text, after New Granseal is built
+                setFlg  FLAG_BATTLE11_AVAILABLE             ; Battle 11 unlocked - BATTLE_CAVE_OF_DARKNESS          
 return_55830:
                 
                 rts
@@ -156,4 +152,4 @@ ce_559AE:       mainEntity 11,7,UP
                 entity 11,8,UP,ALLY_SARAH,eas_Init
                 entity 11,9,UP,ALLY_KAZIN,eas_Init
                 entity 11,10,UP,ALLY_CHESTER,eas_Init
-                dc.w $FFFF
+                cscEntitiesEnd

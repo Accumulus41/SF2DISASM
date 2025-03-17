@@ -8,10 +8,10 @@
 ms_map10_InitFunction:
                 
                  
-                chkFlg  719             ; Set after the initial Bedoe scene (where the guards confront you)
+                chkFlg  FLAG_BEDOE1             ; Set after the initial Bedoe scene (where the guards confront you)
                 bne.s   byte_57040      
                 script  cs_570B0
-                setFlg  719             ; Set after the initial Bedoe scene (where the guards confront you)
+                setFlg  FLAG_BEDOE1             ; Set after the initial Bedoe scene (where the guards confront you)
 byte_57040:
                 
                 chkFlg  720             ; Set after the King of Bedoe speaks to his soldiers and they disperse

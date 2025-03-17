@@ -55,7 +55,7 @@ loc_1AC09E:
                 dc.l VInt_EndCredits
                 moveq   #120,d0
                 jsr     (Sleep).w       
-                jsr     j_UpdateForce
+                jsr     UpdateForce
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,d7
                 subq.w  #1,d7
                 lea     ((TARGETS_LIST-$1000000)).w,a0
@@ -64,8 +64,8 @@ loc_1AC10E:
                 movem.l d7-a0,-(sp)
                 clr.w   d0
                 move.b  (a0),d0
-                jsr     j_GetAllyPortrait
-                jsr     j_LoadPortrait
+                jsr     GetAllyPortrait
+                jsr     LoadPortrait
                 lea     (PALETTE_2_CURRENT).l,a0 ; clear palette 2
                 clr.l   (a0)+
                 clr.l   (a0)+

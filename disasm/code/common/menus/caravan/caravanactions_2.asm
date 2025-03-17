@@ -1,5 +1,5 @@
 
-; ASM FILE code\common\menus\caravan\caravanactions_2.asm :
+; ASM FILE code\common\menus\caravan\CaravanMenu_2.asm :
 ; 0x228D8..0x229CA : Caravan functions
 
 ; =============== S U B R O U T I N E =======================================
@@ -8,7 +8,7 @@
 PopulateGenericListWithMembersList:
                 
                 movem.l d7-a1,-(sp)
-                jsr     j_UpdateForce
+                jsr     UpdateForce
                 tst.w   d1              ; all members
                 bne.s   @CheckMemberGroup
                 lea     ((TARGETS_LIST-$1000000)).w,a0
@@ -48,10 +48,12 @@ PopulateGenericListWithMembersList:
 
 ; Copy caravan item indexes to generic list space
 
+
 CopyCaravanItems:
                 
                 movem.l d7-a1,-(sp)
-                move.w  ((CARAVAN_ITEMS_NUMBER-$1000000)).w,d7
+                clr.w   d7
+                move.b  ((CARAVAN_ITEMS_NUMBER-$1000000)).w,d7
                 move.w  d7,((GENERIC_LIST_LENGTH-$1000000)).w
                 subq.w  #1,d7
                 bcs.w   @Skip
@@ -59,9 +61,6 @@ CopyCaravanItems:
                 lea     ((GENERIC_LIST-$1000000)).w,a1
 @Loop:
                 
-            if (STANDARD_BUILD&FIX_CARAVAN_FREE_REPAIR_EXPLOIT=1)
-                addq.w  #1,a0
-            endif
                 move.b  (a0)+,(a1)+
                 dbf     d7,@Loop
 @Skip:
@@ -81,10 +80,10 @@ CopyCaravanItems:
 IsItemInSlotEquippedAndCursed:
                 
                 movem.l d1,-(sp)
-                jsr     j_GetItemBySlotAndHeldItemsNumber
+                jsr     GetItemBySlotAndHeldItemsNumber
                 bclr    #ITEMENTRY_BIT_EQUIPPED,d1
                 beq.s   @NotEquipped
-                jsr     j_IsItemCursed
+                jsr     IsItemCursed
                 bcc.w   @NotCursed
                 sndCom  MUSIC_CURSED_ITEM
                 move.w  #60,d0
@@ -130,7 +129,7 @@ PlayPreviousMusicAfterCurrentOne:
 IsItemUnsellable:
                 
                 movem.l d1/a0,-(sp)
-                jsr     j_GetItemDefinitionAddress
+                jsr     GetItemDefAddress
                 btst    #ITEMTYPE_BIT_UNSELLABLE,ITEMDEF_OFFSET_TYPE(a0)
                 beq.s   @NotUnsellable
                 move.w  d1,((DIALOGUE_NAME_INDEX_1-$1000000)).w

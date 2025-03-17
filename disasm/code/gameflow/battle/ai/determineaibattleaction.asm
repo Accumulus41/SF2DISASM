@@ -103,13 +103,9 @@ loc_EE88:
                 btst    #0,d3
                 bne.s   loc_EE94
                 bra.w   loc_EEFA
-                bra.s   loc_EE98        ; not reachable
 loc_EE94:
                 
-                bra.w   loc_EEE0        
-loc_EE98:
-                
-                bra.s   loc_EEC6        ; unnecessary
+                bra.w   loc_EEE0
 loc_EE9A:
                 
                 move.b  #6,d6
@@ -127,22 +123,16 @@ loc_EEB6:
                 btst    #0,d3
                 bne.s   loc_EEC2
                 bra.w   loc_EF14
-                bra.s   loc_EEC6        ; not reachable
 loc_EEC2:
                 
                 bra.w   loc_EEE0        
 loc_EEC6:
                 
                 move.b  #2,d6
-            if (STANDARD_BUILD=1)
-                jsr     (GenerateRandomNumberUnderD6).w
-            else
-                jsr     j_GenerateRandomNumberUnderD6
-            endif
+                jsr     GenerateRandomNumberUnderD6
                 cmpi.b  #1,d7
                 bne.s   loc_EEDC
                 bra.w   loc_EF14
-                bra.s   loc_EEE0        
 loc_EEDC:
                 
                 bra.w   loc_EEFA

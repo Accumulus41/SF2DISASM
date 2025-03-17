@@ -35,10 +35,10 @@ Map19_261_EntityEvent0:
 Map19_261_EntityEvent1:
                 
                  
-                chkFlg  257             ; TEMP FLAG #01
+                chkFlg  FLAG_TEMP01             ; TEMP FLAG #01
                 bne.s   byte_52FDC      
                 txt     610             ; "Sir Astral is sleeping in{N}the King's bedroom.{W2}{N}He needs some more rest{N}because he is so old.{W2}"
-                setFlg  257             ; TEMP FLAG #01
+                setFlg  FLAG_TEMP01             ; TEMP FLAG #01
 byte_52FDC:
                 
                 txt     611             ; "Why don't you see him{N}before you leave?{N}He would be pleased.{W1}"
