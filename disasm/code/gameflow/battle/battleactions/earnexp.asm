@@ -118,10 +118,10 @@ AddExpAndApplyPerActionCap:
                 cmpi.w  #PER_ACTION_EXP_CAP,((BATTLESCENE_EXP-$1000000)).w
                 ble.s   @BottomCap
                 move.w  #PER_ACTION_EXP_CAP,((BATTLESCENE_EXP-$1000000)).w
-				bra.s	@Return
+                bra.s	@Return
 @BottomCap:
-				cmpi.w	#1,((BATTLESCENE_EXP-$1000000)).w
-				bge.s	@Return
+                cmpi.w	#1,((BATTLESCENE_EXP-$1000000)).w
+                bge.s	@Return
                 move.w  #1,((BATTLESCENE_EXP-$1000000)).w
 @Return:
                 
@@ -190,7 +190,7 @@ battlesceneScript_GetKillExp:
                 moveq   #10,d5
                 cmpi.b  #9,d1
                 beq.w   @Done
-				moveq   #3,d5
+                moveq   #3,d5
 @Done:
                 
                 movem.l (sp)+,d0-d3/a0

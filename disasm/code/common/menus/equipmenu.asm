@@ -73,14 +73,14 @@ WriteBattleEquipWindowLayout:
                 move.w  #WINDOW_BATTLEEQUIP_STATS_TILE_COORDS,d1
                 jsr     (GetWindowTileAddress).w
                 move.l  a1,windowLayoutStartAddress(a6)
-				
+                
                 move.w  ((MOVING_BATTLE_ENTITY_INDEX-$1000000)).w,d0
                 jsr     GetMaxHP
                 move.w  d1,d0
                 movea.l windowLayoutStartAddress(a6),a1
                 moveq   #STATS_DIGITS_NUMBER,d7
                 bsr.w   WriteStatValue
-				
+                
                 move.w  ((MOVING_BATTLE_ENTITY_INDEX-$1000000)).w,d0
                 jsr     GetMaxMP
                 move.w  d1,d0
@@ -88,7 +88,7 @@ WriteBattleEquipWindowLayout:
                 adda.w  #$28,a1 ; second stat offset
                 moveq   #STATS_DIGITS_NUMBER,d7
                 bsr.w   WriteStatValue
-				
+                
                 move.w  ((MOVING_BATTLE_ENTITY_INDEX-$1000000)).w,d0
                 jsr     GetCurrentAtt
                 move.w  d1,d0
@@ -96,7 +96,7 @@ WriteBattleEquipWindowLayout:
                 adda.w  #$50,a1 ; third stat offset
                 moveq   #STATS_DIGITS_NUMBER,d7
                 bsr.w   WriteStatValue
-				
+                
                 move.w  ((MOVING_BATTLE_ENTITY_INDEX-$1000000)).w,d0
                 jsr     GetCurrentDef
                 move.w  d1,d0
@@ -104,7 +104,7 @@ WriteBattleEquipWindowLayout:
                 adda.w  #$78,a1 ; fourth stat offset
                 moveq   #STATS_DIGITS_NUMBER,d7
                 bsr.w   WriteStatValue
-				
+                
                 move.w  ((MOVING_BATTLE_ENTITY_INDEX-$1000000)).w,d0
                 jsr     GetCurrentAgi
                 move.w  d1,d0
@@ -112,7 +112,7 @@ WriteBattleEquipWindowLayout:
                 adda.w  #$A0,a1 ; fifth stat offset
                 moveq   #STATS_DIGITS_NUMBER,d7
                 bsr.w   WriteStatValue
-				
+                
                 move.w  ((MOVING_BATTLE_ENTITY_INDEX-$1000000)).w,d0
                 jsr     GetCurrentMov
                 move.w  d1,d0
@@ -120,7 +120,7 @@ WriteBattleEquipWindowLayout:
                 adda.w  #$C8,a1 ; sixth stat offset
                 moveq   #STATS_DIGITS_NUMBER,d7
                 bsr.w   WriteStatValue
-				
+                
                 unlk    a6
                 rts
 

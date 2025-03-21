@@ -30,7 +30,7 @@ loc_74A8:
                 
                 addi.w  #$E9,d0 ; HARDCODED text index for difficulty choice reactions
                 bsr.w   DisplayText     
-				
+                
                 txt     222             ; "What should I call you?{W2}"
                 move.b  (SAVE_FLAGS).l,d2
                 andi.w  #3,d2
@@ -78,7 +78,7 @@ byte_7476:
                 sub.w   d7,d0
                 bsr.w   InitAllyPromoStats
                 dbf     d7,@Loop
-				
+                
                 txt     223             ; "{NAME;0}....{N}Nice name, huh?{W2}"
                 txt     224             ; "Now, good luck!{N}You have no time to waste!{W1}"
 loc_74B4:

@@ -23,7 +23,7 @@ battlesceneScript_CastSpell:
 
 rjt_SpellEffects:
                 dc.w spellEffect_None-rjt_SpellEffects ; EGRESS
-				
+                
                 dc.w spellEffect_Heal-rjt_SpellEffects ; HEAL
                 dc.w spellEffect_Heal-rjt_SpellEffects ; AURA
                 dc.w spellEffect_Detox-rjt_SpellEffects ; DETOX
@@ -39,7 +39,7 @@ rjt_SpellEffects:
                 dc.w spellEffect_Detox-rjt_SpellEffects ; POWDER
                 dc.w spellEffect_FairyTear-rjt_SpellEffects ; G.TEAR
                 dc.w spellEffect_FairyTear-rjt_SpellEffects ; SHINE
-				
+                
                 dc.w spellEffect_Blaze-rjt_SpellEffects ; BLAZE
                 dc.w spellEffect_Freeze-rjt_SpellEffects ; FREEZE
                 dc.w spellEffect_Bolt-rjt_SpellEffects ; BOLT
@@ -56,7 +56,7 @@ rjt_SpellEffects:
                 dc.w spellEffect_Blaze-rjt_SpellEffects ; APOLLO
                 dc.w spellEffect_Neptun-rjt_SpellEffects ; NEPTUN
                 dc.w spellEffect_Bolt-rjt_SpellEffects ; ATLAS
-				
+                
                 dc.w spellEffect_FlameBreath-rjt_SpellEffects ; FLAME
                 dc.w spellEffect_Freeze-rjt_SpellEffects ; SNOW
                 dc.w spellEffect_DemonBreath-rjt_SpellEffects ; DEMON
@@ -73,7 +73,7 @@ rjt_SpellEffects:
                 dc.w spellEffect_None-rjt_SpellEffects       ; spell45
                 dc.w spellEffect_None-rjt_SpellEffects       ; spell46
                 dc.w spellEffect_None-rjt_SpellEffects       ; spell47
-								
+                                
                 dc.w spellEffect_Blaze-rjt_SpellEffects ; F.BALL
                 dc.w spellEffect_Freeze-rjt_SpellEffects ; BREZAD
                 dc.w spellEffect_Bolt-rjt_SpellEffects ; THUNDR

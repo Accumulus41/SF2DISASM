@@ -116,38 +116,38 @@ loc_46B4:
                 move.w  ((VIEW_SCROLLING_SPEED-$1000000)).w,d7
 loc_46BE:
                 
-				clr.w   d0
+                clr.w   d0
                 tst.b   ((MAP_AREA_LAYER1_AUTOSCROLL_X-$1000000)).w
                 bne.s   loc_46D0
                 move.b  ((MAP_AREA_LAYER1_PARALLAX_X-$1000000)).w,d0
-				mulu.w  d7,d0
+                mulu.w  d7,d0
                 lsr.w   #4,d0
                 move.w  d0,((PLANE_A_SCROLL_SPEED_X-$1000000)).w
 loc_46D0:
                 
-				clr.w   d0
+                clr.w   d0
                 tst.b   ((MAP_AREA_LAYER1_AUTOSCROLL_Y-$1000000)).w
                 bne.s   loc_46E2
                 move.b  ((MAP_AREA_LAYER1_PARALLAX_Y-$1000000)).w,d0
-				mulu.w  d7,d0
+                mulu.w  d7,d0
                 lsr.w   #4,d0
                 move.w  d0,((PLANE_A_SCROLL_SPEED_Y-$1000000)).w
 loc_46E2:
                 
-				clr.w   d0
+                clr.w   d0
                 tst.b   ((MAP_AREA_LAYER2_AUTOSCROLL_X-$1000000)).w
                 bne.s   loc_46F4
                 move.b  ((MAP_AREA_LAYER2_PARALLAX_X-$1000000)).w,d0
-				mulu.w  d7,d0
+                mulu.w  d7,d0
                 lsr.w   #4,d0
                 move.w  d0,((PLANE_B_SCROLL_SPEED_X-$1000000)).w
 loc_46F4:
                 
-				clr.w   d0
+                clr.w   d0
                 tst.b   ((MAP_AREA_LAYER2_AUTOSCROLL_Y-$1000000)).w
                 bne.s   return_4706
                 move.b  ((MAP_AREA_LAYER2_PARALLAX_Y-$1000000)).w,d0
-				mulu.w  d7,d0
+                mulu.w  d7,d0
                 lsr.w   #4,d0
                 move.w  d0,((PLANE_B_SCROLL_SPEED_Y-$1000000)).w
 return_4706:

@@ -501,11 +501,11 @@ caravanDepotSubmenu_Derive:
                 move.w  d2,itemIndex(a6)
                 cmpi.w  #-1,d2
                 beq.w   byte_2247E      ; @ChangedYourMind
-				move.w  d1,d0
+                move.w  d1,d0
                 jsr     CheckBreakFlag
-				beq.s   @NotBroken
-				ori.w   #ITEM_BROKEN,itemIndex(a6)
-				
+                beq.s   @NotBroken
+                ori.w   #ITEM_BROKEN,itemIndex(a6)
+                
 @NotBroken:     ; Pick recipient
                 moveq   #0,d1           ; all force members
                 bsr.w   PopulateGenericListWithMembersList

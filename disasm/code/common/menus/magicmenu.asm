@@ -241,7 +241,7 @@ BuildMagicMenu:
                 jsr     GetSpellCost
                 move.w  d1,d0
                 moveq   #3,d7
-				adda.w  #MENU_MAGIC_OFFSET_MP_COST,a1
+                adda.w  #MENU_MAGIC_OFFSET_MP_COST,a1
                 bsr.w   WriteTilesFromNumber
                 rts
 

@@ -74,12 +74,12 @@ InitializeAllyCombatantEntry:
                 getStartingItem (a0)+, d3
                 setSavedWord d3, (a1), COMBATANT_OFFSET_ITEM_3
                 move.l  #$3F3F3F3F,COMBATANT_OFFSET_SPELLS(a1) ; spell entries default to nothing
-				lea     tbl_TrueClasses,a0
+                lea     tbl_TrueClasses,a0
                 adda.w  d0,a0
-				adda.w  d0,a0
-				clr.w   d1
+                adda.w  d0,a0
+                clr.w   d1
                 move.b  (a0),d1
-				jsr     SetClass
+                jsr     SetClass
                 bsr.w   LoadAllyClassData
                 move.w  (sp)+,d1        ; D1 <- pull starting level
                 bsr.w   InitializeAllyStats

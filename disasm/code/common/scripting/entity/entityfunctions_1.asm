@@ -183,7 +183,7 @@ DeclareNewEntity:
                 swap    d6
                 move.b  d6,ENTITYDEF_OFFSET_LAYER(a0)
                 swap    d6
-				andi.w  #$3FF,d4
+                andi.w  #$3FF,d4
                 move.w  d4,ENTITYDEF_OFFSET_MAPSPRITE(a0)
                 tst.l   d5
                 bpl.s   @loc_3

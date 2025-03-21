@@ -799,8 +799,8 @@ UpgradeRandomBattleEnemies:
                 
                 ; Get pointer to enemy upgrade data based on move type -> A0
                 move.b  d5,d1
-				cmpi.b	#ENEMY_SPECIALS_START,d5
-				bcc.s	@Done
+                cmpi.b	#ENEMY_SPECIALS_START,d5
+                bcc.s	@Done
                 mulu.w  #ENEMYDEF_ENTRY_SIZE,d1
                 lea     table_EnemyDefinitions, a1
                 adda.w  d1,a1
@@ -815,22 +815,22 @@ UpgradeRandomBattleEnemies:
                 jsr     GetCurrentLevel
                 move.w  d1,d2
                 clr.w   d1
-				adda.w  #ENEMYDEF_ENTRY_SIZE,a1
-				move.b	ENEMYDEF_OFFSET_LEVEL(a1),d1
+                adda.w  #ENEMYDEF_ENTRY_SIZE,a1
+                move.b	ENEMYDEF_OFFSET_LEVEL(a1),d1
                 sub.w   d1,d2           ; subtract enemy level from Bowie's effective level
-				cmpi.w  #$4,d2
+                cmpi.w  #$4,d2
                 ble.s   @Default2
                 addi.w  #$1,d3
                 bra.s   @GetLeaderEffectiveLevel
 @Default2:
                 
                 cmp.b   d5,d3
-				beq.s   @NormalFoe
-				moveq   #4,d0
+                beq.s   @NormalFoe
+                moveq   #4,d0
                 jsr     (GenerateRandomOrDebugNumber).w
-				tst.w   d0
-				bne.s   @NormalFoe
-				addi.w  #1,d3
+                tst.w   d0
+                bne.s   @NormalFoe
+                addi.w  #1,d3
 @NormalFoe:
                 move.w  d3,d1           ; D1 = upgraded enemy index
 @Done:

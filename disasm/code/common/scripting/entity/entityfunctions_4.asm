@@ -70,11 +70,11 @@ loc_4586C:
                 move.l  d0,-(a6)
                 subq.l  #1,a0
                 dbf     d5,loc_4586C
-				
+                
                 adda.l  #$24,a0 
                 dbf     d6,loc_45868
                 dbf     d7,loc_45864
-				
+                
                 move.w  #1,d7
 loc_45914:
                 
@@ -174,7 +174,7 @@ loc_45988:
                 move.l  d0,-(a6)
                 addq.l  #1,a0
                 dbf     d5,loc_45988
-				
+                
                 adda.l  #$1C,a0
                 dbf     d6,loc_45984
                 dbf     d7,loc_45980

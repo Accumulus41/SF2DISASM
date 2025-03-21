@@ -158,11 +158,11 @@ actionCost = -8
 currentGold = -4
 
 AlterSpells:
-							
+                			
                 cmpi.w  #CLASS_SORC,d1
                 beq.s	@SORC_Spells
                 bra.w   @EndSpells
-				
+                
 @SORC_Spells:
                 
                 jsr     GetCombatantEntryAddress
@@ -172,8 +172,8 @@ AlterSpells:
                 
                 setSavedByteWithPostIncrement #SPELL_NOTHING, a0
                 dbf     d7,@Loop
-				
-				
+                
+                
 @EndSpells:
                 rts
 

@@ -383,7 +383,7 @@ GetCurrentMapSetup:
                 
                 cmpi.w  #-1,(a1)
                 bne.s   @Continue
-				
+                
                 lea     ms_Void(pc), a0
                 bra.w   @Return
 @Continue:

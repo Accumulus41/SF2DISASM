@@ -25,11 +25,11 @@ DisplayNameUnderPortrait:
                 move.w  d7,d0
                 addq.w  #1,d0
                 andi.w  #$E,d0
-				andi.w  #1,d7
-				lsl.w   #1,d7
+                andi.w  #1,d7
+                lsl.w   #1,d7
                 move.w  #30,d1
                 sub.w   d0,d1
-				add.w   d7,d1
+                add.w   d7,d1
                 adda.w  d1,a1
                 moveq   #-16,d1
                 moveq   #10,d7

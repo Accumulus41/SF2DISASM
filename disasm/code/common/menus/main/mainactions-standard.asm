@@ -214,9 +214,9 @@ MainItemSubmenu_Use:
                 move.w  d0,member(a6)
                 move.w  d1,itemSlot(a6)
                 move.w  d2,itemIndex(a6)
-				move.w  itemIndex(a6),d1
-				jsr     GetItemDefAddress
-				move.b  ITEMDEF_OFFSET_TYPE(a0),itemTypeBitfield(a6)
+                move.w  itemIndex(a6),d1
+                jsr     GetItemDefAddress
+                move.b  ITEMDEF_OFFSET_TYPE(a0),itemTypeBitfield(a6)
                 
                 ; Using Angel Wing on an overworld map?
                 cmpi.w  #ITEM_ANGEL_WING,d2
@@ -265,8 +265,8 @@ MainItemSubmenu_Use:
                 move.w  member(a6),d0
                 move.w  itemSlot(a6),d1
                 pea     @ExitItemSubmenuAction(pc)
-				btst    #ITEMTYPE_BIT_CONSUMABLE,itemTypeBitfield(a6)
-				beq.w   @ExitItemSubmenuAction
+                btst    #ITEMTYPE_BIT_CONSUMABLE,itemTypeBitfield(a6)
+                beq.w   @ExitItemSubmenuAction
                 jmp     RemoveItemBySlot
 ; ---------------------------------------------------------------------------
 

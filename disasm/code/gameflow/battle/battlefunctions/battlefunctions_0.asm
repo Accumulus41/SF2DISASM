@@ -755,7 +755,7 @@ SetCursorDestinationToNextBattleEntity:
                 move.w  d3,ENTITYDEF_OFFSET_YDEST(a0)
                 move.b  #64,ENTITYDEF_OFFSET_XSPEED(a0)
                 move.b  #64,ENTITYDEF_OFFSET_YSPEED(a0)
-				btst    #CONFIG_TURBO,((CONFIG_BITFIELD-$1000000)).w
+                btst    #CONFIG_TURBO,((CONFIG_BITFIELD-$1000000)).w
                 beq.s   loc_23328
                 move.b  #96,ENTITYDEF_OFFSET_XSPEED(a0)
                 move.b  #96,ENTITYDEF_OFFSET_YSPEED(a0)
@@ -794,38 +794,38 @@ loc_23368:
                 move.w  #$80,d1 
 loc_23376:
                 
-				clr.w   d7
+                clr.w   d7
                 tst.b   ((MAP_AREA_LAYER1_AUTOSCROLL_X-$1000000)).w
                 bne.s   loc_23388
                 move.b  ((MAP_AREA_LAYER1_PARALLAX_X-$1000000)).w,d7
-				mulu.w  d0,d7
+                mulu.w  d0,d7
                 lsr.w   #4,d7
                 move.w  d7,((PLANE_A_SCROLL_SPEED_X-$1000000)).w
 loc_23388:
                 
-				clr.w   d7
+                clr.w   d7
                 tst.b   ((MAP_AREA_LAYER1_AUTOSCROLL_Y-$1000000)).w
                 bne.s   loc_2339A
                 move.b  ((MAP_AREA_LAYER1_PARALLAX_Y-$1000000)).w,d7
-				mulu.w  d1,d7
+                mulu.w  d1,d7
                 lsr.w   #4,d7
                 move.w  d7,((PLANE_A_SCROLL_SPEED_Y-$1000000)).w
 loc_2339A:
                 
-				clr.w   d7
+                clr.w   d7
                 tst.b   ((MAP_AREA_LAYER2_AUTOSCROLL_X-$1000000)).w
                 bne.s   loc_233AC
                 move.b  ((MAP_AREA_LAYER2_PARALLAX_X-$1000000)).w,d7
-				mulu.w  d0,d7
+                mulu.w  d0,d7
                 lsr.w   #4,d7
                 move.w  d7,((PLANE_B_SCROLL_SPEED_X-$1000000)).w
 loc_233AC:
                 
-				clr.w   d7
+                clr.w   d7
                 tst.b   ((MAP_AREA_LAYER2_AUTOSCROLL_Y-$1000000)).w
                 bne.s   loc_233BE
                 move.b  ((MAP_AREA_LAYER2_PARALLAX_Y-$1000000)).w,d7
-				mulu.w  d1,d7
+                mulu.w  d1,d7
                 lsr.w   #4,d7
                 move.w  d7,((PLANE_B_SCROLL_SPEED_Y-$1000000)).w
 loc_233BE:
@@ -995,7 +995,7 @@ UpdateBattleEntityMapsprite:
                 move.w  ENTITYDEF_OFFSET_MAPSPRITE(a1),d1
                 cmpi.w  #MAPSPRITES_SPECIALS_START,d1
                 bcc.s   @Done
-				clr.w   d1
+                clr.w   d1
                 move.b  ENTITYDEF_OFFSET_ENTNUM(a1),d1
                 cmpi.b  #$20,d1
                 beq.s   @Done

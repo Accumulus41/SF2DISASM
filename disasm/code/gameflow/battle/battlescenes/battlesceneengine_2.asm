@@ -1051,7 +1051,7 @@ loc_1A552:
                 lea     table_1A614(pc), a0
                 bsr.w   sub_19FAA
 loc_1A56E:
-				; variaton 4
+                ; variaton 4
                 move.w  #-1,((byte_FFB404-$1000000)).w
                 move.b  #SPELLANIMATION_BLAZE,((CURRENT_SPELLANIMATION-$1000000)).w
                 move.b  #1,((byte_FFB585-$1000000)).w
@@ -1070,114 +1070,114 @@ table_1A594:    ; Variation 1
                 dc.b $48
                 dc.b $70
                 dc.b $70
-				
+                
                 dc.b 0
                 dc.b 0
                 dc.b $50
                 dc.b 0
-				
+                
                 dc.b 0
                 dc.b 0
-				
-				; Variation 2
+                
+                ; Variation 2
                 dc.b 1
                 dc.b $44
                 dc.b $60
                 dc.b $80
-				
+                
                 dc.b 0
                 dc.b $A
                 dc.b $50
                 dc.b 0
-				
+                
                 dc.b 0
                 dc.b 0
-				
-				; Variation 3
+                
+                ; Variation 3
                 dc.b 2
                 dc.b $40
                 dc.b $50
                 dc.b $70
-				
+                
                 dc.b 1
                 dc.b $E
                 dc.b $50
                 dc.b 0
-				
+                
                 dc.b 0
                 dc.b 0
-				
-				; Variation 4
+                
+                ; Variation 4
 table_1A5B2:    dc.b 2
                 dc.b $40
                 dc.b $50
                 dc.b $70
-				
+                
                 dc.b 1
                 dc.b 4
                 dc.b $50
                 dc.b $20
-				
+                
                 dc.b $20
                 dc.b 0
-				
-				; Variation 1 Mirrored
+                
+                ; Variation 1 Mirrored
                 dc.b 0
                 dc.b $B0
                 dc.b $80
                 dc.b $80
-				
+                
                 dc.b 0
                 dc.b 0
                 dc.b $30
                 dc.b 0
-				
+                
                 dc.b 0
                 dc.b 0
-				
-				; Variation 2 Mirrored
+                
+                ; Variation 2 Mirrored
                 dc.b 1
                 dc.b $AC
                 dc.b $70
                 dc.b $90
-				
+                
                 dc.b 0
                 dc.b $A
                 dc.b $30
                 dc.b 0
-				
+                
                 dc.b 0
                 dc.b 0
-				
-				; Variation 3 Mirrored
+                
+                ; Variation 3 Mirrored
                 dc.b 2
                 dc.b $A8
                 dc.b $60
                 dc.b $80
-				
+                
                 dc.b 1
                 dc.b $E
                 dc.b $30
                 dc.b 0
-				
+                
                 dc.b 0
                 dc.b 0
-				
-				; Variation 4 Mirrored
+                
+                ; Variation 4 Mirrored
                 dc.b 2
                 dc.b $A8
                 dc.b $60
                 dc.b $80
-				
+                
                 dc.b 1
                 dc.b 4
                 dc.b $30
                 dc.b $80
-				
+                
                 dc.b $20
                 dc.b 0
-				
-				; Variation 1
+                
+                ; Variation 1
 table_1A5E4:    dc.b 0
                 dc.b 0
                 dc.b 0
@@ -1194,8 +1194,8 @@ table_1A5E4:    dc.b 0
                 dc.b $49
                 dc.b 7
                 dc.b $20
-				
-				; Variation 2
+                
+                ; Variation 2
                 dc.b 0
                 dc.b 0
                 dc.b 0
@@ -1212,8 +1212,8 @@ table_1A5E4:    dc.b 0
                 dc.b $5D
                 dc.b 9
                 dc.b $20
-				
-				; Variation 3&4
+                
+                ; Variation 3&4
                 dc.b 0
                 dc.b 0
                 dc.b 0
@@ -1230,49 +1230,49 @@ table_1A5E4:    dc.b 0
                 dc.b $85
                 dc.b $F
                 dc.b $20
-				
+                
 table_1A614:    dc.w 0
                 dc.w 0
                 dc.w $531
                 dc.b $F
                 dc.b $20
-				
+                
                 dc.w 0
                 dc.w 0
                 dc.w $528
                 dc.b $A
                 dc.b $20
-				
+                
                 dc.w 0
                 dc.w 0
                 dc.w $528
                 dc.b $A
                 dc.b $20
-				
+                
                 dc.w 0
                 dc.w 0
                 dc.w $528
                 dc.b $A
                 dc.b $20
-				
+                
                 dc.w 0
                 dc.w 0
                 dc.w $528
                 dc.b $A
                 dc.b $20
-				
+                
                 dc.w 0
                 dc.w 0
                 dc.w $528
                 dc.b $A
                 dc.b $20
-				
+                
                 dc.w 0
                 dc.w 0
                 dc.w $524
                 dc.b 5
                 dc.b $20
-				
+                
                 dc.w 0
                 dc.w 0
                 dc.w $520
@@ -1316,7 +1316,7 @@ loc_1A680:
                 move.b  #2,(byte_FFAFC6).l
                 addq.w  #1,d1
 loc_1A6B4:
-				; variation 4
+                ; variation 4
                 moveq   #1,d0
                 bsr.w   sub_1A2F6
                 move.w  #-1,((byte_FFB404-$1000000)).w
@@ -1343,8 +1343,8 @@ loc_1A6CC:
                 dc.b $FA
                 dc.b 0
                 dc.b $C8
-				
-				; Variation 2
+                
+                ; Variation 2
                 dc.b 1
                 dc.b $70
                 dc.b 0
@@ -1357,8 +1357,8 @@ loc_1A6CC:
                 dc.b $FA
                 dc.b 0
                 dc.b $C8
-				
-				; Variation 3
+                
+                ; Variation 3
                 dc.b 1
                 dc.b $70
                 dc.b 0
@@ -1371,8 +1371,8 @@ loc_1A6CC:
                 dc.b $FA
                 dc.b 0
                 dc.b $C8
-				
-				; Variation 4
+                
+                ; Variation 4
                 dc.b 1
                 dc.b $70
                 dc.b 0
@@ -1385,8 +1385,8 @@ loc_1A6CC:
                 dc.b $FA
                 dc.b 0
                 dc.b $C8
-				
-				; Variation 1 Mirrored
+                
+                ; Variation 1 Mirrored
                 dc.b 0
                 dc.b $80
                 dc.b 0
@@ -1399,8 +1399,8 @@ loc_1A6CC:
                 dc.b 6
                 dc.b 1
                 dc.b $38
-				
-				; Variation 2 Mirrored
+                
+                ; Variation 2 Mirrored
                 dc.b 0
                 dc.b $80
                 dc.b 0
@@ -1413,8 +1413,8 @@ loc_1A6CC:
                 dc.b 6
                 dc.b 1
                 dc.b $38
-				
-				; Variation 3 Mirrored
+                
+                ; Variation 3 Mirrored
                 dc.b 0
                 dc.b $80
                 dc.b 0
@@ -1427,8 +1427,8 @@ loc_1A6CC:
                 dc.b 6
                 dc.b 1
                 dc.b $38
-				
-				; Variation 4 Mirrored
+                
+                ; Variation 4 Mirrored
                 dc.b 0
                 dc.b $80
                 dc.b 0
@@ -1513,13 +1513,13 @@ table_1A810:    dc.w $001
                 dc.w $580
                 dc.b 5
                 dc.b $20
-				
+                
                 dc.w $001
                 dc.w $001
                 dc.w $584
                 dc.b 5
                 dc.b $21
-				
+                
 table_DesoulBackgroundModification:
                 dc.b 0
                 dc.b $38
@@ -1643,7 +1643,7 @@ table_1A8F4:    dc.b 0
                 dc.b $28
                 dc.b 0
                 dc.b $34
-				
+                
 table_1A8FE:    dc.b 0
                 dc.b $35
                 dc.b 0
@@ -1654,25 +1654,25 @@ table_1A8FE:    dc.b 0
                 dc.b $5D
                 dc.b 0
                 dc.b $69
-				
+                
 spr_HealFairy:  dc.w $100
                 dc.w 0
                 dc.w $530
                 dc.b $F
                 dc.b $20
-				
+                
                 dc.w $100
                 dc.w 0
                 dc.w $540
                 dc.b $D
                 dc.b $20
-				
+                
 spr_EvilFairy:  dc.w $FFE0
                 dc.w 0
                 dc.w $565
                 dc.b $F
                 dc.b $21
-				
+                
                 dc.w $FFE0
                 dc.w 0
                 dc.w $575
@@ -1768,13 +1768,13 @@ table_1AA28:    dc.w $8		; x offset
                 dc.w $5AB	; tile data
                 dc.b 5		; size H2|V2
                 dc.b $20	;
-				
+                
                 dc.w 0		; x offset
                 dc.w 0		; y offset
                 dc.w $54B	; tile data
                 dc.b $F		; size H4|V4
                 dc.b $20	;
-				
+                
                 dc.w 0		; x offset
                 dc.w $20	; y offset
                 dc.w $55B	; tile data
@@ -1885,59 +1885,59 @@ loc_1AB4A:
 
                 ; Variation 1
                 dc.l $10000
-				
+                
                 ; Variation 2
                 dc.l $20001
-				
+                
                 ; Variation 3
                 dc.l $30002
-				
+                
                 ; Variation 4
                 dc.l $40004
-				
+                
 table_1AB5E:    dc.w $C8
                 dc.w $C0
                 dc.w $5B3
                 dc.b $F
                 dc.b $20
-				
+                
                 dc.w $98
                 dc.w $D8
                 dc.w $5C3
                 dc.b $F
                 dc.b $20
-				
+                
                 dc.w $F8
                 dc.w $C8
                 dc.w $5B3
                 dc.b $F
                 dc.b $20
-				
+                
                 dc.w $130
                 dc.w $B8
                 dc.w $5C3
                 dc.b $F
                 dc.b $20
-				
-				;mirror
+                
+                ;mirror
                 dc.b $F8
                 dc.b $C8
                 dc.w $5B3
                 dc.b $F
                 dc.b $20
-				
+                
                 dc.w $130
                 dc.w $B8
                 dc.w $5C3
                 dc.b $F
                 dc.b $20
-				
+                
                 dc.w $C8
                 dc.w $C0
                 dc.w $5B3
                 dc.b $F
                 dc.b $20
-				
+                
                 dc.w $98
                 dc.w $D8
                 dc.w $5C3
@@ -2088,11 +2088,11 @@ loc_1AC64:
 plt_Debuff1:    dc.w $888
                 dc.w $BBB
                 dc.w $DDD
-				
+                
 plt_Debuff2:    dc.w $84E
                 dc.w $EC6
                 dc.w $FDA
-				
+                
 plt_Debuff3:    dc.w $84E
                 dc.w $98E
                 dc.w $DBF
@@ -2252,87 +2252,87 @@ table_1AE20:    ; Variation 1
                 ; Variation 1
                 dc.l $E000060
                 dc.l $100F0
-				
+                
                 ; Variation 2
 table_1AE40:    dc.l $E000058
                 dc.l $7800F0
-				
+                
                 ; Variation 3
                 dc.l $E000040
                 dc.l $6000F0
-				
-				
+                
+                
                 dc.w $98
                 dc.w $6C
                 dc.w $520
                 dc.b $C
                 dc.b $11
-				
+                
                 dc.w 1
                 dc.w 1
                 dc.w 0
                 dc.b 0
                 dc.b 0
-				
-				
+                
+                
                 dc.w $98
                 dc.w $6C
                 dc.w $528
                 dc.b 0
                 dc.b $11
-				
+                
                 dc.w $A0
                 dc.w $6C
                 dc.w $524
                 dc.b $C
                 dc.b $11
-				
-				; mirror
+                
+                ; mirror
                 dc.w $68
                 dc.w $60
                 dc.w $52D
                 dc.b $C
                 dc.b $11
-				
+                
                 dc.w $88
                 dc.w $60
                 dc.w $529
                 dc.b $C
                 dc.b $11
-				
-				
+                
+                
                 dc.w $50
                 dc.w $64
                 dc.w $520
                 dc.b $C
                 dc.b $10
-				
+                
                 dc.w 1
                 dc.w 1
                 dc.w 0
                 dc.b 0
                 dc.b 0
-				
-				
+                
+                
                 dc.w $50
                 dc.w $64
                 dc.w $524
                 dc.b $C
                 dc.b $10
-				
+                
                 dc.w $70
                 dc.w $64
                 dc.w $528
                 dc.b 0
                 dc.b $10
-				
-				
+                
+                
                 dc.w $50
                 dc.w $62
                 dc.w $529
                 dc.b $C
                 dc.b $10
-				
+                
                 dc.w $70
                 dc.w $62
                 dc.w $52D
@@ -2371,8 +2371,8 @@ loc_1AECA:
 
 table_1AEFA:    dc.l $F300FFC0
                 dc.l $18000E8
-				
-				; mirror
+                
+                ; mirror
                 dc.l $D000040
                 dc.l $07000F0
 
@@ -2414,18 +2414,18 @@ loc_1AF2C:
 table_1AF64:    dc.l $F400FFC0
                 dc.l $18000E8
                 dc.l $500060
-				
-				; mirror
+                
+                ; mirror
                 dc.l $C000040
                 dc.l $7000F0
                 dc.l $B80070
-				
+                
 table_1AF7C:    dc.w $120
                 dc.w $E8
                 dc.w $56C
                 dc.b 5
                 dc.b $10
-				
+                
                 dc.w $C8
                 dc.w $E0
                 dc.w $56C
@@ -2471,18 +2471,18 @@ loc_1AFAE:
 table_1AFEA:    dc.l $F3000000
                 dc.l $18000E8
                 dc.l $200038
-				
-				; mirror
+                
+                ; mirror
                 dc.l $D000000
                 dc.l $7000F0
                 dc.l $880048
-				
+                
 table_1B002:    dc.w $13E
                 dc.w $FA
                 dc.w $520
                 dc.b 5
                 dc.b $10
-				
+                
                 dc.w $D0
                 dc.w $E0
                 dc.w $520
@@ -2801,20 +2801,20 @@ table_1B358:    dc.b 1
                 dc.b $B0
                 dc.b 0
                 dc.b 1
-				
+                
                 dc.b 0
                 dc.b 1
                 dc.b 0
                 dc.b 1
                 dc.b 0
                 dc.b 1
-				
+                
 table_1B364:    dc.w $128
                 dc.w $C0
                 dc.w $780
                 dc.b 6
                 dc.b $20
-				
+                
 table_NeptunBackgroundModification:
                 dc.b 0
                 dc.b $38
@@ -3266,17 +3266,17 @@ loc_1B764:
 
 table_1B794:    dc.l $10400E9
                 dc.w $800
-				
+                
                 dc.w $11C
                 dc.w $E5
                 dc.w $520
                 dc.b 5
                 dc.b $21
-				
-				;mirror
+                
+                ;mirror
                 dc.l $D200CC
                 dc.w $0
-				
+                
                 dc.w $D2
                 dc.w $CC
                 dc.w $524
@@ -3803,7 +3803,7 @@ loc_1BC0A:
                 bne.s   loc_1BC20
                 rts
 loc_1BC20:
-				; variations 1-3
+                ; variations 1-3
                 addq.w  #1,(a5)
                 move.w  6(a5),d2
                 tst.b   $F(a5)
@@ -4146,25 +4146,25 @@ table_1BE5A:    dc.b 0
                 dc.b $EE
                 dc.b $F
                 dc.b $20
-				
+                
 word_1BE82:     dc.w $C
                 dc.w 4
-				
+                
                 dc.w $C
                 dc.w 4
-				
+                
                 dc.w $C
                 dc.w 4
-				
+                
                 dc.w $C
                 dc.w 4
-				
+                
                 dc.w $C
                 dc.w 4
-				
+                
                 dc.w 8
                 dc.w 8
-				
+                
                 dc.w 8
                 dc.w 8
 
@@ -5412,7 +5412,7 @@ loc_1C9A0:
                 lea     $C(a5),a5
                 addq.w  #8,a4
                 dbf     d1,loc_1C804
-				
+                
                 tst.w   (a5)
                 beq.w   loc_1CAA8
                 addq.w  #1,(a5)
@@ -6275,7 +6275,7 @@ loc_1D0D4:
                 lea     $C(a5),a5
                 addq.w  #8,a4
                 dbf     d1,loc_1D048
-				
+                
                 tst.w   ((byte_FFB404-$1000000)).w
                 beq.w   sub_1B82A
                 rts
@@ -6288,16 +6288,16 @@ table_1D0EE:    dc.b 0
                 dc.b 0
                 dc.b 5
                 dc.b $20
-				
+                
                 dc.b $F
                 dc.b $20
-				
+                
 table_1D0F6:    dc.b 0
                 dc.b $10
-				
+                
                 dc.b 0
                 dc.b $20
-				
+                
                 dc.b 0
                 dc.b $10
                 dc.b 0
@@ -6721,7 +6721,7 @@ table_1D4A0:    dc.b 1      ; ally
                 dc.b $20
                 dc.b 0
                 dc.b $20
-				
+                
                 dc.b 0      ; enemy
                 dc.b $D2
                 dc.b 0
@@ -6730,7 +6730,7 @@ table_1D4A0:    dc.b 1      ; ally
                 dc.b $20
                 dc.b 0
                 dc.b $20
-				
+                
                 dc.b 0      ; cerberus
                 dc.b $DF
                 dc.b 0
@@ -6739,7 +6739,7 @@ table_1D4A0:    dc.b 1      ; ally
                 dc.b $20
                 dc.b 0
                 dc.b $20
-				
+                
                 dc.b 0       ; hydra
                 dc.b $D0
                 dc.b 0
@@ -6748,7 +6748,7 @@ table_1D4A0:    dc.b 1      ; ally
                 dc.b $20
                 dc.b 0
                 dc.b $20
-				
+                
                 dc.b 0       ; wyvern
                 dc.b $D4
                 dc.b 0
@@ -6757,7 +6757,7 @@ table_1D4A0:    dc.b 1      ; ally
                 dc.b $20
                 dc.b 0
                 dc.b $20
-				
+                
 table_1D4C8:    dc.b 0
                 dc.b 5
                 dc.b 0
@@ -7055,7 +7055,7 @@ loc_1D748:
                 addq.w  #8,a4
                 lea     $C(a5),a5
                 dbf     d1,loc_1D5D6
-				
+                
                 tst.b   ((UPDATE_SPELLANIMATION_TOGGLE-$1000000)).w
                 beq.w   sub_1B82A
                 rts
@@ -10861,293 +10861,293 @@ sprite_BattlesceneGround:
                 vdpSprite 268, V4|H4|0, 1952|MIRROR|PALETTE3, 264
                 
 table_1F6B6:    ;vdpSprite
-				dc.w 4
+                dc.w 4
                 dc.b 8
                 dc.b $C
                 dc.w $3034
                 dc.w $383C
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $6064
                 dc.b $68
                 dc.b $6C
                 dc.w $9094
                 dc.w $989C
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $105
                 dc.b 9
                 dc.b $D
                 dc.w $3135
                 dc.w $393D
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $6165
                 dc.b $69
                 dc.b $6D
                 dc.w $9195
                 dc.w $999D
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $206
                 dc.b $A
                 dc.b $E
                 dc.w $3236
                 dc.w $3A3E
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $6266
                 dc.b $6A
                 dc.b $6E
                 dc.w $9296
                 dc.w $9A9E
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $307
                 dc.b $B
                 dc.b $F
                 dc.w $3337
                 dc.w $3B3F
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $6367
                 dc.b $6B
                 dc.b $6F
                 dc.w $9397
                 dc.w $9B9F
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $1014
                 dc.b $18
                 dc.b $1C
                 dc.w $4044
                 dc.w $484C
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $7074
                 dc.b $78
                 dc.b $7C
                 dc.w $A0A4
                 dc.w $A8AC
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $1115
                 dc.b $19
                 dc.b $1D
                 dc.w $4145
                 dc.w $494D
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $7175
                 dc.b $79
                 dc.b $7D
                 dc.w $A1A5
                 dc.w $A9AD
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $1216
                 dc.b $1A
                 dc.b $1E
                 dc.w $4246
                 dc.w $4A4E
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $7276
                 dc.b $7A
                 dc.b $7E
                 dc.w $A2A6
                 dc.w $AAAE
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $1317
                 dc.b $1B
                 dc.b $1F
                 dc.w $4347
                 dc.w $4B4F
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $7377
                 dc.b $7B
                 dc.b $7F
                 dc.w $A3A7
                 dc.w $ABAF
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $2024
                 dc.b $28
                 dc.b $2C
                 dc.w $5054
                 dc.w $585C
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $8084
                 dc.b $88
                 dc.b $8C
                 dc.w $B0B4
                 dc.w $B8BC
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $2125
                 dc.b $29
                 dc.b $2D
                 dc.w $5155
                 dc.w $595D
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $8185
                 dc.b $89
                 dc.b $8D
                 dc.w $B1B5
                 dc.w $B9BD
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $2226
                 dc.b $2A
                 dc.b $2E
                 dc.w $5256
                 dc.w $5A5E
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $8286
                 dc.b $8A
                 dc.b $8E
                 dc.w $B2B6
                 dc.w $BABE
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $2327
                 dc.b $2B
                 dc.b $2F
                 dc.w $5357
                 dc.w $5B5F
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $8387
                 dc.b $8B
                 dc.b $8F
                 dc.w $B3B7
                 dc.w $BBBF
-				
+                
 table_1F776:    ;vdpSprite
-				dc.w $8100
+                dc.w $8100
                 dc.b $81
                 dc.b $10
                 dc.w $8120
                 dc.w $8130
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $8140
                 dc.b $81
                 dc.b $50
                 dc.w $8160
                 dc.w $8170
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $8180
                 dc.b $81
                 dc.b $90
                 dc.w $81A0
                 dc.w $81B0
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $81C0
                 dc.b $81
                 dc.b $D0
                 dc.w $81E0
                 dc.w $81F0
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $8200
                 dc.b $82
                 dc.b $10
                 dc.w $8520
                 dc.w $8530
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $8540
                 dc.b $85
                 dc.b $50
                 dc.w $8560
                 dc.w $8570
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $8580
                 dc.b $85
                 dc.b $90
                 dc.w $85A0
                 dc.w $85B0
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $85C0
                 dc.b $85
                 dc.b $D0
                 dc.w $85E0
                 dc.w $85F0
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $86C0
                 dc.b $86
                 dc.b $D0
                 dc.w $86E0
                 dc.w $86F0
-				
+                
 table_1F7BE:    ;vdpSprite
-				dc.w $8100
+                dc.w $8100
                 dc.b $81
                 dc.b $10
                 dc.w $8190
                 dc.w $81A0
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $8120
                 dc.b $81
                 dc.b $30
                 dc.w $81B0
                 dc.w $81C0
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $8140
                 dc.b $81
                 dc.b $50
                 dc.w $81D0
                 dc.w $81E0
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $8160
                 dc.b $81
                 dc.b $70
                 dc.w $81F0
                 dc.w $8200
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w 0
                 dc.b 0
                 dc.b 0
                 dc.w $8520
                 dc.w $8530
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $85B0
                 dc.b $85
                 dc.b $C0
                 dc.w $8540
                 dc.w $8550
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $85D0
                 dc.b $85
                 dc.b $E0
                 dc.w $8560
                 dc.w $8570
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $85F0
                 dc.b $86
                 dc.b $C0
                 dc.w $8580
                 dc.w $8590
-				
-				;vdpSprite
+                
+                ;vdpSprite
                 dc.w $86D0
                 dc.b $86
                 dc.b $E0

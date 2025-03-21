@@ -87,21 +87,21 @@ CopyBytesFromSram:
                 movem.l d7-a1,-(sp)
                 clr.w   d0
 	
-				lea     ((COMBATANT_ENTRIES-$1000000)).w,a1
-				move.w  #COMBATANT_BLOCK_COUNTER,d7
-				
+                lea     ((COMBATANT_ENTRIES-$1000000)).w,a1
+                move.w  #COMBATANT_BLOCK_COUNTER,d7
+                
 @Loop_Combatants:
                 move.b  (a0),(a1)+
                 add.b   (a0)+,d0
                 dbf     d7,@Loop_Combatants
-				
-				lea     ((GAME_FLAGS-$1000000)).w,a1
-				move.w  #SAVE_BLOCK_COUNTER,d7
-				
+                
+                lea     ((GAME_FLAGS-$1000000)).w,a1
+                move.w  #SAVE_BLOCK_COUNTER,d7
+                
 @Loop_Block:    move.b  (a0),(a1)+
                 add.b   (a0)+,d0
                 dbf     d7,@Loop_Block
-				
+                
                 movem.l (sp)+,d7-a1
                 rts
 
@@ -140,22 +140,22 @@ CopyBytesToSram:
                 
                 movem.l d7-a1,-(sp)
                 clr.w   d0
-				
-				lea     ((COMBATANT_ENTRIES-$1000000)).w,a0
-				move.w  #COMBATANT_BLOCK_COUNTER,d7
-				
+                
+                lea     ((COMBATANT_ENTRIES-$1000000)).w,a0
+                move.w  #COMBATANT_BLOCK_COUNTER,d7
+                
 @Loop_Combatants:
                 move.b  (a0),(a1)+
                 add.b   (a0)+,d0
                 dbf     d7,@Loop_Combatants
-				
-				lea     ((GAME_FLAGS-$1000000)).w,a0
-				move.w  #SAVE_BLOCK_COUNTER,d7
-				
+                
+                lea     ((GAME_FLAGS-$1000000)).w,a0
+                move.w  #SAVE_BLOCK_COUNTER,d7
+                
 @Loop_Block:    move.b  (a0),(a1)+
                 add.b   (a0)+,d0
                 dbf     d7,@Loop_Block
-				
+                
                 movem.l (sp)+,d7-a1
                 rts
 
@@ -171,10 +171,10 @@ LoadGame:       movem.l d0-d1/d7-a2,-(sp)
                 lea     (SAVE1_DATA).l,a0
                 moveq   #0,d1
                 bra.s   @Continue
-				
+                
 @Slot2:         lea     (SAVE2_DATA).l,a0
                 moveq   #1,d1
-				
+                
 @Continue:      bsr.w   CopyBytesFromSram
                 movem.l (sp)+,d0-d1/d7-a2
                 rts
@@ -192,11 +192,11 @@ SaveGame:       movem.l d0-d1/d7-a2,-(sp)
                 lea     (SAVE1_CHECKSUM).l,a2
                 moveq   #0,d1
                 bra.s   @Continue
-				
+                
 @Slot2:         lea     (SAVE2_DATA).l,a1
                 lea     (SAVE2_CHECKSUM).l,a2
                 moveq   #1,d1
-				
+                
 @Continue:      bsr.w   CopyBytesToSram
                 move.b  d0,(a2)             ; d0 = save checksum
                 bset    d1,(SAVE_FLAGS).l   ; indicate busy save slot

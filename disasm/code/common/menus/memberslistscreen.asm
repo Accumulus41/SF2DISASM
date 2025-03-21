@@ -298,7 +298,7 @@ sub_132BC:
                 cmpi.b  #1,((byte_FFB13C-$1000000)).w
                 bne.s   @CheckEquipment
 @CheckItems:
-				
+                
                 clr.w   d1
                 jsr     GetItemBySlotAndHeldItemsNumber
                 tst.w   d2

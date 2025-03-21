@@ -18,16 +18,16 @@ AddItemToCaravan:
                 loadSavedDataAddress CARAVAN_ITEMS, a0
                 
                 ; Caravan items number -> d0.w
-				clr.w   d0
+                clr.w   d0
                 move.b  caravanItemsToNumberOffset(a0),d0
                 cmpi.w  #CARAVAN_MAX_ITEMS_NUMBER_MINUS_ONE,d0
                 bhi.s   @Skip           ; skip adding item if no room
                 
                 ; Add item
                 adda.w  d0,a0
-				btst    #15,d1
-				beq.s   @NotBroken
-				jsr     SetBreakFlag
+                btst    #15,d1
+                beq.s   @NotBroken
+                jsr     SetBreakFlag
 @NotBroken:     andi.w  #itemEntryMask,d1
                 move.b  d1,(a0)
                 
@@ -47,14 +47,14 @@ AddItemToCaravan:
 
 
 RemoveItemFromCaravan:
-				jsr     ShiftBreakFlags
+                jsr     ShiftBreakFlags
                 movem.l d0/d5-a1,-(sp)
                 moveq   #0,d0
                 loadSavedDataAddress CARAVAN_ITEMS, a0
                 movea.l a0,a1
                 
                 ; Caravan items number -> d7.w
-				clr.w   d7
+                clr.w   d7
                 move.b  caravanItemsToNumberOffset(a0),d7
                 subq.w  #1,d7
                 bcs.s   @Done
@@ -89,20 +89,20 @@ RemoveItemFromCaravan:
 
 ShiftBreakFlags:
                 
-				movem.l  d0-d1/d7,-(sp)
-				
+                movem.l  d0-d1/d7,-(sp)
+                
 @Loop:			move.w   d1,d0
-				jsr      ClearBreakFlag
+                jsr      ClearBreakFlag
 @NextBreakCheck:addq.w   #1,d0
                 cmpi.w   #64,d0
-				bge.s    @Done
-				jsr      CheckBreakFlag
-				beq.s    @NextBreakCheck
-				move.w   d0,d1
-				subq.w   #1,d0
-				jsr      SetBreakFlag
+                bge.s    @Done
+                jsr      CheckBreakFlag
+                beq.s    @NextBreakCheck
+                move.w   d0,d1
+                subq.w   #1,d0
+                jsr      SetBreakFlag
                 bra.s    @Loop
-				
+                
 @Done:    		movem.l  (sp)+,d0-d1/d7
                 rts
 

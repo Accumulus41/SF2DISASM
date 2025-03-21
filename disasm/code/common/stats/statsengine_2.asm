@@ -1143,10 +1143,10 @@ DecreaseGold:
 ApplyStatusEffectsAndItemsOnStats:
                 
                 movem.l d0-d3/a0-a2,-(sp)
-				bsr.w   ApplyItemsonStats
-				jsr     ApplyStatusEffectsOnStats
+                bsr.w   ApplyItemsonStats
+                jsr     ApplyStatusEffectsOnStats
                 movem.l (sp)+,d0-d3/a0-a2
-				rts
+                rts
 
     ; End of function ApplyStatusEffectsAndItemsOnStats
 
@@ -1157,7 +1157,7 @@ ApplyStatusEffectsAndItemsOnStats:
 
 
 ApplyItemsOnStats:
-				
+                
                 move.w  d0,-(sp)
                 bsr.w   GetStatusEffects
                 move.w  d1,d3
@@ -1473,11 +1473,11 @@ EquipEffect_DecreaseCounterAttackProwess:
 EquipEffect_IncreaseHP:
 
                 move.w	d1,-(sp)
-				jsr	IncreaseMaxHP
-				move.w	(sp)+,d1
-				cmp.b	#$FF,((CURRENT_BATTLE-$1000000)).w
-				bne.s	@InBattle
-				jsr	IncreaseCurrentHP
+                jsr	IncreaseMaxHP
+                move.w	(sp)+,d1
+                cmp.b	#$FF,((CURRENT_BATTLE-$1000000)).w
+                bne.s	@InBattle
+                jsr	IncreaseCurrentHP
 @InBattle:
                 rts
 
@@ -1488,11 +1488,11 @@ EquipEffect_IncreaseHP:
 EquipEffect_IncreaseMP:
                 
                 move.w	d1,-(sp)
-				jsr	IncreaseMaxMP
-				move.w	(sp)+,d1
-				cmp.b	#$FF,((CURRENT_BATTLE-$1000000)).w
-				bne.s	@InBattle
-				jsr	IncreaseCurrentMP
+                jsr	IncreaseMaxMP
+                move.w	(sp)+,d1
+                cmp.b	#$FF,((CURRENT_BATTLE-$1000000)).w
+                bne.s	@InBattle
+                jsr	IncreaseCurrentMP
 @InBattle:
                 rts
 
@@ -1503,9 +1503,9 @@ EquipEffect_IncreaseMP:
 EquipEffect_IncreaseATT:
                 
                 move.w	d1,-(sp)
-				jsr	IncreaseCurrentATT
-				move.w	(sp)+,d1
-				jsr IncreaseTotalATT
+                jsr	IncreaseCurrentATT
+                move.w	(sp)+,d1
+                jsr IncreaseTotalATT
                 rts
 
     ; End of function EquipEffect_IncreaseATT
@@ -1515,9 +1515,9 @@ EquipEffect_IncreaseATT:
 EquipEffect_IncreaseDEF:
                 
                 move.w	d1,-(sp)
-				jsr	IncreaseCurrentDEF
-				move.w	(sp)+,d1
-				jsr IncreaseTotalDEF
+                jsr	IncreaseCurrentDEF
+                move.w	(sp)+,d1
+                jsr IncreaseTotalDEF
                 rts
 
     ; End of function EquipEffect_IncreaseDEF
@@ -1527,9 +1527,9 @@ EquipEffect_IncreaseDEF:
 EquipEffect_IncreaseAGI:
                 
                 move.w	d1,-(sp)
-				jsr	IncreaseCurrentAGI
-				move.w	(sp)+,d1
-				jsr IncreaseTotalAGI
+                jsr	IncreaseCurrentAGI
+                move.w	(sp)+,d1
+                jsr IncreaseTotalAGI
                 rts
 
     ; End of function EquipEffect_IncreaseAGI
@@ -1539,11 +1539,11 @@ EquipEffect_IncreaseAGI:
 EquipEffect_DecreaseHP:
                 
                 move.w	d1,-(sp)
-				jsr	DecreaseMaxHP
-				move.w	(sp)+,d1
-				cmp.b	#$FF,((CURRENT_BATTLE-$1000000)).w
-				bne.s	@InBattle
-				jsr	DecreaseCurrentHP
+                jsr	DecreaseMaxHP
+                move.w	(sp)+,d1
+                cmp.b	#$FF,((CURRENT_BATTLE-$1000000)).w
+                bne.s	@InBattle
+                jsr	DecreaseCurrentHP
 @InBattle:
                 rts
 
@@ -1554,11 +1554,11 @@ EquipEffect_DecreaseHP:
 EquipEffect_DecreaseMP:
                 
                 move.w	d1,-(sp)
-				jsr	DecreaseMaxMP
-				move.w	(sp)+,d1
-				cmp.b	#$FF,((CURRENT_BATTLE-$1000000)).w
-				bne.s	@InBattle
-				jsr	DecreaseCurrentMP
+                jsr	DecreaseMaxMP
+                move.w	(sp)+,d1
+                cmp.b	#$FF,((CURRENT_BATTLE-$1000000)).w
+                bne.s	@InBattle
+                jsr	DecreaseCurrentMP
 @InBattle:
                 rts
 
@@ -1569,9 +1569,9 @@ EquipEffect_DecreaseMP:
 EquipEffect_DecreaseATT:
                 
                 move.w	d1,-(sp)
-				jsr	DecreaseCurrentATT
-				move.w	(sp)+,d1
-				jsr DecreaseTotalATT
+                jsr	DecreaseCurrentATT
+                move.w	(sp)+,d1
+                jsr DecreaseTotalATT
                 rts
 
     ; End of function EquipEffect_DecreaseATT
@@ -1581,9 +1581,9 @@ EquipEffect_DecreaseATT:
 EquipEffect_DecreaseDEF:
                 
                 move.w	d1,-(sp)
-				jsr	DecreaseCurrentDEF
-				move.w	(sp)+,d1
-				jsr DecreaseTotalDEF
+                jsr	DecreaseCurrentDEF
+                move.w	(sp)+,d1
+                jsr DecreaseTotalDEF
                 rts
 
     ; End of function EquipEffect_DecreaseDEF
@@ -1593,9 +1593,9 @@ EquipEffect_DecreaseDEF:
 EquipEffect_DecreaseAGI:
                 
                 move.w	d1,-(sp)
-				jsr	DecreaseCurrentAGI
-				move.w	(sp)+,d1
-				jsr DecreaseTotalAGI
+                jsr	DecreaseCurrentAGI
+                move.w	(sp)+,d1
+                jsr DecreaseTotalAGI
                 rts
 
     ; End of function EquipEffect_DecreaseAGI
@@ -1794,14 +1794,14 @@ EquipEffect_SetResistance:
 
 EquipEffect_SetHP:
                 
-				move.b  d1,d2
-				jsr     GetCurrentHP
-				cmp.w   d2,d1
-				bgt.s   @NoChange
-				tst.w   d1
-				beq.s   @NoChange
-				move.b  d2,d1
-				jsr     SetCurrentHP
+                move.b  d1,d2
+                jsr     GetCurrentHP
+                cmp.w   d2,d1
+                bgt.s   @NoChange
+                tst.w   d1
+                beq.s   @NoChange
+                move.b  d2,d1
+                jsr     SetCurrentHP
 @NoChange:
                 rts
 
@@ -1812,12 +1812,12 @@ EquipEffect_SetHP:
 
 EquipEffect_SetMP:
                 
-				move.b  d1,d2
-				jsr     GetCurrentMP
-				cmp.w   d2,d1
-				bgt.s   @NoChange
-				move.b  d2,d1
-				jsr     SetCurrentMP
+                move.b  d1,d2
+                jsr     GetCurrentMP
+                cmp.w   d2,d1
+                bgt.s   @NoChange
+                move.b  d2,d1
+                jsr     SetCurrentMP
 @NoChange:
                 rts
 
@@ -1841,8 +1841,8 @@ InitializeCurrentStats:
                 
                 move.l  a0,-(sp)
                 bsr.w   GetCombatantEntryAddress
-				move.w	COMBATANT_OFFSET_HP_BASE(a0),COMBATANT_OFFSET_HP_MAX(a0)
-				move.w	COMBATANT_OFFSET_MP_BASE(a0),COMBATANT_OFFSET_MP_MAX(a0)
+                move.w	COMBATANT_OFFSET_HP_BASE(a0),COMBATANT_OFFSET_HP_MAX(a0)
+                move.w	COMBATANT_OFFSET_MP_BASE(a0),COMBATANT_OFFSET_MP_MAX(a0)
                 move.b  COMBATANT_OFFSET_ATT_BASE(a0),COMBATANT_OFFSET_ATT_CURRENT(a0)
                 move.b  COMBATANT_OFFSET_DEF_BASE(a0),COMBATANT_OFFSET_DEF_CURRENT(a0)
                 move.b  COMBATANT_OFFSET_AGI_BASE(a0),COMBATANT_OFFSET_AGI_CURRENT(a0)
@@ -1852,12 +1852,12 @@ InitializeCurrentStats:
                 move.b  COMBATANT_OFFSET_MOV_BASE(a0),COMBATANT_OFFSET_MOV_CURRENT(a0)
                 move.w  COMBATANT_OFFSET_RESIST_BASE(a0),COMBATANT_OFFSET_RESIST_CURRENT(a0)
                 move.b  COMBATANT_OFFSET_PROWESS_BASE(a0),COMBATANT_OFFSET_PROWESS_CURRENT(a0)
-				cmp.b	#$FF,((CURRENT_BATTLE-$1000000)).w
-				bne.s	@InBattle
-				move.w	COMBATANT_OFFSET_MP_BASE(a0),COMBATANT_OFFSET_MP_CURRENT(a0)
-				tst.w	COMBATANT_OFFSET_HP_CURRENT(a0)
-				beq.s	@InBattle
-				move.w	COMBATANT_OFFSET_HP_BASE(a0),COMBATANT_OFFSET_HP_CURRENT(a0)
+                cmp.b	#$FF,((CURRENT_BATTLE-$1000000)).w
+                bne.s	@InBattle
+                move.w	COMBATANT_OFFSET_MP_BASE(a0),COMBATANT_OFFSET_MP_CURRENT(a0)
+                tst.w	COMBATANT_OFFSET_HP_CURRENT(a0)
+                beq.s	@InBattle
+                move.w	COMBATANT_OFFSET_HP_BASE(a0),COMBATANT_OFFSET_HP_CURRENT(a0)
 @InBattle:
                 movea.l (sp)+,a0
                 rts
@@ -2735,19 +2735,19 @@ GetEquipmentNewHPandMP:
                 move.w  #ITEMTYPE_WEAPON|ITEMTYPE_RING,d2
                 clr.w   d0
                 move.b  COMBATANT_OFFSET_CLASS(a0),d0
-				clr.w	d7
+                clr.w	d7
 @CompareClass_Loop:
-				cmpi.b  #$1F,d0
-				bls.w   @Break
-				subi.b  #$20,d0
-				addq.w	#1,d7
-				bra.s	@CompareClass_Loop
-				
+                cmpi.b  #$1F,d0
+                bls.w   @Break
+                subi.b  #$20,d0
+                addq.w	#1,d7
+                bra.s	@CompareClass_Loop
+                
 @Break:
                 moveq   #1,d3
                 lsl.l   d0,d3
                 bsr.w   IsItemEquippable
-				
+                
                 movem.w (sp)+,d0/d2-d3
                 bcc.w   @Skip           ; skip if item is not equippable
                 movem.l d1/a0,-(sp)
@@ -2832,9 +2832,9 @@ GetMaxHPandMPwithSpecificItem:
 
 GetEquipmentNewAGIandMOV:
                 
-																		
-															  
-				
+                                                                		
+                                                			  
+                
                 movem.l d0/d4-d6/a0,-(sp)
                 bsr.w   GetCombatantEntryAddress
                 clr.w   d2
@@ -2842,24 +2842,24 @@ GetEquipmentNewAGIandMOV:
                 clr.w   d3
                 move.b  COMBATANT_OFFSET_MOV_CURRENT(a0),d3 ; current DEF
                 movem.w d0/d2-d3,-(sp)
-											 
+                                			 
                 move.w  #ITEMTYPE_WEAPON|ITEMTYPE_RING,d2
                 clr.w   d0
 			
                 move.b  COMBATANT_OFFSET_CLASS(a0),d0
-				clr.w	d7
+                clr.w	d7
 @CompareClass_Loop:
-				cmpi.b  #$1F,d0
-				bls.w   @Break
-				subi.b  #$20,d0
-				addq.w	#1,d7
-				bra.s	@CompareClass_Loop
-				
+                cmpi.b  #$1F,d0
+                bls.w   @Break
+                subi.b  #$20,d0
+                addq.w	#1,d7
+                bra.s	@CompareClass_Loop
+                
 @Break:
                 moveq   #1,d3
                 lsl.l   d0,d3
                 bsr.w   IsItemEquippable
-				
+                
                 movem.w (sp)+,d0/d2-d3
                 bcc.w   @Skip           ; skip if item is not equippable
                 movem.l d1/a0,-(sp)
@@ -2875,7 +2875,7 @@ GetEquipmentNewAGIandMOV:
                 
                 movem.l (sp)+,d0/d4-d6/a0
                 rts
-				 
+                 
 
     ; End of function GetEquipmentNewATTandDEF
 

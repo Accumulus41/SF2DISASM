@@ -38,13 +38,13 @@ headerLength = 17
 @Stats:
                 
                 cmpi.b  #WINDOW_MEMBERS_LIST_PAGE_STATS,d0
-				bne.s	@Stats2
+                bne.s	@Stats2
                 lea     aNameHpHpMpMpMov(pc), a0
-				bra.s	@WriteHeaderString
+                bra.s	@WriteHeaderString
 @Stats2:
-				cmpi.b	#WINDOW_MEMBERS_LIST_PAGE_STATS2,d0
+                cmpi.b	#WINDOW_MEMBERS_LIST_PAGE_STATS2,d0
                 bne.s   @HPMP        
-				lea		aNameAttAttDefAgi(pc), a0
+                lea		aNameAttAttDefAgi(pc), a0
                 bra.s   @WriteHeaderString
 @HPMP:
                 
@@ -106,19 +106,19 @@ headerLength = 17
                 move.l  a1,-(sp)
                 
                 ; Write class name
-				addq.l	#2,a1
+                addq.l	#2,a1
                 move.w  currentMember(a6),d0
                 jsr     GetClassAndName
-				
+                
                 moveq   #-WINDOW_MEMBERS_LIST_OFFSET_NEXT_LINE,d1
                 bsr.w   WriteTilesFromAsciiWithRegularFont
                 movea.l (sp)+,a1
                 lea     12(a1),a1
-				
-				; Write move
+                
+                ; Write move
                 move.w  currentMember(a6),d0
                 jsr     GetCurrentMOV
-				bsr.w	WriteLvOrExpValue
+                bsr.w	WriteLvOrExpValue
                 addq.w  #4,a1
                 
                 ; Write LV
@@ -182,12 +182,12 @@ headerLength = 17
                 
                 cmpi.b  #WINDOW_MEMBERS_LIST_PAGE_NEWATTANDDEF,((CURRENT_MEMBERS_LIST_PAGE-$1000000)).w
                 beq.w   @CheckEntry_Equippable
-				cmpi.b  #WINDOW_MEMBERLIST_PAGE_NEWHPANDMP,((CURRENT_MEMBERS_LIST_PAGE-$1000000)).w
+                cmpi.b  #WINDOW_MEMBERLIST_PAGE_NEWHPANDMP,((CURRENT_MEMBERS_LIST_PAGE-$1000000)).w
                 beq.w   @CheckEntry_Equippable
-				cmpi.b  #WINDOW_MEMBERLIST_PAGE_NEWAGIANDMOVE,((CURRENT_MEMBERS_LIST_PAGE-$1000000)).w
+                cmpi.b  #WINDOW_MEMBERLIST_PAGE_NEWAGIANDMOVE,((CURRENT_MEMBERS_LIST_PAGE-$1000000)).w
                 beq.w   @CheckEntry_Equippable
                 bra.w   @NextEntry
-				
+                
 @CheckEntry_Equippable:
                 move.w  currentMember(a6),d0
                 move.w  ((SELECTED_ITEM_INDEX-$1000000)).w,d1
@@ -201,8 +201,8 @@ headerLength = 17
                 bsr.w   WriteTilesFromAsciiWithRegularFont
                 bra.w   @NextEntry
 @WriteEntry_NewATTandDEF:
-				cmpi.b  #WINDOW_MEMBERS_LIST_PAGE_NEWATTANDDEF,((CURRENT_MEMBERS_LIST_PAGE-$1000000)).w
-				bne.s	@WriteEntry_NewHPandMP
+                cmpi.b  #WINDOW_MEMBERS_LIST_PAGE_NEWATTANDDEF,((CURRENT_MEMBERS_LIST_PAGE-$1000000)).w
+                bne.s	@WriteEntry_NewHPandMP
                 jsr     GetEquipNewAttAndDef  ; Get new ATT and DEF -> D2, D3
                 addq.w  #2,a1
                 
@@ -223,10 +223,10 @@ headerLength = 17
                 move.w  d3,d0
                 bsr.w   WriteStatValueD0
                 bra.w   @NextEntry
-				
+                
 @WriteEntry_NewHPandMP:
-				cmpi.b  #WINDOW_MEMBERLIST_PAGE_NEWHPANDMP,((CURRENT_MEMBERS_LIST_PAGE-$1000000)).w
-				bne.s	@WriteEntry_NewAgiandMove
+                cmpi.b  #WINDOW_MEMBERLIST_PAGE_NEWHPANDMP,((CURRENT_MEMBERS_LIST_PAGE-$1000000)).w
+                bne.s	@WriteEntry_NewAgiandMove
                 jsr     GetEquipmentNewHPandMP
                 addq.w  #2,a1
                 
@@ -247,7 +247,7 @@ headerLength = 17
                 move.w  d3,d0
                 bsr.w   WriteStatValueD0
                 bra.w   @NextEntry
-				
+                
 @WriteEntry_NewAgiandMove:
                 
                 jsr     GetEquipmentNewAGIandMOV

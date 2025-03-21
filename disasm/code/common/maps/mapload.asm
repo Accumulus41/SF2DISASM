@@ -1417,10 +1417,10 @@ loc_2C68:
 loc_2C70:
                 
                 clr.w   d1
-				clr.w   d4
-				clr.w   d5
-				clr.w   d6
-				clr.w   d7
+                clr.w   d4
+                clr.w   d5
+                clr.w   d6
+                clr.w   d7
                 move.b  d0,d1
                 lsr.w   #BYTE_SHIFT_COUNT,d0
                 move.w  d0,d2
@@ -1437,21 +1437,21 @@ loc_2C70:
                 lsl.w   #7,d5
                 lsl.w   #7,d6
                 lsl.w   #7,d7
-				move.l  d7,-(sp)
-				clr.w   d7
+                move.l  d7,-(sp)
+                clr.w   d7
                 move.b  ((MAP_AREA_LAYER1_PARALLAX_X-$1000000)).w,d7
-				mulu.w  d7,d0
+                mulu.w  d7,d0
                 lsr.l   #4,d0
                 move.b  ((MAP_AREA_LAYER1_PARALLAX_Y-$1000000)).w,d7
-				mulu.w  d7,d1
+                mulu.w  d7,d1
                 lsr.l   #4,d1
                 move.b  ((MAP_AREA_LAYER2_PARALLAX_X-$1000000)).w,d7
-				mulu.w  d7,d2
+                mulu.w  d7,d2
                 lsr.l   #4,d2
                 move.b  ((MAP_AREA_LAYER2_PARALLAX_Y-$1000000)).w,d7
-				mulu.w  d7,d3
+                mulu.w  d7,d3
                 lsr.l   #4,d3
-				move.l  (sp)+,d7
+                move.l  (sp)+,d7
                 add.w   d4,d0
                 move.w  d0,((VIEW_PLANE_A_PIXEL_X-$1000000)).w
                 add.w   d5,d1
@@ -1608,19 +1608,19 @@ LoadMapArea:
                 move.w  d1,((MAP_AREA_LAYER1_ENDY-$1000000)).w
 @Continue:
                 
-				clr.w   d0
+                clr.w   d0
                 move.b  (a4)+,d0
                 mulu.w  #3,d0
                 move.b  d0,((MAP_AREA_LAYER2_STARTX-$1000000)).w
-				clr.w   d0
+                clr.w   d0
                 move.b  (a4)+,d0
                 mulu.w  #3,d0
                 move.b  d0,((MAP_AREA_LAYER2_STARTY-$1000000)).w
-				clr.w   d0
+                clr.w   d0
                 move.b  (a4)+,d0
                 mulu.w  #3,d0
                 move.b  d0,((MAP_AREA_BACKGROUND_STARTX-$1000000)).w
-				clr.w   d0
+                clr.w   d0
                 move.b  (a4)+,d0
                 mulu.w  #3,d0
                 move.b  d0,((MAP_AREA_BACKGROUND_STARTY-$1000000)).w
@@ -1638,8 +1638,8 @@ LoadMapArea:
                 
                 movea.l ((TILE_ANIMATION_DATA_ADDRESS-$1000000)).w,a1
                 move.w  (a1)+,d0
-				cmpi.w  #-1,d0
-				beq.s   @NoAnimation
+                cmpi.w  #-1,d0
+                beq.s   @NoAnimation
                 
                 disableSram
                 getPointer p_pt_MapTilesets, a0
@@ -1662,7 +1662,7 @@ LoadMapArea:
                 rts
 @NoAnimation:
                 move.l  #-1,((TILE_ANIMATION_DATA_ADDRESS-$1000000)).w
-				rts
+                rts
 
     ; End of function LoadMapArea
 

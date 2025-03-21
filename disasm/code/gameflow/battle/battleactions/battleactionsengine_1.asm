@@ -44,7 +44,7 @@ WriteBattlesceneScript:
                 move.b  #0,debugCounter(a2)
                 move.b  d0,((BATTLESCENE_ATTACKER-$1000000)).w
                 move.b  d0,((BATTLESCENE_ATTACKER_COPY-$1000000)).w
-				
+                
                 moveq   #0,d1
                 move.w  d1,((BATTLESCENE_EXP-$1000000)).w
                 move.w  d1,((BATTLESCENE_GOLD-$1000000)).w

@@ -284,7 +284,7 @@ BattleLoop_Defeat:
                 sndCom  MUSIC_SAD_THEME_2
                 txt     363             ; "{LEADER} is exhausted.{W1}"
                 clsTxt
-				bsr.w   HealLivingAndImmortalAllies
+                bsr.w   HealLivingAndImmortalAllies
                 jsr     GetGold
                 lsr.l   #1,d1           ; divide current gold amount by 2
                 jsr     SetGold

@@ -167,13 +167,13 @@ InitializeAllyStats:
                 move.b  (a0)+,d1
                 bsr.w   SetMaxHp
                 bsr.w   SetCurrentHp
-				bsr.w	SetBaseHp
+                bsr.w	SetBaseHp
                 clr.w   d1
                 addq.l  #ALLYSTATS_OFFSET_NEXT_STAT,a0
                 move.b  (a0)+,d1
                 bsr.w   SetMaxMp
                 bsr.w   SetCurrentMp
-				bsr.w	SetBaseMp
+                bsr.w	SetBaseMp
                 clr.w   d1
                 addq.l  #ALLYSTATS_OFFSET_NEXT_STAT,a0
                 move.b  (a0)+,d1
@@ -190,36 +190,36 @@ InitializeAllyStats:
                 bsr.w   SetLevel
                 moveq   #0,d1
                 bsr.w   SetCurrentEXP
-				bsr.w   SetDefeats
-				bsr.w   SetKills
+                bsr.w   SetDefeats
+                bsr.w   SetKills
                 
                 ; Determine effective level
                 move.w  (sp)+,d4        ; D4 <- pull starting level
-				move.w  d4,d5
-				cmpi.w  #CHAR_LEVELCAP_BASE,d4
-				ble.s   @UnpromotedLevelUp_Counter
-				move.w  #CHAR_LEVELCAP_BASE,d5
-				
+                move.w  d4,d5
+                cmpi.w  #CHAR_LEVELCAP_BASE,d4
+                ble.s   @UnpromotedLevelUp_Counter
+                move.w  #CHAR_LEVELCAP_BASE,d5
+                
 @UnpromotedLevelUp_Counter:
-				subq    #1,d5
+                subq    #1,d5
 @UnpromotedLevelUp_Loop:
                 
                 bsr.w   LevelUp         
                 dbf     d5,@UnpromotedLevelUp_Loop
-				
-				cmpi.w  #CHAR_LEVELCAP_BASE,d4
-				ble.s   @Done
-				lea     tbl_TrueClasses,a0
+                
+                cmpi.w  #CHAR_LEVELCAP_BASE,d4
+                ble.s   @Done
+                lea     tbl_TrueClasses,a0
                 adda.w  d0,a0
-				adda.w  d0,a0
-				move.b  1(a0),d1
-				
+                adda.w  d0,a0
+                move.b  1(a0),d1
+                
                 jsr     SetClass
                 jsr     Promote
-				jsr 	AlterSpells
+                jsr 	AlterSpells
                 moveq   #0,d1
                 bsr.w   SetLevel
-				bsr.w   LevelUp
+                bsr.w   LevelUp
 @Done:
                 
                 movem.l (sp)+,d0-d2/a0
@@ -241,13 +241,13 @@ InitAllyPromoStats:
                 mulu.w  #ALLYSTARTDEF_ENTRY_SIZE,d1
                 adda.w  d1,a0
                 move.w  (a0),d4
-				cmpi.w  #CHAR_LEVELCAP_BASE,d4
-				ble.s   @Done
+                cmpi.w  #CHAR_LEVELCAP_BASE,d4
+                ble.s   @Done
                 moveq   #31,d1
                 bsr.w   SetLevel
-				subi.w  #32,d4
-				bmi.s   @Done
-				
+                subi.w  #32,d4
+                bmi.s   @Done
+                
 @PromotedLevelUp_Loop:
                 
                 bsr.w   LevelUp         

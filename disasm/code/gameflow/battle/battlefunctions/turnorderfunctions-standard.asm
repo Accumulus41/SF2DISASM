@@ -74,7 +74,7 @@ AddRandomizedAGItoTurnOrder:
 @AddTurnData:
                 
                 mulu.w	#FIRST_TURN_SCALE,d1
-				lsr.w	#4,d1
+                lsr.w	#4,d1
                 move.b  d0,(a0)+
                 move.b  d1,(a0)+
                 
@@ -92,14 +92,14 @@ AddRandomizedAGItoTurnOrder:
                 tst.b   d1
                 bpl.s   @AddSecondTurnData
                 move.b  #TWO_TURN_THRESHOLD,d1    ; Cap randomized AGI to prevent skipped turns
-				
+                
 @AddSecondTurnData:
                 
                 mulu.w	#SECOND_TURN_SCALE,d1
-				lsr.w	#4,d1
-				move.w	#SECOND_TURN_START,d3
-				lsr.w	#4,d3
-				add.w	d3,d1
+                lsr.w	#4,d1
+                move.w	#SECOND_TURN_START,d3
+                lsr.w	#4,d3
+                add.w	d3,d1
                 move.b  d0,(a0)+
                 move.b  d1,(a0)+
 @HandleNextCombatant:
