@@ -5,18 +5,18 @@
 
 
                 include "code\gameflow\battle\battlescenes\battlesceneengine_0.asm"    ; Battlescene engine
-                includeIfStandard "code\gameflow\battle\battlescenes\getallyanimation-standard.asm"
-                includeIfStandard "data\graphics\battles\battlesprites\spearthrowanimations-standard.asm"
-                alignIfStandard
+                include "code\gameflow\battle\battlescenes\getallyanimation-standard.asm"
+                include "data\graphics\battles\battlesprites\spearthrowanimations-standard.asm"
+                align
                 include "code\gameflow\battle\battlescenes\battlesceneengine_1.asm"    ; Battlescene engine
-                includeIfStandard "code\gameflow\battle\battlescenes\getweaponspriteandpalette-standard.asm"
+                include "code\gameflow\battle\battlescenes\getweaponspriteandpalette-standard.asm"
                 include "code\gameflow\battle\battlescenes\getbattlescenebackground.asm"    ; Get battlescene background function
                 include "data\battles\global\terrainbackgrounds.asm"    ; Terrain backgrounds table
                 include "code\gameflow\battle\battlescenes\battlesceneengine_2.asm"    ; Battlescene engine
                 include "data\stats\allies\allybattlesprites.asm"    ; Ally battlesprites table
                 include "data\stats\enemies\enemybattlesprites.asm"    ; Enemy battlesprites table
-                includeIfStandard "data\stats\items\weapongraphics-standard.asm"
-                alignIfStandard
+                include "data\stats\items\weapongraphics-standard.asm"
+                align
                 include "data\battles\global\custombackgrounds.asm"    ; Battle custom backgrounds table
                 align
                 include "data\battles\global\backgroundenemyswitch.asm"    ; Background enemy switch table

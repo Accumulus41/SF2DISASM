@@ -9,5 +9,5 @@
                 incbin "data/sound/yminst.bin"
 SoundDriver:
                 
-                incbinIfStandard "data/sound/cubewiz.bin"
-                incbinIfStandard "data/sound/sfxbank.bin"
+                incbin "data/sound/cubewiz.bin"
+                incbin "data/sound/sfxbank.bin"
