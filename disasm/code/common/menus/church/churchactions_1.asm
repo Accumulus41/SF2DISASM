@@ -301,7 +301,7 @@ ChurchMenu:
                 ; @StartPromo
                 txt     136             ; "{CLEAR}Who do you want to{N}promote?{W2}"
                 clsTxt
-                move.b  #0,((byte_FFB13C-$1000000)).w
+                move.b  #ITEM_ACTION_LINK,((CURRENT_ITEM_ACTION-$1000000)).w
                 jsr     InitializeMembersListScreen
                 cmpi.w  #-1,d0
                 bne.w   @CheckPromotableClass

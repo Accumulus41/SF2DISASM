@@ -27,12 +27,13 @@ ApplyPositionsAfterEnemyLeaderDies:
                 cmpi.w  #-1,(a0)
                 beq.w   @Done
                 cmp.w   (a0),d1
-                beq.w   @Found          ; entry first word is battle index
+                beq.w   @PreventAllyExplosions
                 adda.w  #6,a0
                 bra.s   @FindBattle_Loop
-                move.w  #$80FF,(DEAD_COMBATANTS_LIST).l ; unreachable code
+@PreventAllyExplosions:
+
+                move.w  #$80FF,(DEAD_COMBATANTS_LIST).l
                 move.w  #1,(DEAD_COMBATANTS_LIST_LENGTH).l
-@Found:
                 
                 moveq   #COMBATANT_ALLIES_START,d0
                 moveq   #COMBATANT_ALLIES_COUNTER,d7
@@ -44,7 +45,7 @@ ApplyPositionsAfterEnemyLeaderDies:
                 jsr     SetCombatantX ; move enemy as well
                 moveq   #0,d1
                 jsr     SetCurrentHp
-                andi.b  #$7F,d0 
+                andi.b  #$7F,d0
                 addq.w  #1,d0
                 dbf     d7,@MoveAllCombatantOffscreen_Loop
                 

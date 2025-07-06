@@ -1540,7 +1540,7 @@ LoadMiniStatusHighlightSprites:
                 addq.l  #VDP_SPRITE_SIZE,a0
                 dbf     d7,@LoadMiniStatusSprites_Loop
                 
-                bsr.w   sub_101E6
+                bsr.w   LinkHighlightSprites
                 movem.w (sp)+,d0/d2
                 rts
 

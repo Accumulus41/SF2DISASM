@@ -84,24 +84,6 @@ pt_AllyBattlesprites:
                 dc.l AllyBattlesprite79
                 dc.l AllyBattlesprite80
                 dc.l AllyBattlesprite81
-                dc.l AllyBattlesprite82
-                dc.l AllyBattlesprite83
-                dc.l AllyBattlesprite84
-                dc.l AllyBattlesprite85
-                dc.l AllyBattlesprite86
-                dc.l AllyBattlesprite87
-                dc.l AllyBattlesprite88
-                dc.l AllyBattlesprite89
-                dc.l AllyBattlesprite90
-                dc.l AllyBattlesprite91
-                dc.l AllyBattlesprite92
-                dc.l AllyBattlesprite93
-                dc.l AllyBattlesprite94
-                dc.l AllyBattlesprite95
-                dc.l AllyBattlesprite96
-                dc.l AllyBattlesprite97
-                dc.l AllyBattlesprite98
-                dc.l AllyBattlesprite99
 AllyBattlesprite00:
                 incbin "data/graphics/battles/battlesprites/allies/allybattlespriteSF2_SDMN.bin"
 AllyBattlesprite01:
@@ -133,9 +115,9 @@ AllyBattlesprite13:
 AllyBattlesprite14:
                 incbin "data/graphics/battles/battlesprites/allies/allybattlespriteSF2_BDBT.bin"
 AllyBattlesprite15:
-                incbin "data/graphics/battles/battlesprites/allies/allybattlespriteSF2_SORCM.bin"
+                incbin "data/graphics/battles/battlesprites/allies/allybattlespriteSF2_SORC.bin"
 AllyBattlesprite16:
-                incbin "data/graphics/battles/battlesprites/allies/allybattlespriteSF2_SORCF.bin"
+                incbin "data/graphics/battles/battlesprites/allies/allybattlespriteSF2_SRCS.bin"
 AllyBattlesprite17:
                 incbin "data/graphics/battles/battlesprites/allies/allybattlespriteSF2_PGNT.bin"
 AllyBattlesprite18:
@@ -167,138 +149,102 @@ AllyBattlesprite30:
 AllyBattlesprite31:
                 incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF2_SNIP.bin"
 AllyBattlesprite32:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite32.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_SDMN.bin"
 AllyBattlesprite33:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite33.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_KNT.bin"
 AllyBattlesprite34:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite34.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_WARR.bin"
 AllyBattlesprite35:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite35.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_MAGE.bin"
 AllyBattlesprite36:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite36.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_PRST.bin"
 AllyBattlesprite37:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite37.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_PRST_KHRIS.bin"
 AllyBattlesprite38:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite38.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_MONK.bin"
 AllyBattlesprite39:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite39.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_STMN.bin"
 AllyBattlesprite40:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite40.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_MGCR.bin"
 AllyBattlesprite41:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite41.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_BDMN.bin"
 AllyBattlesprite42:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite42.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_ACHR.bin"
 AllyBattlesprite43:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite43.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_DRGN.bin"
 AllyBattlesprite44:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite44.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_RBT.bin"
 AllyBattlesprite45:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite45.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_ASKT.bin"
 AllyBattlesprite46:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite46.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_WRWF.bin"
 AllyBattlesprite47:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite47.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_SAMR.bin"
 AllyBattlesprite48:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite48.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_NINJ.bin"
 AllyBattlesprite49:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite49.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_HERO.bin"
 AllyBattlesprite50:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite50.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_PLDN.bin"
 AllyBattlesprite51:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite51.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_GLDT.bin"
 AllyBattlesprite52:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite52.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_SBRN.bin"
 AllyBattlesprite53:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite53.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_WIZD.bin"
 AllyBattlesprite54:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite54.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_VICR.bin"
 AllyBattlesprite55:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite55.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_VICR_KHRIS.bin"
 AllyBattlesprite56:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite56.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_MMNK.bin"
 AllyBattlesprite57:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite57.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_SNIP.bin"
 AllyBattlesprite58:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite58.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_BDBT.bin"
 AllyBattlesprite59:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite59.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_SKNT.bin"
 AllyBattlesprite60:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite60.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_WKNT.bin"
 AllyBattlesprite61:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite61.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_SKYL.bin"
 AllyBattlesprite62:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite62.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_GRDR.bin"
 AllyBattlesprite63:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite63.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_CYBG.bin"
 AllyBattlesprite64:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite64.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSF1_WFBR.bin"
 AllyBattlesprite65:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite65.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_ACHR.bin"
 AllyBattlesprite66:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite66.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_BDBT.bin"
 AllyBattlesprite67:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite67.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_BSRK.bin"
 AllyBattlesprite68:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite68.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_BST.bin"
 AllyBattlesprite69:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite69.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_BWNT.bin"
 AllyBattlesprite70:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite70.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_HERO_DEANNA.bin"
 AllyBattlesprite71:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite71.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_MMNK.bin"
 AllyBattlesprite72:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite72.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_MNK.bin"
 AllyBattlesprite73:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite73.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_NINJ.bin"
 AllyBattlesprite74:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite74.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_PLDN.bin"
 AllyBattlesprite75:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite75.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_RNGR.bin"
 AllyBattlesprite76:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite76.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_SAMR.bin"
 AllyBattlesprite77:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite77.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_SDMN_DEANNA.bin"
 AllyBattlesprite78:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite78.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_SDMN_NICK.bin"
 AllyBattlesprite79:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite79.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_VICR_MAYFAIR.bin"
 AllyBattlesprite80:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite80.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_VICR_MELISSA.bin"
 AllyBattlesprite81:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite81.bin"
-AllyBattlesprite82:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite82.bin"
-AllyBattlesprite83:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite83.bin"
-AllyBattlesprite84:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite84.bin"
-AllyBattlesprite85:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite85.bin"
-AllyBattlesprite86:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite86.bin"
-AllyBattlesprite87:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite87.bin"
-AllyBattlesprite88:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite88.bin"
-AllyBattlesprite89:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite89.bin"
-AllyBattlesprite90:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite90.bin"
-AllyBattlesprite91:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite91.bin"
-AllyBattlesprite92:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite92.bin"
-AllyBattlesprite93:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite93.bin"
-AllyBattlesprite94:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite94.bin"
-AllyBattlesprite95:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite95.bin"
-AllyBattlesprite96:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite96.bin"
-AllyBattlesprite97:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite97.bin"
-AllyBattlesprite98:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite98.bin"
-AllyBattlesprite99:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlesprite99.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_WIZ.bin"

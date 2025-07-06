@@ -65,7 +65,7 @@ BattleSpriteset44:
                 combatantAiAndItem LEADER, NOTHING
                 combatantBehavior MOVE_TO|0, 15, NONE, 15, 0, STARTING
                 
-                enemyCombatant BLUE_SHAMAN_0, 5, 2
+                enemyCombatant BLUE_SHAMAN, 5, 2
                 combatantAiAndItem HEALER5, NOTHING
                 combatantBehavior FOLLOW_ENEMY|0, 0, NONE, 15, 0, 3
                 

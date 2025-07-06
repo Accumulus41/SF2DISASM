@@ -6,7 +6,7 @@
 
 battleEntity = -4
 
-sub_444A2:
+SpawnEnemyEntity:
                 
                 link    a6,#-16
                 move.w  d0,battleEntity(a6)
@@ -59,7 +59,7 @@ loc_4450A:
                 unlk    a6
                 rts
 
-    ; End of function sub_444A2
+    ; End of function SpawnEnemyEntity
 
 
 ; =============== S U B R O U T I N E =======================================

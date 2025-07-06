@@ -36,11 +36,11 @@ BuildBattlefieldSettingsScreen:
                 jsr     (EnableDmaQueueProcessing).w
                 jsr     (WaitForWindowMovementEnd).l
                 clr.w   d4
-                bsr.w   sub_15A20
+                bsr.w   LoadBattlefieldSettingValue
                 moveq   #$14,d6
 loc_158D6:
                 
-                bsr.w   sub_159A0
+                bsr.w   LoadBattlefieldSettingsHighlightSprites
                 btst    #INPUT_BIT_RIGHT,((CURRENT_PLAYER_INPUT-$1000000)).w
                 beq.s   loc_158E8
                 addq.w  #1,d3
@@ -56,13 +56,13 @@ loc_158F6:
                 btst    #INPUT_BIT_DOWN,((CURRENT_PLAYER_INPUT-$1000000)).w
                 beq.s   loc_15906
                 eori.w  #1,d4
-                bsr.w   sub_15A20
+                bsr.w   LoadBattlefieldSettingValue
 loc_15906:
                 
                 btst    #INPUT_BIT_UP,((CURRENT_PLAYER_INPUT-$1000000)).w
                 beq.s   loc_15916
                 eori.w  #1,d4
-                bsr.w   sub_15A20
+                bsr.w   LoadBattlefieldSettingValue
 loc_15916:
                 
                 btst    #INPUT_BIT_B,((CURRENT_PLAYER_INPUT-$1000000)).w
@@ -137,7 +137,7 @@ MoveCursorEntityOffScreen:
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_159A0:
+LoadBattlefieldSettingsHighlightSprites:
                 
                 tst.w   ((HIDE_WINDOWS_TOGGLE-$1000000)).w
                 bne.s   MoveCursorEntityOffScreen
@@ -176,11 +176,11 @@ loc_159EA:
                 move.w  (a1)+,(a0)
                 add.w   d3,(a0)+
                 dbf     d7,loc_159EA
-                bsr.w   sub_101E6
+                bsr.w   LinkHighlightSprites
                 movem.w (sp)+,d3-d4/d7
                 rts
 
-    ; End of function sub_159A0
+    ; End of function LoadBattlefieldSettingsHighlightSprites
 
 sprite_BattlefieldSettings:
                 ; Red boxes highlighting currently selected battle config options.
@@ -204,15 +204,15 @@ sprite_BattlefieldSettings:
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_15A20:
+LoadBattlefieldSettingValue:
                 
                 clr.w   d3
                 tst.w   d4
-                bne.s   loc_15A30
+                bne.s   @GetNoBattlemessagesToggle
                 getSavedByte MESSAGE_SPEED, d3
                 andi.w  #3,d3
                 bra.s   byte_15A38
-loc_15A30:
+@GetNoBattlemessagesToggle:
                 
                 getSavedByte NO_BATTLE_MESSAGES_TOGGLE, d3
                 andi.w  #1,d3
@@ -221,7 +221,7 @@ byte_15A38:
                 sndCom  SFX_MENU_SELECTION
                 rts
 
-    ; End of function sub_15A20
+    ; End of function LoadBattlefieldSettingValue
 
 
 ; =============== S U B R O U T I N E =======================================

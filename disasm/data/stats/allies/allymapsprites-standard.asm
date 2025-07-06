@@ -375,10 +375,10 @@ table_AllyMapsprites:
                 
 ; 28: Lemon
                 mapsprite DEFAULT
-                mapsprite DEFAULT
-                mapsprite DEFAULT
-                mapsprite DEFAULT
                 mapsprite LEMON_SPECIAL
+                mapsprite DEFAULT
+                mapsprite DEFAULT
+                mapsprite DEFAULT
                 mapsprite DEFAULT
                 mapsprite DEFAULT
                 mapsprite DEFAULT

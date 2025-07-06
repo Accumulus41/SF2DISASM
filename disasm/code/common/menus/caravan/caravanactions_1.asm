@@ -437,7 +437,7 @@ caravanDepotSubmenu_Deposit:
                 bsr.w   PopulateGenericListWithMembersList
                 move.w  #MESSAGE_CARAVAN_STORE_WHOSE_ITEM,d1 ; "Store whose item?{W2}"
                 bsr.w   DisplayCaravanMessageWithPortrait
-                move.b  #1,((byte_FFB13C-$1000000)).w
+                move.b  #ITEM_ACTION_REMOVE,((CURRENT_ITEM_ACTION-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 move.w  d0,member(a6)
@@ -512,7 +512,7 @@ caravanDepotSubmenu_Derive:
                 move.w  itemIndex(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
                 move.w  #MESSAGE_CARAVAN_PASS_THE_ITEM_TO_WHOM,d1 ; "Pass the {ITEM}{N}to whom?{W2}"
                 bsr.w   DisplayCaravanMessageWithPortrait
-                move.b  #2,((byte_FFB13C-$1000000)).w
+                move.b  #ITEM_ACTION_RECEIVE,((CURRENT_ITEM_ACTION-$1000000)).w
                 move.w  itemIndex(a6),((SELECTED_ITEM_INDEX-$1000000)).w
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 move.w  d0,targetMember(a6)

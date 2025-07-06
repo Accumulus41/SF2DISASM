@@ -2514,9 +2514,9 @@ GetEquippableItemsByType:
                 lea     ((EQUIPPABLE_ITEMS-$1000000)).w,a2
                 
                 ; Init list with default values
-                move.l  #$7F0004,(a2)
-                move.l  #$7F0004,4(a2)
-                move.l  #$7F0004,8(a2)
+                move.l  #$FF0004,(a2)
+                move.l  #$FF0004,4(a2)
+                move.l  #$FF0004,8(a2)
                 move.l  #$1000004,12(a2)
                 clr.w   d0
                 moveq   #0,d4

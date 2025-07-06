@@ -1,6 +1,6 @@
 
-; ASM FILE code\common\menus\menuengine_09.asm :
-; 0x16282..0x16618 : Menu engine
+; ASM FILE code\common\menus\numberprompt.asm :
+; 0x16282..0x163BC : Menu engine, part 9 : Number prompt functions
 
 ; =============== S U B R O U T I N E =======================================
 

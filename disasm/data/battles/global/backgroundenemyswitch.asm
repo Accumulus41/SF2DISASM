@@ -26,12 +26,40 @@ table_BackgroundEnemySwitch:
                 dc.b 1                  ; 18: Bridge
                 dc.b 0                  ; 19: Mitula's Shrine exterior
                 dc.b 0                  ; 20: Mitula's Shrine interior
-                dc.b 0                  ; 21: Town (duplicate)
-                dc.b 0                  ; 22: Town (duplicate)
                 dc.b 0                  ; 23: Nazca
                 dc.b 0                  ; 24: Swamp
                 dc.b 0                  ; 25: Versus Odd Eye
                 dc.b 0                  ; 26: Versus Galam
                 dc.b 1                  ; 27: Versus Zeon
                 dc.b 0                  ; 28: Burrow
-                dc.b 0                  ; 29: Underground shrine (duplicate)
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0
+                dc.b 0

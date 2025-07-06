@@ -96,209 +96,191 @@ pt_EnemyBattlesprites:
                 dc.l EnemyBattlesprite91
                 dc.l EnemyBattlesprite92
                 dc.l EnemyBattlesprite93
-                dc.l EnemyBattlesprite94
-                dc.l EnemyBattlesprite95
-                dc.l EnemyBattlesprite96
-                dc.l EnemyBattlesprite97
-                dc.l EnemyBattlesprite98
-                dc.l EnemyBattlesprite99
 EnemyBattlesprite00:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_OOZE.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_OOZE.bin"
 EnemyBattlesprite01:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_RAT.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_RAT.bin"
 EnemyBattlesprite02:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_SOLDIER.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_SOLDIER.bin"
 EnemyBattlesprite03:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_KNIGHT.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_KNIGHT.bin"
 EnemyBattlesprite04:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_GOBLIN.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_GOBLIN.bin"
 EnemyBattlesprite05:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_DWARF.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_DWARF.bin"
 EnemyBattlesprite06:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_ZOMBIE.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_ZOMBIE.bin"
 EnemyBattlesprite07:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_GOLEM.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_GOLEM.bin"
 EnemyBattlesprite08:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_KRAKEN_LEG.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_KRAKENLEG.bin"
 EnemyBattlesprite09:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_SOULSOWER.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_SOULSOWER.bin"
 EnemyBattlesprite10:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_ORC.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_ORC.bin"
 EnemyBattlesprite11:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_SKELETON.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_SKELETON.bin"
 EnemyBattlesprite12:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_LIZARDMAN.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_LIZARDMAN.bin"
 EnemyBattlesprite13:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_WORM.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_WORM.bin"
 EnemyBattlesprite14:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_CERBERUS.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_HOUND.bin"
 EnemyBattlesprite15:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_REAPER.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_REAPER.bin"
 EnemyBattlesprite16:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_MINOTAUR.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_MINOTAUR.bin"
 EnemyBattlesprite17:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_CYCLOPS.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_CYCLOPS.bin"
 EnemyBattlesprite18:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_BURST_ROCK.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_STONE.bin"
 EnemyBattlesprite19:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_HYDRA.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_HYDRA.bin"
 EnemyBattlesprite20:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_CHAOS_WARRIOR.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_TITAN.bin"
 EnemyBattlesprite21:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_EVIL_BEAST.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_EVILBEAST.bin"
 EnemyBattlesprite22:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_GIZMO.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_CLOUD.bin"
 EnemyBattlesprite23:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_BAT.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_BAT.bin"
 EnemyBattlesprite24:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_GARGOYLE.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_GARGOYLE.bin"
 EnemyBattlesprite25:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_HARPY.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_HARPY.bin"
 EnemyBattlesprite26:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_WYVERN.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_WYVERN.bin"
 EnemyBattlesprite27:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_PEGASUS_KNIGHT.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_PEGIKNIGHT.bin"
 EnemyBattlesprite28:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_GRIFFIN.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_GRIFFIN.bin"
 EnemyBattlesprite29:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_DEMON.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_DEMON.bin"
 EnemyBattlesprite30:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_DRAGON.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_DRAGON.bin"
 EnemyBattlesprite31:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_ARCHER.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_ARCHER.bin"
 EnemyBattlesprite32:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_HUNTER_GOBLIN.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_SNIPER.bin"
 EnemyBattlesprite33:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_KRAKEN_ARM.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_KRAKENARM.bin"
 EnemyBattlesprite34:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_ARROW_LAUNCHER.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_LAUNCHER.bin"
 EnemyBattlesprite35:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_BOW_RIDER.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_BOWRIDER.bin"
 EnemyBattlesprite36:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_MAGE.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_MAGE.bin"
 EnemyBattlesprite37:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_WITCH.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_WITCH.bin"
 EnemyBattlesprite38:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_WIZARD.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_WIZARD.bin"
 EnemyBattlesprite39:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_NECROMANCER.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_NECROMANCER.bin"
 EnemyBattlesprite40:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_CLERIC.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_CLERIC.bin"
 EnemyBattlesprite41:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_MONK.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_MONK.bin"
 EnemyBattlesprite42:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_BISHOP.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_BISHOP.bin"
 EnemyBattlesprite43:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_SHAMAN.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_SHAMAN.bin"
 EnemyBattlesprite44:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_KRAKEN_HEAD.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_KRAKEN.bin"
 EnemyBattlesprite45:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_TAROS.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_TAROS.bin"
 EnemyBattlesprite46:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_KING.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_KING.bin"
 EnemyBattlesprite47:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_ZALBARD.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_ZALBARD.bin"
 EnemyBattlesprite48:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_CAMEELA.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_CAMEELA.bin"
 EnemyBattlesprite49:
-                incbin "data/graphics/battles/battlesprites/enemies/enemybattlespriteSF2_PRISM_FLOWER.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_FLOWER.bin"
 EnemyBattlesprite50:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlespriteSF2_RED_BARON.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_REDBARON.bin"
 EnemyBattlesprite51:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlespriteSF2_GESHP.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_GESHP.bin"
 EnemyBattlesprite52:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlespriteSF2_ODDEYE.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_ODDEYE.bin"
 EnemyBattlesprite53:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlespriteSF2_ZEON.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF2_ZEON.bin"
 EnemyBattlesprite54:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite54.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_ARMEDSKELETON.bin"
 EnemyBattlesprite55:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite55.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_CLOWN.bin"
 EnemyBattlesprite56:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite56.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_CONCH.bin"
 EnemyBattlesprite57:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite57.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_DOLL.bin"
 EnemyBattlesprite58:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite58.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_JET.bin"
 EnemyBattlesprite59:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite59.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_LASEREYE.bin"
 EnemyBattlesprite60:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite60.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_METALCLAW.bin"
 EnemyBattlesprite61:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite61.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_MULTIDRAGON.bin"
 EnemyBattlesprite62:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite62.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_PUPPET.bin"
 EnemyBattlesprite63:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite63.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_TORCHEYE.bin"
 EnemyBattlesprite64:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite64.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_BALBAZAK.bin"
 EnemyBattlesprite65:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite65.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_CHAOS.bin"
 EnemyBattlesprite66:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite66.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_COLOSSUS.bin"
 EnemyBattlesprite67:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite67.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_DARKDRAGON.bin"
 EnemyBattlesprite68:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite68.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_DARKSOL.bin"
 EnemyBattlesprite69:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite69.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_ELLIOT.bin"
 EnemyBattlesprite70:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite70.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_KANE.bin"
 EnemyBattlesprite71:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite71.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_MISHEALA.bin"
 EnemyBattlesprite72:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite72.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SF1_RAMLADU.bin"
 EnemyBattlesprite73:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite73.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_CASTER.bin"
 EnemyBattlesprite74:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite74.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_IOMDOLL.bin"
 EnemyBattlesprite75:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite75.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_KUNOICHI.bin"
 EnemyBattlesprite76:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite76.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_MUSHROOM.bin"
 EnemyBattlesprite77:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite77.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_PIXIE.bin"
 EnemyBattlesprite78:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite78.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_RATMAN.bin"
 EnemyBattlesprite79:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite79.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_SEED.bin"
 EnemyBattlesprite80:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite80.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_SOLDIER.bin"
 EnemyBattlesprite81:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite81.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_SORCEROR.bin"
 EnemyBattlesprite82:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite82.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_BARBARA.bin"
 EnemyBattlesprite83:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite83.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_BAZOO.bin"
 EnemyBattlesprite84:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite84.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_DANTON.bin"
 EnemyBattlesprite85:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite85.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_DEATHWOLDOL.bin"
 EnemyBattlesprite86:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite86.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_EVILMONSTER.bin"
 EnemyBattlesprite87:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite87.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_FRABELL.bin"
 EnemyBattlesprite88:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite88.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_GORDON.bin"
 EnemyBattlesprite89:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite89.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_IOM.bin"
 EnemyBattlesprite90:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite90.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_MONSTERWOLDOL.bin"
 EnemyBattlesprite91:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite91.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_SOLO.bin"
 EnemyBattlesprite92:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite92.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_WARDERER.bin"
 EnemyBattlesprite93:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite93.bin"
-EnemyBattlesprite94:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite94.bin"
-EnemyBattlesprite95:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite95.bin"
-EnemyBattlesprite96:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite96.bin"
-EnemyBattlesprite97:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite97.bin"
-EnemyBattlesprite98:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite98.bin"
-EnemyBattlesprite99:
-                incbin "data/graphics/battles/battlesprites/enemies/EnemyBattlesprite99.bin"
+                incbin "data/graphics/battles/battlesprites/enemies/SFCD_WOLDOL.bin"

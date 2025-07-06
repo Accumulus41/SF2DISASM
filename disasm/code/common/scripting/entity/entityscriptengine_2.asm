@@ -278,31 +278,31 @@ loc_50BC:
                 move.w  d2,d0
                 movem.w (sp)+,d2-d3
                 move.w  (a4,d0.w),d1
-                andi.w  #$C000,d1
-                btst    #$F,d1
+                andi.w  #MAPLAYOUT_STAIRS_MASK,d1  ; Stair mask
+                btst    #STAIRS_UP_BIT,d1     ; Stair up bit
                 beq.s   loc_514E
-                tst.w   d6
+                tst.w   d6         ; right
                 bne.w   loc_5124
-                addi.w  #-$7E,d0
+                addi.w  #-$7E,d0   ; relative tile 1,-1
                 move.w  (a4,d0.w),d0
-                andi.w  #$C000,d0
+                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
                 cmp.w   d0,d1
                 bne.s   loc_5124
-                move.w  #MAP_TILE_MINUS,d5
+                move.w  #MAP_TILE_MINUS,d5  ; move up
                 move.b  ENTITYDEF_OFFSET_YSPEED(a0),d3
                 ext.w   d3
                 neg.w   d3
                 bra.w   loc_51A4
 loc_5124:
                 
-                cmpi.w  #2,d6
+                cmpi.w  #LEFT,d6      ; left
                 bne.w   loc_514A
-                addi.w  #$7E,d0 
+                addi.w  #$7E,d0       ; relative tile -1,1
                 move.w  (a4,d0.w),d0
-                andi.w  #$C000,d0
+                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
                 cmp.w   d0,d1
                 bne.s   loc_514A
-                move.w  #MAP_TILE_SIZE,d5
+                move.w  #MAP_TILE_PLUS,d5  ; move down
                 move.b  ENTITYDEF_OFFSET_YSPEED(a0),d3
                 ext.w   d3
                 bra.w   loc_51A4
@@ -311,29 +311,29 @@ loc_514A:
                 bra.w   loc_51A4
 loc_514E:
                 
-                btst    #$E,d1
+                btst    #STAIRS_DOWN_BIT,d1     ; Stair down bit
                 beq.s   loc_51A4
-                tst.w   d6
+                tst.w   d6         ; right
                 bne.w   loc_5178
-                addi.w  #$82,d0 
+                addi.w  #$82,d0    ; relative tile 1,1
                 move.w  (a4,d0.w),d0
-                andi.w  #$C000,d0
+                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
                 cmp.w   d0,d1
                 bne.s   loc_5178
-                move.w  #MAP_TILE_SIZE,d5
+                move.w  #MAP_TILE_PLUS,d5  ; move down
                 move.b  ENTITYDEF_OFFSET_YSPEED(a0),d3
                 ext.w   d3
                 bra.w   loc_51A4
 loc_5178:
                 
-                cmpi.w  #2,d6
+                cmpi.w  #LEFT,d6
                 bne.w   loc_51A0
-                addi.w  #-$82,d0
+                addi.w  #-$82,d0   ; relative tile -1,-1
                 move.w  (a4,d0.w),d0
-                andi.w  #$C000,d0
+                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
                 cmp.w   d0,d1
                 bne.s   loc_51A0
-                move.w  #MAP_TILE_MINUS,d5
+                move.w  #MAP_TILE_MINUS,d5  ; move up
                 move.b  ENTITYDEF_OFFSET_YSPEED(a0),d3
                 ext.w   d3
                 neg.w   d3
@@ -405,8 +405,8 @@ loc_5220:
                 movem.w d2-d3,-(sp)
                 bsr.w   ConvertMapPixelCoordinatesToOffset
                 move.w  (a4,d2.w),d3
-                andi.w  #$3C00,d3
-                cmpi.w  #$3800,d3
+                andi.w  #MAPLAYOUT_EVENT_MASK,d3
+                cmpi.w  #MAPLAYOUT_CARAVAN_TILE,d3
                 bne.s   loc_5256
                 checkSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
                 bne.s   loc_5256
@@ -417,7 +417,7 @@ loc_5220:
                 bra.w   loc_531E
 loc_5256:
                 
-                cmpi.w  #$3C00,d3
+                cmpi.w  #MAPLAYOUT_RAFT_TILE,d3
                 bne.s   loc_5278
                 checkSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
                 bne.s   loc_5278
@@ -428,19 +428,19 @@ loc_5256:
                 bra.w   loc_531E
 loc_5278:
                 
-                cmpi.w  #$400,d3
+                cmpi.w  #MAPLAYOUT_STEP_TILE,d3
                 bne.s   loc_528A
                 bsr.w   OpenDoor        
                 move.w  (a4,d2.w),d3
-                andi.w  #$3C00,d3
+                andi.w  #MAPLAYOUT_EVENT_MASK,d3
 loc_528A:
                 
-                cmpi.w  #$1000,d3
+                cmpi.w  #MAPLAYOUT_WARP_TILE,d3
                 bne.s   loc_5294
                 bsr.w   WarpIfSetAtPoint
 loc_5294:
                 
-                cmpi.w  #$1400,d3
+                cmpi.w  #MAPLAYOUT_ZONE_TILE,d3
                 bne.s   loc_52C0
                 move.w  #MAP_EVENT_ZONE_EVENT,((MAP_EVENT_TYPE-$1000000)).w
                 move.w  ENTITYDEF_OFFSET_XDEST(a0),d3
@@ -457,7 +457,7 @@ loc_52B8:
                 move.w  d3,((MAP_EVENT_PARAM_3-$1000000)).w
 loc_52C0:
                 
-                cmpi.w  #$C000,(a4,d2.w)
+                cmpi.w  #MAPLAYOUT_OBSTRUCT_TILE,(a4,d2.w)
                 movem.w (sp)+,d2-d3
                 bcs.w   loc_52E8
                 btst    #6,ENTITYDEF_OFFSET_FLAGS_A(a0)
@@ -536,7 +536,7 @@ loc_5360:
                 lsl.w   #NIBBLE_SHIFT_COUNT,d3
                 bsr.w   sub_5FAC
                 bsr.w   ConvertMapPixelCoordinatesToOffset
-                cmpi.w  #$C000,(a4,d2.w)
+                cmpi.w  #MAPLAYOUT_OBSTRUCT_TILE,(a4,d2.w)
                 bcs.s   loc_53B4
                 move.w  ENTITYDEF_OFFSET_XDEST(a0),d0
                 move.w  ENTITYDEF_OFFSET_YDEST(a0),d1
@@ -546,7 +546,7 @@ loc_5360:
                 move.b  ENTITYDEF_OFFSET_FACING(a0),d4
                 bsr.w   sub_5FAC
                 bsr.w   ConvertMapPixelCoordinatesToOffset
-                cmpi.w  #$C000,(a4,d2.w)
+                cmpi.w  #MAPLAYOUT_OBSTRUCT_TILE,(a4,d2.w)
                 bcs.s   loc_53B4
                 move.w  ENTITYDEF_OFFSET_XDEST(a0),d0
                 move.w  ENTITYDEF_OFFSET_YDEST(a0),d1
@@ -701,14 +701,14 @@ loc_54CC:
                 move.w  d2,d0
                 movem.w (sp)+,d2-d3
                 move.w  (a4,d0.w),d1
-                andi.w  #$C000,d1
-                btst    #$F,d1
+                andi.w  #MAPLAYOUT_STAIRS_MASK,d1
+                btst    #STAIRS_UP_BIT,d1
                 beq.s   loc_554A
                 tst.w   d6
                 bne.w   loc_5526
                 addi.w  #-$7E,d0
                 move.w  (a4,d0.w),d0
-                andi.w  #$C000,d0
+                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
                 
                 cmp.w   d0,d1
                 bne.s   loc_5526
@@ -716,11 +716,11 @@ loc_54CC:
                 bra.w   loc_5592
 loc_5526:
                 
-                cmpi.w  #2,d6
+                cmpi.w  #LEFT,d6
                 bne.w   loc_5546
                 addi.w  #$7E,d0 
                 move.w  (a4,d0.w),d0
-                andi.w  #$C000,d0
+                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
                 cmp.w   d0,d1
                 bne.s   loc_5546
                 move.w  #MAP_TILE_PLUS,d7
@@ -730,24 +730,24 @@ loc_5546:
                 bra.w   loc_5592
 loc_554A:
                 
-                btst    #$E,d1
+                btst    #STAIRS_DOWN_BIT,d1
                 beq.s   loc_5592
                 tst.w   d6
                 bne.w   loc_556E
                 addi.w  #$82,d0 
                 move.w  (a4,d0.w),d0
-                andi.w  #$C000,d0
+                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
                 cmp.w   d0,d1
                 bne.s   loc_556E
                 move.w  #MAP_TILE_PLUS,d7
                 bra.w   loc_5592
 loc_556E:
                 
-                cmpi.w  #2,d6
+                cmpi.w  #LEFT,d6
                 bne.w   loc_558E
                 addi.w  #-$82,d0
                 move.w  (a4,d0.w),d0
-                andi.w  #$C000,d0
+                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
                 cmp.w   d0,d1
                 bne.s   loc_558E
                 move.w  #MAP_TILE_MINUS,d7
@@ -764,7 +764,7 @@ loc_5596:
                 move.w  (sp)+,d7
                 movem.w d2-d3,-(sp)
                 bsr.w   ConvertMapPixelCoordinatesToOffset
-                cmpi.w  #$C000,(a4,d2.w)
+                cmpi.w  #MAPLAYOUT_OBSTRUCT_TILE,(a4,d2.w)
                 movem.w (sp)+,d2-d3
                 bcc.w   loc_55B8
 loc_55B0:
@@ -988,28 +988,28 @@ loc_575C:
                 movem.w d2-d3,-(sp)
                 bsr.w   ConvertMapPixelCoordinatesToOffset
                 move.w  (a4,d2.w),d3
-                andi.w  #$3C00,d3
-                cmpi.w  #$400,d3
+                andi.w  #MAPLAYOUT_EVENT_MASK,d3
+                cmpi.w  #MAPLAYOUT_STEP_TILE,d3
                 bne.s   loc_5782
                 bsr.w   OpenDoor        
                 move.w  (a4,d2.w),d3
-                andi.w  #$3C00,d3
+                andi.w  #MAPLAYOUT_EVENT_MASK,d3
 loc_5782:
                 
-                cmpi.w  #$1000,d3
+                cmpi.w  #MAPLAYOUT_WARP_TILE,d3
                 bne.s   loc_5794
                 bsr.w   WarpIfSetAtPoint
                 movem.w (sp)+,d2-d3
                 bra.w   loc_57C0
 loc_5794:
                 
-                cmpi.w  #$3800,d3
+                cmpi.w  #MAPLAYOUT_CARAVAN_TILE,d3
                 bne.s   loc_57A2
                 movem.w (sp)+,d2-d3
                 bra.w   loc_57C0
 loc_57A2:
                 
-                cmpi.w  #$C000,(a4,d2.w)
+                cmpi.w  #MAPLAYOUT_OBSTRUCT_TILE,(a4,d2.w)
                 bcc.s   loc_57B8
                 move.w  #MAP_EVENT_GETOUTOFRAFT,((MAP_EVENT_TYPE-$1000000)).w
                 movem.w (sp)+,d2-d3
@@ -1153,28 +1153,28 @@ loc_58DE:
                 movem.w d2-d3,-(sp)
                 bsr.w   ConvertMapPixelCoordinatesToOffset
                 move.w  (a4,d2.w),d3
-                andi.w  #$3C00,d3
-                cmpi.w  #$400,d3
+                andi.w  #MAPLAYOUT_EVENT_MASK,d3
+                cmpi.w  #MAPLAYOUT_STEP_TILE,d3
                 bne.s   loc_5904
                 bsr.w   OpenDoor        
                 move.w  (a4,d2.w),d3
-                andi.w  #$3C00,d3
+                andi.w  #MAPLAYOUT_EVENT_MASK,d3
 loc_5904:
                 
-                cmpi.w  #$1000,d3
+                cmpi.w  #MAPLAYOUT_WARP_TILE,d3
                 bne.s   loc_5916
                 bsr.w   WarpIfSetAtPoint
                 movem.w (sp)+,d2-d3
                 bra.w   loc_5942
 loc_5916:
                 
-                cmpi.w  #$3C00,d3
+                cmpi.w  #MAPLAYOUT_RAFT_TILE,d3
                 bne.s   loc_5924
                 movem.w (sp)+,d2-d3
                 bra.w   loc_5942
 loc_5924:
                 
-                cmpi.w  #$C000,(a4,d2.w)
+                cmpi.w  #MAPLAYOUT_OBSTRUCT_TILE,(a4,d2.w)
                 bcc.s   loc_593A
                 move.w  #MAP_EVENT_GETOUTOFCARAVAN,((MAP_EVENT_TYPE-$1000000)).w
                 movem.w (sp)+,d2-d3
@@ -1539,7 +1539,6 @@ esc17_setSpriteNumber:
 ; =============== S U B R O U T I N E =======================================
 
 
-
 esc18_setEntityObstructable:
                 
                 tst.w   2(a1)
@@ -1863,14 +1862,14 @@ esc40_checkMapBlockCopy:
                 bsr.w   ConvertMapPixelCoordinatesToOffset
                 move.w  (a4,d2.w),d3    ; copy block index under player from RAM
                 move.w  d3,d2
-                andi.w  #$3C00,d2
-                cmpi.w  #$800,d2        ; check for block copy "show" flag
+                andi.w  #MAPLAYOUT_EVENT_MASK,d2
+                cmpi.w  #MAPLAYOUT_ROOF_SHOW_TILE,d2        ; check for block copy "show" flag
                 bne.s   loc_5D38
                 bsr.w   PerformMapBlockCopyScript
                 bra.s   loc_5D42
 loc_5D38:
                 
-                cmpi.w  #$C00,d2        ; check for bock copy "hide" flag
+                cmpi.w  #MAPLAYOUT_ROOF_HIDE_TILE,d2        ; check for bock copy "hide" flag
                 bne.s   loc_5D42
 loc_5D3E:
                 
@@ -2167,8 +2166,8 @@ loc_5F28:
                 move.w  ENTITYDEF_OFFSET_YDEST(a0),d1
                 bsr.w   ConvertMapPixelCoordinatesToOffset
                 move.w  (a4,d2.w),d0
-                andi.w  #$3C00,d0
-                cmpi.w  #$2000,d0
+                andi.w  #MAPLAYOUT_EVENT_MASK,d0
+                cmpi.w  #MAPLAYOUT_LAYER_TILE,d0
                 bne.s   loc_5F54
                 move.b  #2,ENTITYDEF_OFFSET_LAYER(a0)
 loc_5F54:

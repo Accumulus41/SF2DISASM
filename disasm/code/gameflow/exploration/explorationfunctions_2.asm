@@ -67,7 +67,7 @@ loc_2586A:
                 tst.w   d0
                 beq.s   loc_2587E       
                 bsr.w   ProcessMapEvent ; Map event
-                bra.s   loc_2586A       
+                bra.s   loc_2586A
 loc_2587E:
                 
                 tst.w   d1              ; Player action (A/C button)

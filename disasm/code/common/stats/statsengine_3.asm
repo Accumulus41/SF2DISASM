@@ -92,6 +92,35 @@ InitializeAllyCombatantEntry:
 
 ; =============== S U B R O U T I N E =======================================
 
+; In: D0 = ally index
+;     D1 = ally level
+;     D7 = leader level
+
+
+CatchupChars:
+                
+                move.l  d7,-(sp)
+                cmpi.b  #CHAR_LEVELCAP_BASE,d1
+                beq.s   @Done
+                bgt.s   @GetDiff
+                cmpi.b  #CHAR_LEVELCAP_BASE,d7
+                blt.s   @GetDiff
+                moveq   #CHAR_LEVELCAP_BASE,d7
+                
+@GetDiff:       sub.b   d1,d7
+                subq    #1,d7
+                blt.s   @Done
+@Loop:          jsr     LevelUp
+                dbf     d7,@Loop
+                
+@Done:          move.l  (sp)+,d7
+                rts
+
+    ; End of function CatchupChars
+
+
+; =============== S U B R O U T I N E =======================================
+
 ; In: d0.w = ally index
 ;     d1.w = class index
 

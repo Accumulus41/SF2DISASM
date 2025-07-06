@@ -1,6 +1,6 @@
 
-; ASM FILE code\common\menus\menuengine_08.asm :
-; 0x15BB0..0x1607C : Menu engine
+; ASM FILE code\common\menus\nameallyscreen.asm :
+; 0x15BB0..0x1607C : Menu engine, part 8 : Name ally screen functions
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -138,7 +138,7 @@ loc_15CDC:
                 bne.w   byte_15D2C
 loc_15D22:
                 
-                bsr.w   sub_15F24
+                bsr.w   LoadAlphabetHighlightSprites
                 jsr     (WaitForVInt).w
                 bra.s   loc_15CDC
 byte_15D2C:
@@ -396,7 +396,7 @@ alphabetWindowLayoutEndAddress = -12
 entryWindowLayoutEndAddress = -8
 portraitWindowLayoutEndAddress = -4
 
-sub_15F24:
+LoadAlphabetHighlightSprites:
                 
                 tst.b   ((HIDE_WINDOWS_TOGGLE-$1000000)).w
                 beq.s   loc_15F2C
@@ -457,9 +457,9 @@ loc_15FC8:
                 
                 move.b  #9,VDPSPRITE_OFFSET_LINK(a0)
                 move.b  #16,NEXTVDPSPRITE_OFFSET_LINK(a0)
-                bra.w   sub_101E6
+                bra.w   LinkHighlightSprites
 
-    ; End of function sub_15F24
+    ; End of function LoadAlphabetHighlightSprites
 
 
 ; =============== S U B R O U T I N E =======================================

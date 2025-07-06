@@ -7,7 +7,7 @@
 
 InitializeMembersListScreen:
                 
-                clr.b   ((byte_FFB13C-$1000000)).w
+                clr.b   ((CURRENT_ITEM_ACTION-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
                 clr.b   ((CURRENT_MEMBERSUMMARY_PAGE-$1000000)).w
                 cmpi.b  #WINDOW_MEMBERS_LIST_PAGE_NEWATTANDDEF,((CURRENT_MEMBERS_LIST_PAGE-$1000000)).w
@@ -49,7 +49,7 @@ loc_1302C:
 
 BuildMembersListScreen_MagicPage:
                 
-                clr.b   ((byte_FFB13C-$1000000)).w
+                clr.b   ((CURRENT_ITEM_ACTION-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
                 move.b  #WINDOW_MEMBERSUMMARY_PAGE_MAGIC,((CURRENT_MEMBERSUMMARY_PAGE-$1000000)).w
                 cmpi.b  #WINDOW_MEMBERS_LIST_PAGE_NEWATTANDDEF,((CURRENT_MEMBERS_LIST_PAGE-$1000000)).w
@@ -176,7 +176,7 @@ loc_1317A:
                 bsr.w   sub_133A0
                 sndCom  SFX_MENU_SELECTION
                 move.w  d0,((DISPLAYED_MEMBERS_LIST_FIRST_ENTRY-$1000000)).w
-                move.b  #1,((word_FFAF9E-$1000000)).w
+                move.b  #1,((WINDOW_LAYOUT_SHIFT_DIRECTION-$1000000)).w
                 bsr.w   sub_134A8
 loc_1319A:
                 
@@ -210,7 +210,7 @@ loc_131CE:
                 bsr.w   sub_133A0
                 sndCom  SFX_MENU_SELECTION
                 move.w  d0,((DISPLAYED_MEMBERS_LIST_FIRST_ENTRY-$1000000)).w
-                clr.b   ((word_FFAF9E-$1000000)).w
+                clr.b   ((WINDOW_LAYOUT_SHIFT_DIRECTION-$1000000)).w
                 bsr.w   sub_134A8
 loc_131F6:
                 
@@ -293,9 +293,9 @@ sub_132BC:
                 
                 cmpi.b  #WINDOW_MEMBERSUMMARY_PAGE_ITEMS,((CURRENT_MEMBERSUMMARY_PAGE-$1000000)).w
                 bne.w   @CheckSpells
-                btst    #0,((byte_FFB13C-$1000000)).w
+                btst    #0,((CURRENT_ITEM_ACTION-$1000000)).w
                 beq.s   @Return
-                cmpi.b  #1,((byte_FFB13C-$1000000)).w
+                cmpi.b  #ITEM_ACTION_REMOVE,((CURRENT_ITEM_ACTION-$1000000)).w
                 bne.s   @CheckEquipment
 @CheckItems:
                 
@@ -345,10 +345,10 @@ sub_13328:
                 bne.w   @MagicPage
                 
                 ; Items member summary page
-                tst.b   ((byte_FFB13C-$1000000)).w
+                tst.b   ((CURRENT_ITEM_ACTION-$1000000)).w
                 beq.w   @Return
                 
-                cmpi.b  #1,((byte_FFB13C-$1000000)).w
+                cmpi.b  #ITEM_ACTION_REMOVE,((CURRENT_ITEM_ACTION-$1000000)).w
                 bne.s   loc_13358
                 
                 moveq   #$A,d1
@@ -357,7 +357,7 @@ sub_13328:
                 bra.w   @Return
 loc_13358:
                 
-                cmpi.b  #2,((byte_FFB13C-$1000000)).w
+                cmpi.b  #ITEM_ACTION_RECEIVE,((CURRENT_ITEM_ACTION-$1000000)).w
                 bne.s   loc_1337C
                 
                 clr.w   d1
@@ -481,7 +481,7 @@ loc_13438:
 loc_1344A:
                 
                 move.w  (sp)+,d0
-                bsr.w   sub_101E6
+                bsr.w   LinkHighlightSprites
                 rts
 
     ; End of function sub_133A0
@@ -572,7 +572,7 @@ sub_134A8:
                 clr.w   d1
                 jsr     (GetWindowTileAddress).l
                 movea.l a1,a0
-                tst.b   ((word_FFAF9E-$1000000)).w
+                tst.b   ((WINDOW_LAYOUT_SHIFT_DIRECTION-$1000000)).w
                 beq.s   loc_134E0
                 
                 adda.w  #$74,a0 
@@ -654,3 +654,4 @@ sub_1354C:
                 rts
 
     ; End of function sub_1354C
+	

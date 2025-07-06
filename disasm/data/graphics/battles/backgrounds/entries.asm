@@ -22,15 +22,39 @@ pt_Backgrounds: dc.l Background00
                 dc.l Background18
                 dc.l Background19
                 dc.l Background20
-                dc.l Background12
-                dc.l Background12
                 dc.l Background23
                 dc.l Background24
                 dc.l Background25
                 dc.l Background26
                 dc.l Background27
                 dc.l Background28
-                dc.l Background13
+                dc.l Background29
+                dc.l Background30
+                dc.l Background31
+                dc.l Background32
+                dc.l Background33
+                dc.l Background34
+                dc.l Background35
+                dc.l Background38
+                dc.l Background39
+                dc.l Background40
+                dc.l Background41
+                dc.l Background44
+                dc.l Background45
+                dc.l Background46
+				dc.l Background48
+                dc.l Background49
+                dc.l Background50
+                dc.l Background51
+                dc.l Background52
+                dc.l Background53
+                dc.l Background54
+                dc.l Background55
+                dc.l Background57
+                dc.l Background58
+                dc.l Background59
+                dc.l Background62
+                dc.l Background64
 Background00:   incbin "data/graphics/battles/backgrounds/background00.bin"
 Background01:   incbin "data/graphics/battles/backgrounds/background01.bin"
 Background02:   incbin "data/graphics/battles/backgrounds/background02.bin"
@@ -58,3 +82,30 @@ Background25:   incbin "data/graphics/battles/backgrounds/background25.bin"
 Background26:   incbin "data/graphics/battles/backgrounds/background26.bin"
 Background27:   incbin "data/graphics/battles/backgrounds/background27.bin"
 Background28:   incbin "data/graphics/battles/backgrounds/background28.bin"
+Background29:   incbin "data/graphics/battles/backgrounds/background29.bin"
+Background30:   incbin "data/graphics/battles/backgrounds/background30.bin"
+Background31:   incbin "data/graphics/battles/backgrounds/background31.bin"
+Background32:   incbin "data/graphics/battles/backgrounds/background32.bin"
+Background33:   incbin "data/graphics/battles/backgrounds/background33.bin"
+Background34:   incbin "data/graphics/battles/backgrounds/background34.bin"
+Background35:   incbin "data/graphics/battles/backgrounds/background35.bin"
+Background38:   incbin "data/graphics/battles/backgrounds/background38.bin"
+Background39:   incbin "data/graphics/battles/backgrounds/background39.bin"
+Background40:   incbin "data/graphics/battles/backgrounds/background40.bin"
+Background41:   incbin "data/graphics/battles/backgrounds/background41.bin"
+Background44:   incbin "data/graphics/battles/backgrounds/background44.bin"
+Background45:   incbin "data/graphics/battles/backgrounds/background45.bin"
+Background46:   incbin "data/graphics/battles/backgrounds/background46.bin"
+Background48:   incbin "data/graphics/battles/backgrounds/background48.bin"
+Background49:   incbin "data/graphics/battles/backgrounds/background49.bin"
+Background50:   incbin "data/graphics/battles/backgrounds/background50.bin"
+Background51:   incbin "data/graphics/battles/backgrounds/background51.bin"
+Background52:   incbin "data/graphics/battles/backgrounds/background52.bin"
+Background53:   incbin "data/graphics/battles/backgrounds/background53.bin"
+Background54:   incbin "data/graphics/battles/backgrounds/background54.bin"
+Background55:   incbin "data/graphics/battles/backgrounds/background55.bin"
+Background57:   incbin "data/graphics/battles/backgrounds/background57.bin"
+Background58:   incbin "data/graphics/battles/backgrounds/background58.bin"
+Background59:   incbin "data/graphics/battles/backgrounds/background59.bin"
+Background62:   incbin "data/graphics/battles/backgrounds/background62.bin"
+Background64:   incbin "data/graphics/battles/backgrounds/background64.bin"

@@ -91,3 +91,4 @@ CloseGoldWindow:
                 rts
 
     ; End of function CloseGoldWindow
+	

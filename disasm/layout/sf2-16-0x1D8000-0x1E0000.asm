@@ -56,5 +56,11 @@
                 include "code\specialscreens\suspend\graphics.asm"    ; Suspend String Graphics
                 align
                 include "code\common\tech\incbins\s17_incbins_basetiles.asm"    ; Game Section 17 Incbin Directives
-                
+                align
+                include "data\graphics\battles\weapons\entries.asm"                 ; Battlescene Weapons
+                align
+                include "data\graphics\battles\weapons\palettes\entries.asm"        ; Battlescene Weapon Palettes
+                align
+                include "data\graphics\battles\spells\entries.asm"                      ; Spell Graphics
+        
                 align $1E0000

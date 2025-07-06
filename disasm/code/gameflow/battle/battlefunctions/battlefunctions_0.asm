@@ -506,6 +506,7 @@ loc_2308E:
 ControlCursorEntity_ChooseTarget:
                 
                 movem.l d1-a0,-(sp)
+				
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,d7
                 bne.s   loc_230F2
                 moveq   #-1,d0

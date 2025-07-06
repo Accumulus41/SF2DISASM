@@ -29,7 +29,7 @@ SpawnEnemy:
                 move.w  d1,-(sp)
                 move.w  d0,combatant(a6)
                 move.w  combatant(a6),d0
-                jsr     sub_444A2
+                jsr     SpawnEnemyEntity
                 move.w  (sp)+,d1
                 bne.s   @SkipCamera
                 

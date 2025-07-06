@@ -18,4 +18,52 @@ table_BattleRegionCutscenes:
                 dc.b 1
                 dc.w FLAG_ODDEYETILES2
                 dc.l rbcs_battle40_2
+                dc.b BATTLE_VERSUS_ODD_EYE
+                dc.b 0
+                dc.w FLAG_ODDEYETILES1
+                dc.l rbcs_battle40_1
+                dc.b BATTLE_VERSUS_ODD_EYE
+                dc.b 1
+                dc.w FLAG_ODDEYETILES2
+                dc.l rbcs_battle40_2
+                dc.b BATTLE_VERSUS_ODD_EYE
+                dc.b 0
+                dc.w FLAG_ODDEYETILES1
+                dc.l rbcs_battle40_1
+                dc.b BATTLE_VERSUS_ODD_EYE
+                dc.b 1
+                dc.w FLAG_ODDEYETILES2
+                dc.l rbcs_battle40_2
+                dc.b BATTLE_VERSUS_ODD_EYE
+                dc.b 0
+                dc.w FLAG_ODDEYETILES1
+                dc.l rbcs_battle40_1
+                dc.b BATTLE_VERSUS_ODD_EYE
+                dc.b 1
+                dc.w FLAG_ODDEYETILES2
+                dc.l rbcs_battle40_2
+                dc.b BATTLE_VERSUS_ODD_EYE
+                dc.b 0
+                dc.w FLAG_ODDEYETILES1
+                dc.l rbcs_battle40_1
+                dc.b BATTLE_VERSUS_ODD_EYE
+                dc.b 1
+                dc.w FLAG_ODDEYETILES2
+                dc.l rbcs_battle40_2
+                dc.b BATTLE_VERSUS_ODD_EYE
+                dc.b 0
+                dc.w FLAG_ODDEYETILES1
+                dc.l rbcs_battle40_1
+                dc.b BATTLE_VERSUS_ODD_EYE
+                dc.b 1
+                dc.w FLAG_ODDEYETILES2
+                dc.l rbcs_battle40_2
+                dc.b BATTLE_VERSUS_ODD_EYE
+                dc.b 0
+                dc.w FLAG_ODDEYETILES1
+                dc.l rbcs_battle40_1
+                dc.b BATTLE_VERSUS_ODD_EYE
+                dc.b 1
+                dc.w FLAG_ODDEYETILES2
+                dc.l rbcs_battle40_2
                 dc.w TERMINATOR_WORD

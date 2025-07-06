@@ -217,11 +217,11 @@ loc_101D4:
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_101E6:
+LinkHighlightSprites:
                 
                 move.b  #8,(SPRITE_07_LINK).l
                 clr.b   (SPRITE_63_LINK).l
                 rts
 
-    ; End of function sub_101E6
+    ; End of function LinkHighlightSprites
 

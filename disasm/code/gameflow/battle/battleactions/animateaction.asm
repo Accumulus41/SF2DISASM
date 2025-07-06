@@ -1,6 +1,6 @@
 
-; ASM FILE code\gameflow\battle\battleactions\battleactionsengine_3.asm :
-; 0xA6E8..0xA870 : Battleactions Engine, part 3
+; ASM FILE code\gameflow\battle\battleactions\animateaction.asm :
+; 0xA6E8..0xA7F8 : Battlescene animation functions
 
 ; =============== S U B R O U T I N E =======================================
 

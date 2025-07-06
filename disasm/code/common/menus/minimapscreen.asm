@@ -1,6 +1,6 @@
 
-; ASM FILE code\common\menus\menuengine_05.asm :
-; 0x1288E..0x135A6 : Menu engine
+; ASM FILE code\common\menus\minimapscreen.asm :
+; 0x1288E..0x12DEC : Menu engine, part 5 : Minimap screen functions
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -48,11 +48,11 @@ BuildMinimapScreen:
                 move.b  ((FADING_COUNTER_MAX-$1000000)).w,((FADING_COUNTER-$1000000)).w
                 move.b  #%101,((FADING_PALETTE_BITFIELD-$1000000)).w
                 bsr.w   sub_129E8
-loc_1291E:
+@WaitForFading:
                 
                 jsr     (WaitForVInt).w
                 tst.b   ((FADING_SETTING-$1000000)).w
-                bne.s   loc_1291E
+                bne.s   @WaitForFading
                 move.w  var_14(a6),d0
                 lsl.w   #BYTE_SHIFT_COUNT,d0
                 or.w    var_12(a6),d0
@@ -451,7 +451,7 @@ loc_12D34:
                 divs.w  #96,d1
                 add.w   d2,d0
                 add.w   d3,d1
-                move.w  #$E0FE,d4
+                move.w  #VDPTILE_GREEN_DOT|VDPTILE_PALETTE4|VDPTILE_PRIORITY,d4
                 cmpi.w  #MAPSPRITES_ENEMIES_START,ENTITYDEF_OFFSET_MAPSPRITE(a0)
                 bcs.s   loc_12D5A
                 cmpi.w  #MAPSPRITES_NPCS_START,ENTITYDEF_OFFSET_MAPSPRITE(a0)

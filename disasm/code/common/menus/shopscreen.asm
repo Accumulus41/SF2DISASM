@@ -24,24 +24,32 @@ BuildShopInventoryScreen:
 loc_14814:
                 
                 link    a6,#-240
+
+                ; Create shop inventory window
                 move.w  #WINDOW_SHOP_INVENTORY_SIZE,d0
                 move.w  #WINDOW_SHOP_INVENTORY_DEST,d1
                 jsr     (CreateWindow).l
                 move.w  d0,inventoryWindowSlot(a6)
                 move.l  a1,inventoryWindowLayoutEndAddress(a6)
                 bsr.w   LoadItemIconsAndPriceTagTiles
+
+                ; Create shop item name and price window
                 move.w  #WINDOW_SHOP_ITEM_NAME_AND_PRICE_SIZE,d0
                 move.w  #WINDOW_SHOP_ITEM_NAME_AND_PRICE_DEST,d1
                 jsr     (CreateWindow).l
                 move.w  d0,itemNameAndPriceWindowSlot(a6)
                 move.l  a1,itemNameAndPriceWindowLayoutEndAddress(a6)
                 bsr.w   WriteItemNameAndGoldAmount
+
+                ; Create gold window
                 move.w  #WINDOW_SHOP_GOLD_SIZE,d0
                 move.w  #WINDOW_SHOP_GOLD_DEST,d1
                 jsr     (CreateWindow).l
                 move.w  d0,goldWindowSlot(a6)
                 move.l  a1,goldWindowLayoutEndAddress(a6)
-                bsr.w   WriteGoldAmount 
+                bsr.w   WriteGoldAmount
+
+                ; Open windows
                 move.w  inventoryWindowSlot(a6),d0
                 move.w  #$201,d1
                 moveq   #4,d2
@@ -63,73 +71,74 @@ loc_14814:
                 move.w  #$100,d0
                 jsr     (ApplyVIntVramDmaOnCompressedTiles).w
                 jsr     (WaitForWindowMovementEnd).l
-                bsr.w   sub_14EDE
-loc_148BC:
+                bsr.w   UpdateShopItemNameAndPriceWindow
+@CheckInputs:
                 
+                ; Check inputs
                 move.w  ((CURRENT_SHOP_SELECTION-$1000000)).w,d0
                 btst    #INPUT_BIT_RIGHT,((CURRENT_PLAYER_INPUT-$1000000)).w
-                beq.s   loc_14906
+                beq.s   @CheckLeft
                 move.w  ((CURRENT_SHOP_PAGE-$1000000)).w,d2
                 mulu.w  #ITEMS_PER_SHOP_PAGE,d2
                 add.w   d0,d2
                 addq.w  #1,d2
                 cmp.w   ((GENERIC_LIST_LENGTH-$1000000)).w,d2
-                bge.s   loc_14906
+                bge.s   @CheckLeft
                 addq.w  #1,d0
                 sndCom  SFX_MENU_SELECTION
-                cmp.w   ((word_FFB134-$1000000)).w,d0
-                blt.s   loc_148FA
+                cmp.w   ((LAST_ITEM_ON_PAGE-$1000000)).w,d0
+                blt.s   @NextEntry
                 addq.w  #1,((CURRENT_SHOP_PAGE-$1000000)).w
                 clr.w   ((CURRENT_SHOP_SELECTION-$1000000)).w
-                clr.b   ((word_FFAF9E-$1000000)).w
-                bsr.w   sub_14E62
-                bra.w   loc_149E0
-loc_148FA:
+                clr.b   ((WINDOW_LAYOUT_SHIFT_DIRECTION-$1000000)).w
+                bsr.w   ShiftShopInventoryWindowLayout
+                bra.w   @WaitForInput
+@NextEntry:
                 
                 move.w  d0,((CURRENT_SHOP_SELECTION-$1000000)).w
                 bsr.w   sub_14EC0
-                bra.w   loc_149E0
-loc_14906:
+                bra.w   @WaitForInput
+@CheckLeft:
                 
                 move.w  ((CURRENT_SHOP_SELECTION-$1000000)).w,d0
                 btst    #INPUT_BIT_LEFT,((CURRENT_PLAYER_INPUT-$1000000)).w
-                beq.s   loc_1494A
+                beq.s   @CheckUp
                 move.w  ((CURRENT_SHOP_PAGE-$1000000)).w,d2
                 mulu.w  #ITEMS_PER_SHOP_PAGE,d2
                 add.w   d0,d2
-                ble.s   loc_1494A
+                ble.s   @CheckUp
                 subq.w  #1,d0
                 sndCom  SFX_MENU_SELECTION
-                bge.s   loc_1493E
+                bge.s   @PreviousEntry
                 subq.w  #1,((CURRENT_SHOP_PAGE-$1000000)).w
                 move.w  #5,((CURRENT_SHOP_SELECTION-$1000000)).w
-                move.b  #1,((word_FFAF9E-$1000000)).w
-                bsr.w   sub_14E62
-                bra.w   loc_149E0
-loc_1493E:
+                move.b  #1,((WINDOW_LAYOUT_SHIFT_DIRECTION-$1000000)).w
+                bsr.w   ShiftShopInventoryWindowLayout
+                bra.w   @WaitForInput
+@PreviousEntry:
                 
                 move.w  d0,((CURRENT_SHOP_SELECTION-$1000000)).w
                 bsr.w   sub_14EC0
-                bra.w   loc_149E0
-loc_1494A:
+                bra.w   @WaitForInput
+@CheckUp:
                 
                 btst    #INPUT_BIT_UP,((CURRENT_PLAYER_INPUT-$1000000)).w
-                beq.s   loc_1496A
+                beq.s   @CheckDown
                 tst.w   ((CURRENT_SHOP_PAGE-$1000000)).w
-                beq.s   loc_1496A
+                beq.s   @CheckDown
                 subq.w  #1,((CURRENT_SHOP_PAGE-$1000000)).w
                 sndCom  SFX_MENU_SELECTION
-                move.b  #1,((word_FFAF9E-$1000000)).w
-                bsr.w   sub_14E62
-loc_1496A:
+                move.b  #1,((WINDOW_LAYOUT_SHIFT_DIRECTION-$1000000)).w
+                bsr.w   ShiftShopInventoryWindowLayout
+@CheckDown:
                 
                 btst    #INPUT_BIT_DOWN,((CURRENT_PLAYER_INPUT-$1000000)).w
-                beq.s   loc_149C2
+                beq.s   @CheckConfirmation
                 move.w  ((CURRENT_SHOP_PAGE-$1000000)).w,d2
                 addq.w  #1,d2
                 mulu.w  #ITEMS_PER_SHOP_PAGE,d2
                 cmp.w   ((GENERIC_LIST_LENGTH-$1000000)).w,d2
-                bge.s   loc_149C2
+                bge.s   @CheckConfirmation
                 addq.w  #1,((CURRENT_SHOP_PAGE-$1000000)).w
                 sndCom  SFX_MENU_SELECTION
                 move.w  ((CURRENT_SHOP_SELECTION-$1000000)).w,d0
@@ -141,40 +150,41 @@ loc_1496A:
                 move.w  ((GENERIC_LIST_LENGTH-$1000000)).w,d1
                 sub.w   d2,d1
                 cmpi.w  #ITEMS_PER_SHOP_PAGE,d1
-                ble.s   loc_149A8
+                ble.s   @LastViewableItem
                 moveq   #ITEMS_PER_SHOP_PAGE,d1
-loc_149A8:
+@LastViewableItem:
                 
-                move.w  d1,((word_FFB134-$1000000)).w
-loc_149AC:
+                move.w  d1,((LAST_ITEM_ON_PAGE-$1000000)).w
+@AdjustPosition_Loop:
                 
+				; Adjust position in list if beyond last item
                 cmp.w   d1,d0
-                blt.w   loc_149B6
+                blt.w   @PositionSet
                 subq.w  #1,d0
-                bne.s   loc_149AC
-loc_149B6:
+                bne.s   @AdjustPosition_Loop
+@PositionSet:
                 
                 move.w  d0,((CURRENT_SHOP_SELECTION-$1000000)).w
-                clr.b   ((word_FFAF9E-$1000000)).w
-                bsr.w   sub_14E62
-loc_149C2:
+                clr.b   ((WINDOW_LAYOUT_SHIFT_DIRECTION-$1000000)).w
+                bsr.w   ShiftShopInventoryWindowLayout
+@CheckConfirmation:
                 
                 btst    #INPUT_BIT_B,((CURRENT_PLAYER_INPUT-$1000000)).w
-                bne.w   loc_149EC
+                bne.w   @Cancel
                 btst    #INPUT_BIT_C,((CURRENT_PLAYER_INPUT-$1000000)).w
-                bne.w   loc_149F2
+                bne.w   @Confirm
                 btst    #INPUT_BIT_A,((CURRENT_PLAYER_INPUT-$1000000)).w
-                bne.w   loc_149F2
-loc_149E0:
+                bne.w   @Confirm
+@WaitForInput:
                 
-                bsr.w   sub_14A82
+                bsr.w   LoadShopInventoryHighlightSprites
                 jsr     (WaitForVInt).w
-                bra.w   loc_148BC
-loc_149EC:
+                bra.w   @CheckInputs
+@Cancel:
                 
                 moveq   #-1,d0
                 bra.w   loc_14A0A
-loc_149F2:
+@Confirm:
                 
                 move.w  ((CURRENT_SHOP_PAGE-$1000000)).w,d1
                 mulu.w  #ITEMS_PER_SHOP_PAGE,d1
@@ -186,7 +196,7 @@ loc_14A0A:
                 
                 movem.w d0-d1,-(sp)
                 clr.w   d1
-                bsr.s   sub_14A82
+                bsr.s   LoadShopInventoryHighlightSprites
                 move.w  ((DIALOGUE_WINDOW_INDEX-$1000000)).w,d0
                 beq.s   loc_14A26
                 subq.w  #1,d0
@@ -224,7 +234,7 @@ loc_14A26:
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_14A82:
+LoadShopInventoryHighlightSprites:
                 
                 lea     (SPRITE_BATTLE_CURSOR).l,a0
                 cmpi.w  #7,d1
@@ -281,9 +291,9 @@ loc_14B1E:
                 moveq   #20,d1
 loc_14B24:
                 
-                bra.w   sub_101E6
+                bra.w   LinkHighlightSprites
 
-    ; End of function sub_14A82
+    ; End of function LoadShopInventoryHighlightSprites
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -398,7 +408,7 @@ LoadItemIconsAndPriceTagTiles:
                 moveq   #ITEMS_PER_SHOP_PAGE,d1
 @loc_1:
                 
-                move.w  d1,((word_FFB134-$1000000)).w
+                move.w  d1,((LAST_ITEM_ON_PAGE-$1000000)).w
                 move.w  d1,d7
                 subq.w  #1,d7
                 lea     (FF6802_LOADING_SPACE).l,a0
@@ -507,6 +517,7 @@ LoadIconPixels:
                 move.l  (a1)+,(a0)+
                 dbf     d7,@Loop
                 
+                ; Clean corners
                 ori.w   #$F,-2(a0)
                 ori.w   #$F000,-$24(a0)
                 ori.w   #$F,-$9E(a0)
@@ -555,8 +566,8 @@ sub_14D0C:
                 bsr.w   *+4
                 movea.l inventoryWindowLayoutEndAddress(a6),a0
                 movea.l a0,a1
-                adda.w  #$A2,a0 
-                adda.w  #$36,a1 
+                adda.w  #$A2,a0
+                adda.w  #$36,a1
                 move.w  #108,d7
                 jsr     (CopyBytes).w   
                 lea     ShopInventoryWindowLayoutSpacerLine(pc), a0
@@ -566,7 +577,7 @@ sub_14D0C:
                 jsr     (CopyBytes).w   
                 lea     ShopInventoryWindowLayoutSpacerLine(pc), a0
                 movea.l inventoryWindowLayoutEndAddress(a6),a1
-                adda.w  #$D8,a1 
+                adda.w  #$D8,a1
                 jsr     (CopyBytes).w   
 loc_14D4A:
                 
@@ -643,18 +654,18 @@ sub_14DC0:
                 bsr.w   *+4
                 movea.l inventoryWindowLayoutEndAddress(a6),a0
                 movea.l a0,a1
-                adda.w  #$36,a0 
-                adda.w  #$A2,a1 
+                adda.w  #$36,a0
+                adda.w  #$A2,a1
                 move.w  #108,d7
                 jsr     (CopyBytes).w   
                 lea     ShopInventoryWindowLayoutSpacerLine(pc), a0
                 movea.l inventoryWindowLayoutEndAddress(a6),a1
-                adda.w  #$36,a1 
+                adda.w  #$36,a1
                 move.w  #54,d7
                 jsr     (CopyBytes).w   
                 lea     ShopInventoryWindowLayoutSpacerLine(pc), a0
                 movea.l inventoryWindowLayoutEndAddress(a6),a1
-                adda.w  #$6C,a1 
+                adda.w  #$6C,a1
                 move.w  #54,d7
                 jsr     (CopyBytes).w   
                 bra.w   loc_14D4A
@@ -676,24 +687,24 @@ sub_14E06:
                 
                 lea     ShopInventoryWindowLayoutSpacerLine(pc), a0
                 movea.l inventoryWindowLayoutEndAddress(a6),a1
-                adda.w  #$A2,a1 
+                adda.w  #$A2,a1
                 move.w  #54,d7
                 jsr     (CopyBytes).w   
                 lea     ShopInventoryWindowLayoutSpacerLine(pc), a0
                 movea.l inventoryWindowLayoutEndAddress(a6),a1
-                adda.w  #$D8,a1 
+                adda.w  #$D8,a1
                 move.w  #54,d7
                 jsr     (CopyBytes).w   
                 lea     inventoryWindowLayoutLoadingSpace(a6),a0
                 movea.l inventoryWindowLayoutEndAddress(a6),a1
-                adda.w  #$6C,a0 
-                adda.w  #$36,a1 
+                adda.w  #$6C,a0
+                adda.w  #$36,a1
                 move.w  #108,d7
                 jsr     (CopyBytes).w   
                 bsr.w   sub_14E5E
                 lea     inventoryWindowLayoutLoadingSpace(a6),a0
                 movea.l inventoryWindowLayoutEndAddress(a6),a1
-                adda.w  #$36,a1 
+                adda.w  #$36,a1
                 move.w  #216,d7
                 jsr     (CopyBytes).w   
 
@@ -720,14 +731,14 @@ itemNameAndPriceWindowSlot = -8
 inventoryWindowLayoutEndAddress = -6
 inventoryWindowSlot = -2
 
-sub_14E62:
+ShiftShopInventoryWindowLayout:
                 
                 movea.l inventoryWindowLayoutEndAddress(a6),a0
-                adda.w  #$36,a0 
+                adda.w  #$36,a0
                 lea     inventoryWindowLayoutLoadingSpace(a6),a1
                 move.w  #216,d7
                 jsr     (CopyBytes).w   
-                tst.b   ((word_FFAF9E-$1000000)).w
+                tst.b   ((WINDOW_LAYOUT_SHIFT_DIRECTION-$1000000)).w
                 bne.s   loc_14E82
                 bsr.w   sub_14D0C
                 bra.s   loc_14E86
@@ -738,11 +749,11 @@ loc_14E86:
                 
                 bsr.w   LoadItemIconsAndPriceTagTiles
                 movea.l inventoryWindowLayoutEndAddress(a6),a0
-                adda.w  #$36,a0 
+                adda.w  #$36,a0
                 lea     inventoryWindowLayoutLoadingSpace(a6),a1
                 move.w  #216,d7
                 jsr     (CopyBytes).w   
-                tst.b   ((word_FFAF9E-$1000000)).w
+                tst.b   ((WINDOW_LAYOUT_SHIFT_DIRECTION-$1000000)).w
                 bne.s   loc_14EAA
                 bsr.w   sub_14D6A
                 bra.s   loc_14EAE
@@ -755,9 +766,9 @@ loc_14EAE:
                 move.w  #$201,d1
                 moveq   #4,d2
                 jsr     (MoveWindow).l  
-                bra.s   sub_14EDE
+                bra.s   UpdateShopItemNameAndPriceWindow
 
-    ; End of function sub_14E62
+    ; End of function ShiftShopInventoryWindowLayout
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -786,7 +797,7 @@ sub_14EC0:
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_14EDE:
+UpdateShopItemNameAndPriceWindow:
                 
                 bsr.w   WriteItemNameAndGoldAmount
                 move.w  -8(a6),d0
@@ -798,9 +809,10 @@ sub_14EDE:
                 moveq   #$A,d1
                 rts
 
-    ; End of function sub_14EDE
+    ; End of function UpdateShopItemNameAndPriceWindow
 
 tiles_PriceTagBlank:
                 incbin "data/graphics/tech/pricetagblanktiles.bin"
 tiles_PriceTagNumbers:
                 incbin "data/graphics/tech/pricetagnumberstiles.bin"
+				

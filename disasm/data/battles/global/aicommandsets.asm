@@ -230,7 +230,7 @@ AiCommandset15:
                              STAY, &
                              STAY, &
                              STAY
-table_E249:     
+table_AiSecondaryCharacteristics:     
 ; These seem to correspond to the secondary characteristics of each AI script
 ;  for Heal, Attack, and Special Move, but not for Support or normal Move
 ;  with one byte per AI.

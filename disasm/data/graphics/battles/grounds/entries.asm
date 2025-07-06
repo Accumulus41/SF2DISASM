@@ -1,36 +1,60 @@
 
 ; ASM FILE data\graphics\battles\grounds\entries.asm :
 ; 0x1B8028..0x1B9A9A : Battlescene Grounds
-pt_Grounds:     dc.l Ground00
-                dc.l Ground01
-                dc.l Ground02
-                dc.l Ground03
-                dc.l Ground04
-                dc.l Ground05
-                dc.l Ground06
-                dc.l Ground07
-                dc.l Ground08
-                dc.l Ground09
-                dc.l Ground10
-                dc.l Ground11
-                dc.l Ground12
-                dc.l Ground13
-                dc.l Ground14
-                dc.l Ground15
-                dc.l Ground16
-                dc.l Ground17
-                dc.l Ground18
-                dc.l Ground19
-                dc.l Ground20
-                dc.l Ground12
-                dc.l Ground12
-                dc.l Ground23
-                dc.l Ground24
-                dc.l Ground25
-                dc.l Ground26
-                dc.l Ground27
-                dc.l Ground28
-                dc.l Ground13
+pt_Grounds:     dc.l Ground00 ; 0
+                dc.l Ground01 ; 1
+                dc.l Ground02 ; 2
+                dc.l Ground03 ; 3
+                dc.l Ground04 ; 4
+                dc.l Ground05 ; 5
+                dc.l Ground06 ; 6
+                dc.l Ground07 ; 7
+                dc.l Ground08 ; 8
+                dc.l Ground09 ; 9
+                dc.l Ground10 ; 10
+                dc.l Ground11 ; 11
+                dc.l Ground12 ; 12
+                dc.l Ground13 ; 13
+                dc.l Ground14 ; 14
+                dc.l Ground15 ; 15
+                dc.l Ground16 ; 16
+                dc.l Ground17 ; 17
+                dc.l Ground18 ; 18
+                dc.l Ground19 ; 19
+                dc.l Ground20 ; 20
+                dc.l Ground23 ; 23
+                dc.l Ground24 ; 24
+                dc.l Ground25 ; 25
+                dc.l Ground26 ; 26
+                dc.l Ground27 ; 27
+                dc.l Ground28 ; 28
+                dc.l Ground20 ; 29
+                dc.l Ground08 ; 30
+                dc.l Ground00 ; 31
+                dc.l Ground01 ; 32
+                dc.l Ground04 ; 33
+                dc.l Ground02 ; 34
+                dc.l Ground10 ; 35
+                dc.l Ground02 ; 38
+                dc.l Ground08 ; 39
+                dc.l Ground00 ; 40
+                dc.l Ground14 ; 41
+                dc.l Ground18 ; 44
+                dc.l Ground08 ; 45
+                dc.l Ground09 ; 46
+                dc.l Ground08 ; 48
+                dc.l Ground10 ; 49
+                dc.l Ground00 ; 50
+                dc.l Ground09 ; 51
+                dc.l Ground08 ; 52
+                dc.l Ground10 ; 53
+                dc.l Ground08 ; 54
+                dc.l Ground08 ; 55
+                dc.l Ground08 ; 57
+                dc.l Ground08 ; 58
+                dc.l Ground02 ; 59
+                dc.l Ground08 ; 62
+                dc.l Ground20 ; 64
 Ground00:       incbin "data/graphics/battles/grounds/groundpalette00.bin"
 bsg00_rpbase:   dc.w GroundTiles00-bsg00_rpbase
 Ground01:       incbin "data/graphics/battles/grounds/groundpalette01.bin"
@@ -95,3 +119,14 @@ GroundTiles09:  incbin "data/graphics/battles/grounds/groundtiles09.bin"
 GroundTiles17:  incbin "data/graphics/battles/grounds/groundtiles17.bin"
 GroundTiles25:  incbin "data/graphics/battles/grounds/groundtiles25.bin"
 GroundTiles26:  incbin "data/graphics/battles/grounds/groundtiles26.bin"
+
+GroundTiles02:  incbin "data/graphics/battles/grounds/groundtiles00.bin"
+GroundTiles04:  incbin "data/graphics/battles/grounds/groundtiles01.bin"
+GroundTiles06:  incbin "data/graphics/battles/grounds/groundtiles05.bin"
+GroundTiles07:  incbin "data/graphics/battles/grounds/groundtiles14.bin"
+GroundTiles10:  incbin "data/graphics/battles/grounds/groundtiles03.bin"
+GroundTiles11:  incbin "data/graphics/battles/grounds/groundtiles08.bin"
+GroundTiles12:  incbin "data/graphics/battles/grounds/groundtiles09.bin"
+GroundTiles13:  incbin "data/graphics/battles/grounds/groundtiles17.bin"
+GroundTiles15:  incbin "data/graphics/battles/grounds/groundtiles25.bin"
+GroundTiles16:  incbin "data/graphics/battles/grounds/groundtiles26.bin"

@@ -153,7 +153,7 @@ ExecuteAiCommand_Attack:
                 bra.w   @FinishUnequipRange
 @CheckKrakenHead:
                 
-                cmpi.b  #ENEMY_KRAKEN_HEAD,d1
+                cmpi.w  #ENEMY_KRAKEN_HEAD,d1
                 bne.s   @BasicUnequipRange
                 move.w  #3,d3           ; max range 3
                 move.w  #1,d4           ; min range 1

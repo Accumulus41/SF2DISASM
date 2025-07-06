@@ -15,12 +15,8 @@ table_EnemyMapsprites:
                 mapsprite HOBGOBLIN     ; 7: HOBGOBLIN
                 mapsprite ZOMBIE        ; 8: ZOMBIE
                 mapsprite GOLEM         ; 9: GOLEM
-                mapsprite KRAKEN_LEG    ; 10: KRAKEN LEG
                 mapsprite SOULSOWER     ; 11: SOULSOWER
                 mapsprite ORC           ; 12: ORC
-                mapsprite PAWN          ; 13: PAWN
-                mapsprite KNIGHT        ; 14: KNIGHT
-                mapsprite RAT           ; 15: RAT
                 mapsprite BUBBLING_OOZE ; 16: BUBBLING OOZE
                 mapsprite SKELETON      ; 17: SKELETON
                 mapsprite DARK_SOLDIER  ; 18: DARK SOLDIER
@@ -37,13 +33,28 @@ table_EnemyMapsprites:
                 mapsprite HELL_HOUND    ; 29: HELL HOUND
                 mapsprite MINOTAUR      ; 30: MINOTAUR
                 mapsprite CYCLOPS       ; 31: CYCLOPS
-                mapsprite BURST_ROCK    ; 32: BURST ROCK
                 mapsprite HYDRA         ; 33: HYDRA
                 mapsprite CHAOS_WARRIOR ; 34: CHAOS WARRIOR
                 mapsprite REAPER        ; 35: REAPER
                 mapsprite EVIL_BEAST    ; 36: EVIL BEAST
                 mapsprite PYROHYDRA     ; 37: PYROHYDRA
-                mapsprite ZEON_GUARD    ; 38: ZEON GUARD
+                mapsprite BLUE_DRAGON
+                mapsprite RATMAN
+                mapsprite MARIONETTE
+                mapsprite EVIL_CLOWN
+                mapsprite DULLAHAN
+                mapsprite 108
+                mapsprite 109
+                mapsprite 110
+                mapsprite 111
+                mapsprite 112
+                mapsprite 113
+                mapsprite 114
+                mapsprite 115
+                mapsprite 116
+                mapsprite 117
+                mapsprite 118
+                mapsprite 119
                 mapsprite GIZMO         ; 39: GIZMO
                 mapsprite HUGE_BAT      ; 40: HUGE BAT
                 mapsprite VAMPIRE_BAT   ; 41: VAMPIRE BAT
@@ -61,72 +72,8 @@ table_EnemyMapsprites:
                 mapsprite CHAOS_DRAGON  ; 53: CHAOS DRAGON
                 mapsprite DEVIL_GRIFFIN ; 54: DEVIL GRIFFIN
                 mapsprite ARCH_DEMON    ; 55: ARCH DEMON
-                mapsprite GALAM_ARCHER  ; 56: GALAM ARCHER
-                mapsprite HUNTER_GOBLIN ; 57: HUNTER GOBLIN
-                mapsprite DEATH_ARCHER  ; 58: DEATH ARCHER
-                mapsprite KRAKEN_ARM    ; 59: KRAKEN ARM
-                mapsprite ARROW_LAUNCHER ; 60: ARROW LAUNCHER
-                mapsprite ROOK          ; 61: ROOK
-                mapsprite DARK_SNIPER   ; 62: DARK SNIPER
-                mapsprite BOW_MASTER    ; 63: BOW MASTER
-                mapsprite BOW_RIDER     ; 64: BOW RIDER
-                mapsprite DARK_GUNNER   ; 65: DARK GUNNER
-                mapsprite HORSEMAN      ; 66: HORSEMAN
-                mapsprite GALAM_MAGE    ; 67: GALAM MAGE
-                mapsprite WITCH         ; 68: WITCH
-                mapsprite MASTER_MAGE   ; 69: MASTER MAGE
-                mapsprite DARK_MADAM    ; 70: DARK MADAM
-                mapsprite QUEEN         ; 71: QUEEN
-                mapsprite WIZARD        ; 72: WIZARD
-                mapsprite NECROMANCER   ; 73: NECROMANCER
-                mapsprite CHAOS_WIZARD  ; 74: CHAOS WIZARD
-                mapsprite DEMON_MASTER  ; 75: DEMON MASTER
-                mapsprite DARK_CLERIC   ; 76: DARK CLERIC
-                mapsprite DEATH_MONK    ; 77: DEATH MONK
-                mapsprite BLACK_MONK    ; 78: BLACK MONK
-                mapsprite HIGH_PRIEST   ; 79: HIGH PRIEST
-                mapsprite BISHOP        ; 80: EVIL BISHOP
-                mapsprite DARK_BISHOP   ; 81: DARK BISHOP
-                mapsprite MASTER_MONK   ; 82: MASTER MONK
-                mapsprite SHAMAN        ; 83: SHAMAN
-                mapsprite EVIL_BISHOP   ; 84: EVIL BISHOP
-                mapsprite BLUE_SHAMAN   ; 85: BLUE SHAMAN
-                mapsprite DARK_SMOKE    ; 86: DARK SMOKE
-                mapsprite KRAKEN        ; 87: KRAKEN HEAD
-                mapsprite TAROS         ; 88: TAROS
-                mapsprite KING          ; 89: KING
-                mapsprite WILLARD       ; 90: WILLARD
-                mapsprite ZALBARD       ; 91: ZALBARD
-                mapsprite CAMEELA       ; 92: CAMEELA
-                mapsprite PRISM_FLOWER  ; 93: PRISM FLOWER
-                mapsprite RED_BARON     ; 94: RED BARON
-                mapsprite GESHP         ; 95: GESHP
-                mapsprite ODD_EYE       ; 96: ODD EYE
-                mapsprite GALAM_EVIL    ; 97: GALAM
-                mapsprite ZEON          ; 98: ZEON
-                mapsprite JARO_SPECIAL  ; 99: JAR
-                mapsprite MASTER_MAGE   ; 100: MASTER MAGE
-                mapsprite NECROMANCER   ; 101: NECROMANCER
-                mapsprite BLUE_SHAMAN   ; 102: BLUE SHAMAN
-                mapsprite 103
-                mapsprite 104
-                mapsprite 105
-                mapsprite 106
-                mapsprite 107
-                mapsprite 108
-                mapsprite 109
-                mapsprite 110
-                mapsprite 111
-                mapsprite 112
-                mapsprite 113
-                mapsprite 114
-                mapsprite 115
-                mapsprite 116
-                mapsprite 117
-                mapsprite 118
-                mapsprite 119
-                mapsprite 120
-                mapsprite 121
+                mapsprite CHIMERA
+                mapsprite BELIAL
                 mapsprite 122
                 mapsprite 123
                 mapsprite 124
@@ -138,7 +85,16 @@ table_EnemyMapsprites:
                 mapsprite 130
                 mapsprite 131
                 mapsprite 132
-                mapsprite 133
+                mapsprite GALAM_ARCHER  ; 56: GALAM ARCHER
+                mapsprite HUNTER_GOBLIN ; 57: HUNTER GOBLIN
+                mapsprite DEATH_ARCHER  ; 58: DEATH ARCHER
+                mapsprite ARROW_LAUNCHER ; 60: ARROW LAUNCHER
+                mapsprite DARK_SNIPER   ; 62: DARK SNIPER
+                mapsprite BOW_MASTER    ; 63: BOW MASTER
+                mapsprite BOW_RIDER     ; 64: BOW RIDER
+                mapsprite DARK_GUNNER   ; 65: DARK GUNNER
+                mapsprite HORSEMAN      ; 66: HORSEMAN
+                mapsprite DEADEYE
                 mapsprite 134
                 mapsprite 135
                 mapsprite 136
@@ -149,8 +105,16 @@ table_EnemyMapsprites:
                 mapsprite 141
                 mapsprite 142
                 mapsprite 143
-                mapsprite 144
-                mapsprite 145
+                mapsprite GALAM_MAGE    ; 67: GALAM MAGE
+                mapsprite WITCH         ; 68: WITCH
+                mapsprite MASTER_MAGE   ; 69: MASTER MAGE
+                mapsprite DARK_MADAM    ; 70: DARK MADAM
+                mapsprite SORCEROR
+                mapsprite WIZARD        ; 72: WIZARD
+                mapsprite NECROMANCER   ; 73: NECROMANCER
+                mapsprite CHAOS_WIZARD  ; 74: CHAOS WIZARD
+                mapsprite DEMON_MASTER  ; 75: DEMON MASTER
+                mapsprite LICH
                 mapsprite 146
                 mapsprite 147
                 mapsprite 148
@@ -161,7 +125,16 @@ table_EnemyMapsprites:
                 mapsprite 153
                 mapsprite 154
                 mapsprite 155
-                mapsprite 156
+                mapsprite DARK_CLERIC   ; 76: DARK CLERIC
+                mapsprite DEATH_MONK    ; 77: DEATH MONK
+                mapsprite BLACK_MONK    ; 78: BLACK MONK
+                mapsprite HIGH_PRIEST   ; 79: HIGH PRIEST
+                mapsprite DARK_BISHOP   ; 81: DARK BISHOP
+                mapsprite MASTER_MONK   ; 82: MASTER MONK
+                mapsprite SHAMAN        ; 83: SHAMAN
+                mapsprite EVIL_BISHOP   ; 84: EVIL BISHOP
+                mapsprite BLUE_SHAMAN   ; 85: BLUE SHAMAN
+                mapsprite FALSE_SAINT
                 mapsprite 157
                 mapsprite 158
                 mapsprite 159
@@ -172,10 +145,10 @@ table_EnemyMapsprites:
                 mapsprite 164
                 mapsprite 165
                 mapsprite 166
-                mapsprite 167
-                mapsprite 168
-                mapsprite 169
-                mapsprite 170
+                mapsprite ARTILLERY
+                mapsprite TORCH_EYE
+                mapsprite METAL_CLAW
+                mapsprite JET
                 mapsprite 171
                 mapsprite 172
                 mapsprite 173
@@ -187,9 +160,9 @@ table_EnemyMapsprites:
                 mapsprite 179
                 mapsprite 180
                 mapsprite 181
-                mapsprite 182
-                mapsprite 183
-                mapsprite 184
+                mapsprite SHELLFISH
+                mapsprite MERMAID
+                mapsprite CONCH
                 mapsprite 185
                 mapsprite 186
                 mapsprite 187
@@ -242,22 +215,49 @@ table_EnemyMapsprites:
                 mapsprite 234
                 mapsprite 235
                 mapsprite 236
-                mapsprite 237
+                mapsprite JARO_SPECIAL  ; 99: JAR
+                mapsprite KRAKEN_LEG    ; 10: KRAKEN LEG
+                mapsprite KRAKEN_ARM    ; 59: KRAKEN ARM
+                mapsprite KRAKEN        ; 87: KRAKEN HEAD
+                mapsprite PAWN          ; 13: PAWN
+                mapsprite KNIGHT        ; 14: KNIGHT
+                mapsprite BISHOP        ; 80: EVIL BISHOP
+                mapsprite ROOK          ; 61: ROOK
+                mapsprite QUEEN         ; 71: QUEEN
+                mapsprite KING          ; 89: KING
+                mapsprite RAT           ; 15: RAT
+                mapsprite WILLARD       ; 90: WILLARD
+                mapsprite TAROS         ; 88: TAROS
+                mapsprite PRISM_FLOWER  ; 93: PRISM FLOWER
+                mapsprite BURST_ROCK    ; 32: BURST ROCK
+                mapsprite ZEON_GUARD    ; 38: ZEON GUARD
+                mapsprite LASER_EYE
                 mapsprite 238
                 mapsprite 239
                 mapsprite 240
-                mapsprite 241
-                mapsprite 242
-                mapsprite 243
-                mapsprite 244
-                mapsprite 245
-                mapsprite 246
-                mapsprite 247
-                mapsprite 248
+                mapsprite DARK_SMOKE    ; 86: DARK SMOKE
+                mapsprite RED_BARON     ; 94: RED BARON
+                mapsprite GALAM_EVIL    ; 97: GALAM
+                mapsprite BALBAZAK
+                mapsprite RAMLADU
+                mapsprite CHAOS
+                mapsprite COLOSSUS
+                mapsprite KANE
+                mapsprite ELIOT
+                mapsprite VARIOS
+                mapsprite DANTON
                 mapsprite 249
                 mapsprite 250
                 mapsprite 251
                 mapsprite 252
                 mapsprite 253
-                mapsprite 254
+                mapsprite ZALBARD       ; 91: ZALBARD
+                mapsprite CAMEELA       ; 92: CAMEELA
+                mapsprite GESHP         ; 95: GESHP
+                mapsprite ODD_EYE       ; 96: ODD EYE
+                mapsprite ZEON          ; 98: ZEON
+                mapsprite DARKSOL   ; 
+                mapsprite MISHEALA   ; 
+                mapsprite BARBARA   ; 
+                mapsprite FRABELL
                 mapsprite 255

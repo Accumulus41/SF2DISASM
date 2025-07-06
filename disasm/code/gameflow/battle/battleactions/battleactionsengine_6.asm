@@ -65,7 +65,7 @@ ClearAiMoveInfo:
                 
                 movem.l d0-a6,-(sp)
                 lea     ((AI_LAST_TARGET_TABLE-$1000000)).w,a0
-                lea     ((byte_FFB1DC-$1000000)).w,a1
+                lea     ((AI_MEMORY_TABLE-$1000000)).w,a1
                 clr.w   d0
                 move.w  #48,d1
 @Loop:

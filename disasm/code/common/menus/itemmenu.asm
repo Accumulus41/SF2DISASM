@@ -447,3 +447,4 @@ dmaSelectedIcon_Down:
                 jmp     (ApplyVIntVramDma).w
 
     ; End of function dmaSelectedIcon_Down
+	

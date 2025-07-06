@@ -49,6 +49,7 @@
                 include "data\stats\allies\immortalallies-standard.asm"
                 include "data\battles\global\displaytimerbattles-standard.asm"
                 include "data\battles\global\losablebattles-standard.asm"
+                include "data\stats\egressitemsandspells.asm"
                 include "data\stats\items\movesfxforequippedring-standard.asm"
                 include "data\battles\global\explorationtobattlemusics-standard.asm"
                 align

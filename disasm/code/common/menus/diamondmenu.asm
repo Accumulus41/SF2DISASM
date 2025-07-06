@@ -443,3 +443,4 @@ LoadMainMenuIcon:
                 rts
 
     ; End of function LoadMainMenuIcon
+	

@@ -376,7 +376,7 @@ loc_F0EE:
 loc_F0F4:
                 
                 addq.b  #1,d5
-                cmpi.b  #CLASS_NUMBER_TOTAL,d5
+                cmpi.b  #32,d5
                 bge.s   loc_F0FE
                 bra.s   loc_F086
 loc_F0FE:

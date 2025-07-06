@@ -11,12 +11,8 @@ table_EnemyGold:dc.w 10                 ; OOZE
                 dc.w 160                ; HOBGOBLIN
                 dc.w 180                ; ZOMBIE
                 dc.w 240                ; GOLEM
-                dc.w 200                ; KRAKEN LEG
                 dc.w 300                ; SOULSOWER
                 dc.w 330                ; ORC
-                dc.w 250                ; PAWN
-                dc.w 340                ; KNIGHT
-                dc.w 300                ; RAT
                 dc.w 330                ; BUBBLING OOZE
                 dc.w 350                ; SKELETON
                 dc.w 410                ; DARK SOLDIER
@@ -33,13 +29,28 @@ table_EnemyGold:dc.w 10                 ; OOZE
                 dc.w 570                ; HELL HOUND
                 dc.w 660                ; MINOTAUR
                 dc.w 700                ; CYCLOPS
-                dc.w 430                ; BURST ROCK
                 dc.w 750                ; HYDRA
                 dc.w 790                ; CHAOS WARRIOR
                 dc.w 930                ; REAPER
                 dc.w 1050               ; EVIL BEAST
                 dc.w 1100               ; PYROHYDRA
-                dc.w 1300               ; ZEON GUARD
+                dc.w 1190
+                dc.w 104
+                dc.w 105
+                dc.w 106
+                dc.w 107
+                dc.w 108
+                dc.w 109
+                dc.w 110
+                dc.w 111
+                dc.w 112
+                dc.w 113
+                dc.w 114
+                dc.w 115
+                dc.w 116
+                dc.w 117
+                dc.w 118
+                dc.w 119
                 dc.w 60                 ; GIZMO
                 dc.w 30                 ; HUGE BAT
                 dc.w 120                ; VAMPIRE BAT
@@ -57,71 +68,7 @@ table_EnemyGold:dc.w 10                 ; OOZE
                 dc.w 980                ; CHAOS DRAGON
                 dc.w 1120               ; DEVIL GRIFFIN
                 dc.w 1150               ; ARCH DEMON
-                dc.w 60                 ; GALAM ARCHER
-                dc.w 90                 ; HUNTER GOBLIN
-                dc.w 190                ; DEATH ARCHER
-                dc.w 240                ; KRAKEN ARM
-                dc.w 290                ; ARROW LAUNCHER
-                dc.w 320                ; ROOK
-                dc.w 380                ; DARK SNIPER
-                dc.w 550                ; BOW MASTER
-                dc.w 610                ; BOW RIDER
-                dc.w 680                ; DARK GUNNER
-                dc.w 880                ; HORSEMAN
-                dc.w 90                 ; GALAM MAGE
-                dc.w 110                ; WITCH
-                dc.w 220                ; MASTER MAGE
-                dc.w 310                ; DARK MADAM
-                dc.w 390                ; QUEEN
-                dc.w 430                ; WIZARD
-                dc.w 520                ; NECROMANCER
-                dc.w 580                ; CHAOS WIZARD
-                dc.w 840                ; DEMON MASTER
-                dc.w 100                ; DARK CLERIC
-                dc.w 150                ; DEATH MONK
-                dc.w 210                ; BLACK MONK
-                dc.w 280                ; HIGH PRIEST
-                dc.w 300                ; EVIL BISHOP
-                dc.w 320                ; DARK BISHOP
-                dc.w 460                ; MASTER MONK
-                dc.w 540                ; SHAMAN
-                dc.w 640                ; EVIL BISHOP
-                dc.w 860                ; BLUE SHAMAN
-                dc.w 130                ; DARK SMOKE
-                dc.w 320                ; KRAKEN HEAD
-                dc.w 450                ; TAROS
-                dc.w 500                ; KING
-                dc.w 550                ; WILLARD
-                dc.w 700                ; ZALBARD
-                dc.w 900                ; CAMEELA
-                dc.w 800                ; PRISM FLOWER
-                dc.w 1200               ; RED BARON
-                dc.w 1600               ; GESHP
-                dc.w 2000               ; ODD EYE
-                dc.w 3500               ; GALAM
-                dc.w 0                  ; ZEON
-                dc.w 500                ; JAR
-                dc.w 220                ; MASTER MAGE
-                dc.w 520                ; NECROMANCER
-                dc.w 860                ; BLUE SHAMAN
-                dc.w 103
-                dc.w 104
-                dc.w 105
-                dc.w 106
-                dc.w 107
-                dc.w 108
-                dc.w 109
-                dc.w 110
-                dc.w 111
-                dc.w 112
-                dc.w 113
-                dc.w 114
-                dc.w 115
-                dc.w 116
-                dc.w 117
-                dc.w 118
-                dc.w 119
-                dc.w 120
+                dc.w 1200
                 dc.w 121
                 dc.w 122
                 dc.w 123
@@ -134,7 +81,16 @@ table_EnemyGold:dc.w 10                 ; OOZE
                 dc.w 130
                 dc.w 131
                 dc.w 132
-                dc.w 133
+                dc.w 60                 ; GALAM ARCHER
+                dc.w 90                 ; HUNTER GOBLIN
+                dc.w 190                ; DEATH ARCHER
+                dc.w 290                ; ARROW LAUNCHER
+                dc.w 380                ; DARK SNIPER
+                dc.w 550                ; BOW MASTER
+                dc.w 610                ; BOW RIDER
+                dc.w 680                ; DARK GUNNER
+                dc.w 880                ; HORSEMAN
+                dc.w 920
                 dc.w 134
                 dc.w 135
                 dc.w 136
@@ -145,7 +101,16 @@ table_EnemyGold:dc.w 10                 ; OOZE
                 dc.w 141
                 dc.w 142
                 dc.w 143
-                dc.w 144
+                dc.w 90                 ; GALAM MAGE
+                dc.w 110                ; WITCH
+                dc.w 220                ; MASTER MAGE
+                dc.w 310                ; DARK MADAM
+                dc.w 370                ; SORCEROR
+                dc.w 430                ; WIZARD
+                dc.w 520                ; NECROMANCER
+                dc.w 580                ; CHAOS WIZARD
+                dc.w 840                ; DEMON MASTER
+                dc.w 890
                 dc.w 145
                 dc.w 146
                 dc.w 147
@@ -156,7 +121,16 @@ table_EnemyGold:dc.w 10                 ; OOZE
                 dc.w 152
                 dc.w 153
                 dc.w 154
-                dc.w 155
+                dc.w 100                ; DARK CLERIC
+                dc.w 150                ; DEATH MONK
+                dc.w 210                ; BLACK MONK
+                dc.w 280                ; HIGH PRIEST
+                dc.w 320                ; DARK BISHOP
+                dc.w 460                ; MASTER MONK
+                dc.w 540                ; SHAMAN
+                dc.w 640                ; EVIL BISHOP
+                dc.w 860                ; BLUE SHAMAN
+                dc.w 900
                 dc.w 156
                 dc.w 157
                 dc.w 158
@@ -237,10 +211,29 @@ table_EnemyGold:dc.w 10                 ; OOZE
                 dc.w 233
                 dc.w 234
                 dc.w 235
+                dc.w 500                ; JAR
+                dc.w 200                ; KRAKEN LEG
+                dc.w 240                ; KRAKEN ARM
+                dc.w 320                ; KRAKEN HEAD
+                dc.w 250                ; PAWN
+                dc.w 340                ; KNIGHT
+                dc.w 300                ; EVIL BISHOP
+                dc.w 320                ; ROOK
+                dc.w 390                ; QUEEN
+                dc.w 500                ; KING
+                dc.w 300                ; RAT
+                dc.w 550                ; WILLARD
+                dc.w 450                ; TAROS
+                dc.w 800                ; PRISM FLOWER
+                dc.w 430                ; BURST ROCK
+                dc.w 1300               ; ZEON GUARD
                 dc.w 236
                 dc.w 237
                 dc.w 238
                 dc.w 239
+                dc.w 130                ; DARK SMOKE
+                dc.w 1200               ; RED BARON
+                dc.w 3500               ; GALAM
                 dc.w 240
                 dc.w 241
                 dc.w 242
@@ -254,6 +247,13 @@ table_EnemyGold:dc.w 10                 ; OOZE
                 dc.w 250
                 dc.w 251
                 dc.w 252
+                dc.w 700                ; ZALBARD
+                dc.w 900                ; CAMEELA
+                dc.w 1600               ; GESHP
+                dc.w 2000               ; ODD EYE
+                dc.w 0                  ; ZEON
+                dc.w 520                ; 
+                dc.w 860                ; 
                 dc.w 253
                 dc.w 254
                 dc.w 255

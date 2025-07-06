@@ -89,8 +89,8 @@ BattleSpriteset33:
                 combatantAiAndItem ATTACKER1, NOTHING
                 combatantBehavior NONE, 15, NONE, 15, 0, STARTING
                 
-                enemyCombatant NECROMANCER_0, 16, 31
-                combatantAiAndItem ATTACKER3, NOTHING
+                enemyCombatant NECROMANCER, 16, 31
+                combatantAiAndItem ATTACKER3, MAGE_STAFF
                 combatantBehavior FOLLOW_ENEMY|8, 15, NONE, 15, 0, STARTING
                 
                 enemyCombatant BOW_MASTER, 16, 32

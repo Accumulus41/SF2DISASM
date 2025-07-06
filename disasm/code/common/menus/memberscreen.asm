@@ -23,7 +23,7 @@ BuildMemberScreen:
                 link    a6,#-16
                 move.w  d0,member(a6)
                 clr.b   ((PORTRAIT_IS_MIRRORED_TOGGLE-$1000000)).w
-                clr.b   ((PORTRAIT_IS_ON_RIGHT_TOGGLE_TOGGLE-$1000000)).w
+                clr.b   ((PORTRAIT_IS_ON_RIGHT_TOGGLE-$1000000)).w
                 move.w  #WINDOW_MEMBERSTATUS_SIZE,d0
                 move.w  #WINDOW_MEMBERSTATUS_DEST,d1
                 jsr     (CreateWindow).w ; stats window, on the right

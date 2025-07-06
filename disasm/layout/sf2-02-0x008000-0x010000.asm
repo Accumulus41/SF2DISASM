@@ -20,6 +20,7 @@
                 include "code\gameflow\battle\battleactions\initbattlesceneproperties.asm"    ; Init Battlescene Properties function
                 include "code\gameflow\battle\battleactions\createbattlescenemessage-standard.asm"
                 include "code\gameflow\battle\battleactions\createbattlesceneanimation-standard.asm"
+                include "data\stats\enemies\invulnerableenemybattles-standard.asm"
                 include "data\stats\spells\spellcastmessages-standard.asm"
                 include "data\graphics\battles\specialbattleanimations-standard.asm"
                 align

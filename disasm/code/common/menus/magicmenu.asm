@@ -438,7 +438,7 @@ loc_10E06:
                 move.w  #1,-8(a1)
 loc_10E18:
                 
-                bra.w   sub_101E6
+                bra.w   LinkHighlightSprites
 
     ; End of function sub_10DE2
 

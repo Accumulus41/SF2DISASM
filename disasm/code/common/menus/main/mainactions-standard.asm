@@ -51,7 +51,7 @@ MainMenu_Member:
                 
                 bsr.w   PopulateGenericListWithCurrentForceMembers
                 clsTxt
-@StartMember:   clr.b   ((byte_FFB13C-$1000000)).w
+@StartMember:   clr.b   ((CURRENT_ITEM_ACTION-$1000000)).w
                 jsr     InitializeMembersListScreen
                 tst.w   d0
                 bmi.s   @StartMain              ; if player pressed B on member list screen, restart main menu
@@ -62,7 +62,7 @@ MainMenu_Member:
 MainMenu_Magic:
                 
                 bsr.w   PopulateGenericListWithCurrentForceMembers
-@StartMagic:    clr.b   ((byte_FFB13C-$1000000)).w
+@StartMagic:    clr.b   ((CURRENT_ITEM_ACTION-$1000000)).w
                 jsr     BuildMembersListScreen_MagicPage
                 tst.w   d0
                 bmi.s   @StartMain
@@ -79,7 +79,7 @@ MainMenu_Magic:
                 
                 ; Is casting Detox?
                 cmpi.w  #SPELL_DETOX,spellIndex(a6)
-                beq.s   @CastDetox
+                beq.w   @CastDetox
                 
                 ; Cast a spell other than Detox
                 move.w  member(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
@@ -90,8 +90,11 @@ MainMenu_Magic:
                 clsTxt
                 
                 ; Is casting Egress?
-                cmpi.w  #SPELL_EGRESS,spellIndex(a6)
-                beq.s   @CurrentlyOnOverworldMap
+                lea     table_EgressSpells(pc), a0
+                move.w  spellIndex(a6),d1
+                clr.w   d2
+                jsr     (FindSpecialPropertyBytesAddressForObject).w
+                bcc.s   @CurrentlyOnOverworldMap ; if so, check if currently on an overworld map
 @NothingHappened:
                 
                 ; Nothing happens when casting spells other than Detox and Egress,
@@ -125,7 +128,7 @@ MainMenu_Magic:
                 ; Cast Detox
 @CastDetox:     txt     108             ; "Use magic on whom?{D1}"
                 clsTxt
-                clr.b   ((byte_FFB13C-$1000000)).w
+                clr.b   ((CURRENT_ITEM_ACTION-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 move.w  d0,targetMember(a6)
@@ -204,7 +207,7 @@ rjt_MainItemSubmenuActions:
 MainItemSubmenu_Use:
                 
                 bsr.w   PopulateGenericListWithCurrentForceMembers
-@StartItemUse:  move.b  #1,((byte_FFB13C-$1000000)).w
+@StartItemUse:  move.b  #ITEM_ACTION_REMOVE,((CURRENT_ITEM_ACTION-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 tst.w   d0
@@ -218,19 +221,26 @@ MainItemSubmenu_Use:
                 jsr     GetItemDefAddress
                 move.b  ITEMDEF_OFFSET_TYPE(a0),itemTypeBitfield(a6)
                 
-                ; Using Angel Wing on an overworld map?
-                cmpi.w  #ITEM_ANGEL_WING,d2
-                bne.s   @HandleNonAngelWingItems
+                ; In: d1.w = item index
+                ;
+                ; Using an "Egress item" (e.g., Angel Wing) on an overworld map?
+                lea     table_EgressItems(pc), a0
+                clr.w   d2
+                jsr     (FindSpecialPropertyBytesAddressForObject).w
+                bcs.s   @HandleNonEgressItems
+
                 jsr     IsOverworldMap
-                beq.s   @HandleNonAngelWingItems
-                
-                ; Use Angel Wing
+                beq.s   @HandleNonEgressItems
+
+                ; Use the Egress item
+                move.w  member(a6),d0
+                move.w  itemSlot(a6),d1
                 jsr     RemoveItemBySlot
                 move.w  d0,((DIALOGUE_NAME_INDEX_1-$1000000)).w
                 move.w  itemIndex(a6),((DIALOGUE_NAME_INDEX_2-$1000000)).w
                 txt     73                      ; "{NAME} used the{N}{ITEM}.{W2}"
                 bra.w   @Egress
-@HandleNonAngelWingItems:
+@HandleNonEgressItems:
                 
                 move.w  itemIndex(a6),d1
                 jsr     IsItemUsableOnField
@@ -254,7 +264,7 @@ MainItemSubmenu_Use:
                 bra.w   @ExitItemSubmenuAction
                 
 @PickTarget:    clsTxt
-                clr.b   ((byte_FFB13C-$1000000)).w
+                clr.b   ((CURRENT_ITEM_ACTION-$1000000)).w
                 jsr     InitializeMembersListScreen
                 tst.w   d0
                 bmi.w   @StartItemUse
@@ -262,18 +272,18 @@ MainItemSubmenu_Use:
                 ; Use item
                 move.w  itemIndex(a6),d1
                 bsr.w   UseItemOnField
+                btst    #ITEMTYPE_BIT_CONSUMABLE,itemTypeBitfield(a6)
+                beq.w   @ExitItemSubmenuAction
                 move.w  member(a6),d0
                 move.w  itemSlot(a6),d1
                 pea     @ExitItemSubmenuAction(pc)
-                btst    #ITEMTYPE_BIT_CONSUMABLE,itemTypeBitfield(a6)
-                beq.w   @ExitItemSubmenuAction
                 jmp     RemoveItemBySlot
 ; ---------------------------------------------------------------------------
 
 MainItemSubmenu_Give:
                 
                 bsr.w   PopulateGenericListWithCurrentForceMembers
-@StartItemGive: move.b  #1,((byte_FFB13C-$1000000)).w
+@StartItemGive: move.b  #ITEM_ACTION_REMOVE,((CURRENT_ITEM_ACTION-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 tst.w   d0
@@ -310,7 +320,7 @@ MainItemSubmenu_Give:
 @PickRecipient: move.w  itemIndex(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
                 txt     54                      ; "Pass the {ITEM}{N}to whom?{D1}"
                 clsTxt
-                move.b  #2,((byte_FFB13C-$1000000)).w
+                move.b  #ITEM_ACTION_RECEIVE,((CURRENT_ITEM_ACTION-$1000000)).w
                 move.w  itemIndex(a6),((SELECTED_ITEM_INDEX-$1000000)).w
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 tst.w   d0
@@ -431,7 +441,7 @@ MainItemSubmenu_Give:
 MainItemSubmenu_Equip:
                 
                 bsr.w   PopulateGenericListWithCurrentForceMembers
-                move.b  #3,((byte_FFB13C-$1000000)).w
+                move.b  #ITEM_ACTION_EQUIP,((CURRENT_ITEM_ACTION-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
                 pea     MainMenu_Item(pc)
                 jmp     BuildMembersListScreen_NewAttAndDefPage
@@ -440,7 +450,7 @@ MainItemSubmenu_Equip:
 MainItemSubmenu_Drop:
                 
                 bsr.w   PopulateGenericListWithCurrentForceMembers
-@StartItemDrop: move.b  #1,((byte_FFB13C-$1000000)).w
+@StartItemDrop: move.b  #ITEM_ACTION_REMOVE,((CURRENT_ITEM_ACTION-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 tst.w   d0

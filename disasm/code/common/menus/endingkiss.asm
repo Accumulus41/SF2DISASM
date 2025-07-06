@@ -92,3 +92,4 @@ loc_12EB4:
     ; End of function PlayEndingKissSequence
 
                 includeIfStandard "code\specialscreens\endkiss\endkissfunctions_0.asm"    ; End kiss function
+				

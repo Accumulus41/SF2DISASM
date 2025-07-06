@@ -11,6 +11,13 @@ DisplayCaravanMessageWithPortrait:
                 
                 movem.l d0-d1,-(sp)
                 move.l  d1,-(sp)
+                movem.l d2/a0,-(sp)
+                lea     table_MapsWithNoFollowers, a0
+                getSavedByte CURRENT_MAP, d1
+                moveq   #0,d2
+                jsr     (FindSpecialPropertyBytesAddressForObject).w
+                movem.l (sp)+,d2/a0
+                bcc.s   @AstralIsPresent
                 chkFlg  70              ; Astral is a follower
                 bne.s   @AstralIsPresent
                 moveq   #PORTRAIT_ROHDE,d0 ; HARDCODED portraits

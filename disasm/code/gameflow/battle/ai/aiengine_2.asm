@@ -11,7 +11,7 @@ attacker = -3
 startingY = -2
 startingX = -1
 
-sub_F522:
+DetermineStandbyAiMovement:
                 
                 movem.l d0-a6,-(sp)
                 link    a6,#-4
@@ -78,7 +78,7 @@ loc_F5DE:
                 bsr.w   InitializeMovementArrays
                 bsr.w   PopulateMovementArrays
                 bsr.w   PopulateTargetsArrayWithAllCombatants
-                lea     (byte_FFB1DC).l,a0
+                lea     (AI_MEMORY_TABLE).l,a0
                 clr.w   d0
                 move.b  attacker(a6),d0
                 andi.b  #COMBATANT_MASK_INDEX_AND_SORT_BIT,d0
@@ -111,7 +111,7 @@ loc_F62A:
                 lsr.w   #NIBBLE_SHIFT_COUNT,d1
                 move.w  d1,d6
                 clr.w   d7
-                lea     pt_F78A(pc), a1
+                lea     pt_StandbyAiMovements(pc), a1
                 nop
                 move.b  var_4(a6),d7
                 subi.b  #3,d7
@@ -167,7 +167,7 @@ loc_F6AC:
                 bclr    d6,d7
                 tst.b   d7
                 bne.s   loc_F6EA
-                lea     (byte_FFB1DC).l,a0
+                lea     (AI_MEMORY_TABLE).l,a0
                 clr.w   d0
                 move.b  attacker(a6),d0
                 andi.b  #COMBATANT_MASK_INDEX_AND_SORT_BIT,d0
@@ -215,7 +215,7 @@ loc_F726:
                 dbf     d4,loc_F716
 loc_F72E:
                 
-                lea     (byte_FFB1DC).l,a0
+                lea     (AI_MEMORY_TABLE).l,a0
                 clr.w   d0
                 move.b  attacker(a6),d0
                 andi.b  #COMBATANT_MASK_INDEX_AND_SORT_BIT,d0
@@ -245,14 +245,17 @@ loc_F782:
                 movem.l (sp)+,d0-a6
                 rts
 
-    ; End of function sub_F522
+    ; End of function DetermineStandbyAiMovement
 
-pt_F78A:        dc.l table_F792
-                dc.l table_F798
-table_F792:     dc.b 0, -1
+pt_StandbyAiMovements:
+                dc.l table_StandbyAiMovement1
+                dc.l table_StandbyAiMovement2
+table_StandbyAiMovement1:
+                dc.b 0, -1
                 dc.b -1, 1
                 dc.b 1, 1
-table_F798:     dc.b 0, -1
+table_StandbyAiMovement2:
+                dc.b 0, -1
                 dc.b -1, 0
                 dc.b 0, 1
                 dc.b 1, 0

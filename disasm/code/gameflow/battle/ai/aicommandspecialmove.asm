@@ -192,12 +192,12 @@ loc_EB7A:
                 beq.s   loc_EB9C
                 cmpi.w  #1,d2
                 bne.s   loc_EB90
-                jsr     GetMoveListForEnemyTarget
+                jsr     AdjustObstructionFlagsForAiWithSecondaryCharacteristic1
 loc_EB90:
                 
                 cmpi.w  #2,d2
                 bne.s   loc_EB9C
-                jsr     sub_1AC4F0      
+                jsr     AdjustObstructionFlagsForAiWithSecondaryCharacteristic2      
 loc_EB9C:
                 
                 unlk    a6

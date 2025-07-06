@@ -9951,7 +9951,7 @@ UpdateWeaponsprite:
 
 sub_1EF2E:
                 
-                bsr.w   sub_1EF50
+                bsr.w   LoadBattlesceneEnemyLayout
                 bra.w   loc_1EFB0
 
     ; End of function sub_1EF2E
@@ -9964,7 +9964,7 @@ sub_1EF2E:
 
 sub_1EF36:
                 
-                bsr.w   sub_1EF50
+                bsr.w   LoadBattlesceneEnemyLayout
                 lea     (PLANE_B_LAYOUT).l,a0
                 lea     ($E000).l,a1
                 move.w  #$400,d0
@@ -9977,17 +9977,17 @@ sub_1EF36:
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_1EF50:
+LoadBattlesceneEnemyLayout:
                 
-                lea     table_1F6B6(pc), a0
-                lea     (byte_FFE184).l,a1
+                lea     layout_BattlesceneEnemy(pc), a0
+                lea     (BATTLESCENE_ENEMY_LAYOUT).l,a1
                 bchg    #2,((byte_FFB56E-$1000000)).w
                 beq.s   loc_1EF68
-                move.w  #$A220,d0
+                move.w  #$220|VDPTILE_PALETTE2|VDPTILE_PRIORITY,d0
                 bra.s   loc_1EF6C
 loc_1EF68:
                 
-                move.w  #$A2E0,d0
+                move.w  #$2E0|VDPTILE_PALETTE2|VDPTILE_PRIORITY,d0
 loc_1EF6C:
                 
                 btst    #2,((byte_FFB56F-$1000000)).w
@@ -10030,7 +10030,7 @@ return_1EFAE:
                 
                 rts
 
-    ; End of function sub_1EF50
+    ; End of function LoadBattlesceneEnemyLayout
 
 
 ; START OF FUNCTION CHUNK FOR sub_1EF2E
@@ -10462,7 +10462,7 @@ sub_1F2F6:
                 bsr.w   sub_1F1F0
                 btst    #2,((byte_FFB56F-$1000000)).w
                 beq.s   loc_1F32A
-                moveq   #$60,d6 
+                moveq   #$60,d6
                 bra.s   loc_1F32C
 loc_1F32A:
                 
@@ -10860,7 +10860,8 @@ sprite_BattlesceneGround:
                 vdpSprite 268, V4|H4|0, 1936|MIRROR|PALETTE3, 296
                 vdpSprite 268, V4|H4|0, 1952|MIRROR|PALETTE3, 264
                 
-table_1F6B6:    ;vdpSprite
+layout_BattlesceneEnemy:
+                ;vdpSprite
                 dc.w 4
                 dc.b 8
                 dc.b $C

@@ -118,7 +118,7 @@ loc_4F596:
                 dbf     d7,loc_4F596
 loc_4F59C:
                 
-                move.b  #1,(byte_FFB13C).l
+                move.b  #ITEM_ACTION_REMOVE,(CURRENT_ITEM_ACTION).l
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 cmpi.w  #-1,d0
                 bne.w   loc_4F5B6

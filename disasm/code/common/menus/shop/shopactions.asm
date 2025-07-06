@@ -105,7 +105,7 @@ loc_2015E:
                 dbf     d7,loc_2015E
                 clsTxt
                 move.w  selectedItem(a6),((SELECTED_ITEM_INDEX-$1000000)).w
-                move.b  #0,((byte_FFB13C-$1000000)).w
+                move.b  #ITEM_ACTION_LINK,((CURRENT_ITEM_ACTION-$1000000)).w
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 cmpi.w  #-1,d0
                 beq.s   byte_20118      
@@ -228,7 +228,7 @@ loc_202F4:
                 move.b  (a0)+,(a1)+
                 dbf     d7,loc_202F4
                 clsTxt
-                move.b  #1,((byte_FFB13C-$1000000)).w
+                move.b  #ITEM_ACTION_REMOVE,((CURRENT_ITEM_ACTION-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 cmpi.w  #-1,d0
@@ -343,7 +343,7 @@ loc_2046C:
                 move.b  (a0)+,(a1)+
                 dbf     d7,loc_2046C
                 clsTxt
-                move.b  #1,((byte_FFB13C-$1000000)).w
+                move.b  #ITEM_ACTION_REMOVE,((CURRENT_ITEM_ACTION-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 cmpi.w  #-1,d0
@@ -489,7 +489,7 @@ loc_20652:
                 dbf     d7,loc_20652
                 clsTxt
                 move.w  selectedItem(a6),((SELECTED_ITEM_INDEX-$1000000)).w
-                move.b  #0,((byte_FFB13C-$1000000)).w
+                move.b  #ITEM_ACTION_LINK,((CURRENT_ITEM_ACTION-$1000000)).w
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 cmpi.w  #-1,d0
                 beq.s   byte_2060C      

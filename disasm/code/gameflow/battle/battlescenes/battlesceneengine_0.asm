@@ -269,9 +269,9 @@ InitializeBattlescene:
                 move.w  #22,d0
                 clr.w   d1
                 movem.w d0-d1,-(sp)
-                bsr.w   sub_193B2
+                bsr.w   LoadBattlesceneAllyAndWeaponVdpSprites
                 movem.w (sp)+,d0-d1
-                bsr.w   sub_19504
+                bsr.w   LoadBattlesceneGroundVdpSprites
 @StartFadeInAndPlayMusic:
                 
                 jsr     (WaitForVInt).w
@@ -934,10 +934,10 @@ loc_1888C:
                 bsr.w   sub_1892A
                 move.w  (sp)+,d0
                 clr.w   d1
-                bsr.w   sub_193B2
+                bsr.w   LoadBattlesceneAllyAndWeaponVdpSprites
                 move.w  (sp)+,d0
                 clr.w   d1
-                bsr.w   sub_19504
+                bsr.w   LoadBattlesceneGroundVdpSprites
                 move.w  ((BATTLESCENE_ALLY-$1000000)).w,d0
                 move.b  ((byte_FFB56F-$1000000)).w,d1
                 andi.w  #2,d1
@@ -1599,9 +1599,9 @@ loc_18E6E:
                 bsr.w   MoveEnemyBattlespriteVertically
                 move.w  (sp)+,d0
                 movem.w d0-d1,-(sp)
-                bsr.w   sub_193B2
+                bsr.w   LoadBattlesceneAllyAndWeaponVdpSprites
                 movem.w (sp)+,d0-d1
-                bsr.w   sub_19504
+                bsr.w   LoadBattlesceneGroundVdpSprites
                 jsr     (sub_1942).w    
                 jsr     (WaitForVInt).w
                 movem.w (sp)+,d0/d4-d5
@@ -2190,7 +2190,7 @@ loc_19378:
                 move.w  d1,d0
                 asr.w   #BYTE_SHIFT_COUNT,d0
                 ext.w   d1
-                bsr.s   sub_193C4
+                bsr.s   LoadBattlesceneAllyVdpSprites
                 move.w  (sp)+,d1
                 bsr.w   sub_19546
                 jmp     (sub_1942).w    
@@ -2224,7 +2224,7 @@ sub_1939E:
                 move.w  d1,d0
                 asr.w   #BYTE_SHIFT_COUNT,d0
                 ext.w   d1
-                bsr.s   sub_193C4
+                bsr.s   LoadBattlesceneAllyVdpSprites
                 move.w  (sp)+,d1
                 bsr.w   sub_1955E
                 jmp     (sub_1942).w    
@@ -2237,15 +2237,15 @@ sub_1939E:
 ; related to battlescene ally and weapon VDP sprites
 
 
-sub_193B2:
+LoadBattlesceneAllyAndWeaponVdpSprites:
                 
                 movem.w d0-d1,-(sp)
-                bsr.s   sub_193C4
+                bsr.s   LoadBattlesceneAllyVdpSprites
                 movem.w (sp)+,d0-d1
-                bsr.w   sub_19564
+                bsr.w   LoadBattlesceneWeaponVdpSprites
                 jmp     (sub_1942).w    
 
-    ; End of function sub_193B2
+    ; End of function LoadBattlesceneAllyAndWeaponVdpSprites
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -2253,7 +2253,7 @@ sub_193B2:
 ; related to battlescene ally VDP sprites
 
 
-sub_193C4:
+LoadBattlesceneAllyVdpSprites:
                 
                 cmpi.w  #-1,((BATTLESCENE_ALLY-$1000000)).w
                 beq.s   @Return
@@ -2303,7 +2303,7 @@ sub_193C4:
                 
                 rts
 
-    ; End of function sub_193C4
+    ; End of function LoadBattlesceneAllyVdpSprites
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -2451,7 +2451,7 @@ sub_194FE:
 ; related to battlescene ground VDP sprites
 
 
-sub_19504:
+LoadBattlesceneGroundVdpSprites:
                 
                 cmpi.b  #-1,((BATTLESCENE_BACKGROUND-$1000000)).w
                 beq.s   @Return
@@ -2481,7 +2481,7 @@ sub_19504:
                 
                 rts
 
-    ; End of function sub_19504
+    ; End of function LoadBattlesceneGroundVdpSprites
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -2520,7 +2520,7 @@ sub_1955E:
 ; related to battlescene weapon VDP sprites
 
 
-sub_19564:
+LoadBattlesceneWeaponVdpSprites:
                 
                 btst    #0,((byte_FFB56E-$1000000)).w
                 bne.s   loc_1957E
@@ -2574,7 +2574,7 @@ return_195E0:
                 
                 rts
 
-    ; End of function sub_19564
+    ; End of function LoadBattlesceneWeaponVdpSprites
 
 
 ; =============== S U B R O U T I N E =======================================

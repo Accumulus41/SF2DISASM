@@ -162,7 +162,7 @@ byte_21B58:
                 
                 clsTxt
                 move.w  itemIndex(a6),((SELECTED_ITEM_INDEX-$1000000)).w
-                move.b  #0,((byte_FFB13C-$1000000)).w
+                move.b  #ITEM_ACTION_LINK,((CURRENT_ITEM_ACTION-$1000000)).w
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 cmpi.w  #-1,d0
                 bne.s   @IsMemberInventoryFull
@@ -318,7 +318,7 @@ byte_21CDE:
                 @StartNewOrder:
                 txt     199             ; "What kind of material do you{N}have?{D1}"
                 clsTxt
-                move.b  #1,((byte_FFB13C-$1000000)).w
+                move.b  #ITEM_ACTION_REMOVE,((CURRENT_ITEM_ACTION-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 cmpi.w  #-1,d0
@@ -337,7 +337,7 @@ byte_21D1A:
                 ; Pick customer
                 txt     201             ; "{CLEAR}Whose weapon should I{N}make?{D1}"
                 clsTxt
-                move.b  #0,((byte_FFB13C-$1000000)).w
+                move.b  #ITEM_ACTION_LINK,((CURRENT_ITEM_ACTION-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
                 jsr     BuildMembersListScreen_NewAttAndDefPage
                 cmpi.w  #-1,d0

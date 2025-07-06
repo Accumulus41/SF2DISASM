@@ -176,5 +176,10 @@ table_RandomItemDrops:
                 dc.b ITEM_TAROS_SWORD,8
                 dc.b ITEM_IRON_BALL,8
                 dc.b ITEM_COUNTER_SWORD,8
+                dc.b ITEM_COUNTER_SWORD,8
+                dc.b ITEM_COUNTER_SWORD,8
+                dc.b ITEM_COUNTER_SWORD,8
+                dc.b ITEM_COUNTER_SWORD,8
+                dc.b ITEM_COUNTER_SWORD,8
                     
                 tableEnd.b

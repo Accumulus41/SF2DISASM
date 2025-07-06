@@ -81,7 +81,6 @@ StartAiControl:
                 
                 ; Resume normal AI scripting (end of "swarm" AI)
 @NonSwarmAi:
-                
                 lea     (BATTLE_REGION_FLAGS_TO_BE_TRIGGERED).l,a0
                 move.w  #0,(a0)
                 move.w  d7,d0
@@ -99,7 +98,7 @@ StartAiControl:
                 andi.w  #3,d1
                 btst    #0,d1
                 bne.s   @HandleSpecialAttackers
-                bsr.w   sub_F522        
+                bsr.w   DetermineStandbyAiMovement        
                 lea     (CURRENT_BATTLEACTION).l,a0
                 move.w  #BATTLEACTION_STAY,(a0)
                 bra.w   @Done
@@ -152,19 +151,19 @@ StartAiControl:
                 move.w  d7,d0
                 bsr.w   GetAiCommandset 
                 move.w  d1,d5           ; D5 = copy of AI commandset
-                lea     table_E249(pc), a0
+                lea     table_AiSecondaryCharacteristics(pc), a0
                 nop
                 move.b  (a0,d1.w),d6
                 tst.b   d6
                 beq.s   @HandleAiCommandset
                 cmpi.b  #1,d6
                 bne.s   @CheckSecondaryCharacteristic2
-                jsr     GetMoveListForEnemyTarget
+                jsr     AdjustObstructionFlagsForAiWithSecondaryCharacteristic1
 @CheckSecondaryCharacteristic2:
                 
                 cmpi.b  #2,d6
                 bne.s   @HandleAiCommandset
-                jsr     sub_1AC4F0      
+                jsr     AdjustObstructionFlagsForAiWithSecondaryCharacteristic2      
 @HandleAiCommandset:
                 
                 move.w  d5,d1

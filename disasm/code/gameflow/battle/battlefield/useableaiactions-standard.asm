@@ -34,7 +34,7 @@ GetNextUsableAttackSpell:
                 
                 ; Is caster muddled?
                 tst.w   d5
-                bne.s   @Break
+                beq.s   @Break
                 
                 ; Is spell excluded?
                 lea     table_AiExcludedAttackSpells(pc), a0
@@ -50,6 +50,7 @@ GetNextUsableAttackSpell:
                 bra.s   @Done
                 
 @Break:         move.w  d4,d1                       ; restore spell entry
+                andi.w  #SPELLENTRY_MASK_INDEX,d4
                 bsr.w   GetHighestUsableSpellLevel
                 move.w  d3,d2
 @Done:          movem.l (sp)+,d3-d5/a0

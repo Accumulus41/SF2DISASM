@@ -114,7 +114,7 @@ ExecuteAiCommand_Support:
                 bsr.w   PopulateTargetsArrayWithAllies
                 bra.s   @MakeTargetsList
 @TargetTeammates:
-                move.w  #$FFFF,d3
+                move.w  #-1,d3
                 bsr.w   UpdateBattleTerrainOccupiedByAllies
                 bsr.w   PopulateTargetsArrayWithEnemies
             else

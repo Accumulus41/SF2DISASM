@@ -1,6 +1,6 @@
 
 # No rom files or game content on the repository
-*.bin
+#*.bin
 !*-standard.bin
 
 # No symbols or listings files
@@ -302,6 +302,7 @@ disasm/data/battles/global/newbattlemapcoords.asm
 disasm/data/maps/SF2MapEditor.jar
 disasm/data/maps/entries/map*/*hptiles*.txt
 disasm/data/maps/entries/map*/*layoutflags*.txt
+disasm2
 
 # Old patch files
 disasm/code/common/menus/getallyportrait-expanded.asm

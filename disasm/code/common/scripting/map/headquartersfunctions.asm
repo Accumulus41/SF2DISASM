@@ -43,7 +43,7 @@ InitializeNazcaShipForceMembers:
                 
                 movem.l d0-a2,-(sp)
                 moveq   #1,d0
-                moveq   #TURN_ORDER_ENTRIES_MINUS_ONE_COUNTER,d7
+                moveq   #$1D,d7
                 lea     ((OTHER_ENTITIES_DATA-$1000000)).w,a0
                 lea     table_TacticalBaseBattlePartyPositions(pc), a2
 @PositionMember_Loop:
@@ -77,7 +77,7 @@ InitializeTacticalBaseForceMembers:
                 
                 movem.l d0-a2,-(sp)
                 moveq   #1,d0
-                moveq   #TURN_ORDER_ENTRIES_MINUS_ONE_COUNTER,d7
+                moveq   #$1D,d7
                 lea     ((OTHER_ENTITIES_DATA-$1000000)).w,a0
                 lea     table_TacticalBaseBattlePartyPositions(pc), a2
 @PositionMember_Loop:

@@ -30,10 +30,6 @@ table_LaserEnemyFacingForBattle_VersusPrismFlowers:
                 dc.b LASER_NONE
                 dc.b LASER_NONE
                 dc.b LASER_NONE
-                dc.b LASER_NONE
-                dc.b LASER_NONE
-                dc.b LASER_NONE
-                dc.b LASER_NONE
                 
 table_LaserEnemyFacingForBattle_VersusZeon:
                 dc.b LASER_NONE
@@ -44,6 +40,10 @@ table_LaserEnemyFacingForBattle_VersusZeon:
                 dc.b LASER_NONE
                 dc.b LASER_NONE
                 dc.b LASER_LEFT
+                dc.b LASER_NONE
+                dc.b LASER_NONE
+                dc.b LASER_NONE
+                dc.b LASER_NONE
                 dc.b LASER_NONE
                 dc.b LASER_NONE
                 dc.b LASER_NONE
@@ -66,3 +66,11 @@ table_LaserEnemyFacingForBattle_VersusAllBosses:
                 dc.b LASER_NONE
                 dc.b LASER_RIGHT
                 dc.b LASER_LEFT
+                dc.b LASER_NONE
+                dc.b LASER_NONE
+                dc.b LASER_NONE
+                dc.b LASER_NONE
+                dc.b LASER_NONE
+                dc.b LASER_NONE
+                dc.b LASER_NONE
+                dc.b LASER_NONE

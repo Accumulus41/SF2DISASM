@@ -790,7 +790,7 @@ defineShorthand: macro Prefix,Shorthand
 tableEnd: macro
             if strcmp('\0','b')
                 dc.b TERMINATOR_BYTE
-				align
+                align
             else
                 dc.w TERMINATOR_WORD
             endif

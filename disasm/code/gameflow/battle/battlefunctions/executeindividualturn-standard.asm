@@ -30,7 +30,7 @@ ExecuteIndividualTurn:
                 movem.l d1-d2/a0,-(sp)
                 
                 ; Currently in a battle with an invulnerable enemy?
-                ;lea     table_InvulnerableEnemyBattles, a0
+                lea     table_InvulnerableEnemyBattles, a0
                 getSavedByte CURRENT_BATTLE,d1
                 moveq   #2,d2
                 jsr     (FindSpecialPropertyBytesAddressForObject).w
@@ -154,15 +154,21 @@ ExecuteIndividualTurn:
                 ; Check if casting Egress
 @CastSpell:     move.w  ((BATTLEACTION_ITEM_OR_SPELL-$1000000)).w,d0
                 andi.w  #SPELLENTRY_MASK_INDEX,d0
-                cmpi.w  #SPELL_EGRESS,d0
-                bne.s   @Continue
+                lea     table_EgressSpells(pc), a0
+                move.w  d0,d1
+                clr.w   d2
+                jsr     (FindSpecialPropertyBytesAddressForObject).w
+                bcs.s   @Continue
                 bra.w   ExecuteBattleaction_Egress
                 
-                ; Check if using Angel Wing
+                ; Check if an "Egress item"
 @UseItem:       move.w  ((BATTLEACTION_ITEM_OR_SPELL-$1000000)).w,d0
                 andi.w  #ITEMENTRY_MASK_INDEX,d0
-                cmpi.w  #ITEM_ANGEL_WING,d0
-                bne.s   @Continue
+                lea     table_EgressItems(pc), a0
+                move.w  d0,d1
+                clr.w   d2
+                jsr     (FindSpecialPropertyBytesAddressForObject).w
+                bcs.s   @Continue
                 bra.w   ExecuteBattleaction_AngelWing
                 
                 ; Prepare enemy attack coming out of a trapped chest 
@@ -173,8 +179,13 @@ ExecuteIndividualTurn:
                 
 @Attack:        bsr.w   DetermineRandomAttackSpell
                 
-@Continue:      checkSavedByte #BATTLE_FAIRY_WOODS, CURRENT_BATTLE   ; HARDCODED Battle check : Fairy wood secret battle
-                bne.s   @WriteBattlesceneScript
+@Continue:      movem.l d1-d2/a0,-(sp)
+                lea     table_DisplayTimerBattles(pc), a0
+                getSavedByte CURRENT_BATTLE, d1
+                moveq   #0,d2
+                jsr     (FindSpecialPropertyBytesAddressForObject).w
+                movem.l (sp)+,d1-d2/a0
+                bcs.s   @WriteBattlesceneScript
                 jsr     CloseTimerWindow
 @WriteBattlesceneScript:
                 
@@ -226,15 +237,30 @@ ExecuteIndividualTurn:
 DetermineRandomAttackSpell:
                 
                 movem.l d1-d2/a0,-(sp)
-                moveq   #5,d2
                 move.w  combatant(a6),d0
-                tst.b   d0
+
+                ; Check equipped weapon
+                jsr     GetEquippedWeapon ; -> d1.w = item entry, d2.w = slot
+                moveq   #5,d2             ; d2.w = object property bytes number
+                tst.w   d1
+                bmi.s   @IsEnemy
+
+                lea     table_RandomAttackSpellsForWeapons(pc), a0
+                bra.s   @Continue
+
+@IsEnemy:       tst.b   d0
                 bmi.s   @Enemy
+
+                ; Check ally class
                 lea     table_RandomAttackSpellsForClasses(pc), a0
                 jsr     GetClass
                 bra.s   @Continue
+
+                ; Check enemy
 @Enemy:         lea     table_RandomAttackSpellsForEnemies(pc), a0
                 jsr     GetEnemy
+
+                ; Find object
 @Continue:      jsr     (FindSpecialPropertyBytesAddressForObject).w
                 bcs.s   @Done
                 

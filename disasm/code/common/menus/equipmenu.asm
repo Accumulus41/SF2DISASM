@@ -125,3 +125,4 @@ WriteBattleEquipWindowLayout:
                 rts
 
     ; End of function WriteBattleEquipWindowLayout
+	
