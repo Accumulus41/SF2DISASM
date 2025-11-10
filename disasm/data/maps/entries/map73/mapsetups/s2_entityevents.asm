@@ -1,15 +1,15 @@
 
 ; ASM FILE data\maps\entries\map73\mapsetups\s2_entityevents.asm :
-; 0x50332..0x50338 : 
+; 0x5C7B6..0x5C820 : 
 ms_map73_EntityEvents:
-                msDefaultEntityEvent Map73_DefaultEntityEvent-ms_map73_EntityEvents
+                msDefaultEntityEvent map73_DefaultEntityEvent-ms_map73_EntityEvents
 
 ; =============== S U B R O U T I N E =======================================
 
 
-Map73_DefaultEntityEvent:
+map73_DefaultEntityEvent:
                 
                 rts
 
-    ; End of function Map73_DefaultEntityEvent
+    ; End of function map73_EntityEvent1
 

@@ -1,5 +1,5 @@
 
-; ASM FILE data\maps\entries\map62\mapsetups\s3_zoneevents.asm :
+; ASM FILE data\maps\entries\map79\mapsetups\s3_zoneevents.asm :
 ; 0x5C820..0x5C86A : 
 ms_map79_ZoneEvents:
                 msDefaultZoneEvent Map79_DefaultZoneEvent-ms_map79_ZoneEvents

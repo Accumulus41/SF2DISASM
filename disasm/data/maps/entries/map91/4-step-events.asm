@@ -1,4 +1,4 @@
 
-; ASM FILE data\maps\entries\map62\4-step-events.asm :
-; 0xBADFC..0xBADFE : 
+; ASM FILE data\maps\entries\map77\4-step-events.asm :
+; 0xC5D74..0xC5D76 : 
                 endWord

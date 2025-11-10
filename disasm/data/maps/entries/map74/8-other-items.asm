@@ -1,5 +1,4 @@
 
-; ASM FILE data\maps\entries\map74\8-other-items.asm :
-; 0xC36C6..0xC36CC : 
-                mapItem 25, 27, PANGOATVALLEYMOUNTAIN, MITHRIL
+; ASM FILE data\maps\entries\map62\8-other-items.asm :
+; 0xBAE10..0xBAE12 : 
                 endWord

@@ -67,22 +67,6 @@ pt_MapData:     dc.l Map00
                 dc.l Map63
                 dc.l Map64
                 dc.l Map65
-				dc.l Map79
-				dc.l Map80
-				dc.l Map81
-				dc.l Map82
-				dc.l Map83
-				dc.l Map84
-				dc.l Map85
-				dc.l Map86
-				dc.l Map87
-				dc.l Map88
-				dc.l Map89
-				dc.l Map90
-				dc.l Map91
-				dc.l Map92
-				
-				; Overworld
                 dc.l Map66
                 dc.l Map67
                 dc.l Map68
@@ -96,10 +80,26 @@ pt_MapData:     dc.l Map00
                 dc.l Map76
                 dc.l Map77
                 dc.l Map78
-				dc.l Map93
-				dc.l Map94
-				dc.l Map95
-				
+                dc.l Map79
+                
+                ; Overworld
+                dc.l Map80
+                dc.l Map81
+                dc.l Map82
+                dc.l Map83
+                dc.l Map84
+                dc.l Map85
+                dc.l Map86
+                dc.l Map87
+                dc.l Map88
+                dc.l Map89
+                dc.l Map90
+                dc.l Map91
+                dc.l Map92
+                dc.l Map93
+                dc.l Map94
+                dc.l Map95
+                
 Map00:          include "data\maps\entries\map00\00-tilesets.asm"    ; 
                 dc.l Map00s0_Blocks
                 dc.l Map00s1_Layout
@@ -704,7 +704,7 @@ Map27:          include "data\maps\entries\map27\00-tilesets.asm"    ;
                 dc.l Map27s6_WarpEvents
                 dc.l Map27s7_ChestItems
                 dc.l Map27s8_OtherItems
-                dc.l Map08s9_Animations
+                dc.l Map27s9_Animations
 Map27s2_Areas:  include "data\maps\entries\map27\2-areas.asm"    ; 
 Map27s3_FlagEvents:include "data\maps\entries\map27\3-flag-events.asm"    ; 
 Map27s4_StepEvents:include "data\maps\entries\map27\4-step-events.asm"    ; 
@@ -1122,7 +1122,7 @@ Map46:          include "data\maps\entries\map46\00-tilesets.asm"    ;
                 dc.l Map46s6_WarpEvents
                 dc.l Map46s7_ChestItems
                 dc.l Map46s8_OtherItems 
-                dc.l Map08s9_Animations
+                dc.l Map46s9_Animations
 Map46s2_Areas:  include "data\maps\entries\map46\2-areas.asm"    ; 
 Map46s3_FlagEvents:include "data\maps\entries\map46\3-flag-events.asm"    ; 
 Map46s4_StepEvents:include "data\maps\entries\map46\4-step-events.asm"    ; 

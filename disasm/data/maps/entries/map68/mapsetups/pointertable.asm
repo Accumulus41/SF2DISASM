@@ -1,6 +1,6 @@
 
 ; ASM FILE data\maps\entries\map68\mapsetups\pointertable.asm :
-; 0x4FD4C..0x4FD64 : 
+; 0x5C76A..0x5C782 : 
 ms_map68:       dc.l ms_map68_Entities
                 dc.l ms_map68_EntityEvents
                 dc.l ms_map68_ZoneEvents

@@ -1,4 +1,7 @@
 
-; ASM FILE data\maps\entries\map00\9-animations.asm :
-; 0x95E86..0x95E9C : 
+; ASM FILE data\maps\entries\map66\9-animations.asm :
+; 0xBD1F0..0xBD206 : 
+                mapAnimation 111, 96
+                  mapAnimEntry 0, 48, $350, 20
+                  mapAnimEntry 48, 48, $350, 20
                 endWord

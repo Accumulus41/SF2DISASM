@@ -1,7 +1,14 @@
 
 ; ASM FILE data\maps\mapsetups.asm :
 ; 0x4F6E2..0x4FA70 : Map setups table
-MapSetups:      msMap 3, ms_map3
+MapSetups:      msMap 0, ms_map0
+                msMapEnd
+                msMap 1, ms_map1
+                msMapEnd
+                msMap 2, ms_map2
+                msFlag FLAG_BATTLE30_COMPLETE, ms_map2_flag530 ; Battle 30 completed
+                msMapEnd
+                msMap 3, ms_map3
                 msFlag FLAG_CASTLEGRANS4, ms_map3_flag609 ; set after the scene where Astral exorcises the Gizmo
                 msFlag FLAG_BATTLE06_COMPLETE, ms_map3_flag506 ; Battle 6 completed
                 msFlag FLAG_BATTLE43_COMPLETE, ms_map3_flag543 ; Battle 43 completed
@@ -103,6 +110,8 @@ MapSetups:      msMap 3, ms_map3
                 msMap 31, ms_map31
                 msFlag FLAG_MOUNUNDERGROUND1, ms_map31_flag830 ; set after the Gyan join scene in the Moun underground
                 msMapEnd
+                msMap 32, ms_map32
+                msMapEnd
                 msMap 33, ms_map33
                 msFlag FLAG_BATTLE23_COMPLETE, ms_map33_flag523 ; Battle 23 completed
                 msFlag FLAG_CREEDSMANSION3, ms_map33    ; set after the scene where Creed restores the Force and heads down the basement
@@ -112,6 +121,8 @@ MapSetups:      msMap 3, ms_map3
                 msMapEnd
                 msMap 34, ms_map34
                 msFlag FLAG_EVILSPIRIT1, ms_map34_flag784 ; set after the event in the basement of Creed's Mansion
+                msMapEnd
+                msMap 35, ms_map35
                 msMapEnd
                 msMap 36, ms_map36
                 msFlag FLAG_BATTLE30_COMPLETE, ms_map36_flag530 ; Battle 30 completed
@@ -144,18 +155,36 @@ MapSetups:      msMap 3, ms_map3
                 msMapEnd
                 msMap 46, ms_map46
                 msMapEnd
+                msMap 47, ms_map47
+                msMapEnd
+                msMap 48, ms_map48
+                msMapEnd
+                msMap 49, ms_map49
+                msMapEnd
+                msMap 50, ms_map50
+                msMapEnd
                 msMap 51, ms_map51
                 msFlag FLAG_BATTLE20_COMPLETE, ms_map51_flag520 ; Battle 20 completed
                 msMapEnd
                 msMap 52, ms_map52
                 msFlag FLAG_BATTLE12_COMPLETE, ms_map52_flag512 ; Battle 12 completed
                 msMapEnd
+                msMap 53, ms_map53
+                msMapEnd
+                msMap 54, ms_map54
+                msMapEnd
                 msMap 55, ms_map55
                 msMapEnd
                 msMap 56, ms_map56
                 msMapEnd
+                msMap 57, ms_map57
+                msMapEnd
+                msMap 58, ms_map58
+                msMapEnd
                 msMap 59, ms_map59
                 msFlag FLAG_BATTLE43_COMPLETE, ms_map59_flag543 ; Battle 43 completed
+                msMapEnd
+                msMap 60, ms_map60
                 msMapEnd
                 msMap 61, ms_map61
                 msFlag FLAG_RUINS2, ms_map61_flag729 ; ???
@@ -166,33 +195,36 @@ MapSetups:      msMap 3, ms_map3
                 msMap 63, ms_map63
                 msFlag ALLY_CLAUDE, ms_map63_flag29 ; Claude joined
                 msMapEnd
-                msMap 0, ms_map0
+                msMap 64, ms_map64
                 msMapEnd
-                msMap 1, ms_map1
+                msMap 65, ms_map65
                 msMapEnd
-                msMap 2, ms_map2
-                msFlag FLAG_BATTLE30_COMPLETE, ms_map2_flag530 ; Battle 30 completed
+                msMap 66, ms_map66
                 msMapEnd
-                msMap 80, ms_map66
+                msMap 67, ms_map67
                 msMapEnd
-                msMap 81, ms_map67
+                msMap 68, ms_map68
                 msMapEnd
-                msMap 82, ms_map68
+                msMap 69, ms_map69
                 msMapEnd
-                msMap 83, ms_map69
+                msMap 70, ms_map70
                 msMapEnd
-                msMap 84, ms_map70
+                msMap 71, ms_map71
                 msMapEnd
-                msMap 86, ms_map72
+                msMap 72, ms_map72
                 msMapEnd
-                msMap 87, ms_map73
+                msMap 73, ms_map73
                 msMapEnd
-                msMap 88, ms_map74
+                msMap 74, ms_map74
                 msMapEnd
-                msMap 89, ms_map75
+                msMap 75, ms_map75
                 msMapEnd
-                msMap 90, ms_map76
+                msMap 76, ms_map76
                 msMapEnd
-                msMap 91, ms_map77
+                msMap 77, ms_map77
+                msMapEnd
+                msMap 78, ms_map78
+                msMapEnd
+                msMap 79, ms_map79
                 msMapEnd
                 msEnd

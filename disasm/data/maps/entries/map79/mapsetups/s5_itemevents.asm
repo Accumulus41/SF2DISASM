@@ -1,5 +1,5 @@
 
-; ASM FILE data\maps\entries\map62\mapsetups\s5_itemevents.asm :
+; ASM FILE data\maps\entries\map79\mapsetups\s5_itemevents.asm :
 ; 0x5C86C..0x5C874 : 
 ms_map79_Section5:
                 msDefaultItemEvent Map79_DefaultItemEvent0-ms_map79_Section5

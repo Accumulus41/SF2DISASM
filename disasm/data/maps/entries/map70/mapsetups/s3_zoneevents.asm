@@ -1,38 +1,8 @@
 
 ; ASM FILE data\maps\entries\map70\mapsetups\s3_zoneevents.asm :
-; 0x4FDFE..0x4FE32 : 
+; 0x5C820..0x5C86A : 
 ms_map70_ZoneEvents:
-                msZoneEvent 16, 255, Map70_ZoneEvent0-ms_map70_ZoneEvents
-                msZoneEvent 17, 255, Map70_ZoneEvent0-ms_map70_ZoneEvents
-                msZoneEvent 18, 255, Map70_ZoneEvent0-ms_map70_ZoneEvents
-                msZoneEvent 19, 255, Map70_ZoneEvent0-ms_map70_ZoneEvents
-                msZoneEvent 1, 255, Map70_ZoneEvent1-ms_map70_ZoneEvents
-                msZoneEvent 2, 255, Map70_ZoneEvent1-ms_map70_ZoneEvents
-                msZoneEvent 3, 255, Map70_ZoneEvent1-ms_map70_ZoneEvents
                 msDefaultZoneEvent Map70_DefaultZoneEvent-ms_map70_ZoneEvents
-
-; =============== S U B R O U T I N E =======================================
-
-
-Map70_ZoneEvent0:
-                
-                move.w  #BATTLE_SOUTHEAST_DESERT,d0
-                jsr     CheckRandomBattle
-                rts
-
-    ; End of function Map70_ZoneEvent0
-
-
-; =============== S U B R O U T I N E =======================================
-
-Map70_ZoneEvent1:
-                
-                move.w  #BATTLE_TO_THE_EAST,d0
-                jsr     CheckRandomBattle
-                rts
-
-    ; End of function Map70_ZoneEvent0
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -41,5 +11,5 @@ Map70_DefaultZoneEvent:
                 
                 rts
 
-    ; End of function Map70_DefaultZoneEvent
+    ; End of function Map70_ZoneEvent2
 

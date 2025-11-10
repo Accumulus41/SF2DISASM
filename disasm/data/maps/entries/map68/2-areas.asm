@@ -1,15 +1,4 @@
 
-; ASM FILE data\maps\entries\map68\2-areas.asm :
-; 0xBDA38..0xBDA58 : 
-                
-                    mainLayerStart      0, 0
-                    mainLayerEnd        63, 63
-                    scndLayerFgndStart  0, 0
-                    scndLayerBgndStart  0, 0
-                    mainLayerParallax   16, 16
-                    scndLayerParallax   16, 16
-                    mainLayerAutoscroll 0, 0
-                    scndLayerAutoscroll 0, 0
-                    mainLayerType    254
-                    areaDefaultMusic 1
+; ASM FILE data\maps\entries\map62\2-areas.asm :
+; 0xBADDA..0xBADFA : 
                 endWord

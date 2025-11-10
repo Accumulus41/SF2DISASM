@@ -1,15 +1,15 @@
 
-; ASM FILE data\maps\entries\map79\mapsetups\s2_entityevents.asm :
-; 0x5C7B6..0x5C820 : 
-ms_map79_EntityEvents:
-                msDefaultEntityEvent map79_DefaultEntityEvent-ms_map79_EntityEvents
+; ASM FILE data\maps\entries\map81\mapsetups\s2_entityevents.asm :
+; 0x4FB06..0x4FB0C : 
+ms_map81_EntityEvents:
+                msDefaultEntityEvent Map81_DefaultEntityEvent-ms_map81_EntityEvents
 
 ; =============== S U B R O U T I N E =======================================
 
 
-map79_DefaultEntityEvent:
+Map81_DefaultEntityEvent:
                 
                 rts
 
-    ; End of function map79_EntityEvent1
+    ; End of function Map81_DefaultEntityEvent
 

@@ -1,4 +1,4 @@
 
-; ASM FILE data\maps\entries\map71\5-roof-events.asm :
-; 0xC0692..0xC0694 : 
+; ASM FILE data\maps\entries\map62\5-roof-events.asm :
+; 0xBADFE..0xBAE00 : 
                 endWord

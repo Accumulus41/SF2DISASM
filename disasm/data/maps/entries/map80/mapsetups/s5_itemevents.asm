@@ -1,15 +1,15 @@
 
-; ASM FILE data\maps\entries\map62\mapsetups\s5_itemevents.asm :
-; 0x5C86C..0x5C874 : 
-ms_map79_Section5:
-                msDefaultItemEvent Map79_DefaultItemEvent0-ms_map79_Section5
+; ASM FILE data\maps\entries\map80\mapsetups\s5_itemevents.asm :
+; 0x4FAE2..0x4FAEA : 
+ms_map80_Section5:
+                msDefaultItemEvent map80_DefaultItemEvent0-ms_map80_Section5
 
 ; =============== S U B R O U T I N E =======================================
 
 
-Map79_DefaultItemEvent0:
+map80_DefaultItemEvent0:
                 
                 rts
 
-    ; End of function Map62_DefaultItemEvent0
+    ; End of function map80_DefaultItemEvent0
 

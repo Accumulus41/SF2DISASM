@@ -32,25 +32,25 @@ pt_AllyStats:   dc.l AllyStats00        ; BOWIE
                 dc.l AllyStats28        ; LEMON
                 dc.l AllyStats29        ; CLAUDE
                 dc.l AllyStats30        ; JOGURT
-                include "data\stats\allies\stats\newallystats00.asm"    ; Ally stats 00
-                include "data\stats\allies\stats\newallystats01.asm"    ; Ally stats 01
-                include "data\stats\allies\stats\newallystats02.asm"    ; Ally stats 02
-                include "data\stats\allies\stats\newallystats03.asm"    ; Ally stats 03
-                include "data\stats\allies\stats\newallystats04.asm"    ; Ally stats 04
-                include "data\stats\allies\stats\newallystats05.asm"    ; Ally stats 05
-                include "data\stats\allies\stats\newallystats06.asm"    ; Ally stats 06
-                include "data\stats\allies\stats\newallystats07.asm"    ; Ally stats 07
-                include "data\stats\allies\stats\newallystats08.asm"    ; Ally stats 08
-                include "data\stats\allies\stats\newallystats09.asm"    ; Ally stats 09
-                include "data\stats\allies\stats\newallystats10.asm"    ; Ally stats 10
+                include "data\stats\allies\stats\allystats00.asm"    ; Ally stats 00
+                include "data\stats\allies\stats\allystats01.asm"    ; Ally stats 01
+                include "data\stats\allies\stats\allystats02.asm"    ; Ally stats 02
+                include "data\stats\allies\stats\allystats03.asm"    ; Ally stats 03
+                include "data\stats\allies\stats\allystats04.asm"    ; Ally stats 04
+                include "data\stats\allies\stats\allystats05.asm"    ; Ally stats 05
+                include "data\stats\allies\stats\allystats06.asm"    ; Ally stats 06
+                include "data\stats\allies\stats\allystats07.asm"    ; Ally stats 07
+                include "data\stats\allies\stats\allystats08.asm"    ; Ally stats 08
+                include "data\stats\allies\stats\allystats09.asm"    ; Ally stats 09
+                include "data\stats\allies\stats\allystats10.asm"    ; Ally stats 10
                 include "data\stats\allies\stats\allystats11.asm"    ; Ally stats 11
-                include "data\stats\allies\stats\newallystats12.asm"    ; Ally stats 12
-                include "data\stats\allies\stats\newallystats13.asm"    ; Ally stats 13
-                include "data\stats\allies\stats\newallystats14.asm"    ; Ally stats 14
-                include "data\stats\allies\stats\newallystats15.asm"    ; Ally stats 15
-                include "data\stats\allies\stats\newallystats16.asm"    ; Ally stats 16
-                include "data\stats\allies\stats\newallystats17.asm"    ; Ally stats 17
-                include "data\stats\allies\stats\newallystats18.asm"    ; Ally stats 18
+                include "data\stats\allies\stats\allystats12.asm"    ; Ally stats 12
+                include "data\stats\allies\stats\allystats13.asm"    ; Ally stats 13
+                include "data\stats\allies\stats\allystats14.asm"    ; Ally stats 14
+                include "data\stats\allies\stats\allystats15.asm"    ; Ally stats 15
+                include "data\stats\allies\stats\allystats16.asm"    ; Ally stats 16
+                include "data\stats\allies\stats\allystats17.asm"    ; Ally stats 17
+                include "data\stats\allies\stats\allystats18.asm"    ; Ally stats 18
                 include "data\stats\allies\stats\allystats19.asm"    ; Ally stats 19
                 include "data\stats\allies\stats\allystats20.asm"    ; Ally stats 20
                 include "data\stats\allies\stats\allystats21.asm"    ; Ally stats 21

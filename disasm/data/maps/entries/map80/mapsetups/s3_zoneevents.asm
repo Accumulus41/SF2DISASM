@@ -1,15 +1,58 @@
 
-; ASM FILE data\maps\entries\map62\mapsetups\s3_zoneevents.asm :
-; 0x5C820..0x5C86A : 
-ms_map79_ZoneEvents:
-                msDefaultZoneEvent Map79_DefaultZoneEvent-ms_map79_ZoneEvents
+; ASM FILE data\maps\entries\map80\mapsetups\s3_zoneevents.asm :
+; 0x4FA90..0x4FAE0 : 
+ms_map80_ZoneEvents:
+                msZoneEvent 255, 9, Map80_ZoneEvent0-ms_map80_ZoneEvents
+                msZoneEvent 255, 10, Map80_ZoneEvent0-ms_map80_ZoneEvents
+                msZoneEvent 255, 28, Map80_ZoneEvent2-ms_map80_ZoneEvents
+                msDefaultZoneEvent Map80_DefaultZoneEvent-ms_map80_ZoneEvents
 
 ; =============== S U B R O U T I N E =======================================
 
 
-Map79_DefaultZoneEvent:
+Map80_ZoneEvent0:
+                
+                 
+                chkFlg  FLAG_BATTLE37_COMPLETE             ; Battle 37 completed - BATTLE_VERSUS_RED_BARON            
+                beq.s   return_4FAB8
+                chkFlg  FLAG_BATTLE38_COMPLETE             ; Battle 38 completed - BATTLE_VERSUS_GESHP                
+                bne.s   return_4FAB8
+                setFlg  FLAG_BATTLE38_AVAILABLE             ; Battle 38 unlocked - BATTLE_VERSUS_GESHP              
+                move.l  #MAP_EVENT_RELOADMAP,((MAP_EVENT_TYPE-$1000000)).w
+return_4FAB8:
                 
                 rts
 
-    ; End of function Map79_ZoneEvent2
+    ; End of function Map80_ZoneEvent0
+
+
+; =============== S U B R O U T I N E =======================================
+
+
+Map80_ZoneEvent2:
+                
+                 
+                chkFlg  FLAG_BATTLE38_COMPLETE             ; Battle 38 completed - BATTLE_VERSUS_GESHP                
+                beq.s   return_4FAD2
+                chkFlg  FLAG_BATTLE39_COMPLETE             ; Battle 39 completed - BATTLE_TO_ANCIENT_SHRINE           
+                bne.s   return_4FAD2
+                setFlg  FLAG_BATTLE39_AVAILABLE             ; Battle 39 unlocked - BATTLE_TO_ANCIENT_SHRINE         
+                move.l  #MAP_EVENT_RELOADMAP,((MAP_EVENT_TYPE-$1000000)).w
+return_4FAD2:
+                
+                rts
+
+    ; End of function Map80_ZoneEvent2
+
+
+; =============== S U B R O U T I N E =======================================
+
+
+Map80_DefaultZoneEvent:
+                
+                move.w  #BATTLE_TO_HAWEL_HOUSE,d0 ; flag $1F7 : Battle 3 completed
+                jsr     CheckRandomBattle
+                rts
+
+    ; End of function Map80_DefaultZoneEvent
 

@@ -1,6 +1,6 @@
 
 ; ASM FILE data\maps\entries\map70\mapsetups\s5_itemevents.asm :
-; 0x4FE3A..0x4FE42 : 
+; 0x5C86C..0x5C874 : 
 ms_map70_Section5:
                 msDefaultItemEvent Map70_DefaultItemEvent0-ms_map70_Section5
 
@@ -11,5 +11,5 @@ Map70_DefaultItemEvent0:
                 
                 rts
 
-    ; End of function Map70_DefaultItemEvent0
+    ; End of function Map62_DefaultItemEvent0
 

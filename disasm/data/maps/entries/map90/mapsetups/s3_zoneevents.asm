@@ -1,15 +1,20 @@
 
-; ASM FILE data\maps\entries\map62\mapsetups\s3_zoneevents.asm :
-; 0x5C820..0x5C86A : 
+; ASM FILE data\maps\entries\map90\mapsetups\s3_zoneevents.asm :
+; 0x50A24..0x50A3E : 
 ms_map90_ZoneEvents:
-                msDefaultZoneEvent map90_DefaultZoneEvent-ms_map90_ZoneEvents
+                msDefaultZoneEvent Map90_DefaultZoneEvent-ms_map90_ZoneEvents
 
 ; =============== S U B R O U T I N E =======================================
 
 
-map90_DefaultZoneEvent:
+Map90_DefaultZoneEvent:
+                
+                 
+                move.w  #BATTLE_TO_ROFT,d0
+                jsr     CheckRandomBattle
+return_50A3A:
                 
                 rts
 
-    ; End of function map90_ZoneEvent2
+    ; End of function Map90_DefaultZoneEvent
 

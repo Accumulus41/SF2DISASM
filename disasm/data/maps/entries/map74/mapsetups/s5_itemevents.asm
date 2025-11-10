@@ -1,6 +1,6 @@
 
 ; ASM FILE data\maps\entries\map74\mapsetups\s5_itemevents.asm :
-; 0x509CE..0x509D6 : 
+; 0x5C86C..0x5C874 : 
 ms_map74_Section5:
                 msDefaultItemEvent Map74_DefaultItemEvent0-ms_map74_Section5
 
@@ -11,5 +11,5 @@ Map74_DefaultItemEvent0:
                 
                 rts
 
-    ; End of function Map74_DefaultItemEvent0
+    ; End of function Map62_DefaultItemEvent0
 

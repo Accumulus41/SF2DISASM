@@ -1,13 +1,13 @@
 
-; ASM FILE data\maps\entries\map62\mapsetups\s6_initfunction.asm :
-; 0x5C874..0x5C876 : 
+; ASM FILE data\maps\entries\map83\mapsetups\s6_initfunction.asm :
+; 0x4FDE2..0x4FDE4 : 
 
 ; =============== S U B R O U T I N E =======================================
 
 
-ms_map79_InitFunction:
+ms_map83_InitFunction:
                 
                 rts
 
-    ; End of function ms_map62_InitFunction
+    ; End of function ms_map83_InitFunction
 

@@ -27,8 +27,8 @@ table_SpellElements:
                 spellElement ICE        ; 12: FREEZE
                 spellElement LIGHTNING  ; 13: BOLT
                 spellElement WIND       ; 14: BLAST
-                spellElement UNUSED1    ; 44: 
-                spellElement UNUSED2    ; 45: 
+                spellElement EARTH      ; 44: 
+                spellElement WATER      ; 45: 
                 spellElement NEUTRAL    ; 27: KATON
                 spellElement NEUTRAL    ; 46: 
                 spellElement NEUTRAL    ; 28: RAIJIN

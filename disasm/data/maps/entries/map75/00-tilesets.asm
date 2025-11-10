@@ -1,9 +1,9 @@
 
-; ASM FILE data\maps\entries\map75\00-tilesets.asm :
-; 0xC4880..0xC4886 : 
-                mapPalette  0
-                mapTileset1 101
-                mapTileset2 102
-                mapTileset3 109
-                mapTileset4 110
-                mapTileset5 105
+; ASM FILE data\maps\entries\map62\00-tilesets.asm :
+; 0xBADAC..0xBADB2 : 
+                mapPalette  4
+                mapTileset1 0
+                mapTileset2 255
+                mapTileset3 34
+                mapTileset4 35
+                mapTileset5 36

@@ -1,4 +1,4 @@
 
-; ASM FILE data\maps\entries\map67\7-chest-items.asm :
-; 0xBD28C..0xBD28E : 
+; ASM FILE data\maps\entries\map62\7-chest-items.asm :
+; 0xBAE0A..0xBAE10 : 
                 endWord

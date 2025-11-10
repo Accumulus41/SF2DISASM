@@ -1,13 +1,13 @@
 
-; ASM FILE data\maps\entries\map62\mapsetups\s4_descriptions.asm :
-; 0x5C86A..0x5C86C : 
+; ASM FILE data\maps\entries\map84\mapsetups\s4_descriptions.asm :
+; 0x4FE38..0x4FE3A : 
 
 ; =============== S U B R O U T I N E =======================================
 
 
-ms_map79_AreaDescriptions:
+ms_map84_AreaDescriptions:
                 
                 rts
 
-    ; End of function ms_map62_AreaDescriptions
+    ; End of function ms_map84_AreaDescriptions
 

@@ -1,5 +1,5 @@
 
-; ASM FILE data\maps\entries\map79\mapsetups\s1_entities.asm :
-; 0x5C79A..0x5C7AC : 
-ms_map79_Entities:
+; ASM FILE data\maps\entries\map88\mapsetups\s1_entities.asm :
+; 0x50982..0x50984 : 
+ms_map88_Entities:
                 msEntitiesEnd

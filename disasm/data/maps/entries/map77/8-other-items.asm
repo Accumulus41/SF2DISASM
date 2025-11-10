@@ -1,4 +1,4 @@
 
-; ASM FILE data\maps\entries\map77\8-other-items.asm :
-; 0xC5DA4..0xC5DA6 : 
+; ASM FILE data\maps\entries\map62\8-other-items.asm :
+; 0xBAE10..0xBAE12 : 
                 endWord

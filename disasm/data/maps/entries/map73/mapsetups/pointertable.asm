@@ -1,6 +1,6 @@
 
 ; ASM FILE data\maps\entries\map73\mapsetups\pointertable.asm :
-; 0x50312..0x5032A : 
+; 0x5C76A..0x5C782 : 
 ms_map73:       dc.l ms_map73_Entities
                 dc.l ms_map73_EntityEvents
                 dc.l ms_map73_ZoneEvents

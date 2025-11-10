@@ -1,5 +1,5 @@
 
 ; ASM FILE data\maps\entries\map72\mapsetups\s1_entities.asm :
-; 0x4FE5C..0x4FE5E : 
+; 0x5C79A..0x5C7AC : 
 ms_map72_Entities:
                 msEntitiesEnd

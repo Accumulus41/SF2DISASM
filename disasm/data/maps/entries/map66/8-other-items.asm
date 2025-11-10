@@ -1,5 +1,4 @@
 
-; ASM FILE data\maps\entries\map66\8-other-items.asm :
-; 0xBBDD2..0xBBDD8 : 
-                mapItem 30, 44, GRANSEALMOUNTAIN, MITHRIL
+; ASM FILE data\maps\entries\map62\8-other-items.asm :
+; 0xBAE10..0xBAE12 : 
                 endWord

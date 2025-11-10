@@ -1,6 +1,6 @@
 
 ; ASM FILE data\maps\entries\map90\mapsetups\pointertable.asm :
-; 0x5C76A..0x5C782 : 
+; 0x50A0A..0x50A22 : 
 ms_map90:       dc.l ms_map90_Entities
                 dc.l ms_map90_EntityEvents
                 dc.l ms_map90_ZoneEvents

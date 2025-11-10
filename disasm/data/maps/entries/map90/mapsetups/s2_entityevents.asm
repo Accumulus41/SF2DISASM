@@ -1,15 +1,15 @@
 
 ; ASM FILE data\maps\entries\map90\mapsetups\s2_entityevents.asm :
-; 0x5C7B6..0x5C820 : 
+; 0x50A3E..0x50A44 : 
 ms_map90_EntityEvents:
-                msDefaultEntityEvent map90_DefaultEntityEvent-ms_map90_EntityEvents
+                msDefaultEntityEvent Map90_DefaultEntityEvent-ms_map90_EntityEvents
 
 ; =============== S U B R O U T I N E =======================================
 
 
-map90_DefaultEntityEvent:
+Map90_DefaultEntityEvent:
                 
                 rts
 
-    ; End of function map90_EntityEvent1
+    ; End of function Map90_DefaultEntityEvent
 

@@ -104,7 +104,7 @@ EXPANDED_MAPSPRITES:        equ 1       ; Store mapsprite index in word-sized st
 
 
 ; ROM expansions
-ROM_EXPANSION:              equ 1       ; 0 = 2 MB ROM, 1 = 4 MB ROM (default), 2 = 6 MB ROM
+ROM_EXPANSION:              equ 2       ; 0 = 2 MB ROM, 1 = 4 MB ROM (default), 2 = 6 MB ROM
 SRAM_EXPANSION:             equ 1       ; Expand SRAM from 8KB to 32KB.
 SAVED_DATA_EXPANSION:       equ 0       ; Relocate currently loaded saved data from system RAM to cartridge SaveRAM.
 
