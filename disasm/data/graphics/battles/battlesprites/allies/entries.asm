@@ -239,7 +239,7 @@ AllyBattlesprite75:
 AllyBattlesprite76:
                 incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_SAMR.bin"
 AllyBattlesprite77:
-                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_SDMN_DEANNA.bin"
+                incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFFC_HERO_IAN.bin"
 AllyBattlesprite78:
                 incbin "data/graphics/battles/battlesprites/allies/AllyBattlespriteSFCD_SDMN_NICK.bin"
 AllyBattlesprite79:
