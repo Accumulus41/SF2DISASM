@@ -303,6 +303,7 @@ eas_5EF46:       ac_animSpeedX2 ON
                  ac_jump eas_Idle
 cs_5EF60:       textCursor 3739
                 loadMapFadeIn MAP_NAZCA_SHIP,4,6
+            if (STANDARD_BUILD=0)
                 loadEntitiesFromMapSetup 9,11,DOWN
                 executeSubroutine InitializeNazcaShipForceMembers
                 setPos ALLY_ZYNK,8,10,RIGHT
@@ -313,6 +314,10 @@ cs_5EF60:       textCursor 3739
                 setPos 128,9,12,UP
                 setPos ALLY_PETER,10,12,UP
                 setPos ALLY_ZYNK,10,11,LEFT
+            else
+                loadMapEntities ce_NazcaCrash
+                executeSubroutine sub_5F32E
+            endif
                 fadeInB
                 shiver 128
                 nextSingleText $0,128   ; "I did see something!{W1}"
@@ -525,6 +530,13 @@ ce_5F28E:       mainEntity 0,0,UP
                 entity 14,19,RIGHT,MAPSPRITE_PRISM_FLOWER,eas_Init
                 entity 15,20,RIGHT,MAPSPRITE_PRISM_FLOWER,eas_Init
                 cscEntitiesEnd
+            if (STANDARD_BUILD=1)
+ce_NazcaCrash:  mainEntity 9,11,DOWN
+                entity 10,12,UP,ALLY_PETER,eas_Init
+                entity 10,11,LEFT,ALLY_ZYNK,eas_Init
+                entity 9,12,RIGHT,MAPSPRITE_ASTRAL,eas_Init
+                cscEntitiesEnd
+            endif
 
 ; =============== S U B R O U T I N E =======================================
 
