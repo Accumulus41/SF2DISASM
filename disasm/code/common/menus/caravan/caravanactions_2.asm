@@ -1,6 +1,36 @@
 
-; ASM FILE code\common\menus\caravan\CaravanMenu_2.asm :
-; 0x228D8..0x229CA : Caravan functions
+; ASM FILE code\common\menus\caravan\caravanactions_2.asm :
+; 0x228A8..0x229CA : Caravan menu functions
+
+; =============== S U B R O U T I N E =======================================
+
+; In: d1.w = message index
+
+
+DisplayCaravanMessageWithPortrait:
+                
+                movem.l d0-d1,-(sp)
+                move.l  d1,-(sp)
+                chkFlg  70              ; Astral is a follower
+                bne.s   @AstralIsPresent
+                moveq   #CARAVAN_ROHDE_PORTRAIT,d0 ; HARDCODED portraits
+                bra.s   @DeliverLines
+@AstralIsPresent:
+                
+                moveq   #CARAVAN_ASTRAL_PORTRAIT,d0
+@DeliverLines:
+                
+                moveq   #0,d1
+                jsr     j_OpenPortraitWindow
+                move.l  (sp)+,d0
+                jsr     (DisplayText).w 
+                clsTxt
+                jsr     j_ClosePortraitWindow
+                movem.l (sp)+,d0-d1
+                rts
+
+    ; End of function DisplayCaravanMessageWithPortrait
+
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -8,35 +38,35 @@
 PopulateGenericListWithMembersList:
                 
                 movem.l d7-a1,-(sp)
-                jsr     UpdateForce
+                jsr     j_UpdateForce
                 tst.w   d1              ; all members
                 bne.s   @CheckMemberGroup
                 lea     ((TARGETS_LIST-$1000000)).w,a0
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,d7
-                bra.s   @PopulateList
+                bra.s   @Continue
 @CheckMemberGroup:
                 
                 cmpi.w  #1,d1
                 bne.s   @ReserveMembers
                 lea     ((BATTLE_PARTY_MEMBERS-$1000000)).w,a0
                 move.w  ((BATTLE_PARTY_MEMBERS_NUMBER-$1000000)).w,d7
-                bra.s   @PopulateList
+                bra.s   @Continue
 @ReserveMembers:
                 
                 lea     ((RESERVE_MEMBERS-$1000000)).w,a0
                 move.w  ((OTHER_PARTY_MEMBERS_NUMBER-$1000000)).w,d7
-@PopulateList:
+@Continue:
                 
                 lea     ((GENERIC_LIST-$1000000)).w,a1
                 move.w  d7,((GENERIC_LIST_LENGTH-$1000000)).w
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,d7
                 subq.w  #1,d7
-                bcs.w   @SkipLoop
+                bcs.w   @Skip
 @PopulateList_Loop:
                 
                 move.b  (a0)+,(a1)+
                 dbf     d7,@PopulateList_Loop
-@SkipLoop:
+@Skip:
                 
                 movem.l (sp)+,d7-a1
                 rts
@@ -48,19 +78,21 @@ PopulateGenericListWithMembersList:
 
 ; Copy caravan item indexes to generic list space
 
-
 CopyCaravanItems:
                 
                 movem.l d7-a1,-(sp)
-                clr.w   d7
-                move.b  ((CARAVAN_ITEMS_NUMBER-$1000000)).w,d7
+                move.w  ((CARAVAN_ITEMS_NUMBER-$1000000)).w,d7
                 move.w  d7,((GENERIC_LIST_LENGTH-$1000000)).w
                 subq.w  #1,d7
                 bcs.w   @Skip
+                
                 lea     ((CARAVAN_ITEMS-$1000000)).w,a0
                 lea     ((GENERIC_LIST-$1000000)).w,a1
 @Loop:
                 
+            if (STANDARD_BUILD&FIX_CARAVAN_FREE_REPAIR_EXPLOIT=1)
+                addq.w  #1,a0
+            endif
                 move.b  (a0)+,(a1)+
                 dbf     d7,@Loop
 @Skip:
@@ -80,10 +112,10 @@ CopyCaravanItems:
 IsItemInSlotEquippedAndCursed:
                 
                 movem.l d1,-(sp)
-                jsr     GetItemBySlotAndHeldItemsNumber
+                jsr     j_GetItemBySlotAndHeldItemsNumber
                 bclr    #ITEMENTRY_BIT_EQUIPPED,d1
                 beq.s   @NotEquipped
-                jsr     IsItemCursed
+                jsr     j_IsItemCursed
                 bcc.w   @NotCursed
                 sndCom  MUSIC_CURSED_ITEM
                 move.w  #60,d0
@@ -129,7 +161,7 @@ PlayPreviousMusicAfterCurrentOne:
 IsItemUnsellable:
                 
                 movem.l d1/a0,-(sp)
-                jsr     GetItemDefAddress
+                jsr     j_GetItemDefinitionAddress
                 btst    #ITEMTYPE_BIT_UNSELLABLE,ITEMDEF_OFFSET_TYPE(a0)
                 beq.s   @NotUnsellable
                 move.w  d1,((DIALOGUE_NAME_INDEX_1-$1000000)).w

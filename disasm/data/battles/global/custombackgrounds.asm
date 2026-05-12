@@ -7,7 +7,7 @@ table_CustomBackgrounds:
 ;
 ; Note: 1 byte per battle. (Custom background used for the entire battlefield, or $FF for background depending on map block.)
                 
-                background UNDERGROUND_SHRINE ; 0: Versus all bosses
+                background UNDERGROUND_SHRINE_0 ; 0: Versus all bosses
                 background TOWER_INTERIOR ; 1: Inside Ancient Tower
                 background OVERWORLD    ; 2: To Yeel
                 background OVERWORLD    ; 3: To Hawel's house
@@ -38,9 +38,9 @@ table_CustomBackgrounds:
                 background BRIDGE       ; 28: Pangoat Valley bridge
                 background MITULA_SHRINE_EXTERIOR ; 29: Outside Mitula's Shrine
                 background MITULA_SHRINE_INTERIOR ; 30: Versus Zalbard
-                background TOWN         ; 31: Pacalon
+                background TOWN_0       ; 31: Pacalon
                 background OVERWORLD    ; 32: To Moun
-                background TOWN         ; 33: Inside Moun
+                background TOWN_1       ; 33: Inside Moun
                 background NAZCA        ; 34: Versus Cameela
                 background OVERWORLD    ; 35: To Roft
                 background SWAMP        ; 36: Versus Prism Flowers
@@ -52,23 +52,4 @@ table_CustomBackgrounds:
                 background VERSUS_GALAM ; 42: Versus Galam
                 background VERSUS_GALAM ; 43: Versus Zeon
                 background FOREST       ; 44: Fairy Woods
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
-				background OVERWORLD
                 

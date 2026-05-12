@@ -16,7 +16,7 @@ ms_map29_EntityEvents:
 
 Map29_EntityEvent0:
                 
-                jmp     BlacksmithMenu
+                jmp     j_BlacksmithMenu
 
     ; End of function Map29_EntityEvent0
 
@@ -26,7 +26,7 @@ Map29_EntityEvent0:
 
 Map29_EntityEvent1:
                 
-                jmp     ChurchMenu
+                jmp     j_ChurchMenu
 
     ; End of function Map29_EntityEvent1
 
@@ -37,7 +37,7 @@ Map29_EntityEvent1:
 Map29_EntityEvent2:
                 
                 move.b  #SHOP_DWARVEN_VILLAGE,((CURRENT_SHOP_INDEX-$1000000)).w
-                jmp     ShopMenu
+                jmp     j_ShopMenu
 
     ; End of function Map29_EntityEvent2
 

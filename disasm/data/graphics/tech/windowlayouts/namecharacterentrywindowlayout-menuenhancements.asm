@@ -15,7 +15,6 @@ layout_NameEntryWindow:
                 vdpBaseTile H_BORDER
                 vdpBaseTile H_BORDER
                 vdpBaseTile H_BORDER
-                vdpBaseTile H_BORDER
                 vdpBaseTile CORNER|MIRROR
                 
 ; 2nd line
@@ -28,12 +27,10 @@ layout_NameEntryWindow:
                 vdpBaseTile UNDERSCORE
                 vdpBaseTile UNDERSCORE
                 vdpBaseTile UNDERSCORE
-                vdpBaseTile UNDERSCORE
                 vdpBaseTile V_BORDER|MIRROR
                 
 ; 3rd line
                 vdpBaseTile CORNER|FLIP
-                vdpBaseTile H_BORDER|FLIP
                 vdpBaseTile H_BORDER|FLIP
                 vdpBaseTile H_BORDER|FLIP
                 vdpBaseTile H_BORDER|FLIP

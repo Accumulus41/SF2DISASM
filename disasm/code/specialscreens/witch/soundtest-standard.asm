@@ -7,7 +7,8 @@
 
 SoundTest:      txt     464                         ; "Oh! I have a good idea.{N}Let's listen to music!{W1}"
                 sndCom  SOUND_COMMAND_FADE_OUT
-                clr.w   ((SPEECH_SFX-$1000000)).w
+                clr.w   ((CURRENT_SPEECH_SFX-$1000000)).w
+                clr.w   d0
                 clr.w   d7                          ; D7 = # bytes into sound table, so we clear it here
                 
                 lea     table_SoundtrackTitles(pc),a0
@@ -35,18 +36,25 @@ SoundTest:      txt     464                         ; "Oh! I have a good idea.{N
                 
 @A:             btst    #INPUT_BIT_A,((PLAYER_1_INPUT-$1000000)).w
                 beq.s   @C
-                bra.s   @PlayTrack
+                
+                ; Fade out if pressed A
+                sndCom  SOUND_COMMAND_FADE_OUT
+                bra.s   @Start
                 
 @C:             btst    #INPUT_BIT_C,((PLAYER_1_INPUT-$1000000)).w
                 beq.s   @B
                 
+                ; Play track if pressed C
 @PlayTrack:     sndCom  MUSIC_STOP
+                move.b  d1,d0
                 sndCom  SOUND_COMMAND_GET_D0_PARAMETER
                 
+                ; Exit sound test if pressed B
 @B:             btst    #INPUT_BIT_B,((PLAYER_1_INPUT-$1000000)).w
-                beq.s   @Start
-                sndCom  SOUND_COMMAND_FADE_OUT
+                bne.s   @Return
                 bra.s   @Start
+                
+@Return:        rts
 
     ; End of function SoundTest
 

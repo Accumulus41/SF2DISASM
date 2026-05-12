@@ -20,7 +20,7 @@ StartWitchScreen:
                 jsr     (InitializeDisplay).w
                 jsr     (DisableDisplayAndInterrupts).w
                 clr.b   ((MOUTH_CONTROL_TOGGLE-$1000000)).w
-                move.w  #SFX_DIALOG_BLEEP_4,((SPEECH_SFX-$1000000)).w ; Witch speech SFX
+                move.w  #SFX_DIALOG_BLEEP_4,((CURRENT_SPEECH_SFX-$1000000)).w ; Witch speech SFX
                 jsr     (BuildWitchScreen).w
                 move.w  #30,((BLINK_COUNTER-$1000000)).w
                 move.w  #6,((word_FFB07C-$1000000)).w
@@ -70,8 +70,12 @@ StartWitchScreen:
                 jsr     FadeOut_WaitForP1Input
 @StartWitchDialogue:
                 
+            if (SKIP_WITCH_DIALOGUE=1)
+                bra.w   @SkipWitchDialogue
+            else
                 btst    #INPUT_BIT_START,((PLAYER_1_INPUT-$1000000)).w
                 bne.w   @SkipWitchDialogue
+            endif
                 txt     216             ; "{CLEAR}Hee, hee, hee...{N}You're finally here!{W2}"
                 jsr     (WaitForVInt).w
                 jsr     (UpdateWitchHead).w
@@ -137,30 +141,7 @@ rjt_WitchMenuActions:dc.w witchMenuAction_New-rjt_WitchMenuActions
 
 witchMenuAction_New:
                 
-                jsr     InitializeGameSettings
-                txt     232             ; "I'll let you decide the{N}difficulty level at this time."
-                clr.w   d0
-                moveq   #3,d1
-                moveq   #$F,d2
-                jsr     ExecuteWitchMainMenu
-                tst.w   d0
-                bpl.s   loc_7494
-                clr.w   d0
-loc_7494:
-                
-                btst    #0,d0
-                beq.s   loc_749E
-                setFlg  FLAG_DIFFICULTY1              ; Difficulty bit 0
-loc_749E:
-                
-                btst    #1,d0
-                beq.s   loc_74A8        
-                setFlg  FLAG_DIFFICULTY2              ; Difficulty bit 1
-loc_74A8:
-                
-                addi.w  #$E9,d0 ; HARDCODED text index for difficulty choice reactions
-                jsr     DisplayText     
-                
+                 
                 txt     222             ; "What should I call you?{W2}"
                 move.b  (SAVE_FLAGS).l,d2
                 andi.w  #3,d2
@@ -177,7 +158,7 @@ loc_74A8:
 @loc_9:         moveq   #1,d1
                 jsr     ExecuteWitchMainMenu
                 tst.w   d0
-                bmi.w   @DisplayText
+                bmi.s   @DisplayText
                 
                 subq.w  #1,d0
                 setCurrentSaveSlot d0
@@ -185,27 +166,46 @@ loc_74A8:
                 clsTxt
                 clr.w   d0
                 jsr     NameAlly
+            if (UNLOCK_RENAME_CHARACTERS=1)
+                ; Skip checking game completed flag
+            else
+                btst    #7,(SAVE_FLAGS).l ; "Game completed" bit
+                beq.w   @Configuration
+            endif
                 btst    #INPUT_BIT_START,((PLAYER_1_INPUT-$1000000)).w
                 beq.w   @Configuration
                 
                 moveq   #1,d0
-                moveq   #28,d7
+                moveq   #COMBATANT_ALLIES_MINUS_PLAYER_AND_CREATURE_COUNTER,d7
                 
 @NameAlly_Loop: jsr     NameAlly
-@loc_11:        addq.w  #1,d0
+@SkipNaming:    addq.w  #1,d0
                 cmpi.w  #ALLY_KIWI,d0
-                beq.s   @loc_11
+                beq.s   @SkipNaming
                 dbf     d7,@NameAlly_Loop
-@Configuration:
-                moveq   #COMBATANT_ALLIES_COUNTER,d7
-@Loop:
                 
-                moveq   #COMBATANT_ALLIES_COUNTER,d0
-                sub.w   d7,d0
-                jsr     InitAllyPromoStats
-                dbf     d7,@Loop
+@Configuration: txt     223             ; "{NAME;0}....{N}Nice name, huh?{W2}"
+                bsr.w   CheatModeConfiguration
+                txt     232             ; "I'll let you decide the{N}difficulty level at this time."
+                clr.w   d0
+                moveq   #3,d1
+                moveq   #%1111,d2
+                jsr     ExecuteWitchMainMenu
+                tst.w   d0
+                bpl.s   @loc_13
                 
-                txt     223             ; "{NAME;0}....{N}Nice name, huh?{W2}"
+                clr.w   d0
+                
+@loc_13:        btst    #0,d0
+                beq.s   @loc_14
+                setFlg  78              ; Difficulty bit 0
+                
+@loc_14:        btst    #1,d0
+                beq.s   @loc_15
+                setFlg  79              ; Difficulty bit 1
+                
+@loc_15:        addi.w  #233,d0 ; HARDCODED text index for difficulty choice reactions
+                jsr     (DisplayText).w
                 txt     224             ; "Now, good luck!{N}You have no time to waste!{W1}"
                 getCurrentSaveSlot d0
                 setSavedByte #GAMESTART_MAP, CURRENT_MAP
@@ -220,6 +220,7 @@ loc_74A8:
                 jmp     (MainLoop).w
 
     ; End of function witchMenuAction_New
+
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -248,13 +249,17 @@ witchMenuAction_Load:
                 setCurrentSaveSlot d0
                 jsr     (LoadGame).w
                 txt     226             ; "{NAME;0}, yes!  I knew it!{W2}"
+                bsr.w   CheatModeConfiguration
                 txt     224             ; "Now, good luck!{N}You have no time to waste!{W1}"
                 clsTxt
                 clr.b   ((DEACTIVATE_WINDOW_HIDING-$1000000)).w
-                chkFlg  FLAG_SUSPENDED_BATTLE              ; checks if a game has been saved for copying purposes ? (or if saved from battle?)
+                chkFlg  88              ; checks if a game has been saved for copying purposes ? (or if saved from battle?)
                 beq.s   @loc_18
                 
                 pea     (alt_MainLoopEntry).w
+            if (FIX_AI_JARO_NOT_LEAVING_THE_FORCE=1)
+                pea     ResetAiJaro
+            endif
                 jmp     BattleLoop
                 
 @loc_18:        clr.w   d0

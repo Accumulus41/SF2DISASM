@@ -12,9 +12,9 @@ ms_map8_EntityEvents:
 Map8_EntityEvent0:
                 
                  
-                chkFlg  FLAG_TEMP00             ; TEMP FLAG #00
+                chkFlg  256             ; TEMP FLAG #00
                 bne.s   byte_560A6      
-                setFlg  FLAG_TEMP00             ; TEMP FLAG #00
+                setFlg  256             ; TEMP FLAG #00
                 txt     1321            ; "Our ancestors came from{N}Rune, a southern island,{N}long ago.{W2}"
                 txt     1322            ; "Since then, we've travelled{N}up here.{W2}"
                 txt     1323            ; "The mountains to the north{N}block our journey.{W2}"
@@ -55,7 +55,7 @@ Map8_2C4_EntityEvent2:
 
 Map8_2C4_EntityEvent3:
                 
-                jmp     ChurchMenu
+                jmp     j_ChurchMenu
 
     ; End of function Map8_2C4_EntityEvent3
 
@@ -80,7 +80,7 @@ Map8_2C4_EntityEvent4:
 Map8_2C4_EntityEvent5:
                 
                  
-                chkFlg  FLAG_RIBBLE3             ; Set after you open the tree in Ribble with the wooden plank
+                chkFlg  731             ; Set after you open the tree in Ribble with the wooden plank
                 bne.s   byte_560DC      
                 txt     1330            ; "I can't find it!{W2}"
                 txt     1331            ; "The hidden door to the{N}ancient ruins must be near{N}this tree!{W1}"
@@ -101,7 +101,7 @@ return_560E0:
 Map8_2C4_EntityEvent6:
                 
                 move.b  #SHOP_WEAPON_RIBBLE,((CURRENT_SHOP_INDEX-$1000000)).w
-                jmp     ShopMenu
+                jmp     j_ShopMenu
 
     ; End of function Map8_2C4_EntityEvent6
 
@@ -177,8 +177,9 @@ Map8_2C4_EntityEvent11:
 
 Map8_2C4_EntityEvent13:
                 
+                move.b  #SHOP_WEAPON_RIBBLE,((CURRENT_SHOP_INDEX-$1000000)).w
                 move.b  #SHOP_ITEM_RIBBLE,((CURRENT_SHOP_INDEX-$1000000)).w
-                jmp     ShopMenu
+                jmp     j_ShopMenu
 
     ; End of function Map8_2C4_EntityEvent13
 

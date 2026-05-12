@@ -21,7 +21,7 @@ Map45_DefaultZoneEvent:
 Map45_ZoneEvent0:
                 
                  
-                chkFlg  ALLY_SHEELA              ; Shiela joined
+                chkFlg  25              ; Shiela joined
                 bne.s   return_60076
                 script  cs_600CE
 return_60076:

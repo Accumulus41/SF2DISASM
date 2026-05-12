@@ -9,7 +9,7 @@ ApplyStormEffect:
                 
                 movem.l d0/a0-a1,-(sp)
                 lea     (PALETTE_1_CURRENT).l,a0
-                lea     ((PALETTE_1_BACKUP-$1000000)).w,a1
+                lea     ((PALETTE_1_COPY-$1000000)).w,a1
                 moveq   #7,d0
 loc_48FF2:
                 
@@ -26,7 +26,7 @@ loc_49006:
                 jsr     (ApplyVIntCramDma).w
                 moveq   #10,d0
                 jsr     (Sleep).w       
-                lea     ((PALETTE_1_BACKUP-$1000000)).w,a0
+                lea     ((PALETTE_1_COPY-$1000000)).w,a0
                 lea     (PALETTE_1_CURRENT).l,a1
                 moveq   #7,d0
 loc_49022:
@@ -42,15 +42,15 @@ loc_49022:
     ; End of function ApplyStormEffect
 
 palette_IntroStormEffect:
-                dc.w 0
+                dc.w $000
                 dc.w $C40
                 dc.w $E84
-                dc.w $24
-                dc.w $48
+                dc.w $024
+                dc.w $048
                 dc.w $48C
                 dc.w $688
                 dc.w $AAC
-                dc.w 0
+                dc.w $000
                 dc.w $222
                 dc.w $666
                 dc.w $AAA

@@ -8,20 +8,20 @@
 ms_map17_InitFunction:
                 
                  
-                chkFlg  FLAG_CASTLEGALAM2             ; Set after initial wake-up in prison sequence
+                chkFlg  660             ; Set after initial wake-up in prison sequence
                 bne.s   byte_52460      
                 script  cs_5249E
-                setFlg  FLAG_CASTLEGALAM2             ; Set after initial wake-up in prison sequence
+                setFlg  660             ; Set after initial wake-up in prison sequence
 byte_52460:
                 
-                chkFlg  FLAG_CASTLEGALAM5             ; Set after Galam and Lemon leave with their army
+                chkFlg  663             ; Set after Galam and Lemon leave with their army
                 beq.s   byte_52476      
                 move.w  #131,d0
                 jsr     MoveEntityOutOfMap
                 script  cs_5247C
 byte_52476:
                 
-                setFlg  FLAG_CASTLEGALAM1             ; Set after prison wake-up sequence IF 0297 is *not* also set
+                setFlg  611             ; Set after prison wake-up sequence IF 0297 is *not* also set
                 rts
 
     ; End of function ms_map17_InitFunction
@@ -31,7 +31,7 @@ cs_5247C:       setBlocks 48,7,1,1,48,8
                 setBlocks 57,7,1,1,57,8
                 setBlocks 62,20,1,2,57,20
                 csc_end
-cs_5249E:       playSound $FD
+cs_5249E:       playSound SOUND_COMMAND_FADE_OUT
                 resetForceBattleStats
                 resetMap
                 loadEntitiesFromMapSetup 0,0,RIGHT
@@ -51,7 +51,7 @@ cs_5249E:       playSound $FD
                 nextSingleText $0,ALLY_CHESTER ; "What is Ground Seal?{N}Please tell me!{W1}"
                 nextText $C0,132        ; "I heard King Galam say{N}those words.{W2}"
                 nextSingleText $C0,132  ; "I just know that something{N}is being concealed.{W1}"
-                loadMapFadeIn MAP_GALAM_CASTLE_INNER,52,1
+                loadMapFadeIn MAP_GALAM_INTERIORS,52,1
                 csWait 1
                 playSound MUSIC_CASTLE
                 fadeInB

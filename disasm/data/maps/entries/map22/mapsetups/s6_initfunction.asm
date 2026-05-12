@@ -8,18 +8,18 @@
 ms_map22_InitFunction:
                 
                  
-                chkFlg  FLAG_DESKTOP1             ; Set after the scene where Goliath places you on the Desktop
+                chkFlg  776             ; Set after the scene where Goliath places you on the Desktop
                 bne.s   byte_5963E      
                 script  cs_59656
-                setFlg  FLAG_DESKTOP1             ; Set after the scene where Goliath places you on the Desktop
+                setFlg  776             ; Set after the scene where Goliath places you on the Desktop
 byte_5963E:
                 
-                chkFlg  FLAG_BATTLE22_COMPLETE             ; Battle 22 completed - BATTLE_CHESSBOARD                  
+                chkFlg  522             ; Battle 22 completed - BATTLE_CHESSBOARD                  
                 beq.s   return_59654
-                chkFlg  FLAG_DESKTOP3             ; Set after the scene that plays after you win the chess battle
+                chkFlg  778             ; Set after the scene that plays after you win the chess battle
                 bne.s   return_59654
                 script  cs_5996E
-                setFlg  FLAG_DESKTOP3             ; Set after the scene that plays after you win the chess battle
+                setFlg  778             ; Set after the scene that plays after you win the chess battle
 return_59654:
                 
                 rts

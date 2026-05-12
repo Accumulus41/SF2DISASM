@@ -2,14 +2,14 @@
 ; ASM FILE data\maps\entries\map31\mapsetups\scripts.asm :
 ; 0x5D644..0x5D756 : 
 cs_5D644:       setPos 137,8,3,LEFT
-                animEntityFX 137,5
+                animEntityFX 137,SLIDE_IN
                 csc_end
 cs_5D652:       textCursor 2024
                 nextSingleText $0,136   ; "Oh, you're cute!{N}(Cough)...well...{W1}"
                 nextText $0,136         ; "May I paint your portrait?"
 cs_5D65E:       textCursor 2027
                 yesNo
-                jumpIfFlagClear FLAG_YESNO,cs_5D712 ; YES/NO prompt answer
+                jumpIfFlagClear 89,cs_5D712 ; YES/NO prompt answer
                 hideText
                 nextSingleText $0,136   ; "Excellent!{W1}"
                 nextSingleText $0,136   ; "Then, would you stand over{N}there, in front of the{N}flowers?{W1}"
@@ -75,7 +75,7 @@ sub_5D73E:
                 move.w  #PORTRAIT_BOWIE_PAINTING,d0 ; Bowie painting portrait index
                 moveq   #-1,d1
                 clr.w   d2
-                jsr     OpenPortraitWindow
+                jsr     j_OpenPortraitWindow
                 movem.l (sp)+,d0-d2/a0
                 rts
 

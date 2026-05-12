@@ -8,12 +8,12 @@
 ms_map7_InitFunction:
                 
                  
-                chkFlg  FLAG_CASTLENEWGRANS1             ; Set after the "one year has passed" text, after New Granseal is built
+                chkFlg  707             ; Set after the "one year has passed" text, after New Granseal is built
                 bne.s   return_55830
                 setSavedByte #MAP_NEW_GRANSEAL, EGRESS_MAP
                 script  cs_55832
-                setFlg  FLAG_CASTLENEWGRANS1             ; Set after the "one year has passed" text, after New Granseal is built
-                setFlg  FLAG_BATTLE11_AVAILABLE             ; Battle 11 unlocked - BATTLE_CAVE_OF_DARKNESS          
+                setFlg  707             ; Set after the "one year has passed" text, after New Granseal is built
+                setFlg  411             ; Battle 11 unlocked - BATTLE_CAVE_OF_DARKNESS          
 return_55830:
                 
                 rts
@@ -137,14 +137,14 @@ cs_55832:       textCursor 1290
                 csc_end
 ce_559AE:       mainEntity 11,7,UP
                 entity 12,5,DOWN,MAPSPRITE_MINISTER,eas_Init
-                entity 11,4,DOWN,MAPSPRITE_GRANSEAL_KING,eas_Init
-                entity 10,7,UP,MAPSPRITE_SOLDIER1,eas_Init
-                entity 10,8,UP,MAPSPRITE_SOLDIER1,eas_Init
-                entity 10,9,UP,MAPSPRITE_SOLDIER1,eas_Init
-                entity 10,10,UP,MAPSPRITE_SOLDIER2,eas_Init
-                entity 12,8,UP,MAPSPRITE_SOLDIER2,eas_Init
-                entity 12,9,UP,MAPSPRITE_SOLDIER2,eas_Init
-                entity 12,10,UP,MAPSPRITE_SOLDIER2,eas_Init
+                entity 11,4,DOWN,MAPSPRITE_KING_GRANSEAL,eas_Init
+                entity 10,7,UP,MAPSPRITE_GUARD,eas_Init
+                entity 10,8,UP,MAPSPRITE_GUARD,eas_Init
+                entity 10,9,UP,MAPSPRITE_GUARD,eas_Init
+                entity 10,10,UP,MAPSPRITE_SOLDIER,eas_Init
+                entity 12,8,UP,MAPSPRITE_SOLDIER,eas_Init
+                entity 12,9,UP,MAPSPRITE_SOLDIER,eas_Init
+                entity 12,10,UP,MAPSPRITE_SOLDIER,eas_Init
                 entity 8,7,RIGHT,MAPSPRITE_MAID,eas_Init
                 entity 14,7,LEFT,MAPSPRITE_MAID,eas_Init
                 entity 10,5,DOWN,MAPSPRITE_ASTRAL,eas_Init

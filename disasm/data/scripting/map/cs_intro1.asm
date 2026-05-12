@@ -1,7 +1,10 @@
 
 ; ASM FILE data\scripting\map\cs_intro1.asm :
 ; 0x47F7E..0x48380 : Intro cutscene 1
-IntroCutscene1: textCursor STORYTEXT_OFFSET_SLADE_ENTERS_SWORD_SHRINE
+IntroCutscene1: textCursor 4186
+            if (STANDARD_BUILD&CHAPTER_SCREEN=1)
+                executeSubroutine ChapterScreen1
+            endif
                 mapLoad MAP_FORCE_SWORD_SHRINE,2,5
                 csWait 1
                 loadMapEntities ce_48340
@@ -145,7 +148,7 @@ IntroCutscene1: textCursor STORYTEXT_OFFSET_SLADE_ENTERS_SWORD_SHRINE
                 endActions
                 playSound SFX_WARP
                 fadeOutToBlackHalf
-                setCameraEntity 65535
+                setCameraEntity CAMERA_NEUTRAL
                 setPos ALLY_SLADE,19,3,DOWN
                 setPos 128,19,3,DOWN
                 setPos 129,19,3,DOWN
@@ -201,12 +204,12 @@ IntroCutscene1: textCursor STORYTEXT_OFFSET_SLADE_ENTERS_SWORD_SHRINE
                 setCamDest 15,5
                 shiver ALLY_SLADE
                 nextSingleText $80,ALLY_SLADE ; "I wonder if they're here?{D2}"
-                nextSingleText $FF,255  ; "{NAME;5} the thief opened{N}the chest.{D2}"
+                nextSingleText $FF,ENTITY_NONE  ; "{NAME;5} the thief opened{N}the chest.{D2}"
                 setBlocks 7,3,1,1,19,10
-                nextSingleText $FF,255  ; "He found Power Water.{D2}"
+                nextSingleText $FF,ENTITY_NONE  ; "He found Power Water.{D2}"
                 headshake ALLY_SLADE
                 nextSingleText $80,ALLY_SLADE ; "No, I don't want this!{D2}"
-                nextSingleText $FF,255  ; "{NAME;5} discarded the{N}Power Water.{D2}"
+                nextSingleText $FF,ENTITY_NONE  ; "{NAME;5} discarded the{N}Power Water.{D2}"
                 setBlocks 4,3,1,1,19,10
                 csWait 30
                 setActscriptWait ALLY_SLADE,eas_Init

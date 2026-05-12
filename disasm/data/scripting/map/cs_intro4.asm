@@ -1,7 +1,7 @@
 
 ; ASM FILE data\scripting\map\cs_intro4.asm :
 ; 0x48A78..0x48FE2 : Intro cutscene 4
-IntroCutscene4: textCursor STORYTEXT_OFFSET_TOWER_DOOR_OPENS
+IntroCutscene4: textCursor 4233
                 mapLoad MAP_GRANSEAL_CASTLE,7,3
                 loadMapEntities ce_48FAA
                 setActscriptWait ALLY_BOWIE,eas_Init
@@ -14,7 +14,7 @@ IntroCutscene4: textCursor STORYTEXT_OFFSET_TOWER_DOOR_OPENS
                 executeSubroutine ApplyStormEffect
                 executeSubroutine ApplyStormEffect
                 csWait 60
-                textCursor STORYTEXT_OFFSET_TOWER_DOOR_OPENS
+                textCursor 4233
                 nextSingleText $0,129   ; "Somebody bring a light to{N}the King's chamber!{D2}"
                 csWait 20
                 playSound SFX_DEMON_BREATH
@@ -27,7 +27,7 @@ IntroCutscene4: textCursor STORYTEXT_OFFSET_TOWER_DOOR_OPENS
                 csWait 30
                 executeSubroutine ApplyStormEffect
                 setQuake 3
-                flashScreenWhite $A
+                flashScreenWhite 10
                 mapFadeOutToWhite
                 csWait 20
                 playSound SFX_INTRO_LIGHTNING
@@ -183,7 +183,7 @@ IntroCutscene4: textCursor STORYTEXT_OFFSET_TOWER_DOOR_OPENS
                 endActions
                 hide 130
                 hide 129
-                setCameraEntity 65535
+                setCameraEntity CAMERA_NEUTRAL
                 csWait 30
                 setCamDest 7,5
                 setCameraEntity 128
@@ -324,10 +324,10 @@ IntroCutscene4: textCursor STORYTEXT_OFFSET_TOWER_DOOR_OPENS
                 entityActions 133
                  moveDown 4
                 endActions
-                entityFlashWhite 133,$50
+                entityFlashWhite 133,80
                 waitIdle 133
                 setActscript 128,eas_RotateRightHighSpeed
-                entityFlashWhite 133,$28
+                entityFlashWhite 133,40
                 nextSingleText $80,128  ; "Aughhhh!!!{D2}"
                 hide 133
                 csWait 30
@@ -357,9 +357,9 @@ IntroCutscene4: textCursor STORYTEXT_OFFSET_TOWER_DOOR_OPENS
                 fadeOutToBlackHalf
                 csc_end
 ce_48FAA:       mainEntity 63,63,UP
-                entity 12,6,DOWN,MAPSPRITE_GRANSEAL_KING,eas_Init
+                entity 12,6,DOWN,MAPSPRITE_KING_GRANSEAL,eas_Init
                 entity 10,7,DOWN,MAPSPRITE_MINISTER,eas_Init
-                entity 63,63,RIGHT,MAPSPRITE_SOLDIER1,eas_Init
+                entity 63,63,RIGHT,MAPSPRITE_GUARD,eas_Init
                 entity 63,63,DOWN,MAPSPRITE_GESHP,eas_Init
                 entity 63,63,UP,MAPSPRITE_EFFECT6,eas_Init
                 entity 63,63,DOWN,MAPSPRITE_EFFECT4,eas_Init

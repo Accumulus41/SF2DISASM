@@ -11,12 +11,12 @@ ms_map10_flag722_ZoneEvents:
 Map10_2D2_ZoneEvent0:
                 
                  
-                chkFlg  ALLY_ELRIC              ; Elric joined
+                chkFlg  13              ; Elric joined
                 bne.s   return_56FDE
-                chkFlg  FLAG_BEDOE5             ; Set after the scene where Skreech falls in Bedoe
+                chkFlg  724             ; Set after the scene where Skreech falls in Bedoe
                 bne.s   return_56FDE
                 script  cs_5779C
-                setFlg  FLAG_BEDOE5             ; Set after the scene where Skreech falls in Bedoe
+                setFlg  724             ; Set after the scene where Skreech falls in Bedoe
 return_56FDE:
                 
                 rts

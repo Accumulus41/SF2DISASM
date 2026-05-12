@@ -14,7 +14,7 @@ GetAllyPortrait:
                 move.w  d1,-(sp)
                 cmpi.b  #COMBATANT_ALLIES_NUMBER,d0
                 bhi.w   @Done
-                jsr     GetClass
+                jsr     j_GetClass
                 
                 ; Check HERO
                 cmpi.b  #CLASS_HERO,d1

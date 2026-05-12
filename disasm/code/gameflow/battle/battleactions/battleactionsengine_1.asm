@@ -35,16 +35,29 @@ WriteBattlesceneScript:
                 movem.l d0-a6,-(sp)
                 link    a2,#BATTLESCENE_STACK_NEGSIZE
                 lea     ((CURRENT_BATTLEACTION-$1000000)).w,a3
-                lea     ((BATTLESCENE_ATTACKER-$1000000)).w,a4
+                lea     ((BATTLESCENE_ACTOR-$1000000)).w,a4
                 lea     ((TARGETS_LIST-$1000000)).w,a5
                 lea     (FF0000_RAM_START).l,a6 ; beginning of battlescene command list
                 move.b  #0,debugDodge(a2)
                 move.b  #0,debugCritical(a2)
                 move.b  #0,debugDouble(a2)
                 move.b  #0,debugCounter(a2)
-                move.b  d0,((BATTLESCENE_ATTACKER-$1000000)).w
-                move.b  d0,((BATTLESCENE_ATTACKER_COPY-$1000000)).w
+                tst.b   (DEBUG_MODE_TOGGLE).l
+                beq.s   @InitializeBattlesceneData
                 
+                ; Debug mode
+                btst    #INPUT_BIT_START,((PLAYER_1_INPUT-$1000000)).w
+                beq.s   @loc_1
+                bsr.w   DebugModeActionSelect
+@loc_1:
+                
+                btst    #INPUT_BIT_START,((PLAYER_2_INPUT-$1000000)).w
+                beq.s   @InitializeBattlesceneData
+                bsr.w   DebugModeSelectHits
+@InitializeBattlesceneData:
+                
+                move.b  d0,((BATTLESCENE_ACTOR-$1000000)).w
+                move.b  d0,((BATTLESCENE_ACTOR_COPY-$1000000)).w
                 moveq   #0,d1
                 move.w  d1,((BATTLESCENE_EXP-$1000000)).w
                 move.w  d1,((BATTLESCENE_GOLD-$1000000)).w
@@ -82,7 +95,7 @@ WriteBattlesceneScript:
                 bra.w   @End
 @Continue:
                 
-                bsr.w   battlesceneScript_DisplayMessage
+                bsr.w   battlesceneScript_DisplayActionMessage
                 bsr.w   battlesceneScript_PerformAnimation
                 tst.b   silencedActor(a2)
                 beq.s   @NotSilenced
@@ -113,7 +126,7 @@ WriteBattlesceneScript:
                 
                 bsr.w   battlesceneScript_MakeActorIdle
                 bsr.w   battlesceneScript_BreakUsedItem
-                lea     ((BATTLESCENE_ATTACKER-$1000000)).w,a4
+                lea     ((BATTLESCENE_ACTOR-$1000000)).w,a4
                 lea     ((TARGETS_LIST-$1000000)).w,a5
                 bsr.w   battlesceneScript_ValidateDoubleAttack
                 tst.b   doubleAttack(a2)
@@ -132,7 +145,7 @@ WriteBattlesceneScript:
                 exg     a4,a5
                 bsr.w   battlesceneScript_SwitchTargets
                 exg     a4,a5
-                bsr.w   battlesceneScript_DisplayMessage
+                bsr.w   battlesceneScript_DisplayActionMessage
                 bsr.w   battlesceneScript_PerformAnimation
                 bsr.w   battlesceneScript_SwitchTargets
                 bsr.w   battlesceneScript_ApplyActionEffect
@@ -141,7 +154,7 @@ WriteBattlesceneScript:
 @CounterAttack:
                 
                 lea     ((TARGETS_LIST-$1000000)).w,a4
-                lea     ((BATTLESCENE_ATTACKER-$1000000)).w,a5
+                lea     ((BATTLESCENE_ACTOR-$1000000)).w,a5
                 bsr.w   battlesceneScript_ValidateCounterAttack
                 tst.b   counterAttack(a2)
                 beq.s   @CheckExplode
@@ -160,8 +173,8 @@ WriteBattlesceneScript:
                 exg     a4,a5
                 bsr.w   battlesceneScript_SwitchTargets
                 exg     a4,a5
-                lea     ((BATTLESCENE_ATTACKER-$1000000)).w,a5
-                bsr.w   battlesceneScript_DisplayMessage
+                lea     ((BATTLESCENE_ACTOR-$1000000)).w,a5
+                bsr.w   battlesceneScript_DisplayActionMessage
                 bsr.w   battlesceneScript_PerformAnimation
                 bsr.w   battlesceneScript_SwitchTargets
                 bsr.w   battlesceneScript_ApplyActionEffect
@@ -169,7 +182,7 @@ WriteBattlesceneScript:
                 bsr.w   battlesceneScript_MakeActorIdle
 @CheckExplode:
                 
-                lea     ((BATTLESCENE_ATTACKER-$1000000)).w,a4
+                lea     ((BATTLESCENE_ACTOR-$1000000)).w,a4
                 lea     ((TARGETS_LIST-$1000000)).w,a5
                 tst.b   explode(a2)
                 beq.s   @End
@@ -183,7 +196,7 @@ WriteBattlesceneScript:
                 bra.w   @Continue
 @End:
                 
-                move.b  ((BATTLESCENE_ATTACKER_COPY-$1000000)).w,((BATTLESCENE_ATTACKER-$1000000)).w
+                move.b  ((BATTLESCENE_ACTOR_COPY-$1000000)).w,((BATTLESCENE_ACTOR-$1000000)).w
                 bsr.w   battlesceneScript_End
                 unlk    a2
                 movem.l (sp)+,d0-a6
@@ -204,7 +217,7 @@ battlesceneScript_DetermineTargetsByAction:
                 bne.s   @IsCastSpell
                 
                 move.w  #1,((TARGETS_LIST_LENGTH-$1000000)).w
-                move.b  BATTLEACTION_OFFSET_TARGET(a3),((TARGETS_LIST-$1000000)).w
+                move.b  BATTLEACTION_OFFSET_ITEM_OR_SPELL_LOWER_BYTE(a3),((TARGETS_LIST-$1000000)).w
                 bra.s   @Done
 @IsCastSpell:
                 
@@ -212,8 +225,8 @@ battlesceneScript_DetermineTargetsByAction:
                 bne.s   @IsUseItem
                 
                 move.w  BATTLEACTION_OFFSET_ITEM_OR_SPELL(a3),d1
-                move.w  BATTLEACTION_OFFSET_ACTOR(a3),d0
-                jsr     PopulateTargetableGrid_CastSpell
+                move.w  BATTLEACTION_OFFSET_TARGET(a3),d0
+                jsr     PopulateTargetsListForSpell
                 bra.s   @Done
 @IsUseItem:
                 
@@ -221,8 +234,8 @@ battlesceneScript_DetermineTargetsByAction:
                 bne.w   @IsBurstRock
                 
                 move.w  BATTLEACTION_OFFSET_ITEM_OR_SPELL(a3),d1
-                move.w  BATTLEACTION_OFFSET_ACTOR(a3),d0
-                jsr     PopulateTargetableGrid_UseItem
+                move.w  BATTLEACTION_OFFSET_TARGET(a3),d0
+                jsr     PopulateTargetsListForItemUse
                 bra.s   @Done
 @IsBurstRock:
                 
@@ -231,7 +244,7 @@ battlesceneScript_DetermineTargetsByAction:
                 
                 move.b  (a4),d0
                 move.w  #SPELL_B_ROCK,d1
-                jsr     PopulateTargetableGrid_CastSpell
+                jsr     PopulateTargetsListForSpell
                 bra.s   @Done
 @IsMuddled:
                 
@@ -244,13 +257,13 @@ battlesceneScript_DetermineTargetsByAction:
                 
                 cmpi.w  #BATTLEACTION_PRISM_LASER,(a3)
                 bne.w   @Done
-                jsr     PopulateTargetsArrayWithAllCombatants
+                jsr     BuildTargetsArrayWithAllCombatants
                 move.b  #-1,((TARGETS_LIST-$1000000)).w
                 move.b  (a4),d0
-                jsr     GetLaserFacing
+                jsr     j_GetLaserFacing
 @Done:
                 
-                bsr.w   SortTargets
+                bsr.w   battlesceneScript_SortTargets
                 rts
 
     ; End of function battlesceneScript_DetermineTargetsByAction

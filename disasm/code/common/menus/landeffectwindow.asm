@@ -1,6 +1,6 @@
 
-; ASM FILE code\common\menus\menuengine_07.asm :
-; 0x15772..0x15A5A : Menu engine
+; ASM FILE code\common\menus\landeffectwindow.asm :
+; 0x15772..0x1586E : Menu engine, part 7 : Land effect window functions
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -13,7 +13,7 @@ OpenLandEffectWindow:
                 jsr     (CreateWindow).w
                 addq.w  #1,d0
                 move.w  d0,((LAND_EFFECT_WINDOW_INDEX-$1000000)).w
-                bsr.w   WriteLandEffectWindowLayout
+                bsr.w   BuildLandEffectWindow
                 move.w  ((LAND_EFFECT_WINDOW_INDEX-$1000000)).w,d0
                 subq.w  #1,d0
                 move.w  #$201,d1
@@ -65,7 +65,7 @@ HideLandEffectWindow:
                 tst.w   ((LAND_EFFECT_WINDOW_INDEX-$1000000)).w
                 beq.w   @Return
                 movem.l d0-a2,-(sp)
-                bsr.w   WriteLandEffectWindowLayout
+                bsr.w   BuildLandEffectWindow
                 tst.b   ((HIDE_WINDOWS_TOGGLE-$1000000)).w
                 bne.s   @Done
                 move.w  ((LAND_EFFECT_WINDOW_INDEX-$1000000)).w,d0
@@ -85,7 +85,7 @@ HideLandEffectWindow:
 ; =============== S U B R O U T I N E =======================================
 
 
-WriteLandEffectWindowLayout:
+BuildLandEffectWindow:
                 
                 move.w  ((LAND_EFFECT_WINDOW_INDEX-$1000000)).w,d0
                 subq.w  #1,d0
@@ -95,8 +95,14 @@ WriteLandEffectWindowLayout:
                 move.w  #WINDOW_LANDEFFECT_SIZE,d0
                 bsr.w   alt_WriteWindowTiles
                 move.w  ((MOVING_BATTLE_ENTITY_INDEX-$1000000)).w,d0
+            if (STANDARD_BUILD&ACCURATE_LAND_EFFECT_DISPLAY=1)
                 jsr     GetLandEffectSetting
                 move.b  table_LandEffectDisplayValues(pc,d1.w),d0
+            else
+                jsr     j_GetLandEffectSetting
+                move.w  d1,d0
+                mulu.w  #15,d0
+            endif
                 moveq   #-16,d1
                 moveq   #2,d7
                 movea.l d3,a1
@@ -112,7 +118,7 @@ WriteLandEffectWindowLayout:
                 bsr.w   WriteTilesFromAsciiWithRegularFont
                 rts
 
-    ; End of function WriteLandEffectWindowLayout
+    ; End of function BuildLandEffectWindow
 
 landEffectDisplayValue: macro
                 ; Exit macro if parameter is a terminator word
@@ -130,6 +136,7 @@ value:          set value+1
 
 table_LandEffectDisplayValues:
                 
+            if (STANDARD_BUILD&ACCURATE_LAND_EFFECT_DISPLAY=1)
                 landEffectDisplayValue LE_DMG_MULT_0
                 landEffectDisplayValue LE_DMG_MULT_1
                 landEffectDisplayValue LE_DMG_MULT_2
@@ -147,8 +154,12 @@ table_LandEffectDisplayValues:
                 landEffectDisplayValue LE_DMG_MULT_14
                 landEffectDisplayValue LE_DMG_MULT_15
                 align
+            endif
             
 aLandEffect:
                 
+            if (STANDARD_BUILD&THREE_DIGITS_STATS=1)
                 dc.b 'LE'
-
+            else
+                dc.b 'LAND',$B,'EFFECT',0
+            endif

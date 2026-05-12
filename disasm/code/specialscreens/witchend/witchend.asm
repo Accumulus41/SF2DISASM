@@ -28,8 +28,8 @@ EndGame:
                 moveq   #2,d1
                 jsr     (ApplyImmediateVramDma).w
                 lea     (PLANE_A_MAP_LAYOUT).l,a0
-                move.l  #$21382139,$21E(a0)
-                move.l  #$21422143,$25E(a0)
+                move.l  #$21382139,$21E(a0)  ; 68th tile x, 69th y
+                move.l  #$21422143,$25E(a0)  ; 76th tile x, 77th y
                 lea     ($C000).l,a1
                 move.w  #$380,d0
                 moveq   #2,d1
@@ -49,7 +49,7 @@ EndGame:
                 trap    #VINT_FUNCTIONS
                 dc.w VINTS_ADD
                 dc.l VInt_PerformEndingWitchBlink
-                move.w  #SFX_DIALOG_BLEEP_2,((SPEECH_SFX-$1000000)).w
+                move.w  #SFX_DIALOG_BLEEP_2,((CURRENT_SPEECH_SFX-$1000000)).w
                 txt     239             ; "{NAME;0}, I thank you.{N}You enabled me to return{N}to my original form.{D2}{D2}{N}Someday we'll meet again.{N}I'll never forget you....{D2}{D2}{D2}"
                 clsTxt
                 move.w  #90,d0
@@ -155,18 +155,30 @@ loc_27C2C:
                 
                 clr.l   (a0)+
                 dbf     d7,loc_27C2C
-                jsr     ClearEntities
-                setFlg  FLAG_BATTLE00_AVAILABLE             ; Battle 0 unlocked - BATTLE_VERSUS_ALL_BOSSES         
+                jsr     j_ClearEntities
+                setFlg  400             ; Battle 0 unlocked - BATTLE_VERSUS_ALL_BOSSES         
                 move.w  #MAP_MAGIC_TUNNEL_HUB,d0
                 jsr     (CheckBattle).w 
                 move.w  d7,d1
+            if (STANDARD_BUILD=1)
                 jsr     BattleLoop
+            else
+                bsr.w   BattleLoop      
+            endif
                 jsr     (FadeOutToWhite).w
                 trap    #VINT_FUNCTIONS
                 dc.w VINTS_CLEAR
                 
+            if (STANDARD_BUILD=1)
                 pea     (ResetGame).w
                 jmp     (DisableDisplayAndInterrupts).w
+            else
+                jsr     (DisableDisplayAndInterrupts).w
+                move    #$2700,sr
+                movea.l (InitialStack).w,sp
+                movea.l (p_Start).w,a0  
+                jmp     (a0)            ; reset
+            endif
 
     ; End of function EndGame
 

@@ -1,15 +1,32 @@
 
-; ASM FILE data\maps\entries\map62\mapsetups\s3_zoneevents.asm :
-; 0x5C820..0x5C86A : 
+; ASM FILE data\maps\entries\map77\mapsetups\s3_zoneevents.asm :
+; 0x50A6A..0x50A84 : 
 ms_map77_ZoneEvents:
-                msDefaultZoneEvent map77_DefaultZoneEvent-ms_map77_ZoneEvents
+                msDefaultZoneEvent Map77_DefaultZoneEvent-ms_map77_ZoneEvents
 
 ; =============== S U B R O U T I N E =======================================
 
 
-map77_DefaultZoneEvent:
+Map77_DefaultZoneEvent:
+                
+                 
+                chkFlg  537             ; Battle 37 completed - BATTLE_VERSUS_RED_BARON            
+                bne.s   return_50A80
+                setFlg  437             ; Battle 37 unlocked - BATTLE_VERSUS_RED_BARON          
+                move.l  #MAP_EVENT_RELOADMAP,((MAP_EVENT_TYPE-$1000000)).w
+return_50A80:
                 
                 rts
 
-    ; End of function map77_ZoneEvent2
+    ; End of function Map77_DefaultZoneEvent
+
+
+; =============== S U B R O U T I N E =======================================
+
+
+nullsub_50A82:
+                
+                rts
+
+    ; End of function nullsub_50A82
 

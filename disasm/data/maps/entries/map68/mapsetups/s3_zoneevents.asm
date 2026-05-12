@@ -1,6 +1,6 @@
 
 ; ASM FILE data\maps\entries\map68\mapsetups\s3_zoneevents.asm :
-; 0x5C820..0x5C86A : 
+; 0x4FD6C..0x4FD7C : 
 ms_map68_ZoneEvents:
                 msDefaultZoneEvent Map68_DefaultZoneEvent-ms_map68_ZoneEvents
 
@@ -9,7 +9,9 @@ ms_map68_ZoneEvents:
 
 Map68_DefaultZoneEvent:
                 
+                move.w  #BATTLE_OUTSIDE_ELVEN_VILLAGE,d0
+                jsr     CheckRandomBattle
                 rts
 
-    ; End of function Map68_ZoneEvent2
+    ; End of function Map68_DefaultZoneEvent
 

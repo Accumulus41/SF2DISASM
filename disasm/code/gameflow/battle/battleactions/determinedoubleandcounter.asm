@@ -78,3 +78,4 @@ battlesceneScript_DetermineDoubleAndCounter:
                 rts
 
     ; End of function battlesceneScript_DetermineDoubleAndCounter
+

@@ -1,4 +1,4 @@
 
-; ASM FILE data\maps\entries\map62\3-flag-events.asm :
-; 0xBADFA..0xBADFC : 
+; ASM FILE data\maps\entries\map78\3-flag-events.asm :
+; 0xC69DE..0xC69E0 : 
                 endWord

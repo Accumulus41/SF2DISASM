@@ -23,11 +23,11 @@ BlacksmithMenu:
                 moveq   #0,d1
                 move.w  ((CURRENT_PORTRAIT-$1000000)).w,d0
                 blt.s   byte_21A50      
-                jsr     OpenPortraitWindow
+                jsr     j_OpenPortraitWindow
 byte_21A50:
                 
                 txt     194             ; "Welcome to the Dwarf{N}Craftsman!{D3}"
-                jsr     ClosePortraitWindow
+                jsr     j_ClosePortraitWindow
                 clr.w   readyToFulfillOrdersNumber(a6)
                 clr.w   pendingOrdersNumber(a6)
                 clr.w   fulfilledOrdersNumber(a6)
@@ -36,12 +36,12 @@ byte_21A50:
                 moveq   #0,d1
                 move.w  ((CURRENT_PORTRAIT-$1000000)).w,d0
                 blt.s   byte_21A7C      
-                jsr     OpenPortraitWindow
+                jsr     j_OpenPortraitWindow
 byte_21A7C:
                 
                 txt     198             ; "{CLEAR}Thank you very much!{W1}"
                 clsTxt
-                jsr     ClosePortraitWindow
+                jsr     j_ClosePortraitWindow
                 unlk    a6
                 movem.l (sp)+,d0-a5
                 rts
@@ -66,7 +66,7 @@ currentGold = -4
 ProcessBlacksmithOrders:
                 
                 module
-                jsr     UpdateForce
+                jsr     j_UpdateForce
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,((GENERIC_LIST_LENGTH-$1000000)).w
                 lea     ((TARGETS_LIST-$1000000)).w,a0
                 lea     ((GENERIC_LIST-$1000000)).w,a1
@@ -88,7 +88,7 @@ ProcessBlacksmithOrders:
                 loadSavedDataAddress MITHRIL_WEAPONS_ON_ORDER, a0
 @FulfillOrders_Loop:
                 
-                getSavedMithrilWeaponOrder a0, itemIndex(a6)
+                getMithrilWeaponOrder a0, itemIndex(a6)
                 beq.s   @Next
                 move.w  d7,ordersCounter(a6)
                 addi.w  #1,ordersCounter(a6)
@@ -162,8 +162,8 @@ byte_21B58:
                 
                 clsTxt
                 move.w  itemIndex(a6),((SELECTED_ITEM_INDEX-$1000000)).w
-                move.b  #ITEM_ACTION_LINK,((CURRENT_ITEM_ACTION-$1000000)).w
-                jsr     BuildMembersListScreen_NewAttAndDefPage
+                move.b  #ITEM_SUBMENU_ACTION_USE,((CURRENT_ITEM_SUBMENU_ACTION-$1000000)).w
+                jsr     j_ExecuteMembersListScreenOnItemSummaryPage
                 cmpi.w  #-1,d0
                 bne.s   @IsMemberInventoryFull
                 txt     197             ; "{CLEAR}What a pity!{W2}"
@@ -172,14 +172,14 @@ byte_21B58:
                 
                 move.w  d0,clientMember(a6)
                 moveq   #0,d1
-                jsr     GetItemBySlotAndHeldItemsNumber
+                jsr     j_GetItemBySlotAndHeldItemsNumber
                 cmpi.w  #COMBATANT_ITEMSLOTS,d2
                 bcs.s   @CheckEquipmentType
                 
                 ; Inventory if full
                 move.w  clientMember(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
                 txt     208             ; "{NAME}'s hands are are{N}full.  May I pass it to{N}somebody else?"
-                jsr     alt_YesNoPrompt
+                jsr     j_alt_YesNoPrompt
                 cmpi.w  #0,d0
                 beq.s   byte_21B58
                 txt     197             ; "{CLEAR}What a pity!{W2}"
@@ -187,27 +187,27 @@ byte_21B58:
 @CheckEquipmentType:
                 
                 move.w  itemIndex(a6),d1
-                jsr     GetEquipmentType
+                jsr     j_GetEquipmentType
                 cmpi.w  #EQUIPMENTTYPE_TOOL,d2
                 beq.s   @AddItem
                 
                 ; Is item equippable?
                 move.w  itemIndex(a6),d1
                 move.w  clientMember(a6),d0
-                jsr     IsWeaponOrRingEquippable
+                jsr     j_IsWeaponOrRingEquippable
                 bcs.s   @AddItem
                 
                 ; Not equippable
                 move.w  clientMember(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
                 txt     167             ; "{NAME} can't be{N}equipped with it.  OK?"
-                jsr     alt_YesNoPrompt
+                jsr     j_alt_YesNoPrompt
                 cmpi.w  #0,d0
                 bne.w   byte_21B58
 @AddItem:
                 
                 move.w  clientMember(a6),d0
                 move.w  itemIndex(a6),d1
-                jsr     AddItem
+                jsr     j_AddItem
                 move.w  #BLACKSMITH_MAX_ORDERS_NUMBER,d6
                 sub.w   ordersCounter(a6),d6
                 loadSavedDataAddress MITHRIL_WEAPONS_ON_ORDER, a1
@@ -215,28 +215,28 @@ byte_21B58:
                 addi.w  #1,fulfilledOrdersNumber(a6)
                 move.w  itemIndex(a6),d1
                 move.w  clientMember(a6),d0
-                jsr     IsWeaponOrRingEquippable
+                jsr     j_IsWeaponOrRingEquippable
                 bcc.w   byte_21CD0      ; @DoNotEquipNewItem
                 txt     173             ; "{CLEAR}Equip it now?"
-                jsr     alt_YesNoPrompt
+                jsr     j_alt_YesNoPrompt
                 cmpi.w  #0,d0
                 bne.w   byte_21CD0      ; @DoNotEquipNewItem
                 
                 ; Is weapon?
                 move.w  itemIndex(a6),d1
-                jsr     GetEquipmentType
+                jsr     j_GetEquipmentType
                 cmpi.w  #EQUIPMENTTYPE_WEAPON,d2
                 bne.s   @HasRingEquipped
                 
                 ; Has weapon equipped?
                 move.w  clientMember(a6),d0
-                jsr     GetEquippedWeapon
+                jsr     j_GetEquippedWeapon
                 cmpi.w  #-1,d1
                 beq.s   @EquipNewItem
                 
                 ; Unequip current weapon
                 move.w  d2,d1
-                jsr     UnequipItemBySlotIfNotCursed
+                jsr     j_UnequipItemBySlotIfNotCursed
                 cmpi.w  #2,d2
                 bne.w   @EquipNewItem
                 
@@ -247,13 +247,13 @@ byte_21B58:
 @HasRingEquipped:
                 
                 move.w  clientMember(a6),d0
-                jsr     GetEquippedRing
+                jsr     j_GetEquippedRing
                 cmpi.w  #-1,d1
                 beq.s   @EquipNewItem
                 
                 ; Unequip current ring
                 move.w  d2,d1
-                jsr     UnequipItemBySlotIfNotCursed
+                jsr     j_UnequipItemBySlotIfNotCursed
                 cmpi.w  #2,d2
                 bne.w   @EquipNewItem
                 
@@ -264,10 +264,10 @@ byte_21B58:
 @EquipNewItem:
                 
                 moveq   #0,d1
-                jsr     GetItemBySlotAndHeldItemsNumber
+                jsr     j_GetItemBySlotAndHeldItemsNumber
                 move.w  d2,d1
                 subq.w  #1,d1
-                jsr     EquipItemBySlot
+                jsr     j_EquipItemBySlot
                 cmpi.w  #2,d2
                 bne.s   byte_21CC8      ; @NotCursed
                 
@@ -318,16 +318,16 @@ byte_21CDE:
                 @StartNewOrder:
                 txt     199             ; "What kind of material do you{N}have?{D1}"
                 clsTxt
-                move.b  #ITEM_ACTION_REMOVE,((CURRENT_ITEM_ACTION-$1000000)).w
+                move.b  #ITEM_SUBMENU_ACTION_GIVE,((CURRENT_ITEM_SUBMENU_ACTION-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
-                jsr     BuildMembersListScreen_NewAttAndDefPage
+                jsr     j_ExecuteMembersListScreenOnItemSummaryPage
                 cmpi.w  #-1,d0
                 beq.w   @Done
                 
                 move.w  d0,clientMember(a6)
                 move.w  d1,itemSlot(a6)
                 move.w  d2,itemIndex(a6)
-                cmpi.w  #ITEM_MITHRIL,d2 ; HARDCODED mithril item index
+                cmpi.w  #BLACKSMITH_MITHRIL_ITEM,d2 ; HARDCODED mithril item index
                 beq.w   byte_21D1A      ; @ProcessOrder
                 txt     200             ; "Sorry, I've never worked{N}with that before....{W1}"
                 bra.s   byte_21CDE      ; @StartNewOrder
@@ -337,15 +337,15 @@ byte_21D1A:
                 ; Pick customer
                 txt     201             ; "{CLEAR}Whose weapon should I{N}make?{D1}"
                 clsTxt
-                move.b  #ITEM_ACTION_LINK,((CURRENT_ITEM_ACTION-$1000000)).w
+                move.b  #ITEM_SUBMENU_ACTION_USE,((CURRENT_ITEM_SUBMENU_ACTION-$1000000)).w
                 move.w  #ITEM_NOTHING,((SELECTED_ITEM_INDEX-$1000000)).w
-                jsr     BuildMembersListScreen_NewAttAndDefPage
+                jsr     j_ExecuteMembersListScreenOnItemSummaryPage
                 cmpi.w  #-1,d0
                 beq.s   byte_21CDE      ; @StartNewOrder
                 
                 ; Is customer promoted?
                 move.w  d0,targetMember(a6)
-                jsr     GetClass
+                jsr     j_GetClass
                 move.w  d1,clientClass(a6)
                 cmpi.w  #CHAR_CLASS_FIRSTPROMOTED,d1
                 bcc.w   @IsCustomerClassEligible
@@ -369,9 +369,9 @@ byte_21D1A:
                 move.w  targetMember(a6),((DIALOGUE_NAME_INDEX_1-$1000000)).w
                 move.l  #BLACKSMITH_ORDER_COST,((DIALOGUE_NUMBER-$1000000)).w
                 txt     202             ; "For {NAME}!  It will cost{N}{#} gold coins.  OK?"
-                jsr     OpenGoldWindow
-                jsr     alt_YesNoPrompt
-                jsr     CloseGoldWindow
+                jsr     j_OpenGoldWindow
+                jsr     j_alt_YesNoPrompt
+                jsr     j_CloseGoldWindow
                 cmpi.w  #0,d0
                 beq.s   @CheckGold
                 
@@ -380,7 +380,7 @@ byte_21D1A:
                 bra.w   byte_21D1A      ; @ProcessOrder
 @CheckGold:
                 
-                jsr     GetGold
+                jsr     j_GetGold
                 move.l  d1,currentGold(a6)
                 cmpi.l  #BLACKSMITH_ORDER_COST,d1
                 bcc.w   @PlaceOrder
@@ -391,14 +391,14 @@ byte_21D1A:
 @PlaceOrder:
                 
                 move.l  #BLACKSMITH_ORDER_COST,d1
-                jsr     DecreaseGold
+                jsr     j_DecreaseGold
                 addi.w  #1,pendingOrdersNumber(a6)
                 move.w  clientMember(a6),d0
                 move.w  itemSlot(a6),d1
-                jsr     DropItemBySlot
+                jsr     j_DropItemBySlot
                 bsr.w   PickMithrilWeapon
-                move.w  #FLAG_BATTLEEXPLORE,d1
-                jsr     ClearFlag
+                move.w  #80,d1
+                jsr     j_ClearFlag
                 txt     204             ; "{CLEAR}Great!{W2}"
                 txt     205             ; "Please stop by shortly.{N}I'll surprise you!{W1}"
                 move.w  pendingOrdersNumber(a6),d0
@@ -414,7 +414,7 @@ byte_21E16:
                 
                 @InquireAboutNewOrder:
                 txt     196             ; "{CLEAR}Anything else?"
-                jsr     alt_YesNoPrompt
+                jsr     j_alt_YesNoPrompt
                 cmpi.w  #0,d0
                 beq.w   byte_21CDE      ; @StartNewOrder
                 txt     197             ; "{CLEAR}What a pity!{W2}"
@@ -462,17 +462,22 @@ currentGold = -4
 
 CountPendingAndReadyToFulfillOrders:
                 
-                move.w  #FLAG_BATTLEEXPLORE,d1
-                jsr     CheckFlag
+                move.w  #80,d1
+                jsr     j_CheckFlag
                 beq.w   @Continue
                 move.w  #1,fulfillOrdersFlag(a6) ; set to fulfill orders if talking to blacksmith for the first time since loading the map
 @Continue:
                 
+            if (STANDARD_BUILD=1)
                 moveq   #BLACKSMITH_ORDERS_COUNTER,d7
+            else
+                move.w  #BLACKSMITH_MAX_ORDERS_NUMBER,d7
+                subq.w  #1,d7
+            endif
                 loadSavedDataAddress MITHRIL_WEAPONS_ON_ORDER, a0
 @Loop:
                 
-                getSavedMithrilWeaponOrder a0, d1
+                getMithrilWeaponOrder a0, d1
                 beq.w   @Next
                 cmpi.w  #1,fulfillOrdersFlag(a6)
                 bne.s   @IncrementPlacedOrders

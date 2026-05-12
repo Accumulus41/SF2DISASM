@@ -6,10 +6,10 @@
                     mainLayerEnd        16, 14
                     scndLayerFgndStart  0, 15
                     scndLayerBgndStart  0, 0
-                    mainLayerParallax   16, 16
-                    scndLayerParallax   16, 16
+                    mainLayerParallax   256, 256
+                    scndLayerParallax   256, 256
                     mainLayerAutoscroll 0, 0
                     scndLayerAutoscroll 0, 0
                     mainLayerType    0
-                    areaDefaultMusic 16
+                    areaDefaultMusic MUSIC_SAD_THEME_1
                 endWord

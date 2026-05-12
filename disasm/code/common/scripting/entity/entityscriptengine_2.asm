@@ -223,7 +223,7 @@ loc_5042:
                 beq.s   loc_505E
                 cmp.w   mapAreaLayerOneStartY(a6),d1
                 ble.s   loc_505E
-                move.w  #MAP_TILE_MINUS,d5
+                move.w  #$FE80,d5
                 move.b  ENTITYDEF_OFFSET_YSPEED(a0),d3
                 ext.w   d3
                 neg.w   d3
@@ -244,7 +244,7 @@ loc_5078:
                 beq.s   loc_5094
                 cmp.w   mapAreaLayerOneStartX(a6),d0
                 ble.s   loc_5094
-                move.w  #MAP_TILE_MINUS,d4
+                move.w  #$FE80,d4
                 move.b  ENTITYDEF_OFFSET_XSPEED(a0),d2
                 ext.w   d2
                 neg.w   d2
@@ -270,6 +270,12 @@ loc_50BC:
                 
                 btst    #6,ENTITYDEF_OFFSET_FLAGS_A(a0)
                 beq.w   loc_51A8
+                tst.b   ((DEBUG_MODE_TOGGLE-$1000000)).w
+                beq.s   loc_50D6
+                btst    #INPUT_BIT_B,((PLAYER_1_INPUT-$1000000)).w
+                bne.w   loc_51A8
+loc_50D6:
+                
                 btst    #0,d6
                 bne.w   loc_51A8
                 movem.w d0-d1,-(sp)
@@ -278,31 +284,31 @@ loc_50BC:
                 move.w  d2,d0
                 movem.w (sp)+,d2-d3
                 move.w  (a4,d0.w),d1
-                andi.w  #MAPLAYOUT_STAIRS_MASK,d1  ; Stair mask
-                btst    #STAIRS_UP_BIT,d1     ; Stair up bit
+                andi.w  #$C000,d1
+                btst    #$F,d1
                 beq.s   loc_514E
-                tst.w   d6         ; right
+                tst.w   d6
                 bne.w   loc_5124
-                addi.w  #-$7E,d0   ; relative tile 1,-1
+                addi.w  #-$7E,d0
                 move.w  (a4,d0.w),d0
-                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
+                andi.w  #$C000,d0
                 cmp.w   d0,d1
                 bne.s   loc_5124
-                move.w  #MAP_TILE_MINUS,d5  ; move up
+                move.w  #$FE80,d5
                 move.b  ENTITYDEF_OFFSET_YSPEED(a0),d3
                 ext.w   d3
                 neg.w   d3
                 bra.w   loc_51A4
 loc_5124:
                 
-                cmpi.w  #LEFT,d6      ; left
+                cmpi.w  #2,d6
                 bne.w   loc_514A
-                addi.w  #$7E,d0       ; relative tile -1,1
+                addi.w  #$7E,d0 
                 move.w  (a4,d0.w),d0
-                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
+                andi.w  #$C000,d0
                 cmp.w   d0,d1
                 bne.s   loc_514A
-                move.w  #MAP_TILE_PLUS,d5  ; move down
+                move.w  #MAP_TILE_SIZE,d5
                 move.b  ENTITYDEF_OFFSET_YSPEED(a0),d3
                 ext.w   d3
                 bra.w   loc_51A4
@@ -311,29 +317,29 @@ loc_514A:
                 bra.w   loc_51A4
 loc_514E:
                 
-                btst    #STAIRS_DOWN_BIT,d1     ; Stair down bit
+                btst    #$E,d1
                 beq.s   loc_51A4
-                tst.w   d6         ; right
+                tst.w   d6
                 bne.w   loc_5178
-                addi.w  #$82,d0    ; relative tile 1,1
+                addi.w  #$82,d0 
                 move.w  (a4,d0.w),d0
-                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
+                andi.w  #$C000,d0
                 cmp.w   d0,d1
                 bne.s   loc_5178
-                move.w  #MAP_TILE_PLUS,d5  ; move down
+                move.w  #MAP_TILE_SIZE,d5
                 move.b  ENTITYDEF_OFFSET_YSPEED(a0),d3
                 ext.w   d3
                 bra.w   loc_51A4
 loc_5178:
                 
-                cmpi.w  #LEFT,d6
+                cmpi.w  #2,d6
                 bne.w   loc_51A0
-                addi.w  #-$82,d0   ; relative tile -1,-1
+                addi.w  #-$82,d0
                 move.w  (a4,d0.w),d0
-                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
+                andi.w  #$C000,d0
                 cmp.w   d0,d1
                 bne.s   loc_51A0
-                move.w  #MAP_TILE_MINUS,d5  ; move up
+                move.w  #$FE80,d5
                 move.b  ENTITYDEF_OFFSET_YSPEED(a0),d3
                 ext.w   d3
                 neg.w   d3
@@ -351,7 +357,7 @@ loc_51A8:
                 movem.w d4-d6,-(sp)
                 btst    #5,ENTITYDEF_OFFSET_FLAGS_A(a0)
                 beq.w   loc_5220
-                moveq   #ENTITY_ALLY_COUNTER,d6
+                moveq   #BATTLE_ALLY_ENTITIES_COUNTER,d6
                 lea     ((ENTITY_DATA-$1000000)).w,a2
 loc_51C0:
                 
@@ -405,42 +411,42 @@ loc_5220:
                 movem.w d2-d3,-(sp)
                 bsr.w   ConvertMapPixelCoordinatesToOffset
                 move.w  (a4,d2.w),d3
-                andi.w  #MAPLAYOUT_EVENT_MASK,d3
-                cmpi.w  #MAPLAYOUT_CARAVAN_TILE,d3
+                andi.w  #$3C00,d3
+                cmpi.w  #$3800,d3
                 bne.s   loc_5256
-                checkSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
+                compareToSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
                 bne.s   loc_5256
-                chkFlg  FLAG_CARAVAN              ; Caravan is unlocked
+                chkFlg  65              ; Caravan is unlocked
                 beq.s   loc_5256
                 move.w  #MAP_EVENT_GETINTOCARAVAN,((MAP_EVENT_TYPE-$1000000)).w
                 movem.w (sp)+,d2-d3
                 bra.w   loc_531E
 loc_5256:
                 
-                cmpi.w  #MAPLAYOUT_RAFT_TILE,d3
+                cmpi.w  #$3C00,d3
                 bne.s   loc_5278
-                checkSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
+                compareToSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
                 bne.s   loc_5278
-                chkFlg  FLAG_RAFT              ; Raft is unlocked
+                chkFlg  64              ; Raft is unlocked
                 beq.s   loc_5278
                 move.w  #MAP_EVENT_GETINTORAFT,((MAP_EVENT_TYPE-$1000000)).w
                 movem.w (sp)+,d2-d3
                 bra.w   loc_531E
 loc_5278:
                 
-                cmpi.w  #MAPLAYOUT_STEP_TILE,d3
+                cmpi.w  #$400,d3
                 bne.s   loc_528A
                 bsr.w   OpenDoor        
                 move.w  (a4,d2.w),d3
-                andi.w  #MAPLAYOUT_EVENT_MASK,d3
+                andi.w  #$3C00,d3
 loc_528A:
                 
-                cmpi.w  #MAPLAYOUT_WARP_TILE,d3
+                cmpi.w  #$1000,d3
                 bne.s   loc_5294
                 bsr.w   WarpIfSetAtPoint
 loc_5294:
                 
-                cmpi.w  #MAPLAYOUT_ZONE_TILE,d3
+                cmpi.w  #$1400,d3
                 bne.s   loc_52C0
                 move.w  #MAP_EVENT_ZONE_EVENT,((MAP_EVENT_TYPE-$1000000)).w
                 move.w  ENTITYDEF_OFFSET_XDEST(a0),d3
@@ -457,9 +463,15 @@ loc_52B8:
                 move.w  d3,((MAP_EVENT_PARAM_3-$1000000)).w
 loc_52C0:
                 
-                cmpi.w  #MAPLAYOUT_OBSTRUCT_TILE,(a4,d2.w)
+                cmpi.w  #$C000,(a4,d2.w)
                 movem.w (sp)+,d2-d3
                 bcs.w   loc_52E8
+                tst.b   ((DEBUG_MODE_TOGGLE-$1000000)).w
+                beq.s   loc_52DE
+                btst    #INPUT_BIT_B,((PLAYER_1_INPUT-$1000000)).w
+                bne.w   loc_52E8
+loc_52DE:
+                
                 btst    #6,ENTITYDEF_OFFSET_FLAGS_A(a0)
                 bne.w   loc_531E
 loc_52E8:
@@ -468,6 +480,7 @@ loc_52E8:
                 move.w  ((MOVE_SFX-$1000000)).w,d0
                 sndCom  SOUND_COMMAND_GET_D0_PARAMETER
                 move.w  (sp)+,d0
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 move.b  d2,ENTITYDEF_OFFSET_XVELOCITY(a0)
                 beq.s   loc_5300
                 move.w  #MAP_TILE_SIZE,ENTITYDEF_OFFSET_XTRAVEL(a0)
@@ -476,6 +489,16 @@ loc_5300:
                 move.b  d3,ENTITYDEF_OFFSET_YVELOCITY(a0)
                 beq.s   loc_530C
                 move.w  #MAP_TILE_SIZE,ENTITYDEF_OFFSET_YTRAVEL(a0)
+            else
+                move.w  d2,ENTITYDEF_OFFSET_XVELOCITY(a0)
+                beq.s   loc_5300
+                move.w  #MAP_TILE_SIZE,ENTITYDEF_OFFSET_XTRAVEL(a0)
+loc_5300:
+                
+                move.w  d3,ENTITYDEF_OFFSET_YVELOCITY(a0)
+                beq.s   loc_530C
+                move.w  #MAP_TILE_SIZE,ENTITYDEF_OFFSET_YTRAVEL(a0)
+            endif
 loc_530C:
                 
                 add.w   d4,ENTITYDEF_OFFSET_XDEST(a0)
@@ -536,7 +559,7 @@ loc_5360:
                 lsl.w   #NIBBLE_SHIFT_COUNT,d3
                 bsr.w   sub_5FAC
                 bsr.w   ConvertMapPixelCoordinatesToOffset
-                cmpi.w  #MAPLAYOUT_OBSTRUCT_TILE,(a4,d2.w)
+                cmpi.w  #$C000,(a4,d2.w)
                 bcs.s   loc_53B4
                 move.w  ENTITYDEF_OFFSET_XDEST(a0),d0
                 move.w  ENTITYDEF_OFFSET_YDEST(a0),d1
@@ -546,7 +569,7 @@ loc_5360:
                 move.b  ENTITYDEF_OFFSET_FACING(a0),d4
                 bsr.w   sub_5FAC
                 bsr.w   ConvertMapPixelCoordinatesToOffset
-                cmpi.w  #MAPLAYOUT_OBSTRUCT_TILE,(a4,d2.w)
+                cmpi.w  #$C000,(a4,d2.w)
                 bcs.s   loc_53B4
                 move.w  ENTITYDEF_OFFSET_XDEST(a0),d0
                 move.w  ENTITYDEF_OFFSET_YDEST(a0),d1
@@ -568,7 +591,11 @@ loc_53C8:
 loc_53CE:
                 
                 move.w  d0,ENTITYDEF_OFFSET_XTRAVEL(a0)
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 move.b  d3,ENTITYDEF_OFFSET_XVELOCITY(a0)
+            else
+                move.w  d3,ENTITYDEF_OFFSET_XVELOCITY(a0)
+            endif
                 move.w  d1,ENTITYDEF_OFFSET_YDEST(a0)
                 move.w  ENTITYDEF_OFFSET_Y(a0),d2
                 move.b  ENTITYDEF_OFFSET_YSPEED(a0),d3
@@ -584,7 +611,11 @@ loc_53EA:
 loc_53F0:
                 
                 move.w  d1,ENTITYDEF_OFFSET_YTRAVEL(a0)
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 move.b  d3,ENTITYDEF_OFFSET_YVELOCITY(a0)
+            else
+                move.w  d3,ENTITYDEF_OFFSET_YVELOCITY(a0)
+            endif
 loc_53F8:
                 
                 addq.l  #8,a1
@@ -701,26 +732,26 @@ loc_54CC:
                 move.w  d2,d0
                 movem.w (sp)+,d2-d3
                 move.w  (a4,d0.w),d1
-                andi.w  #MAPLAYOUT_STAIRS_MASK,d1
-                btst    #STAIRS_UP_BIT,d1
+                andi.w  #$C000,d1
+                btst    #$F,d1
                 beq.s   loc_554A
                 tst.w   d6
                 bne.w   loc_5526
                 addi.w  #-$7E,d0
                 move.w  (a4,d0.w),d0
-                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
+                andi.w  #$C000,d0
                 
                 cmp.w   d0,d1
                 bne.s   loc_5526
-                move.w  #MAP_TILE_MINUS,d7
+                move.w  #$FE80,d7
                 bra.w   loc_5592
 loc_5526:
                 
-                cmpi.w  #LEFT,d6
+                cmpi.w  #2,d6
                 bne.w   loc_5546
                 addi.w  #$7E,d0 
                 move.w  (a4,d0.w),d0
-                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
+                andi.w  #$C000,d0
                 cmp.w   d0,d1
                 bne.s   loc_5546
                 move.w  #MAP_TILE_PLUS,d7
@@ -730,27 +761,27 @@ loc_5546:
                 bra.w   loc_5592
 loc_554A:
                 
-                btst    #STAIRS_DOWN_BIT,d1
+                btst    #$E,d1
                 beq.s   loc_5592
                 tst.w   d6
                 bne.w   loc_556E
                 addi.w  #$82,d0 
                 move.w  (a4,d0.w),d0
-                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
+                andi.w  #$C000,d0
                 cmp.w   d0,d1
                 bne.s   loc_556E
                 move.w  #MAP_TILE_PLUS,d7
                 bra.w   loc_5592
 loc_556E:
                 
-                cmpi.w  #LEFT,d6
+                cmpi.w  #2,d6
                 bne.w   loc_558E
                 addi.w  #-$82,d0
                 move.w  (a4,d0.w),d0
-                andi.w  #MAPLAYOUT_STAIRS_MASK,d0
+                andi.w  #$C000,d0
                 cmp.w   d0,d1
                 bne.s   loc_558E
-                move.w  #MAP_TILE_MINUS,d7
+                move.w  #$FE80,d7
                 bra.w   loc_5592
 loc_558E:
                 
@@ -764,7 +795,7 @@ loc_5596:
                 move.w  (sp)+,d7
                 movem.w d2-d3,-(sp)
                 bsr.w   ConvertMapPixelCoordinatesToOffset
-                cmpi.w  #MAPLAYOUT_OBSTRUCT_TILE,(a4,d2.w)
+                cmpi.w  #$C000,(a4,d2.w)
                 movem.w (sp)+,d2-d3
                 bcc.w   loc_55B8
 loc_55B0:
@@ -814,8 +845,13 @@ loc_55FC:
                 
                 move.w  d0,ENTITYDEF_OFFSET_XTRAVEL(a0)
                 move.w  d1,ENTITYDEF_OFFSET_YTRAVEL(a0)
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 move.b  d4,ENTITYDEF_OFFSET_XVELOCITY(a0)
                 move.b  d5,ENTITYDEF_OFFSET_YVELOCITY(a0)
+            else
+                move.w  d4,ENTITYDEF_OFFSET_XVELOCITY(a0)
+                move.w  d5,ENTITYDEF_OFFSET_YVELOCITY(a0)
+            endif
                 bra.w   esc_clearTimerGoToNextCommand
 
     ; End of function esc06_walkRandomly
@@ -954,7 +990,7 @@ loc_5708:
                 movem.w d4-d6,-(sp)
                 btst    #5,ENTITYDEF_OFFSET_FLAGS_A(a0)
                 beq.w   loc_575C
-                moveq   #ENTITY_ALLY_COUNTER,d6
+                moveq   #BATTLE_ALLY_ENTITIES_COUNTER,d6
                 lea     ((ENTITY_DATA-$1000000)).w,a2
 loc_5720:
                 
@@ -988,28 +1024,28 @@ loc_575C:
                 movem.w d2-d3,-(sp)
                 bsr.w   ConvertMapPixelCoordinatesToOffset
                 move.w  (a4,d2.w),d3
-                andi.w  #MAPLAYOUT_EVENT_MASK,d3
-                cmpi.w  #MAPLAYOUT_STEP_TILE,d3
+                andi.w  #$3C00,d3
+                cmpi.w  #$400,d3
                 bne.s   loc_5782
                 bsr.w   OpenDoor        
                 move.w  (a4,d2.w),d3
-                andi.w  #MAPLAYOUT_EVENT_MASK,d3
+                andi.w  #$3C00,d3
 loc_5782:
                 
-                cmpi.w  #MAPLAYOUT_WARP_TILE,d3
+                cmpi.w  #$1000,d3
                 bne.s   loc_5794
                 bsr.w   WarpIfSetAtPoint
                 movem.w (sp)+,d2-d3
                 bra.w   loc_57C0
 loc_5794:
                 
-                cmpi.w  #MAPLAYOUT_CARAVAN_TILE,d3
+                cmpi.w  #$3800,d3
                 bne.s   loc_57A2
                 movem.w (sp)+,d2-d3
                 bra.w   loc_57C0
 loc_57A2:
                 
-                cmpi.w  #MAPLAYOUT_OBSTRUCT_TILE,(a4,d2.w)
+                cmpi.w  #$C000,(a4,d2.w)
                 bcc.s   loc_57B8
                 move.w  #MAP_EVENT_GETOUTOFRAFT,((MAP_EVENT_TYPE-$1000000)).w
                 movem.w (sp)+,d2-d3
@@ -1020,12 +1056,21 @@ loc_57B8:
                 bra.w   loc_57E0
 loc_57C0:
                 
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 move.b  d2,ENTITYDEF_OFFSET_XVELOCITY(a0)
                 beq.s   loc_57CC
                 move.w  #MAP_TILE_SIZE,ENTITYDEF_OFFSET_XTRAVEL(a0)
 loc_57CC:
                 
                 move.b  d3,ENTITYDEF_OFFSET_YVELOCITY(a0)
+            else
+                move.w  d2,ENTITYDEF_OFFSET_XVELOCITY(a0)
+                beq.s   loc_57CC
+                move.w  #MAP_TILE_SIZE,ENTITYDEF_OFFSET_XTRAVEL(a0)
+loc_57CC:
+                
+                move.w  d3,ENTITYDEF_OFFSET_YVELOCITY(a0)
+            endif
                 beq.s   loc_57D8
                 move.w  #MAP_TILE_SIZE,ENTITYDEF_OFFSET_YTRAVEL(a0)
 loc_57D8:
@@ -1119,7 +1164,7 @@ loc_588A:
                 movem.w d4-d6,-(sp)
                 btst    #5,ENTITYDEF_OFFSET_FLAGS_A(a0)
                 beq.w   loc_58DE
-                moveq   #ENTITY_ALLY_COUNTER,d6
+                moveq   #BATTLE_ALLY_ENTITIES_COUNTER,d6
                 lea     ((ENTITY_DATA-$1000000)).w,a2
 loc_58A2:
                 
@@ -1153,28 +1198,28 @@ loc_58DE:
                 movem.w d2-d3,-(sp)
                 bsr.w   ConvertMapPixelCoordinatesToOffset
                 move.w  (a4,d2.w),d3
-                andi.w  #MAPLAYOUT_EVENT_MASK,d3
-                cmpi.w  #MAPLAYOUT_STEP_TILE,d3
+                andi.w  #$3C00,d3
+                cmpi.w  #$400,d3
                 bne.s   loc_5904
                 bsr.w   OpenDoor        
                 move.w  (a4,d2.w),d3
-                andi.w  #MAPLAYOUT_EVENT_MASK,d3
+                andi.w  #$3C00,d3
 loc_5904:
                 
-                cmpi.w  #MAPLAYOUT_WARP_TILE,d3
+                cmpi.w  #$1000,d3
                 bne.s   loc_5916
                 bsr.w   WarpIfSetAtPoint
                 movem.w (sp)+,d2-d3
                 bra.w   loc_5942
 loc_5916:
                 
-                cmpi.w  #MAPLAYOUT_RAFT_TILE,d3
+                cmpi.w  #$3C00,d3
                 bne.s   loc_5924
                 movem.w (sp)+,d2-d3
                 bra.w   loc_5942
 loc_5924:
                 
-                cmpi.w  #MAPLAYOUT_OBSTRUCT_TILE,(a4,d2.w)
+                cmpi.w  #$C000,(a4,d2.w)
                 bcc.s   loc_593A
                 move.w  #MAP_EVENT_GETOUTOFCARAVAN,((MAP_EVENT_TYPE-$1000000)).w
                 movem.w (sp)+,d2-d3
@@ -1185,12 +1230,21 @@ loc_593A:
                 bra.w   loc_5962
 loc_5942:
                 
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 move.b  d2,ENTITYDEF_OFFSET_XVELOCITY(a0)
                 beq.s   loc_594E
                 move.w  #MAP_TILE_SIZE,ENTITYDEF_OFFSET_XTRAVEL(a0)
 loc_594E:
                 
                 move.b  d3,ENTITYDEF_OFFSET_YVELOCITY(a0)
+            else
+                move.w  d2,ENTITYDEF_OFFSET_XVELOCITY(a0)
+                beq.s   loc_594E
+                move.w  #MAP_TILE_SIZE,ENTITYDEF_OFFSET_XTRAVEL(a0)
+loc_594E:
+                
+                move.w  d3,ENTITYDEF_OFFSET_YVELOCITY(a0)
+            endif
                 beq.s   loc_595A
                 move.w  #MAP_TILE_SIZE,ENTITYDEF_OFFSET_YTRAVEL(a0)
 loc_595A:
@@ -1214,12 +1268,12 @@ esc09_moveToFacingRelativePosition:
                 movem.l d2-d3,-(sp)
                 move.w  2(a1),d2
                 move.w  4(a1),d3
-                move.b  ENTITYDEF_OFFSET_FACING(a0),d0 ; facing
+                move.b  ENTITYDEF_OFFSET_FACING(a0),d0
                 move.w  d0,d1
                 andi.w  #4,d0
-                andi.w  #3,d1
+                andi.w  #DIRECTION_MASK,d1
                 add.w   d1,d2
-                andi.w  #3,d2
+                andi.w  #DIRECTION_MASK,d2
                 or.w    d0,d2
                 lsl.w   #INDEX_SHIFT_COUNT,d2
                 move.w  table_59AC(pc,d2.w),d0
@@ -1238,16 +1292,16 @@ table_59AE:
                 
                 dc.w 0
                 dc.w 0
-                dc.w MAP_TILE_MINUS
-                dc.w MAP_TILE_MINUS
+                dc.w $FE80
+                dc.w $FE80
                 dc.w 0
                 dc.w 0
                 dc.w MAP_TILE_PLUS
                 dc.w MAP_TILE_PLUS
-                dc.w MAP_TILE_MINUS
-                dc.w MAP_TILE_MINUS
-                dc.w MAP_TILE_MINUS
-                dc.w MAP_TILE_MINUS
+                dc.w $FE80
+                dc.w $FE80
+                dc.w $FE80
+                dc.w $FE80
                 dc.w MAP_TILE_PLUS
                 dc.w MAP_TILE_PLUS
                 dc.w MAP_TILE_PLUS
@@ -1270,9 +1324,9 @@ esc0E_moveToEntityFacingRelativePosition:
                 move.b  ENTITYDEF_OFFSET_FACING(a1),d0 ; other entity facing
                 move.w  d0,d1
                 andi.w  #4,d0
-                andi.w  #3,d1
+                andi.w  #DIRECTION_MASK,d1
                 add.w   d1,d2
-                andi.w  #3,d2
+                andi.w  #DIRECTION_MASK,d2
                 or.w    d0,d2
                 lsl.w   #INDEX_SHIFT_COUNT,d2
                 move.w  table_59AC(pc,d2.w),d0
@@ -1499,11 +1553,11 @@ esc15_setAutoFacing:
                 
                 tst.w   2(a1)
                 bne.s   loc_5B64
-                bclr    #6,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                bclr    #ENTITYDEF_FLAGS_B_AUTO_FACING,ENTITYDEF_OFFSET_FLAGS_B(a0)
                 bra.s   loc_5B6A
 loc_5B64:
                 
-                bset    #6,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                bset    #ENTITYDEF_FLAGS_B_AUTO_FACING,ENTITYDEF_OFFSET_FLAGS_B(a0)
 loc_5B6A:
                 
                 addq.l  #4,a1
@@ -1529,7 +1583,11 @@ esc16_setEntityNumber:
 
 esc17_setSpriteNumber:
                 
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 move.w  2(a1),ENTITYDEF_OFFSET_MAPSPRITE(a0)
+            else
+                move.b  3(a1),ENTITYDEF_OFFSET_MAPSPRITE(a0)
+            endif
                 addq.l  #4,a1
                 bra.w   esc_clearTimerGoToNextCommand
 
@@ -1537,6 +1595,8 @@ esc17_setSpriteNumber:
 
 
 ; =============== S U B R O U T I N E =======================================
+
+; set or clear entity value 1C bit 7 according to xxxx
 
 
 esc18_setEntityObstructable:
@@ -1602,8 +1662,8 @@ loc_5BD0:
 esc1B_setEntityOrientation:
                 
                 move.w  2(a1),d0
-                andi.w  #3,d0
-                andi.b  #$FC,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                andi.w  #DIRECTION_MASK,d0
+                andi.b  #(BYTE_MASK-DIRECTION_MASK),ENTITYDEF_OFFSET_FLAGS_B(a0)
                 or.b    d0,ENTITYDEF_OFFSET_FLAGS_B(a0)
                 addq.l  #4,a1
                 bra.w   esc_clearTimerGoToNextCommand
@@ -1618,11 +1678,11 @@ esc1C_setEntityTransparency:
                 
                 tst.w   2(a1)
                 bne.s   loc_5BFC
-                bclr    #7,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                bclr    #ENTITYDEF_FLAGS_B_BLINKING,ENTITYDEF_OFFSET_FLAGS_B(a0)
                 bra.s   loc_5C02
 loc_5BFC:
                 
-                bset    #7,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                bset    #ENTITYDEF_FLAGS_B_BLINKING,ENTITYDEF_OFFSET_FLAGS_B(a0)
 loc_5C02:
                 
                 addq.l  #4,a1
@@ -1638,11 +1698,11 @@ esc1D_setEntityGhost:
                 
                 tst.w   2(a1)
                 bne.s   loc_5C16
-                bclr    #2,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                bclr    #ENTITYDEF_FLAGS_B_GHOST,ENTITYDEF_OFFSET_FLAGS_B(a0)
                 bra.s   loc_5C1C
 loc_5C16:
                 
-                bset    #2,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                bset    #ENTITYDEF_FLAGS_B_GHOST,ENTITYDEF_OFFSET_FLAGS_B(a0)
 loc_5C1C:
                 
                 addq.l  #4,a1
@@ -1658,11 +1718,11 @@ esc1E_setEntityAnimSpeedx2:
                 
                 tst.w   2(a1)
                 bne.s   loc_5C30
-                bclr    #4,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                bclr    #ENTITYDEF_FLAGS_B_2X_ANIMATION_SPEED,ENTITYDEF_OFFSET_FLAGS_B(a0)
                 bra.s   loc_5C36
 loc_5C30:
                 
-                bset    #4,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                bset    #ENTITYDEF_FLAGS_B_2X_ANIMATION_SPEED,ENTITYDEF_OFFSET_FLAGS_B(a0)
 loc_5C36:
                 
                 addq.l  #4,a1
@@ -1678,11 +1738,11 @@ esc1F_setResizable:
                 
                 tst.w   2(a1)
                 bne.s   loc_5C4A
-                bclr    #3,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                bclr    #ENTITYDEF_FLAGS_B_RESIZE,ENTITYDEF_OFFSET_FLAGS_B(a0)
                 bra.s   loc_5C50
 loc_5C4A:
                 
-                bset    #3,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                bset    #ENTITYDEF_FLAGS_B_RESIZE,ENTITYDEF_OFFSET_FLAGS_B(a0)
 loc_5C50:
                 
                 addq.l  #4,a1
@@ -1698,11 +1758,11 @@ esc20_setImmersed:
                 
                 tst.w   2(a1)
                 bne.s   loc_5C64
-                bclr    #5,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                bclr    #ENTITYDEF_FLAGS_B_IMMERSED,ENTITYDEF_OFFSET_FLAGS_B(a0)
                 bra.s   loc_5C6A
 loc_5C64:
                 
-                bset    #5,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                bset    #ENTITYDEF_FLAGS_B_IMMERSED,ENTITYDEF_OFFSET_FLAGS_B(a0)
 loc_5C6A:
                 
                 addq.l  #4,a1
@@ -1779,7 +1839,7 @@ esc31_branchIfFlagSet:
                 
                 movem.w d1,-(sp)
                 move.w  2(a1),d1
-                bsr.w   CheckFlag
+                bsr.w   j_CheckFlag
                 movem.w (sp)+,d1
                 beq.s   loc_5CC6
                 adda.w  4(a1),a1
@@ -1801,7 +1861,7 @@ esc32_branchIfFlagClear:
                 
                 movem.w d1,-(sp)
                 move.w  2(a1),d1
-                bsr.w   CheckFlag
+                bsr.w   j_CheckFlag
                 movem.w (sp)+,d1
                 bne.s   loc_5CE4
                 adda.w  4(a1),a1
@@ -1862,14 +1922,14 @@ esc40_checkMapBlockCopy:
                 bsr.w   ConvertMapPixelCoordinatesToOffset
                 move.w  (a4,d2.w),d3    ; copy block index under player from RAM
                 move.w  d3,d2
-                andi.w  #MAPLAYOUT_EVENT_MASK,d2
-                cmpi.w  #MAPLAYOUT_ROOF_SHOW_TILE,d2        ; check for block copy "show" flag
-                bne.s   loc_5D38
+                andi.w  #$3C00,d2
+                cmpi.w  #$800,d2        ; check for block copy "show" flag
+                bne.s   loc_5D38        
                 bsr.w   PerformMapBlockCopyScript
                 bra.s   loc_5D42
 loc_5D38:
                 
-                cmpi.w  #MAPLAYOUT_ROOF_HIDE_TILE,d2        ; check for bock copy "hide" flag
+                cmpi.w  #$C00,d2        ; check for bock copy "hide" flag
                 bne.s   loc_5D42
 loc_5D3E:
                 
@@ -2015,6 +2075,7 @@ loc_5E0E:
                 cmp.w   d2,d0
                 beq.s   loc_5E2E
                 bge.s   loc_5E24
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 add.b   d4,ENTITYDEF_OFFSET_XVELOCITY(a0)
                 bne.s   loc_5E22
                 sub.b   d4,ENTITYDEF_OFFSET_XVELOCITY(a0)
@@ -2048,6 +2109,39 @@ loc_5E4A:
                 move.b  ENTITYDEF_OFFSET_YVELOCITY(a0),d5
                 ext.w   d4
                 ext.w   d5
+            else
+                add.w   d4,ENTITYDEF_OFFSET_XVELOCITY(a0)
+                bne.s   loc_5E22
+                sub.w   d4,ENTITYDEF_OFFSET_XVELOCITY(a0)
+loc_5E22:
+                
+                bra.s   loc_5E2E
+loc_5E24:
+                
+                sub.w   d4,ENTITYDEF_OFFSET_XVELOCITY(a0)
+                bne.s   loc_5E2E
+                add.w   d4,ENTITYDEF_OFFSET_XVELOCITY(a0)
+loc_5E2E:
+                
+                cmp.w   d3,d1
+                beq.s   loc_5E4A
+                bge.s   loc_5E40
+                add.w   d5,ENTITYDEF_OFFSET_YVELOCITY(a0)
+                bne.s   loc_5E3E
+                sub.w   d5,ENTITYDEF_OFFSET_YVELOCITY(a0)
+loc_5E3E:
+                
+                bra.s   loc_5E4A
+loc_5E40:
+                
+                sub.w   d5,ENTITYDEF_OFFSET_YVELOCITY(a0)
+                bne.s   loc_5E4A
+                add.w   d5,ENTITYDEF_OFFSET_YVELOCITY(a0)
+loc_5E4A:
+                
+                move.w  ENTITYDEF_OFFSET_XVELOCITY(a0),d4
+                move.w  ENTITYDEF_OFFSET_YVELOCITY(a0),d5
+            endif
                 tst.w   ENTITYDEF_OFFSET_XTRAVEL(a0)
                 beq.s   loc_5E5A
                 add.w   d4,(a0)
@@ -2063,8 +2157,12 @@ loc_5E64:
                 clr.w   d3
                 move.w  ENTITYDEF_OFFSET_XTRAVEL(a0),d0
                 beq.s   loc_5E82
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 move.b  ENTITYDEF_OFFSET_XVELOCITY(a0),d0
                 ext.w   d0
+            else
+                move.w  ENTITYDEF_OFFSET_XVELOCITY(a0),d0
+            endif
                 move.w  d0,d2
                 bge.s   loc_5E80
                 moveq   #-1,d0
@@ -2077,8 +2175,12 @@ loc_5E82:
                 
                 move.w  ENTITYDEF_OFFSET_YTRAVEL(a0),d1
                 beq.s   loc_5E98
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 move.b  ENTITYDEF_OFFSET_YVELOCITY(a0),d1
                 ext.w   d1
+            else
+                move.w  ENTITYDEF_OFFSET_YVELOCITY(a0),d1
+            endif
                 move.w  d1,d3
                 bge.s   loc_5E96
                 moveq   #-1,d1
@@ -2166,8 +2268,8 @@ loc_5F28:
                 move.w  ENTITYDEF_OFFSET_YDEST(a0),d1
                 bsr.w   ConvertMapPixelCoordinatesToOffset
                 move.w  (a4,d2.w),d0
-                andi.w  #MAPLAYOUT_EVENT_MASK,d0
-                cmpi.w  #MAPLAYOUT_LAYER_TILE,d0
+                andi.w  #$3C00,d0
+                cmpi.w  #$2000,d0
                 bne.s   loc_5F54
                 move.b  #2,ENTITYDEF_OFFSET_LAYER(a0)
 loc_5F54:
@@ -2180,16 +2282,16 @@ loc_5F5E:
                 move.b  ENTITYDEF_OFFSET_FLAGS_B(a0),d1
                 cmpi.w  #$3400,d0
                 bne.s   loc_5F70
-                bset    #5,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                bset    #ENTITYDEF_FLAGS_B_IMMERSED,ENTITYDEF_OFFSET_FLAGS_B(a0)
                 bra.s   loc_5F76
 loc_5F70:
                 
-                bclr    #5,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                bclr    #ENTITYDEF_FLAGS_B_IMMERSED,ENTITYDEF_OFFSET_FLAGS_B(a0)
 loc_5F76:
                 
                 move.b  ENTITYDEF_OFFSET_FLAGS_B(a0),d2
                 eor.b   d2,d1
-                btst    #5,d1
+                btst    #ENTITYDEF_FLAGS_B_IMMERSED,d1
                 beq.s   loc_5F8A
                 move.b  ENTITYDEF_OFFSET_FACING(a0),d6
                 bsr.w   ChangeEntityMapsprite
@@ -2348,18 +2450,24 @@ UpdateEntityProperties:
                 adda.w  d0,a0
                 cmpi.b  #-1,d2
                 beq.s   @CheckMapsprite
-                andi.w  #$7F,d2 
-                andi.b  #$80,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                andi.w  #%1111111,d2
+                andi.b  #%10000000,ENTITYDEF_OFFSET_FLAGS_B(a0)
                 or.b    d2,ENTITYDEF_OFFSET_FLAGS_B(a0)
 @CheckMapsprite:
                 
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 cmpi.w  #-1,d3
                 beq.s   @ChangeDirection
                 move.w  d3,ENTITYDEF_OFFSET_MAPSPRITE(a0)
+            else
+                cmpi.b  #-1,d3
+                beq.s   @ChangeDirection
+                move.b  d3,ENTITYDEF_OFFSET_MAPSPRITE(a0)
+            endif
 @ChangeDirection:
                 
-                move.w  d1,d6
-                andi.w  #3,d6
+                move.w  d1,d6           ; d6.w = new facing direction
+                andi.w  #DIRECTION_MASK,d6
                 bsr.w   ChangeEntityMapsprite
                 movem.l (sp)+,d0-a2
                 rts
@@ -2372,11 +2480,12 @@ UpdateEntityProperties:
 
 UpdateEntitySprite:
                 
-                btst    #6,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                module
+                btst    #ENTITYDEF_FLAGS_B_AUTO_FACING,ENTITYDEF_OFFSET_FLAGS_B(a0)
                 beq.w   return_6180
                 cmp.b   ENTITYDEF_OFFSET_FACING(a0),d6
                 beq.w   return_6180
-                cmpi.b  #7,((SPRITES_TO_LOAD_NUMBER-$1000000)).w
+                cmpi.b  #GFX_MAX_SPRITES_TO_LOAD,((SPRITES_TO_LOAD_NUMBER-$1000000)).w
                 bge.w   return_6180
 
     ; End of function UpdateEntitySprite
@@ -2398,18 +2507,37 @@ ChangeEntityMapsprite:
 loc_60B6:
                 
                 movem.l a0-a1,-(sp)
+            if (STANDARD_BUILD=1)
+              if (EXPANDED_MAPSPRITES=1)
                 move.w  ENTITYDEF_OFFSET_MAPSPRITE(a0),d1
-                cmpi.w  #MAPSPRITES_SPECIALS_START,d1
-                bcc.w   loc_617C
+              else
+                clr.w   d1
+                move.b  ENTITYDEF_OFFSET_MAPSPRITE(a0),d1
+              endif
+                jsr     IsSpecialSprite ; Out: CCR carry-bit clear if true
+            else
+                move.b  ENTITYDEF_OFFSET_MAPSPRITE(a0),d1
+                cmpi.b  #MAPSPRITES_SPECIALS_START,d1
+            endif
+                bcc.w   @Done           ; skip changing facing direction if special sprite
+                
                 clr.w   d1
                 move.b  ENTITYDEF_OFFSET_ENTNUM(a0),d1
-                cmpi.b  #$20,d1 
-                beq.w   loc_617C
-                move.w  d1,-(sp)
+                cmpi.b  #32,d1 
+                beq.w   @Done
+                
+                move.w  d1,-(sp)        ; push entnum
                 clr.w   d1
                 move.b  ENTITYDEF_OFFSET_FLAGS_B(a0),d1
-                move.w  d1,-(sp)
+                move.w  d1,-(sp)        ; push flags B
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 move.w  ENTITYDEF_OFFSET_MAPSPRITE(a0),d1
+            else
+              if (STANDARD_BUILD=1)
+                clr.w   d1
+              endif
+                move.b  ENTITYDEF_OFFSET_MAPSPRITE(a0),d1
+            endif
                 move.w  d1,d0
                 add.w   d1,d1
                 add.w   d0,d1
@@ -2426,36 +2554,36 @@ loc_60B6:
                 lea     (a1,d0.w),a1
                 jsr     (LoadBasicCompressedData).w
                 movea.l a1,a0
-                move.w  (sp)+,d1
-                btst    #5,d1
+                move.w  (sp)+,d1        ; pull flags B
+                btst    #ENTITYDEF_FLAGS_B_IMMERSED,d1
                 beq.s   loc_6124
-                jsr     ApplySpriteImmersedEffect
+                jsr     j_ApplySpriteImmersedEffect
 loc_6124:
                 
-                btst    #3,d1
+                btst    #ENTITYDEF_FLAGS_B_RESIZE,d1
                 beq.s   loc_6134
                 move.w  ((SPRITE_SIZE-$1000000)).w,d0
-                jsr     ResizeSprite
+                jsr     j_ResizeSprite
 loc_6134:
                 
-                btst    #2,d1
+                btst    #ENTITYDEF_FLAGS_B_GHOST,d1
                 beq.s   loc_6140
-                jsr     ApplySpriteGhostEffect
+                jsr     j_ApplySpriteGhostEffect
 loc_6140:
                 
-                andi.w  #3,d1
-                cmpi.w  #1,d1
+                andi.w  #ORIENTATION_MASK,d1
+                cmpi.w  #ORIENTATION_LEFT,d1
                 bne.s   loc_6152
-                jsr     OrientSpriteLeft
+                jsr     j_OrientSpriteLeft
                 bra.s   loc_615E
 loc_6152:
                 
-                cmpi.w  #3,d1
+                cmpi.w  #ORIENTATION_RIGHT,d1
                 bne.s   loc_615E
-                jsr     OrientSpriteRight
+                jsr     j_OrientSpriteRight
 loc_615E:
                 
-                move.w  (sp)+,d1
+                move.w  (sp)+,d1        ; pull entnum
                 move.w  d1,d0
                 lsl.w   #3,d1
                 add.w   d0,d1
@@ -2466,7 +2594,7 @@ loc_615E:
                 moveq   #2,d1
                 bsr.w   ApplyVIntVramDma
                 bsr.w   EnableDmaQueueProcessing
-loc_617C:
+@Done:
                 
                 movem.l (sp)+,a0-a1
 return_6180:
@@ -2475,6 +2603,8 @@ return_6180:
 
     ; End of function ChangeEntityMapsprite
 
+                modend
+                
 table_FacingValues_2:
                 dc.b RIGHT              ; 8 bytes holding facing values for sprites
                 dc.b UP
@@ -2501,11 +2631,22 @@ DmaEntityMapsprite:
                 clr.w   d1
                 move.b  ENTITYDEF_OFFSET_ENTNUM(a0),d1
                 move.w  d1,-(sp)
-                clr.w   d1
+            if (STANDARD_BUILD=1)
+              if (EXPANDED_MAPSPRITES=1)
                 move.w  ENTITYDEF_OFFSET_MAPSPRITE(a0),d1
+              else
+                clr.w   d1
+                move.b  ENTITYDEF_OFFSET_MAPSPRITE(a0),d1
+              endif
+                jsr     IsSpecialSprite ; Out: CCR carry-bit clear if true
+                bcs.s   @LoadRegularSprite
+            else
+                clr.w   d1
+                move.b  ENTITYDEF_OFFSET_MAPSPRITE(a0),d1
                 cmpi.w  #MAPSPRITES_SPECIALS_START,d1 ; HARDCODED special mapsprites start index
                 blt.s   @LoadRegularSprite
-                jsr     LoadSpecialSprite
+            endif
+                jsr     j_LoadSpecialSprite
                 move.w  (sp)+,d1
                 bra.s   @Done
 @LoadRegularSprite:
@@ -2548,7 +2689,7 @@ DmaEntityMapsprite:
 ConvertMapPixelCoordinatesToOffset:
                 
                 movem.w d0-d1,-(sp)
-                checkSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
+                compareToSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
                 bne.s   @InBattle       
                 tst.b   ENTITYDEF_OFFSET_LAYER(a0)
                 beq.s   @InBattle       

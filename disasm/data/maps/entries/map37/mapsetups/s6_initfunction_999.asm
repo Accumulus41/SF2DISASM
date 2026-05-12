@@ -8,10 +8,10 @@
 ms_map37_flag999_InitFunction:
                 
                 jsr     InitializeNazcaShipForceMembers
-                chkFlg  FLAG_TEMP00             ; TEMP FLAG #00
+                chkFlg  256             ; TEMP FLAG #00
                 bne.s   @Return
                 script  cs_5FABC
-                setFlg  FLAG_TEMP00             ; TEMP FLAG #00
+                setFlg  256             ; TEMP FLAG #00
 @Return:
                 
                 rts

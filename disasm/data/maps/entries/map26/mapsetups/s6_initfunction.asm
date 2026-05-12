@@ -8,14 +8,14 @@
 ms_map26_InitFunction:
                 
                  
-                chkFlg  FLAG_FLOOR1             ; Set after the Cotton Balloon pops and you land in Floor World
+                chkFlg  779             ; Set after the Cotton Balloon pops and you land in Floor World
                 bne.s   byte_59DF2      
                 script  cs_59E04
-                setFlg  FLAG_FLOOR1             ; Set after the Cotton Balloon pops and you land in Floor World
-                setSavedByte #MAP_CREED_FLOOR_WORLD, EGRESS_MAP
+                setFlg  779             ; Set after the Cotton Balloon pops and you land in Floor World
+                setSavedByte #MAP_FLOOR_WORLD, EGRESS_MAP
 byte_59DF2:
                 
-                chkFlg  FLAG_FLOOR2             ; Set after the man tries to lift the giant ring in Floor World
+                chkFlg  780             ; Set after the man tries to lift the giant ring in Floor World
                 beq.s   return_59E02
                 move.w  #129,d0
                 jsr     MoveEntityOutOfMap
@@ -26,7 +26,7 @@ return_59E02:
     ; End of function ms_map26_InitFunction
 
 cs_59E04:       textCursor 1739
-                setCameraEntity 65535
+                setCameraEntity CAMERA_NEUTRAL
                 reloadMap 21,8
                 setActscriptWait ALLY_BOWIE,eas_Init
                 setActscriptWait ALLY_PETER,eas_Init

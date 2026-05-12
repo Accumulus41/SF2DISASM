@@ -6,32 +6,32 @@
                     mainLayerEnd        31, 49
                     scndLayerFgndStart  0, 0
                     scndLayerBgndStart  32, 0
-                    mainLayerParallax   16, 16
-                    scndLayerParallax   8, 4
+                    mainLayerParallax   256, 256
+                    scndLayerParallax   128, 64
                     mainLayerAutoscroll 0, 0
                     scndLayerAutoscroll 0, 0
                     mainLayerType    255
-                    areaDefaultMusic 33
+                    areaDefaultMusic MUSIC_BATTLE_THEME_3
                 
                     mainLayerStart      34, 30
                     mainLayerEnd        51, 44
                     scndLayerFgndStart  0, 0
                     scndLayerBgndStart  0, 0
-                    mainLayerParallax   16, 16
-                    scndLayerParallax   16, 16
+                    mainLayerParallax   256, 256
+                    scndLayerParallax   256, 256
                     mainLayerAutoscroll 0, 0
                     scndLayerAutoscroll 0, 0
                     mainLayerType    255
-                    areaDefaultMusic 34
+                    areaDefaultMusic MUSIC_BATTLE_THEME_1
                 
                     mainLayerStart      34, 45
                     mainLayerEnd        51, 63
                     scndLayerFgndStart  0, 0
                     scndLayerBgndStart  0, 0
-                    mainLayerParallax   16, 16
-                    scndLayerParallax   16, 16
+                    mainLayerParallax   256, 256
+                    scndLayerParallax   256, 256
                     mainLayerAutoscroll 0, 0
                     scndLayerAutoscroll 0, 0
                     mainLayerType    255
-                    areaDefaultMusic 34
+                    areaDefaultMusic MUSIC_BATTLE_THEME_1
                 endWord

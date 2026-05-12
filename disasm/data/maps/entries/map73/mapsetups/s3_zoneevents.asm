@@ -1,6 +1,6 @@
 
 ; ASM FILE data\maps\entries\map73\mapsetups\s3_zoneevents.asm :
-; 0x5C820..0x5C86A : 
+; 0x5032C..0x50332 : 
 ms_map73_ZoneEvents:
                 msDefaultZoneEvent Map73_DefaultZoneEvent-ms_map73_ZoneEvents
 
@@ -11,5 +11,5 @@ Map73_DefaultZoneEvent:
                 
                 rts
 
-    ; End of function Map73_ZoneEvent2
+    ; End of function Map73_DefaultZoneEvent
 

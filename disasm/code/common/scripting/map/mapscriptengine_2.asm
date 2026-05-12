@@ -15,6 +15,14 @@ ExecuteMapScript:
                 clr.b   ((SKIP_CUTSCENE_TEXT-$1000000)).w
 loc_47140:
                 
+                btst    #INPUT_BIT_START,((PLAYER_2_INPUT-$1000000)).w 
+                                                        ; if P2 START and DEBUG MODE, DEACTIVATE DIALOGS
+                beq.s   loc_47156
+                tst.b   (DEBUG_MODE_TOGGLE).l
+                beq.s   loc_47156
+                move.b  #-1,((SKIP_CUTSCENE_TEXT-$1000000)).w
+loc_47156:
+                
                 move.w  (a6)+,d0
                 cmpi.w  #-1,d0
                 beq.w   loc_47234
@@ -122,7 +130,7 @@ rjt_cutsceneScriptCommands:
                 dc.w (csc51_joinBattleParty-rjt_cutsceneScriptCommands) & $FFFF
                 dc.w (csc52_faceEntity-rjt_cutsceneScriptCommands) & $FFFF
                 dc.w (csc53_setPriority-rjt_cutsceneScriptCommands) & $FFFF
-                dc.w (csc54_joinForceAI-rjt_cutsceneScriptCommands) & $FFFF
+                dc.w (csc54_joinForceAi-rjt_cutsceneScriptCommands) & $FFFF
                 dc.w (csc55_resetCharacterBattleStats-rjt_cutsceneScriptCommands) & $FFFF
                 dc.w (csc56_addFollower-rjt_cutsceneScriptCommands) & $FFFF
                 dc.w csc_doNothing-rjt_cutsceneScriptCommands
@@ -167,11 +175,11 @@ csc00_displaySingleTextbox:
                 movea.l (sp)+,a6
                 move.w  (a6),d0
                 bsr.w   GetEntityPortaitAndSpeechSfx
-                move.w  d2,((SPEECH_SFX-$1000000)).w
+                move.w  d2,((CURRENT_SPEECH_SFX-$1000000)).w
                 bra.s   loc_47270
 loc_4726A:
                 
-                move.w  #0,((SPEECH_SFX-$1000000)).w
+                move.w  #0,((CURRENT_SPEECH_SFX-$1000000)).w
 loc_47270:
                 
                 adda.w  #2,a6
@@ -179,7 +187,7 @@ loc_47270:
                 jsr     (WaitForViewScrollEnd).w
                 jsr     (DisplayText).l 
                 addq.w  #1,((CUTSCENE_DIALOG_INDEX-$1000000)).w ; increment script number (move forward in script bank)
-                jsr     ClosePortraitWindow
+                jsr     j_ClosePortraitWindow
                 clsTxt
                 moveq   #10,d0
                 jsr     (Sleep).w       
@@ -207,11 +215,11 @@ csc01_displaySingleTextboxWithVars:
                 movea.l (sp)+,a6
                 move.w  (a6),d0
                 bsr.w   GetEntityPortaitAndSpeechSfx
-                move.w  d2,((SPEECH_SFX-$1000000)).w
+                move.w  d2,((CURRENT_SPEECH_SFX-$1000000)).w
                 bra.s   loc_472BE
 loc_472B8:
                 
-                move.w  #0,((SPEECH_SFX-$1000000)).w
+                move.w  #0,((CURRENT_SPEECH_SFX-$1000000)).w
 loc_472BE:
                 
                 adda.w  #2,a6
@@ -221,7 +229,7 @@ loc_472BE:
                 jsr     (WaitForViewScrollEnd).w
                 jsr     (DisplayText).l 
                 addq.w  #1,((CUTSCENE_DIALOG_INDEX-$1000000)).w
-                jsr     ClosePortraitWindow
+                jsr     j_ClosePortraitWindow
                 clsTxt
                 moveq   #10,d0
                 jsr     (Sleep).w       
@@ -245,11 +253,11 @@ csc02_displayTextbox:
                 movea.l (sp)+,a6
                 move.w  (a6),d0
                 bsr.w   GetEntityPortaitAndSpeechSfx
-                move.w  d2,((SPEECH_SFX-$1000000)).w
+                move.w  d2,((CURRENT_SPEECH_SFX-$1000000)).w
                 bra.s   loc_47314
 loc_4730E:
                 
-                move.w  #0,((SPEECH_SFX-$1000000)).w
+                move.w  #0,((CURRENT_SPEECH_SFX-$1000000)).w
 loc_47314:
                 
                 adda.w  #2,a6
@@ -281,11 +289,11 @@ csc03_displayTextboxWithVars:
                 movea.l (sp)+,a6
                 move.w  (a6),d0
                 bsr.w   GetEntityPortaitAndSpeechSfx
-                move.w  d2,((SPEECH_SFX-$1000000)).w
+                move.w  d2,((CURRENT_SPEECH_SFX-$1000000)).w
                 bra.s   loc_47352
 loc_4734C:
                 
-                move.w  #0,((SPEECH_SFX-$1000000)).w
+                move.w  #0,((CURRENT_SPEECH_SFX-$1000000)).w
 loc_47352:
                 
                 adda.w  #2,a6
@@ -357,7 +365,7 @@ csc07_warp:
 
 csc08_joinForce:
                 
-                move.w  #0,((SPEECH_SFX-$1000000)).w
+                move.w  #0,((CURRENT_SPEECH_SFX-$1000000)).w
             if (MUSIC_RESUMING&RESUME_MUSIC_AFTER_JOIN_JINGLE=1)
                 activateMusicResuming
             endif
@@ -375,21 +383,21 @@ loc_473B4:
                 cmpi.w  #128,d0         ; HARDCODED use case
                 bne.s   loc_473D4
                 move.w  #ALLY_SARAH,d0  ; make sarah and chester join at the same time
-                jsr     JoinForce
+                jsr     j_JoinForce
                 move.w  #ALLY_CHESTER,d0
-                jsr     JoinForce
+                jsr     j_JoinForce
                 txt     447             ; "{NAME;1} the PRST and{N}{NAME;2} the KNTE{N}have joined the force."
                 bra.s   loc_473EC
 loc_473D4:
                 
-                jsr     JoinForce
-                jsr     GetClass
+                jsr     j_JoinForce
+                jsr     j_GetClass
                 move.w  d0,((DIALOGUE_NAME_INDEX_1-$1000000)).w
                 move.w  d1,((DIALOGUE_NAME_INDEX_2-$1000000)).w
                 txt     446             ; "{NAME} the {CLASS} {N}has joined the force."
 loc_473EC:
                 
-                jsr     FadeOut_WaitForP1Input
+                jsr     j_FadeOut_WaitForP1Input
                 clsTxt
             if (MUSIC_RESUMING&RESUME_MUSIC_AFTER_JOIN_JINGLE=1)
                 deactivateMusicResuming
@@ -406,7 +414,7 @@ loc_473EC:
 
 csc09_hideDialogueAndPortraitWindows:
                 
-                jsr     ClosePortraitWindow
+                jsr     j_ClosePortraitWindow
                 clsTxt
                 rts
 
@@ -446,7 +454,7 @@ csc0B_jump:
 csc0C_jumpIfFlagSet:
                 
                 move.w  (a6)+,d1
-                jsr     CheckFlag
+                jsr     j_CheckFlag
                 beq.w   loc_47428
                 movea.l (a6),a6
                 bra.s   return_4742A
@@ -468,7 +476,7 @@ return_4742A:
 csc0D_jumpIfFlagClear:
                 
                 move.w  (a6)+,d1
-                jsr     CheckFlag
+                jsr     j_CheckFlag
                 bne.w   loc_4743C
                 movea.l (a6),a6
                 bra.s   return_4743E
@@ -517,7 +525,7 @@ return_47462:
 csc0F_jumpIfCharacterDead:
                 
                 move.w  (a6)+,d0
-                jsr     GetCurrentHp
+                jsr     j_GetCurrentHp
                 tst.w   d1
                 bne.w   loc_47476       ; <-- Branch if character's current HP != 0, i.e., is alive.
                 movea.l (a6),a6
@@ -542,11 +550,11 @@ csc10_toggleFlag:
                 move.w  (a6)+,d1
                 move.w  (a6)+,d0
                 bne.s   loc_47488
-                jsr     ClearFlag
+                jsr     j_ClearFlag
                 bra.s   return_4748E
 loc_47488:
                 
-                jsr     SetFlag
+                jsr     j_SetFlag
 return_4748E:
                 
                 rts
@@ -560,16 +568,16 @@ return_4748E:
 csc11_promptYesNoForStoryFlow:
                 
                 move.l  a6,-(sp)
-                jsr     YesNoPrompt
+                jsr     j_YesNoPrompt
                 movea.l (sp)+,a6
-                move.w  #FLAG_YESNO,d1
+                moveq   #FLAG_INDEX_YES_NO_PROMPT,d1
                 tst.w   d0
                 bne.s   loc_474A8
-                jsr     SetFlag
+                jsr     j_SetFlag
                 bra.s   loc_474AE
 loc_474A8:
                 
-                jsr     ClearFlag
+                jsr     j_ClearFlag
 loc_474AE:
                 
                 moveq   #10,d0
@@ -588,17 +596,17 @@ csc12_executeContextMenu:
                 move.l  a6,-(sp)
                 tst.w   d0
                 bne.s   loc_474C4
-                jsr     ChurchMenu    ; xxxx = 0
+                jsr     j_ChurchMenu    ; xxxx = 0
 loc_474C4:
                 
                 cmpi.w  #1,d0
                 bne.s   loc_474D0
-                jsr     ShopMenu      ; xxxx = 1
+                jsr     j_ShopMenu      ; xxxx = 1
 loc_474D0:
                 
                 cmpi.w  #2,d0
                 bne.s   loc_474DC
-                jsr     BlacksmithMenu ; xxxx = 2
+                jsr     j_BlacksmithMenu ; xxxx = 2
 loc_474DC:
                 
                 movea.l (sp)+,a6
@@ -615,8 +623,8 @@ loc_474DC:
 csc13_setStoryFlag:
                 
                 move.w  (a6)+,d1
-                addi.w  #FLAG_BATTLE00_AVAILABLE,d1
-                jsr     SetFlag
+                addi.w  #BATTLE_UNLOCKED_FLAGS_START,d1
+                jsr     j_SetFlag
                 rts
 
     ; End of function csc13_setStoryFlag
@@ -630,7 +638,7 @@ csc13_setStoryFlag:
 sub_474EE:
                 
                 moveq   #0,d0
-                setSavedByte #MAP_GALAM_CASTLE_INNER, CURRENT_MAP
+                setSavedByte #MAP_GALAM_INTERIORS, CURRENT_MAP
                 bsr.w   RunMapSetupEntityEvent
                 rts
 

@@ -1,21 +1,10 @@
 
 ; ASM FILE code\common\tech\graphics\specialsprites.asm :
-; 0x25BFC..0x25DF6 : Special Sprites functions
-pt_SpecialSprites:
-                dc.l SpecialSprites_Taros
-                dc.l SpecialSprites_Kraken
-                dc.l SpecialSprites_NazcaShip
-                dc.l SpecialSprites_EvilSpirit
-                dc.l SpecialSprites_Zeon
-                dc.l SpecialSprites_Zeon
-                dc.l SpecialSprites_Kraken
-                dc.l SpecialSprites_Kraken
-                dc.l SpecialSprites_Kraken
-                dc.l SpecialSprites_Kraken
+; 0x25C24..0x25DF6 : Special Sprites functions
 
 ; =============== S U B R O U T I N E =======================================
 
-; In: d1.w = special mapsprite index
+; In: d1.w = entity mapsprite index
 
 
 LoadSpecialSprite:
@@ -23,10 +12,15 @@ LoadSpecialSprite:
                 
                 module                  ; Start of special sprite loading module
                 movem.l d0-a1,-(sp)
-                move.w  #MAPSPRITES_SPECIALS_END,d0
-                sub.w   d1,d0
+            if (STANDARD_BUILD=1)
+                bsr.w   GetSpecialSpriteIndex
+                move.w  d1,d0
+            else
+                move.b  #MAPSPRITES_SPECIALS_END,d0
+                sub.b   d1,d0
                 andi.w  #MAPSPRITE_MASK,d0
                 move.w  d0,d1
+            endif
                 lsl.w   #INDEX_SHIFT_COUNT,d0
                 movea.l pt_SpecialSprites(pc,d0.w),a0
                 lea     (PALETTE_4_BASE).l,a1
@@ -96,16 +90,16 @@ specialSprite_Exploration:
 AnimateSpecialSprite:
                 
                 movem.l d0-d2/a0-a1,-(sp)
-                lea     (SpecialSprites_EvilSpirit+$20)(pc), a0
+                lea     (SpecialSprite_EvilSpirit+CRAM_PALETTE_SIZE)(pc), a0
                 tst.w   d0
                 beq.s   @Continue
                 cmpi.b  #1,d0
                 bne.s   @Zeon
-                lea     SpecialSprites_EvilSpiritAlt(pc), a0
+                lea     SpecialSprite_EvilSpiritAlt(pc), a0
                 bra.s   @Continue
 @Zeon:
                 
-                lea     (SpecialSprites_Zeon+$20)(pc), a0
+                lea     (SpecialSprite_Zeon+CRAM_PALETTE_SIZE)(pc), a0
 @Continue:
                 
                 lea     (FF6802_LOADING_SPACE).l,a1
@@ -130,6 +124,7 @@ AnimateSpecialSprite:
 
 UpdateSpecialSprite:
                 
+                module                  ; Start of special sprite update module
                 movem.l d0-d2/d7-a2,-(sp)
                 move.b  ((WINDOW_IS_PRESENT-$1000000)).w,d7
                 cmp.b   d5,d7
@@ -141,10 +136,24 @@ loc_25D0C:
                 clr.w   d5
 loc_25D0E:
                 
-                cmpi.w  #MAPSPRITES_SPECIALS_START,ENTITYDEF_OFFSET_MAPSPRITE(a0)
-                bcs.w   loc_25DF0
-                move.w  #MAPSPRITES_SPECIALS_END,d6
-                sub.w   ENTITYDEF_OFFSET_MAPSPRITE(a0),d6
+            if (STANDARD_BUILD=1)
+                move.w  d1,-(sp)
+              if (EXPANDED_MAPSPRITES=1)
+                move.w  ENTITYDEF_OFFSET_MAPSPRITE(a0),d1
+              else
+                clr.w   d1
+                move.b  ENTITYDEF_OFFSET_MAPSPRITE(a0),d1
+              endif
+                bsr.w   GetSpecialSpriteIndex
+                move.w  d1,d6
+                movem.w (sp)+,d1 ; MOVEM to pull value back from the stack without affecting the CCR
+                bmi.w   @Done    ; branch if an invalid index was returned
+            else
+                cmpi.b  #MAPSPRITES_SPECIALS_START,ENTITYDEF_OFFSET_MAPSPRITE(a0)
+                blo.w   @Done
+                move.b  #MAPSPRITES_SPECIALS_END,d6
+                sub.b   ENTITYDEF_OFFSET_MAPSPRITE(a0),d6
+            endif
                 andi.w  #BYTE_LOWER_NIBBLE_MASK,d6
                 add.w   d6,d6
                 move.w  rjt_SpecialSpriteUpdates(pc,d6.w),d6
@@ -179,7 +188,7 @@ loc_25D56:
                 lea     table_2786C(pc), a2
 loc_25D5A:
                 
-                btst    #4,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                btst    #ENTITYDEF_FLAGS_B_2X_ANIMATION_SPEED,ENTITYDEF_OFFSET_FLAGS_B(a0)
                 beq.s   loc_25D64
                 addq.b  #2,d2
 loc_25D64:
@@ -210,7 +219,7 @@ loc_25D7E:
                 move.w  d2,(a1)+
                 dbf     d7,loc_25D7E
                 
-                bra.w   loc_25DF0
+                bra.w   @Done
 
     ; End of function specialSpriteUpdate_Battle
 
@@ -260,10 +269,11 @@ loc_25DD8:
                 dbf     d7,loc_25DD8
                 
                 bra.w   *+4
-loc_25DF0:
+@Done:
                 
                 movem.l (sp)+,d0-d2/d7-a2
                 rts
 
     ; End of function specialSpriteUpdate_Exploration
 
+                modend                  ; End of special sprite update module

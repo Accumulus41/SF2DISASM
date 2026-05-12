@@ -5,11 +5,11 @@ BattleSpriteset44:
                 ; # Allies
                 dc.b 12
                 ; # Enemies
-                dc.b 20
+                dc.b 15
                 ; # AI Regions
-                dc.b 15
+                dc.b 14
                 ; # AI Points
-                dc.b 15
+                dc.b 1
                 
                 ; Allies
                 allyCombatant 0, 11, 28
@@ -65,7 +65,7 @@ BattleSpriteset44:
                 combatantAiAndItem LEADER, NOTHING
                 combatantBehavior MOVE_TO|0, 15, NONE, 15, 0, STARTING
                 
-                enemyCombatant BLUE_SHAMAN, 5, 2
+                enemyCombatant BLUE_SHAMAN_0, 5, 2
                 combatantAiAndItem HEALER5, NOTHING
                 combatantBehavior FOLLOW_ENEMY|0, 0, NONE, 15, 0, 3
                 
@@ -120,26 +120,6 @@ BattleSpriteset44:
                 enemyCombatant LESSER_DEMON, 9, 23
                 combatantAiAndItem ATTACKER2, NOTHING
                 combatantBehavior NONE, 13, NONE, 15, 0, 3
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
                 
                 ; AI Regions
                 dc.b 4
@@ -268,29 +248,6 @@ BattleSpriteset44:
                 dc.b 0
                 dc.b 0
                 
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
                 ; AI Points
                 dc.b 9, 2
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
                 

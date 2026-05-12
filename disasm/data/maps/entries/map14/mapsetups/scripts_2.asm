@@ -56,7 +56,7 @@ cs_58FA4:       textCursor 2262
                 entityActionsWait 134
                  moveDown 1
                 endActions
-                nextSingleText $FF,255  ; "{LEADER} hands over{N}the plank.{W1}"
+                nextSingleText $FF,ENTITY_NONE  ; "{LEADER} hands over{N}the plank.{W1}"
                 csWait 30
                 nextSingleText $0,130   ; "We need a lot of planks{N}for our new town!{W1}"
                 entityActions 130
@@ -116,7 +116,7 @@ cs_58FA4:       textCursor 2262
 cs_59122:       textCursor 2275
                 nextText $0,128         ; "Would you go to North{N}Cliff and check on his{N}friend?{D1}"
                 yesNo
-                jumpIfFlagSet FLAG_YESNO,cs_59142 ; YES/NO prompt answer
+                jumpIfFlagSet 89,cs_59142 ; YES/NO prompt answer
                 nextText $0,128         ; "What did you say?{N}I didn't hear you.{W2}"
                 nextText $0,128         ; "OK, once again!{W1}"
                 jump cs_59122
@@ -184,9 +184,9 @@ cs_59142:       textCursor 2278
                 nextSingleText $0,ALLY_SARAH ; "Are you leaving?{N}Say it isn't so!{W1}"
                 nextSingleText $0,ALLY_KAZIN ; "I think it's too dangerous{N}out there alone.{W1}"
                 nextText $0,131         ; "And...{W2}"
-                nextSingleText $0,ALLY_JAHA   ; "It would be safer if we came{N}along.  Let's go.{W1}"
+                nextSingleText $0,131   ; "It would be safer if we came{N}along.  Let's go.{W1}"
                 csWait 60
-                setCameraEntity 65535
+                setCameraEntity CAMERA_NEUTRAL
                 entityActions 131
                  moveDown 7
                 endActions
@@ -211,8 +211,8 @@ cs_59142:       textCursor 2278
                 entityActionsWait ALLY_KIWI
                  moveDown 7
                 endActions
-                setF FLAG_BATTLE08_AVAILABLE   ; Battle 8 unlocked - BATTLE_NORTH_CLIFF               
-                warp MAP_OVERWORLD_NORTH_SOUTH_PARMECIA_JUNCTION,1,1,DOWN
+                setStoryFlag 8          ; Battle 8 unlocked - BATTLE_NORTH_CLIFF               
+                warp MAP_OVERWORLD_BEDOE_KINGDOM,1,1,DOWN
                 csc_end
 ce_59270:       mainEntity 13,11,DOWN
                 entity 12,20,UP,ALLY_JAHA,eas_Init
@@ -221,9 +221,9 @@ ce_59270:       mainEntity 13,11,DOWN
                 entity 14,22,UP,ALLY_KIWI,eas_Init
                 entity 14,23,UP,ALLY_CHESTER,eas_Init
                 entity 14,24,UP,ALLY_KAZIN,eas_Init
-                entity 13,13,UP,MAPSPRITE_SAILOR,eas_Init
-                entity 9,13,LEFT,MAPSPRITE_MAN2,eas_Init
-                entity 16,13,RIGHT,MAPSPRITE_MAN1,eas_Init
+                entity 13,13,UP,MAPSPRITE_MERCHANT,eas_Init
+                entity 9,13,LEFT,MAPSPRITE_YOUNG_MAN,eas_Init
+                entity 16,13,RIGHT,MAPSPRITE_MAN,eas_Init
                 entity 13,20,UP,MAPSPRITE_WORKER,eas_Init
                 entity 12,11,RIGHT,MAPSPRITE_OBJECT2,eas_InitFixedSprite
                 entity 13,11,DOWN,MAPSPRITE_OBJECT2,eas_InitFixedSprite

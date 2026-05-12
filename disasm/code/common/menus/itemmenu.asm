@@ -14,7 +14,7 @@ animationDirection = -10
 subroutineAddress = -8
 menuIndex = -4
 
-ExecuteItemMenu:
+ExecuteBattlefieldItemMenu:
                 
                 addq.b  #1,((WINDOW_IS_PRESENT-$1000000)).w
                 move.w  d6,-(sp)
@@ -67,9 +67,11 @@ loc_10616:
                 btst    #INPUT_BIT_LEFT,((CURRENT_PLAYER_INPUT-$1000000)).w
                 beq.s   loc_10630
                 moveq   #1,d1
-                checkSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
+            if (STANDARD_BUILD&TRADEABLE_ITEMS=1)
+                compareToSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
                 bne.s    @SkipItemCheck1
-                cmpi.w  #ICON_NOTHING,((DISPLAYED_ICON_2-$1000000)).w
+            endif
+                cmpi.w  #ITEM_NOTHING,((DISPLAYED_ICON_2-$1000000)).w
                 beq.s   loc_10630
 @SkipItemCheck1:
                 sndCom  SFX_MENU_SELECTION
@@ -79,9 +81,11 @@ loc_10630:
                 btst    #INPUT_BIT_RIGHT,((CURRENT_PLAYER_INPUT-$1000000)).w
                 beq.s   loc_1064A
                 moveq   #2,d1
-                checkSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
+            if (STANDARD_BUILD&TRADEABLE_ITEMS=1)
+                compareToSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
                 bne.s    @SkipItemCheck2
-                cmpi.w  #ICON_NOTHING,((DISPLAYED_ICON_3-$1000000)).w
+            endif
+                cmpi.w  #ITEM_NOTHING,((DISPLAYED_ICON_3-$1000000)).w
                 beq.s   loc_1064A
 @SkipItemCheck2:
                 sndCom  SFX_MENU_SELECTION
@@ -98,9 +102,11 @@ loc_1065C:
                 btst    #INPUT_BIT_DOWN,((CURRENT_PLAYER_INPUT-$1000000)).w
                 beq.s   loc_10676
                 moveq   #3,d1
-                checkSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
+            if (STANDARD_BUILD&TRADEABLE_ITEMS=1)
+                compareToSavedByte #NOT_CURRENTLY_IN_BATTLE, CURRENT_BATTLE
                 bne.s    @SkipItemCheck3
-                cmpi.w  #ICON_NOTHING,((DISPLAYED_ICON_4-$1000000)).w
+            endif
+                cmpi.w  #ITEM_NOTHING,((DISPLAYED_ICON_4-$1000000)).w
                 beq.s   loc_10676
 @SkipItemCheck3:
                 sndCom  SFX_MENU_SELECTION
@@ -193,7 +199,7 @@ loc_10726:
                 move.w  (sp)+,d6
                 rts
 
-    ; End of function ExecuteItemMenu
+    ; End of function ExecuteBattlefieldItemMenu
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -217,7 +223,7 @@ BuildItemMenu:
                 andi.w  #3,d0
                 lsl.w   #1,d0
                 move.w  (a0,d0.w),d1
-                cmpi.w  #ICON_UNARMED,d1
+                cmpi.w  #ITEM_UNARMED,d1
                 bne.s   @WriteItemName
                 move.w  #ITEM_NOTHING,((TEMP_ITEM_OR_SPELL-$1000000)).w
                 move.w  windowSlot(a6),d0
@@ -232,15 +238,20 @@ BuildItemMenu:
                 
                 move.w  d1,((TEMP_ITEM_OR_SPELL-$1000000)).w
                 move.w  d1,-(sp)
-                jsr     FindItemName
+                jsr     j_GetItemName
                 move.w  windowSlot(a6),d0
                 move.w  #MENU_ITEM_NAME_COORDS,d1
                 jsr     (GetWindowTileAddress).w
                 moveq   #-36,d1
                 bsr.w   WriteTilesFromAsciiWithRegularFont
                 move.w  (sp)+,d1
+            if (STANDARD_BUILD&EXPANDED_ITEMS_AND_SPELLS=1)
                 btst    #ITEMENTRY_BIT_EQUIPPED,d1
                 beq.s   @Return
+            else
+                tst.b   d1
+                bpl.s   @Return
+            endif
                 lea     aEquipped(pc), a0
                 move.w  windowSlot(a6),d0
                 move.w  #MENU_ITEM_EQUIPPED_STRING_COORDS,d1
@@ -289,7 +300,7 @@ dmaSelectedIcon_Up:
                 lea     (FF8804_LOADING_SPACE).l,a0
                 cmpi.w  #15,d6
                 blt.s   @Continue
-                adda.w  #ICONTILES_BYTESIZE,a0
+                adda.w  #ICON_TILE_BYTESIZE,a0
 @Continue:
                 
                 lea     ($B800).l,a1
@@ -310,7 +321,7 @@ dmaSelectedIcon_Left:
                 lea     (FF8984_LOADING_SPACE).l,a0
                 cmpi.w  #15,d6
                 blt.s   @Continue
-                adda.w  #ICONTILES_BYTESIZE,a0
+                adda.w  #ICON_TILE_BYTESIZE,a0
 @Continue:
                 
                 lea     (FF8E04_LOADING_SPACE).l,a1
@@ -333,7 +344,7 @@ dmaSelectedIcon_Right:
                 lea     (FF8B04_LOADING_SPACE).l,a0
                 cmpi.w  #15,d6
                 blt.s   @Continue
-                adda.w  #ICONTILES_BYTESIZE,a0
+                adda.w  #ICON_TILE_BYTESIZE,a0
 @Continue:
                 
                 lea     (FF8F04_LOADING_SPACE).l,a1
@@ -438,7 +449,7 @@ dmaSelectedIcon_Down:
                 lea     (FF8C84_LOADING_SPACE).l,a0
                 cmpi.w  #15,d6
                 blt.s   @Continue
-                adda.w  #ICONTILES_BYTESIZE,a0
+                adda.w  #ICON_TILE_BYTESIZE,a0
 @Continue:
                 
                 lea     ($B9C0).l,a1
@@ -447,4 +458,4 @@ dmaSelectedIcon_Down:
                 jmp     (ApplyVIntVramDma).w
 
     ; End of function dmaSelectedIcon_Down
-	
+

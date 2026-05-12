@@ -31,6 +31,5 @@ ms_map46_Entities:
                 msFixedEntity 14, 9, LEFT, ALLY_CHAZ, eas_Init
                 msFixedEntity 11, 3, DOWN, ALLY_LEMON, eas_Init
                 msFixedEntity 14, 3, DOWN, ALLY_CLAUDE, eas_Init
-				msFixedEntity 14,5, LEFT, ALLY_JOGURT, eas_Init
                 msFixedEntity 10, 18, DOWN, MAPSPRITE_ASTRAL, eas_Init
                 msEntitiesEnd

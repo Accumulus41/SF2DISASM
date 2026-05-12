@@ -6,21 +6,21 @@
                     mainLayerEnd        26, 25
                     scndLayerFgndStart  0, 0
                     scndLayerBgndStart  0, 26
-                    mainLayerParallax   16, 16
-                    scndLayerParallax   8, 8
+                    mainLayerParallax   256, 256
+                    scndLayerParallax   128, 128
                     mainLayerAutoscroll 0, 0
                     scndLayerAutoscroll 0, 0
                     mainLayerType    255
-                    areaDefaultMusic 10
+                    areaDefaultMusic MUSIC_WITCH
                 
                     mainLayerStart      19, 25
                     mainLayerEnd        29, 34
                     scndLayerFgndStart  0, 0
                     scndLayerBgndStart  0, 0
-                    mainLayerParallax   16, 16
-                    scndLayerParallax   16, 16
+                    mainLayerParallax   256, 256
+                    scndLayerParallax   256, 256
                     mainLayerAutoscroll 0, 0
                     scndLayerAutoscroll 0, 0
                     mainLayerType    255
-                    areaDefaultMusic 10
+                    areaDefaultMusic MUSIC_WITCH
                 endWord

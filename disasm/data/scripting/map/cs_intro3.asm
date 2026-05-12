@@ -1,7 +1,7 @@
 
 ; ASM FILE data\scripting\map\cs_intro3.asm :
 ; 0x48540..0x48A78 : Intro cutscene 3
-IntroCutscene3: textCursor STORYTEXT_OFFSET_SLADE_TAKES_JEWELS
+IntroCutscene3: textCursor 4215
                 mapLoad MAP_FORCE_SWORD_SHRINE,21,1
                 loadMapEntities ce_48A50
                 setActscriptWait ALLY_BOWIE,eas_Init
@@ -138,7 +138,7 @@ IntroCutscene3: textCursor STORYTEXT_OFFSET_SLADE_TAKES_JEWELS
                 setActscriptWait ALLY_SLADE,eas_StopMoving
                 setFacing ALLY_SLADE,DOWN
                 setSprite ALLY_SLADE,MAPSPRITE_EFFECT6
-                nextSingleText $FF,255  ; "{NAME;5} the thief{N}grabbed the two jewels.{D2}"
+                nextSingleText $FF,ENTITY_NONE  ; "{NAME;5} the thief{N}grabbed the two jewels.{D2}"
                 csWait 20
                 nextSingleText $80,ALLY_SLADE ; "One...two...{D2}"
                 shiver ALLY_SLADE

@@ -43,9 +43,9 @@ cs_5A33A:       textCursor 1711
                 csWait 30
                 shiver FOLLOWER_C
                 csWait 20
-                entityFlashWhite FOLLOWER_C,$78
+                entityFlashWhite FOLLOWER_C,120
                 mapFadeOutToWhite
-                entityFlashWhite FOLLOWER_C,$64
+                entityFlashWhite FOLLOWER_C,100
                 mapFadeInFromWhite
                 csWait 50
                 csWait 5
@@ -101,7 +101,7 @@ cs_5A33A:       textCursor 1711
                  moveLeft 3
                 endActions
                 nextSingleText $0,FOLLOWER_C   ; "{LEADER}, I'm  going now.{W2}{N}I hope your journey is safe{N}and uneventful.  Bye!{W1}"
-                setCameraEntity 65535
+                setCameraEntity CAMERA_NEUTRAL
                 entityActionsWait FOLLOWER_C
                  moveUp 2
                  moveLeft 3

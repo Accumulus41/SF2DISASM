@@ -24,8 +24,8 @@ GetEnemyAnimation:
                 add.w   ((BATTLESCENE_ENEMYBATTLEANIMATION-$1000000)).w,d1
 @GetAnimationPointer:
                 
-                lea     pt_EnemyAttackAnimations, a0
-                lsl.w   #2,d1
+                getPointer p_pt_EnemyAnimations, a0
+                lsl.w   #INDEX_SHIFT_COUNT,d1
                 movea.l (a0,d1.w),a0
                 move.w  (sp)+,d1
                 rts
@@ -122,22 +122,30 @@ loc_198D6:
                 
                 move.w  #VDPTILE_PALETTE4,(a0)+
                 dbf     d0,loc_198D6
+                
                 moveq   #31,d0
 loc_198E0:
                 
                 move.w  #VDPTILE_BLANK|VDPTILE_PALETTE3,(a0)+
                 dbf     d0,loc_198E0
+                
+            if (STANDARD_BUILD=1)
                 getPointer p_layout_BattlesceneBackground, a1
+            else
+                lea     layout_BattlesceneBackground(pc), a1
+            endif
                 move.w  #191,d0 
 loc_198F0:
                 
                 move.l  (a1)+,(a0)+
                 dbf     d0,loc_198F0
+                
                 moveq   #31,d0
 loc_198F8:
                 
                 move.w  #VDPTILE_BLANK|VDPTILE_PALETTE3,(a0)+
                 dbf     d0,loc_198F8
+                
                 move.w  #383,d0
 loc_19904:
                 
@@ -220,7 +228,7 @@ LoadEnemyBattlespritePropertiesAndPalette:
                 lsl.w   #INDEX_SHIFT_COUNT,d0
                 movea.l (a0,d0.w),a0
                 move.w  (a0)+,((BATTLESCENE_ENEMYBATTLESPRITE_ANIMATION_SPEED-$1000000)).w
-                move.w  (a0)+,((ENEMY_BATTLESPRITE_PROP1-$1000000)).w
+                move.w  (a0)+,((ENEMY_BATTLESPRITE_STATUS_OFFSET_X-$1000000)).w
                 move.w  (a0),d0
                 adda.w  d0,a0           ; a0 = pointer to palettes
                 lsl.w   #5,d1
@@ -296,7 +304,7 @@ LoadAllyBattlespritePropertiesAndPalette:
                 lsl.w   #INDEX_SHIFT_COUNT,d0
                 movea.l (a0,d0.w),a0
                 move.w  (a0)+,((BATTLESCENE_ALLYBATTLESPRITE_ANIMATION_SPEED-$1000000)).w
-                move.w  (a0)+,((ALLY_BATTLESPRITE_PROP1-$1000000)).w
+                move.w  (a0)+,((ALLY_BATTLESPRITE_STATUS_OFFSET_X-$1000000)).w
                 move.w  (a0),d0
                 adda.w  d0,a0           ; a0 = pointer to palettes
                 lsl.w   #5,d1
@@ -622,7 +630,7 @@ LoadInvocationSpriteFrameToVram:
                 addq.w  #2,a1
                 lea     ((PALETTE_1_CURRENT_01-$1000000)).w,a2
                 lea     ((PALETTE_1_BASE_01-$1000000)).w,a3
-                moveq   #$E,d0
+                moveq   #14,d0
 loc_19C14:
                 
                 move.w  (a1),(a2)+
@@ -682,7 +690,7 @@ loc_19CA0:
 ; In: d0.w = spellanimation graphics data index
 
 
-LoadSpellGraphics:
+LoadSpellTileset:
                 
                 disableSram
                 getPointer p_pt_SpellGraphics, a0
@@ -703,7 +711,7 @@ LoadSpellGraphics:
                 moveq   #2,d1
                 processDmaAndEnableSram ApplyVIntVramDmaOnCompressedTiles
 
-    ; End of function LoadSpellGraphics
+    ; End of function LoadSpellTileset
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -713,7 +721,7 @@ LoadSpellGraphics:
 ; In: d0.w = spellanimation graphics data index
 
 
-LoadSpellGraphicsForInvocation:
+LoadSpellTilesetForInvocation:
                 
                 disableSram
                 getPointer p_pt_SpellGraphics, a0
@@ -737,7 +745,7 @@ LoadSpellGraphicsForInvocation:
                 moveq   #2,d1
                 processDmaAndEnableSram ApplyVIntVramDma
 
-    ; End of function LoadSpellGraphicsForInvocation
+    ; End of function LoadSpellTilesetForInvocation
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -759,11 +767,11 @@ GetBattlespriteAndPalette:
                 cmpi.w  #COMBATANT_ENEMIES_START,d0
                 bcc.w   @Enemy
                 movem.l d0/a0,-(sp)
-                jsr     GetClass
+                jsr     j_GetClass
                 lea     table_AllyBattlesprites(pc), a0
-                mulu.w  #33,d0
+                mulu.w  #9,d0  ; bytes per character entry
                 adda.w  d0,a0
-                moveq   #10,d0
+                moveq   #2,d0  ; classes per character entry - 1
 @FindClass_Loop:
                 
                 cmp.b   (a0)+,d1
@@ -789,7 +797,7 @@ GetBattlespriteAndPalette:
 @Enemy:
                 
                 move.l  a0,-(sp)
-                jsr     GetEnemy
+                jsr     j_GetEnemy
                 lea     table_EnemyBattlesprites(pc), a0
                 add.w   d1,d1
                 move.b  1(a0,d1.w),d2

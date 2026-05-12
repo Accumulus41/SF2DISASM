@@ -20,12 +20,13 @@ LoadBaseTiles:
                 move.w  #$8B00,d0       ; disable external interrupt, full scrolls
                 bsr.w   SetVdpReg
                 move.w  #$8D3B,d0       ; H Scroll table VRAM address : EC00
-                bsr.w   SetVdpReg
+                jsr     (SetVdpReg).w
                 getPointer p_tiles_Base, a0
                 lea     (0).w,a1
                 move.w  #4096,d0
                 moveq   #2,d1
-                bra.w   ApplyImmediateVramDmaOnCompressedTiles
+                bsr.w   ApplyImmediateVramDmaOnCompressedTiles ; load base tiles
+                rts
 
     ; End of function LoadBaseTiles
 

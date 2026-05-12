@@ -65,7 +65,7 @@ VInt_UpdateSprites:
                 bgt.w   @MoveSpriteOffScreen
                 
                 ; Is entity blinking?
-                btst    #7,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                btst    #ENTITYDEF_FLAGS_B_BLINKING,ENTITYDEF_OFFSET_FLAGS_B(a0)
                 beq.s   @IsSpecialSprite
                 tst.b   d6
                 bge.w   @MoveSpriteOffScreen ; move sprite off-screen to produce blinking effect
@@ -74,7 +74,7 @@ VInt_UpdateSprites:
                 tst.w   d7
                 bne.s   @DetermineWalkingFrame
                 move.b  ENTITYDEF_OFFSET_LAYER(a0),d5
-                jsr     UpdateSpecialSprite
+                jsr     j_UpdateSpecialSprite
                 bra.w   @NextEntity
 @DetermineWalkingFrame:
                 
@@ -93,7 +93,7 @@ VInt_UpdateSprites:
                 addq.b  #1,d4           ; increment counter if so
                 
                 ; Is 2x animation speed?
-                btst    #4,ENTITYDEF_OFFSET_FLAGS_B(a0)
+                btst    #ENTITYDEF_FLAGS_B_2X_ANIMATION_SPEED,ENTITYDEF_OFFSET_FLAGS_B(a0)
                 beq.s   @CheckCounterEnd
                 addq.b  #2,d4
 @CheckCounterEnd:
@@ -124,8 +124,10 @@ VInt_UpdateSprites:
                 move.w  d6,VDPSPRITE_OFFSET_SIZE(a1)
                 ori.w   #VDPTILE_PALETTE3,d5
                 move.b  ENTITYDEF_OFFSET_FLAGS_B(a0),d0
+                
+                ; Is sprite upside down?
                 andi.w  #ORIENTATION_MASK,d0
-                cmpi.w  #ORIENTATION_INVERTED,d0
+                cmpi.w  #ORIENTATION_FLIPPED,d0
                 bne.s   loc_4DA0
                 ori.w   #VDPTILE_FLIP,d5
 loc_4DA0:
@@ -148,7 +150,7 @@ loc_4DBE:
 @NextEntity:
                 
                 adda.w  #ENTITYDEF_SIZE,a0
-                addq.l  #VDP_SPRITE_SIZE,a1
+                addq.l  #VDP_SPRITE_ENTRY_SIZE,a1
                 dbf     d7,@Loop
                 
                 clr.b   -5(a1)
@@ -166,13 +168,18 @@ loc_4DBE:
                 blt.w   loc_4E0A
                 cmpi.w  #256,d1
                 bgt.w   loc_4E0A
-                jsr     UpdateCursorSprites
+                jsr     j_UpdateCursorSprites
                 bra.w   loc_4E10
 loc_4E0A:
                 
-                jsr     UpdateSpritesHelper
+                jsr     j_UpdateSpritesHelper
 loc_4E10:
+            if (STANDARD_BUILD=1)
                 bra.s   sub_4E24
+            else
+                bsr.w   sub_4E24
+                rts
+            endif
 
     ; End of function VInt_UpdateSprites
 
@@ -208,7 +215,7 @@ loc_4E30:
                 
                 cmpi.b  #16,VDPSPRITE_OFFSET_LINK(a1,d6.w)
                 beq.s   loc_4E3E
-                addq.w  #VDP_SPRITE_SIZE,d6
+                addq.w  #VDP_SPRITE_ENTRY_SIZE,d6
                 dbf     d7,loc_4E30
 loc_4E3E:
                 

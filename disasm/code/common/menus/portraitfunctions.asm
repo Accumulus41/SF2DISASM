@@ -210,7 +210,7 @@ loc_15662:
                 
                 lea     (PALETTE_2_CURRENT).l,a1
                 lea     (PALLETE_2_BASE).l,a2
-                lea     ((PALETTE_2_BACKUP-$1000000)).w,a3
+                lea     ((PALETTE_2_COPY-$1000000)).w,a3
                 moveq   #7,d7
 loc_15674:
                 
@@ -231,3 +231,4 @@ loc_15674:
                 rts
 
     ; End of function LoadPortrait
+

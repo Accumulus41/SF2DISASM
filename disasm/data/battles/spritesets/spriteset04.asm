@@ -3,13 +3,13 @@
 ; 0x1B34DC..0x1B35A2 : Battle Spritesets 04
 BattleSpriteset04:
                 ; # Allies
-                dc.b 12
+                dc.b 5
                 ; # Enemies
-                dc.b 20
+                dc.b 8
                 ; # AI Regions
-                dc.b 15
+                dc.b 3
                 ; # AI Points
-                dc.b 15
+                dc.b 1
                 
                 ; Allies
                 allyCombatant 0, 6, 6
@@ -31,34 +31,6 @@ BattleSpriteset04:
                 allyCombatant 4, 4, 7
                 combatantAiAndItem HEALER1, NOTHING
                 combatantBehavior NONE, 15, NONE, 15, 0, STARTING
-                
-                allyCombatant 5, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                allyCombatant 6, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                allyCombatant 7, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                allyCombatant 8, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                allyCombatant 9, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                allyCombatant 10, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                allyCombatant 11, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
                 
                 ; Enemies
                 enemyCombatant GALAM_ARCHER, 17, 21
@@ -93,54 +65,6 @@ BattleSpriteset04:
                 combatantAiAndItem ATTACKER3, NOTHING
                 combatantBehavior FOLLOW_ENEMY|0, 0, NONE, 1, 0, STARTING
                 
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
                 ; AI Regions
                 dc.b 4
                 dc.b 0
@@ -169,128 +93,6 @@ BattleSpriteset04:
                 dc.b 0
                 dc.b 0
                 
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
                 ; AI Points
                 dc.b 17, 21
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
                 

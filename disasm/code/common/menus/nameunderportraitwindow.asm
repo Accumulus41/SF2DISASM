@@ -5,7 +5,7 @@
 ; =============== S U B R O U T I N E =======================================
 
 
-DisplayNameUnderPortrait:
+OpenNameUnderPortraitWindow:
                 
                 movem.l d0-a1,-(sp)
                 tst.w   (ALLY_NAME_WINDOW_INDEX).l
@@ -19,17 +19,14 @@ DisplayNameUnderPortrait:
                 move.w  #WINDOW_TACTICAL_BASE_NAME_SIZE,d0
                 bsr.w   WriteWindowTiles
                 movem.w (sp)+,d0
-                jsr     GetCurrentHp
+                jsr     j_GetCurrentHp
                 move.w  d1,d2
-                jsr     GetCombatantName
+                jsr     j_GetCombatantName
                 move.w  d7,d0
                 addq.w  #1,d0
                 andi.w  #$E,d0
-                andi.w  #1,d7
-                lsl.w   #1,d7
                 move.w  #30,d1
                 sub.w   d0,d1
-                add.w   d7,d1
                 adda.w  d1,a1
                 moveq   #-16,d1
                 moveq   #10,d7
@@ -55,7 +52,7 @@ DisplayNameUnderPortrait:
                 movem.l (sp)+,d0-a1
                 rts
 
-    ; End of function DisplayNameUnderPortrait
+    ; End of function OpenNameUnderPortraitWindow
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -68,6 +65,7 @@ CloseNameUnderPortraitWindow:
                 movem.l d0-d1/a0-a1,-(sp)
                 move.w  (ALLY_NAME_WINDOW_INDEX).l,d0
                 beq.s   @Done
+                
                 subq.w  #1,d0
                 move.w  #WINDOW_TACTICAL_BASE_NAME_DEST,d1
                 moveq   #4,d2

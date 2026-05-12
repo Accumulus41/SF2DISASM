@@ -8,31 +8,31 @@
 ms_map19_flag543_InitFunction:
                 
                  
-                chkFlg  ALLY_SHEELA              ; Shiela joined
+                chkFlg  25              ; Shiela joined
                 bne.s   byte_62CAE      
                 move.w  #ALLY_SHEELA,d0
                 jsr     MoveEntityOutOfMap
 byte_62CAE:
                 
-                chkFlg  ALLY_MAY               ; May joined
+                chkFlg  8               ; May joined
                 bne.s   byte_62CBE      
                 move.w  #ALLY_MAY,d0
                 jsr     MoveEntityOutOfMap
 byte_62CBE:
                 
-                chkFlg  ALLY_CHAZ              ; Chaz joined
+                chkFlg  27              ; Chaz joined
                 bne.s   byte_62CCE
                 move.w  #ALLY_CHAZ,d0
                 jsr     MoveEntityOutOfMap
 byte_62CCE:
                 
                 script  cs_62D06
-                chkFlg  FLAG_GRANSEAL7
+                chkFlg  981
                 beq.s   byte_62CFC
-                chkFlg  FLAG_CASTLEGRANS9
+                chkFlg  982
                 bne.s   byte_62CF2
                 script  cs_62D0E
-                setFlg  FLAG_CASTLEGRANS9
+                setFlg  982
                 move.b  #-1,((EXPLORATION_ENTITIES-$1000000)).w
                 bra.s   loc_62CFA
 byte_62CF2:
@@ -225,7 +225,7 @@ cs_62D0E:       textCursor 3967
                 nextText $0,ALLY_SLADE  ; "I understand {NAME;3}, but{N}she is a human.{W2}"
                 nextSingleText $0,ALLY_SLADE ; "A human is the best choice.{W1}"
                 shiver ALLY_JAHA
-                jumpIfFlagClear ALLY_MAY,cs_62FB0 ; May joined
+                jumpIfFlagClear 8,cs_62FB0 ; May joined
                 entityActionsWait ALLY_MAY
                  moveDown 1
                  faceRight 1

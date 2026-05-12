@@ -1,14 +1,14 @@
 
 ; ASM FILE data\maps\entries\map19\mapsetups\scripts.asm :
 ; 0x53176..0x53634 : 
-cs_53176:       setCameraEntity 65535
+cs_53176:       setCameraEntity CAMERA_NEUTRAL
                 textCursor 721
-                newEntity 144,29,9,UP,MAPSPRITE_SOLDIER2
-                newEntity 145,28,9,UP,MAPSPRITE_SOLDIER1
+                newEntity 144,29,9,UP,MAPSPRITE_SOLDIER
+                newEntity 145,28,9,UP,MAPSPRITE_GUARD
                 newEntity 146,28,10,UP,MAPSPRITE_WORKER
                 newEntity 147,28,11,UP,MAPSPRITE_WORKER
                 csWait 1
-                newEntity 148,30,9,UP,MAPSPRITE_SOLDIER1
+                newEntity 148,30,9,UP,MAPSPRITE_GUARD
                 newEntity 149,30,10,UP,MAPSPRITE_WORKER
                 newEntity 150,30,11,UP,MAPSPRITE_WORKER
                 csWait 1
@@ -26,7 +26,7 @@ cs_53176:       setCameraEntity 65535
                 entityActionsWait 144
                  moveUp 1
                 endActions
-                nextSingleText $80,144  ; "So, all we have to do is{N}find the evil Gizmo and{N}kill him.{W1}"
+                nextSingleText $80,138  ; "So, all we have to do is{N}find the evil Gizmo and{N}kill him.{W1}"
                 nod 138
                 nextSingleText $80,138  ; "That's right.  Kill him{N}before he possesses{N}somebody else.{W2}"
                 nextSingleText $80,138  ; "You may go.{W1}"
@@ -202,7 +202,7 @@ cs_53176:       setCameraEntity 65535
                 nextText $0,140         ; "Why don't you go to Yeel{N}and bring Hawel back here?{W2}"
                 nextText $0,140         ; "I don't think this is a{N}difficult job.{N}Will you go?{W1}"
 cs_53482:       yesNo
-                jumpIfFlagSet FLAG_YESNO,cs_534AC ; YES/NO prompt answer
+                jumpIfFlagSet 89,cs_534AC ; YES/NO prompt answer
                 hideText
                 textCursor 757
                 setActscriptWait 138,eas_Jump
@@ -246,7 +246,7 @@ cs_534D2:       textCursor 694
                 setFacing ALLY_LEMON,RIGHT
                 nextSingleText $0,ALLY_LEMON ; "No!....{W1}"
                 csWait 30
-                nextSingleText $FF,255  ; "Princess Elis screams{N}for help.{W1}"
+                nextSingleText $FF,ENTITY_NONE  ; "Princess Elis screams{N}for help.{W1}"
                 setFacing ALLY_LEMON,UP
                 nextSingleText $0,152   ; "No, no!{N}Father!  Astral!{N}Somebody please...!{W1}"
                 nextSingleText $80,130  ; "Elis!{W1}"
@@ -308,7 +308,7 @@ cs_535FA:       textCursor 690
                 nextText $0,129         ; "Oh, it's you, {LEADER}!{W2}"
                 nextSingleText $0,129   ; "King Galam took{N}Princess Elis to the{N}Ancient Tower!{W1}"
                 nextSingleText $0,130   ; "Elis is in the tower.{N}I shall go with you and{N}save my daughter.{W1}"
-                nextSingleText $FF,255  ; "King Granseal and the{N}Minister go with {LEADER}.{W1}"
+                nextSingleText $FF,ENTITY_NONE  ; "King Granseal and the{N}Minister go with {LEADER}.{W1}"
                 followEntity 130,ALLY_BOWIE,2
                 followEntity 129,130,2
                 csc_end

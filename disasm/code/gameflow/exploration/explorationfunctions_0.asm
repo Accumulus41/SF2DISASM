@@ -26,7 +26,7 @@ loc_237A4:
                 move.w  ENTITYDEF_OFFSET_Y(a0,d0.w),d2
                 move.b  ENTITYDEF_OFFSET_FACING(a0,d0.w),d3
                 move.b  ENTITYDEF_OFFSET_LAYER(a0,d0.w),d4
-                andi.w  #3,d3
+                andi.w  #DIRECTION_MASK,d3
                 move.w  d3,d5
                 lsl.w   #INDEX_SHIFT_COUNT,d5
 loc_237C8:
@@ -132,7 +132,7 @@ CheckArea:
 loc_2386C:
                 
                 clr.w   ((DIALOGUE_NAME_INDEX_1-$1000000)).w
-                clr.w   ((SPEECH_SFX-$1000000)).w
+                clr.w   ((CURRENT_SPEECH_SFX-$1000000)).w
                 lea     ((ENTITY_DATA-$1000000)).w,a0
                 lsl.w   #ENTITYDEF_SIZE_BITS,d0
                 adda.w  d0,a0
@@ -162,7 +162,7 @@ loc_2386C:
                 cmpi.w  #$1800,d3
                 bne.s   loc_238E8
                 ; block has chest flag set
-                jsr     (OpenChest).w
+                jsr     (OpenChest).w   
                 txt     403             ; "{NAME} opened the chest.{W2}{CLEAR}"
                 move.w  d2,d0
                 andi.w  #ITEMENTRY_MASK_INDEX,d0
@@ -220,7 +220,7 @@ loc_23954:
                 bra.w   byte_23994
 loc_23978:
                 
-                jsr     RunMapSetupAreaDescription
+                jsr     j_RunMapSetupAreaDescription
                 bne.w   byte_23994
                 tst.w   d6
                 beq.s   byte_2398C      
@@ -244,7 +244,7 @@ return_2399A:
 
 ; =============== S U B R O U T I N E =======================================
 
-; get amount of gold (D2 - 0x80) as an offset from the gold table (see constants)
+; Get amount of gold (d2.w - offset) -> d1.l
 
 
 GetChestGoldAmount:
@@ -252,7 +252,12 @@ GetChestGoldAmount:
                 subi.w  #ITEMINDEX_GOLDCHESTS_START,d2
                 andi.w  #ITEMENTRY_MASK_INDEX,d2
                 add.w   d2,d2
-                move.w  ChestGoldAmounts(pc,d2.w),d1
+            if (STANDARD_BUILD=1)
+                getPointer p_table_ChestGoldAmounts, a0
+                move.w  (a0,d2.w),d1
+            else
+                move.w  table_ChestGoldAmounts(pc,d2.w),d1
+            endif
                 ext.l   d1
                 rts
 

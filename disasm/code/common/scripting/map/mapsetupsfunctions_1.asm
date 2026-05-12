@@ -66,7 +66,7 @@ loc_47566:
 loc_4756A:
                 
                 jsr     (a0)
-                jsr     ClosePortraitWindow
+                jsr     j_ClosePortraitWindow
                 clsTxt
 loc_47576:
                 
@@ -90,9 +90,9 @@ loc_47576:
 RunMapSetupItemEvent:
                 
                 movem.l d0-d5/d7-a1,-(sp)
-                clr.w   ((SPEECH_SFX-$1000000)).w
+                clr.w   ((CURRENT_SPEECH_SFX-$1000000)).w
                 andi.w  #ITEMENTRY_MASK_INDEX,d4
-                move.b  d2,((byte_FFB651-$1000000)).w
+                move.b  d2,((EVENT_RELATIVE_POSITION-$1000000)).w
                 moveq   #0,d6
                 bsr.w   GetCurrentMapSetup
                 cmpi.w  #-1,(a0)
@@ -141,7 +141,7 @@ loc_475FA:
 loc_475FE:
                 
                 jsr     (a0)
-                jsr     ClosePortraitWindow
+                jsr     j_ClosePortraitWindow
                 clsTxt
 loc_4760A:
                 
@@ -162,13 +162,13 @@ loc_4760A:
 RunMapSetupEntityEvent:
                 
                 movem.l d0-a1,-(sp)
-                move.b  d2,((byte_FFB651-$1000000)).w
+                move.b  d2,((EVENT_RELATIVE_POSITION-$1000000)).w
                 bsr.w   GetCurrentMapSetup
                 cmpi.w  #-1,(a0)
                 beq.w   loc_476D6
                 
                 movem.w d1-d2,-(sp)
-                movea.l MAPSETUP_OFFSET_EVENT_ENTITY(a0),a0
+                movea.l MAPSETUP_OFFSET_ENTITY_EVENTS(a0),a0
                 clr.w   d7
 loc_47638:
                 
@@ -193,15 +193,15 @@ loc_4765A:
 loc_4765E:
                 
                 bsr.w   GetEntityPortaitAndSpeechSfx
-                move.w  d2,((SPEECH_SFX-$1000000)).w
+                move.w  d2,((CURRENT_SPEECH_SFX-$1000000)).w
                 move.w  d1,((CURRENT_PORTRAIT-$1000000)).w
                 blt.s   loc_47670
-                bsr.w   LoadAndDisplayCurrentPortrait
+                bsr.w   DisplayCurrentPortrait
 loc_47670:
                 
                 ; get entity index that will trigger this event
                 movem.w (sp)+,d1-d2
-                lea     ((ENTITY_EVENT_INDEX_LIST-$1000000)).w,a1
+                lea     ((ENTITY_INDEX_LIST-$1000000)).w,a1
                 tst.b   d0
                 bpl.s   @Ally
                 subi.b  #ENTITY_ENEMY_INDEX_DIFFERENCE,d0
@@ -214,7 +214,7 @@ loc_47670:
                 beq.s   loc_476A8
                 jsr     (WaitForVInt).w
                 addi.w  #2,d2
-                andi.w  #3,d2
+                andi.w  #DIRECTION_MASK,d2
                 move.w  d2,d1
                 moveq   #-1,d2
                 moveq   #-1,d3
@@ -234,7 +234,7 @@ loc_476A8:
                 jsr     (UpdateEntityProperties).w
 loc_476C4:
                 
-                jsr     ClosePortraitWindow
+                jsr     j_ClosePortraitWindow
                 clsTxt
                 trap    #VINT_FUNCTIONS
                 dc.w VINTS_ACTIVATE
@@ -249,23 +249,38 @@ loc_476D6:
 
 ; =============== S U B R O U T I N E =======================================
 
-; Get index of current portrait for dialogue window and load it
+; unused
 
 
-LoadAndDisplayCurrentPortrait:
+sub_476DC:
+                
+                trap    #VINT_FUNCTIONS
+                dc.w VINTS_ACTIVATE
+                dc.l VInt_UpdateEntities
+                bra.w   ExecuteMapScript
+
+    ; End of function sub_476DC
+
+
+; =============== S U B R O U T I N E =======================================
+
+; Get index of current portrait for dialogue window and display it.
+
+
+DisplayCurrentPortrait:
                 
                 movem.w d0-d2,-(sp)
                 move.w  ((CURRENT_PORTRAIT-$1000000)).w,d0
                 blt.s   loc_476FC
                 clr.w   d1
                 clr.w   d2
-                jsr     OpenPortraitWindow
+                jsr     j_OpenPortraitWindow
 loc_476FC:
                 
                 movem.w (sp)+,d0-d2
                 rts
 
-    ; End of function LoadAndDisplayCurrentPortrait
+    ; End of function DisplayCurrentPortrait
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -321,7 +336,7 @@ loc_4774C:
                 move.b  4(a0,d7.w),d0   ; byte 4 : Investigation line index
                 clr.w   d1
                 move.b  5(a0,d7.w),d1   ; byte 5 : Description line index
-                addi.w  #$1A7,d0        ; HARDCODED investigation line start index
+                addi.w  #423,d0         ; HARDCODED investigation line start index
                                         ; "{NAME} investigated{N}the area.{W2}{CLEAR}"
                                         ; Followed by all other "investigation" lines
                 jsr     (DisplayText).w 
@@ -330,7 +345,7 @@ loc_4774C:
                 jsr     (DisplayText).w 
 loc_4776E:
                 
-                jsr     ClosePortraitWindow
+                jsr     j_ClosePortraitWindow
                 clsTxt
                 moveq   #-1,d7
                 rts
@@ -378,7 +393,11 @@ GetCurrentMapSetup:
                 movem.l d0-d1/a1,-(sp)
                 clr.w   d0
                 getSavedByte CURRENT_MAP, d0
-                lea     MapSetups, a1
+            if (STANDARD_BUILD=1)
+                getPointer p_MapSetups, a1
+            else
+                lea     MapSetups(pc), a1
+            endif
 @NextMap_Loop:
                 
                 cmpi.w  #-1,(a1)
@@ -396,7 +415,7 @@ GetCurrentMapSetup:
                 move.w  (a1)+,d1
                 cmpi.w  #$FFFD,d1
                 beq.w   @Return
-                jsr     CheckFlag
+                jsr     j_CheckFlag
                 beq.s   @NextFlag
                 movea.l (a1),a0
 @NextFlag:
@@ -423,10 +442,10 @@ ms_Void:        dc.w $FFFF
 MoveEntityOutOfMap:
                 
                 movem.l d0-d3,-(sp)
-                jsr     GetEntityIndexForCombatant
+                jsr     j_GetEntityIndexForCombatant
                 move.w  #$7000,d1
                 move.w  #$7000,d2
-                jsr     SetEntityPosition
+                jsr     j_SetEntityPosition
                 movem.l (sp)+,d0-d3
                 rts
 
@@ -439,7 +458,7 @@ MoveEntityOutOfMap:
 MakeEntityWalk:
                 
                 move.l  d0,-(sp)
-                jsr     GetEntityIndexForCombatant
+                jsr     j_GetEntityIndexForCombatant
                 jsr     SetWalkingActscript
                 move.l  (sp)+,d0
                 rts
@@ -452,17 +471,17 @@ MakeEntityWalk:
 ; reset entity flags and sprite
 
 
-sub_4781A:
+ChangeEntityFacing:
                 
                 movem.l d0-d3,-(sp)
-                jsr     GetEntityIndexForCombatant
+                jsr     j_GetEntityIndexForCombatant
                 moveq   #-1,d2
                 moveq   #-1,d3
                 jsr     (UpdateEntityProperties).w
                 movem.l (sp)+,d0-d3
                 rts
 
-    ; End of function sub_4781A
+    ; End of function ChangeEntityFacing
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -473,10 +492,10 @@ sub_4781A:
 GetRhodeFacing:
                 
                 movem.l d0-d3,-(sp)
-                jsr     GetEntityIndexForCombatant
-                move.b  ((byte_FFB651-$1000000)).w,d1
+                jsr     j_GetEntityIndexForCombatant
+                move.b  ((EVENT_RELATIVE_POSITION-$1000000)).w,d1
                 addi.w  #2,d1
-                andi.w  #3,d1
+                andi.w  #DIRECTION_MASK,d1
                 moveq   #-1,d2
                 moveq   #-1,d3
                 jsr     (UpdateEntityProperties).w
@@ -493,10 +512,13 @@ GetRhodeFacing:
 
 CheckRandomBattle:
                 
+            if (STANDARD_BUILD&NO_RANDOM_BATTLES=1)
+                ; Do nothing
+            else
                 movem.l d1/d6-d7,-(sp)
-                move.w  #FLAG_BATTLE00_COMPLETE,d1
+                move.w  #BATTLE_COMPLETED_FLAGS_START,d1
                 add.w   d0,d1
-                jsr     CheckFlag
+                jsr     j_CheckFlag
                 bne.s   loc_4786E
                 moveq   #-1,d1
                 bra.w   loc_47896
@@ -525,9 +547,9 @@ loc_47896:
                 
                 tst.w   d1
                 beq.s   loc_478C0
-                move.w  #FLAG_BATTLE00_AVAILABLE,d1
+                move.w  #BATTLE_UNLOCKED_FLAGS_START,d1
                 add.w   d0,d1
-                jsr     SetFlag
+                jsr     j_SetFlag
                 move.l  #MAP_EVENT_RELOADMAP,((MAP_EVENT_TYPE-$1000000)).w
                 move.w  #30000,((STEP_COUNTER-$1000000)).w
                 jsr     (WaitForViewScrollEnd).w
@@ -536,6 +558,7 @@ loc_47896:
 loc_478C0:
                 
                 movem.l (sp)+,d1/d6-d7
+            endif
                 rts
 
     ; End of function CheckRandomBattle

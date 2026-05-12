@@ -21,3 +21,4 @@ battlesceneScript_DisplayDeathMessage:
                 rts
 
     ; End of function battlesceneScript_DisplayDeathMessage
+

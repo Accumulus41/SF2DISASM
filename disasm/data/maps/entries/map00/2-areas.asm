@@ -6,10 +6,10 @@
                     mainLayerEnd        31, 37
                     scndLayerFgndStart  0, 0
                     scndLayerBgndStart  32, 0
-                    mainLayerParallax   16, 16
-                    scndLayerParallax   1, 16
+                    mainLayerParallax   256, 256
+                    scndLayerParallax   16, 256
                     mainLayerAutoscroll 0, 0
                     scndLayerAutoscroll 0, 1
                     mainLayerType    255
-                    areaDefaultMusic 40
+                    areaDefaultMusic MUSIC_MITULA_SHRINE
                 endWord

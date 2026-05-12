@@ -11,9 +11,9 @@ ms_map63_Section5:
 Map63_ItemEvent0:
                 
                  
-                chkFlg  ALLY_CLAUDE              ; Claude joined
+                chkFlg  29              ; Claude joined
                 bne.s   loc_5CA4C
-                move.b  #ITEM_ARM_OF_GOLEM,d0 ; Golem Arm
+                moveq   #ITEM_ARM_OF_GOLEM,d0
                 jsr     RemoveItemFromInventory
                 script  cs_5CBB4
                 move.w  #-1,d6

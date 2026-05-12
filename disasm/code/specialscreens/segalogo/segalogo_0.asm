@@ -44,6 +44,16 @@ DisplaySegaLogo:
                 jsr     (EnableDmaQueueProcessing).w
                 jsr     (EnableDisplayAndInterrupts).w
                 
+                move.l  #table_ConfigurationModeInputSequence,((CONFIGURATION_MODE_OR_GAME_STAFF_POINTER-$1000000)).w
+                trap    #VINT_FUNCTIONS
+                dc.w VINTS_ADD
+                dc.l VInt_CheckConfigurationModeCheat
+                
+                move.l  #table_DebugModeInputSequence,((ENTITY_WALKING_PARAMETERS-$1000000)).w
+                trap    #VINT_FUNCTIONS
+                dc.w VINTS_ADD
+                dc.l VInt_CheckDebugModeCheat
+                
                 move.b  #IN_FROM_BLACK,((FADING_SETTING-$1000000)).w
                 clr.w   ((FADING_TIMER_WORD-$1000000)).w
                 clr.b   ((FADING_POINTER-$1000000)).w
@@ -84,6 +94,10 @@ DisplaySegaLogo:
                 bne.w   DisplaySegaLogo_Quit
                 subq.w  #1,d0
                 bne.s   @WaitForInput_Start
+                
+                trap    #VINT_FUNCTIONS
+                dc.w VINTS_REMOVE
+                dc.l VInt_CheckConfigurationModeCheat
 @Done:
                 
                 jsr     (FadeOutToBlack).w
@@ -1151,4 +1165,44 @@ CalculateRomChecksum:
                 rts
 
     ; End of function CalculateRomChecksum
+
+
+; =============== S U B R O U T I N E =======================================
+
+
+VInt_CheckConfigurationModeCheat:
+                
+                movea.l ((CONFIGURATION_MODE_OR_GAME_STAFF_POINTER-$1000000)).w,a0
+                cmpi.b  #-1,(a0)
+                bne.s   CheckConfigurationModeInputSequence
+
+    ; End of function VInt_CheckConfigurationModeCheat
+
+
+; =============== S U B R O U T I N E =======================================
+
+
+VInt_ActivateConfigurationModeCheat:
+                
+                move.b  #-1,((CONFIGURATION_MODE_TOGGLE-$1000000)).w
+                sndCom  MUSIC_ITEM
+                rts
+
+    ; End of function VInt_ActivateConfigurationModeCheat
+
+
+; =============== S U B R O U T I N E =======================================
+
+
+CheckConfigurationModeInputSequence:
+                
+                move.b  (a0),d0
+                cmp.b   ((PLAYER_1_INPUT-$1000000)).w,d0
+                bne.s   @Return
+                addq.l  #1,((CONFIGURATION_MODE_OR_GAME_STAFF_POINTER-$1000000)).w
+@Return:
+                
+                rts
+
+    ; End of function CheckConfigurationModeInputSequence
 

@@ -8,7 +8,7 @@
 ms_map20_flag543_InitFunction:
                 
                  
-                chkFlg  FLAG_CASTLEGRANS9
+                chkFlg  982
                 beq.s   byte_633BA
                 script  cs_633B2
                 bra.w   byte_633BA

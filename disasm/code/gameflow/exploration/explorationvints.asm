@@ -11,9 +11,9 @@ ProcessPlayerAction:
                 
                 move.b  ((PLAYER_1_INPUT-$1000000)).w,d7
                 clr.w   d0
-                jsr     MakeEntityIdle
+                jsr     j_MakeEntityIdle
                 clr.w   d0
-                jsr     WaitForEntityToStopMoving
+                jsr     j_WaitForEntityToStopMoving
                 jsr     (WaitForViewScrollEnd).l
                 btst    #INPUT_BIT_A,d7
                 bne.w   loc_25BCC       
@@ -22,8 +22,31 @@ ProcessPlayerAction:
                 rts
 loc_25B02:
                 
+                tst.b   ((DEBUG_MODE_TOGGLE-$1000000)).w ; BUTTON C PUSHED
+                beq.s   loc_25B40       
+                btst    #INPUT_BIT_B,((PLAYER_2_INPUT-$1000000)).w ; If Debug Mode and P1 C pushed while P2 B pushed, access Debug Flag Setter and then Chuch Actions
+                beq.s   loc_25B22
+                move.w  #600,d0
+                jsr     j_DebugSetFlag
+                jsr     j_ChurchMenu
+                rts
+loc_25B22:
+                
+                btst    #INPUT_BIT_C,((PLAYER_2_INPUT-$1000000)).w
+                bne.w   loc_25BF4       
+                btst    #INPUT_BIT_A,((PLAYER_2_INPUT-$1000000)).w ; If Debug Mode and P1 C pushed while P2 A pushed, access Debug Mode Action Select
+                beq.s   loc_25B40       
+                jsr     (FadeOutToBlack).w
+                jsr     j_DebugModeActionSelect
+                rts
+loc_25B40:
+                
                 lea     ((ENTITY_DATA-$1000000)).w,a0 ; Not in debug mode
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 cmpi.w  #MAPSPRITE_CARAVAN,ENTITYDEF_SECOND_ENTITY_MAPSPRITE(a0)
+            else
+                cmpi.b  #MAPSPRITE_CARAVAN,ENTITYDEF_SECOND_ENTITY_MAPSPRITE(a0)
+            endif
                 bne.s   loc_25BAA
                 move.w  ENTITYDEF_OFFSET_XDEST(a0),d0
                 sub.w   ENTITYDEF_SECOND_ENTITY_XDEST(a0),d0
@@ -40,7 +63,7 @@ loc_25B64:
                 add.w   d1,d0
                 bne.s   loc_25BAA
                 sndCom  SOUND_COMMAND_FADE_OUT ; CARAVAN ACTIONS
-                jsr     ShrinkIntoCaravanBowieAndFollowers
+                bsr.w   j_j_ShrinkInBowieAndFollowers
                 sndCom  MUSIC_HEADQUARTERS
                 trap    #VINT_FUNCTIONS
                 dc.w VINTS_DEACTIVATE
@@ -48,7 +71,7 @@ loc_25B64:
                 trap    #VINT_FUNCTIONS
                 dc.w VINTS_DEACTIVATE
                 dc.l VInt_UpdateViewData
-                jsr     CaravanMenu
+                jsr     j_CaravanMenu
                 trap    #VINT_FUNCTIONS
                 dc.w VINTS_ACTIVATE
                 dc.l VInt_UpdateViewData
@@ -56,7 +79,7 @@ loc_25B64:
                 dc.w VINTS_ACTIVATE
                 dc.l VInt_UpdateEntities
                 sndCom  SOUND_COMMAND_FADE_OUT
-                jsr     GrowOutBowieAndFollowers
+                bsr.w   j_j_GrowOutBowieAndFollowers
                 sndCom  SOUND_COMMAND_PLAY_PREVIOUS_MUSIC
                 bra.w   return_25BF2
 loc_25BAA:
@@ -64,8 +87,8 @@ loc_25BAA:
                 bsr.w   GetActivatedEntity
                 tst.w   d0
                 blt.s   loc_25BC0       
-                bsr.w   GetEntityEventIndex
-                jsr     RunMapSetupEntityEvent
+                bsr.w   InitializeNewEnemyEntityIndex
+                jsr     j_RunMapSetupEntityEvent
                 bra.w   return_25BF2
 loc_25BC0:
                 
@@ -80,7 +103,7 @@ loc_25BCC:
                 trap    #VINT_FUNCTIONS
                 dc.w VINTS_DEACTIVATE
                 dc.l VInt_UpdateViewData
-                jsr     FieldMenu
+                jsr     j_FieldMenu
                 trap    #VINT_FUNCTIONS
                 dc.w VINTS_ACTIVATE
                 dc.l VInt_UpdateViewData
@@ -89,6 +112,10 @@ loc_25BCC:
                 dc.l VInt_UpdateEntities
 return_25BF2:
                 
+                rts
+loc_25BF4:
+                
+                jsr     j_DebugMapScript ; If Debug Mode and P1 C pushed while P2 C pushed, execute debug cutscene
                 rts
 
     ; End of function ProcessPlayerAction

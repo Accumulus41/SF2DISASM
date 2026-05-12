@@ -10,7 +10,7 @@ cs_51F88:       textCursor 962
                 nextText $C0,128        ; "As you may know, my{N}messenger was killed!{W2}"
                 nextText $C0,128        ; "Granseal must have done{N}this.{W2}"
                 nextSingleText $C0,128  ; "So we're invading them to{N}retaliate!{W1}"
-                nextSingleText $FF,255  ; "Murmur...murmur....{W1}"
+                nextSingleText $FF,ENTITY_NONE  ; "Murmur...murmur....{W1}"
                 csWait 20
                 setFacing ALLY_LEMON,RIGHT
                 csWait 20
@@ -197,6 +197,6 @@ cs_521BA:       textCursor 986
                 setActscriptWait 145,eas_Jump
                 setActscriptWait 145,eas_Jump
                 nextSingleText $0,145   ; "Intruders!  Intruders!{N}Arrest them!{W1}"
-                setF FLAG_BATTLE05_AVAILABLE       ; Battle 5 unlocked - BATTLE_GALAM_CASTLE              
+                setStoryFlag 5          ; Battle 5 unlocked - BATTLE_GALAM_CASTLE              
 cs_5227C:       warp MAP_GALAM_CASTLE,0,0,RIGHT
                 csc_end

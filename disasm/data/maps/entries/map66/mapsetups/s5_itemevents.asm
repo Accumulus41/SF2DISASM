@@ -1,6 +1,6 @@
 
 ; ASM FILE data\maps\entries\map66\mapsetups\s5_itemevents.asm :
-; 0x5C86C..0x5C874 : 
+; 0x4FAE2..0x4FAEA : 
 ms_map66_Section5:
                 msDefaultItemEvent Map66_DefaultItemEvent0-ms_map66_Section5
 
@@ -11,5 +11,5 @@ Map66_DefaultItemEvent0:
                 
                 rts
 
-    ; End of function Map62_DefaultItemEvent0
+    ; End of function Map66_DefaultItemEvent0
 

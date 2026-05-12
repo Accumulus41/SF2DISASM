@@ -8,7 +8,7 @@
 ms_map1_InitFunction:
                 
                  
-                chkFlg  ALLY_TAYA              ; Taya joined
+                chkFlg  21              ; Taya joined
                 beq.s   return_5E770
                 move.w  #136,d0
                 jsr     MoveEntityOutOfMap

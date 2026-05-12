@@ -11,12 +11,12 @@ ms_map42_ZoneEvents:
 Map42_ZoneEvent0:
                 
                  
-                chkFlg  FLAG_NASKA_FLIGHT             ; Set after the Nazca ship shootdown scene
+                chkFlg  999             ; Set after the Nazca ship shootdown scene
                 beq.s   Map42_DefaultZoneEvent
-                chkFlg  FLAG_SHRINEFORCE1             ; Set after the you're pulled toward the Force Sword in the Jewel Cave
+                chkFlg  901             ; Set after the you're pulled toward the Force Sword in the Jewel Cave
                 bne.s   Map42_DefaultZoneEvent
                 script  cs_5FE9A
-                setFlg  FLAG_SHRINEFORCE1             ; Set after the you're pulled toward the Force Sword in the Jewel Cave
+                setFlg  901             ; Set after the you're pulled toward the Force Sword in the Jewel Cave
 Map42_DefaultZoneEvent:
                 
                 rts

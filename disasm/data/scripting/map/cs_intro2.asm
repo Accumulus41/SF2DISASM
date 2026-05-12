@@ -1,7 +1,7 @@
 
 ; ASM FILE data\scripting\map\cs_intro2.asm :
 ; 0x48380..0x48540 : Intro cutscene 2
-IntroCutscene2: textCursor STORYTEXT_OFFSET_STORMY_AT_GRANSEAL_CASTLE
+IntroCutscene2: textCursor 4202
                 mapLoad MAP_GRANSEAL_CASTLE,7,2
                 loadMapEntities ce_48510
                 setActscriptWait ALLY_BOWIE,eas_Init
@@ -57,7 +57,7 @@ IntroCutscene2: textCursor STORYTEXT_OFFSET_STORMY_AT_GRANSEAL_CASTLE
                  moveUp 1
                 endActions
                 hide 130
-                setCameraEntity 65535
+                setCameraEntity CAMERA_NEUTRAL
                 csWait 30
                 setCamDest 7,2
                 csWait 40
@@ -85,7 +85,7 @@ IntroCutscene2: textCursor STORYTEXT_OFFSET_STORMY_AT_GRANSEAL_CASTLE
                 nextSingleText $80,128  ; "Make sure all the doors and{N}windows are shut!{D2}"
                 playSound SFX_SPELL_CAST
                 csWait 30
-                animEntityFX 131,6
+                animEntityFX 131,MOSAIC_OUT
                 tintMap
                 csWait 5
                 setActscript 129,eas_2xRightLeft
@@ -110,9 +110,9 @@ IntroCutscene2: textCursor STORYTEXT_OFFSET_STORMY_AT_GRANSEAL_CASTLE
                 csWait 30
                 csc_end
 ce_48510:       mainEntity 63,63,UP
-                entity 12,6,DOWN,MAPSPRITE_GRANSEAL_KING,eas_Init
+                entity 12,6,DOWN,MAPSPRITE_KING_GRANSEAL,eas_Init
                 entity 10,7,DOWN,MAPSPRITE_MINISTER,eas_Init
-                entity 12,13,UP,MAPSPRITE_SOLDIER1,eas_Init
+                entity 12,13,UP,MAPSPRITE_GUARD,eas_Init
                 entity 9,6,LEFT,MAPSPRITE_EFFECT6,eas_Init
                 entity 15,6,LEFT,MAPSPRITE_EFFECT6,eas_Init
                 cscEntitiesEnd

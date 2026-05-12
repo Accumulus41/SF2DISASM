@@ -8,7 +8,7 @@
 ms_map3_flag506_InitFunction:
                 
                  
-                chkFlg  ALLY_KIWI               ; Kiwi joined
+                chkFlg  6               ; Kiwi joined
                 beq.s   byte_5136C
                 script  cs_51374
 byte_5136C:

@@ -59,5 +59,3 @@ layout_YesNoPromptMenu:
                 vdpTile H_BORDER|FLIP|PALETTE3|PRIORITY
                 vdpTile H_BORDER|FLIP|PALETTE3|PRIORITY
                 vdpTile CORNER|MIRROR|FLIP|PALETTE3|PRIORITY
-				
-				

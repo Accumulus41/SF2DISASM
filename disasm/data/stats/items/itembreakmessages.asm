@@ -15,24 +15,23 @@ table_ItemBreakMessages:
                 itemBreakMessage WHITE_RING, PIECES
                 itemBreakMessage BLACK_RING, PIECES
                 itemBreakMessage EVIL_RING, PIECES
-				
                 itemBreakMessage MISTY_KNUCKLES, PIECES
                 itemBreakMessage GIANT_KNUCKLES, PIECES
                 itemBreakMessage HEAT_AXE, FLAMES
                 itemBreakMessage ATLAS_AXE, FLAMES
-                itemBreakMessage RUNE_AXE, RUST
+                itemBreakMessage RUNE_AXE, RUSTED
                 itemBreakMessage GRAND_CANNON, SPLIT
                 itemBreakMessage LEVANTER, FLAMES
-                itemBreakMessage DARK_SWORD, RUST
+                itemBreakMessage DARK_SWORD, RUSTED
                 itemBreakMessage VALKYRIE, SPLIT
                 itemBreakMessage HOLY_LANCE, SPLIT
                 itemBreakMessage HALBERD, SPLIT
-                itemBreakMessage INDRA_STAFF, MANGLE
+                itemBreakMessage INDRA_STAFF, MANGLED
                 itemBreakMessage MAGE_STAFF, FLAMES
-                itemBreakMessage WISH_STAFF, MANGLE
-                itemBreakMessage SUPPLY_STAFF, MANGLE
-                itemBreakMessage FREEZE_STAFF, MANGLE
-                itemBreakMessage GODDESS_STAFF, MANGLE
-                itemBreakMessage DEMON_ROD, MANGLE
+                itemBreakMessage WISH_STAFF, MANGLED
+                itemBreakMessage SUPPLY_STAFF, MANGLED
+                itemBreakMessage FREEZE_STAFF, MANGLED
+                itemBreakMessage GODDESS_STAFF, MANGLED
+                itemBreakMessage DEMON_ROD, MANGLED
                 
                 tableEnd.w

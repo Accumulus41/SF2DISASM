@@ -68,14 +68,14 @@ Map21_DefaultZoneEvent:
                 endActions
                 setCamDest 11,12
                 nextSingleText $C0,FOLLOWER_B ; "It's too dangerous to stay{N}here.{N}Weigh anchor right now!{W1}"
-                clearF FLAG_FOLLOWER_ASTRALKING               ; Astral + King are followers
+                clearF 74               ; Astral + King are followers
                 setCamDest 11,13
                 executeSubroutine csub_54714
                 csWait 120
-                loadMapFadeIn MAP_OVERWORLD_GRANS_GRANSEAL,28,26
+                loadMapFadeIn MAP_OVERWORLD_GRANSEAL_KINGDOM,28,26
                 loadMapEntities ce_54736
                 setActscriptWait ALLY_BOWIE,eas_Init
-                setSprite ALLY_BOWIE,MAPSPRITE_BOAT
+                setSprite ALLY_BOWIE,MAPSPRITE_SHIP
                 fadeInB
                 customActscriptWait ALLY_BOWIE
                  ac_setSpeed 20,20      ;   
@@ -96,9 +96,9 @@ Map21_DefaultZoneEvent:
                 setQuake 5
                 csWait 30
                 playSound SFX_INTRO_LIGHTNING
-                flashScreenWhite $1E
+                flashScreenWhite 30
                 setBlocks 0,49,10,15,28,23
-                flashScreenWhite $1E
+                flashScreenWhite 30
                 csWait 60
                 setQuake 3
                 csWait 60
@@ -106,8 +106,8 @@ Map21_DefaultZoneEvent:
                 csWait 90
                 setQuake 0
                 csWait 120
-                warp MAP_OVERWORLD_NEW_GRANSEAL_SHORE,26,13,RIGHT
-                clearF FLAG_MAPGRANS1              ; Set after the end of battle 7's long sequence, cleared at docks?
+                warp MAP_OVERWORLD_NEW_GRANSEAL_KINGDOM,26,13,RIGHT
+                clearF 640              ; Set after the end of battle 7's long sequence, cleared at docks?
                 csc_end
 
 ; =============== S U B R O U T I N E =======================================
@@ -134,4 +134,4 @@ loc_54726:
     ; End of function csub_54714
 
 ce_54736:       mainEntity 34,33,RIGHT
-                dc.w $FFFF
+                cscEntitiesEnd

@@ -80,10 +80,10 @@ cs_55A36:       textCursor 1198
                 nextText $C0,ALLY_PETER ; "I'm {NAME;7}.{W2}"
                 nextText $C0,ALLY_PETER ; "I really appreciate your{N}kindness.{W2}"
                 nextSingleText $C0,ALLY_PETER ; "Mt. Volcano is in the east....{N}It's very far away.{W1}"
+                nextSingleText $FF,ENTITY_NONE  ; "{CLEAR}{LEADER} decides to take{N}{NAME;7} with him.{W1}{CLEAR}"
             if (STANDARD_BUILD&NO_AI_PETER=1)
                 join ALLY_PETER
             else
-                nextSingleText $FF,255  ; "{CLEAR}{LEADER} decides to take{N}{NAME;7} with him.{W1}{CLEAR}"
                 joinForceAI ALLY_PETER,$FFFF ; 0054 JOIN FORCE WITH AI
             endif
                 entityActionsWait ALLY_PETER
@@ -109,7 +109,7 @@ cs_55A36:       textCursor 1198
                  moveDown 2
                 endActions
                 nextSingleText $0,128   ; "A parting gift.  Take it.{W1}"
-                nextSingleText $FF,255  ; "{LEADER} receives 100{N}gold coins.{W1}"
+                nextSingleText $FF,ENTITY_NONE  ; "{LEADER} receives 100{N}gold coins.{W1}"
                 entityActionsWait 128
                  moveUp 1
                  moveRight 1
@@ -231,7 +231,7 @@ cs_55BEE:       textCursor 1249
                 nod 128
                 setActscriptWait 139,eas_Jump
                 nod ALLY_BOWIE
-                nextSingleText $FF,255  ; "{LEADER} and {NAME;7}{N}explain in detail.{W1}"
+                nextSingleText $FF,ENTITY_NONE  ; "{LEADER} and {NAME;7}{N}explain in detail.{W1}"
                 entityActionsWait ALLY_PETER
                  moveLeft 1
                  moveUp 1
@@ -254,7 +254,7 @@ cs_55BEE:       textCursor 1249
                 setFacing ALLY_BOWIE,UP
                 nextText $FF,255        ; "About the ancient ruins{N}and Creed....{W2}"
                 nextText $FF,255        ; "And Zeon's message through{N}Evil Spilit.{W2}"
-                nextSingleText $FF,255  ; "They explain everything.{W1}"
+                nextSingleText $FF,ENTITY_NONE  ; "They explain everything.{W1}"
                 entityActions ALLY_PETER
                  moveDown 1
                  moveLeft 1
@@ -299,7 +299,7 @@ cs_55BEE:       textCursor 1249
                 shiver 128
                 nextSingleText $0,128   ; "Sir!{W1}"
                 setFacing 139,RIGHT
-                nextSingleText $FF,255  ; "Astral winks at the Minister{N}and smiles.{W1}"
+                nextSingleText $FF,ENTITY_NONE  ; "Astral winks at the Minister{N}and smiles.{W1}"
                 setFacing 139,UP
                 nextSingleText $0,139   ; "It's an important job. Will{N}you allow me to go with{N}{LEADER}?{W1}"
                 nextSingleText $C0,129  ; "Sure, sure!  Just bring{N}Elis back to me!{W1}"
@@ -313,13 +313,13 @@ cs_55BEE:       textCursor 1249
                 nextSingleText $0,139   ; "I'm going with you as an{N}adviser.{W1}"
                 playSound MUSIC_JOIN
                 nextText $FF,255        ; "Adviser Astral has joined the{N}force."
-                executeSubroutine FadeOut_WaitForP1Input
+                executeSubroutine j_FadeOut_WaitForP1Input
                 hideText
                 nextSingleText $0,139   ; "We have to remove the rocks{N}blocking the passageway{N}leading to North Parmecia.{W2}{N}Maybe we can use an{N}explosive!{W1}"
                 nod ALLY_BOWIE
                 followEntity ALLY_PETER,ALLY_BOWIE,2
                 addNewFollower 139
-                setF FLAG_FOLLOWER_ASTRAL                 ; Astral is a follower
+                setF 70                 ; Astral is a follower
                 csc_end
 
 ; =============== S U B R O U T I N E =======================================
@@ -369,6 +369,7 @@ loc_55F34:
                 or.w    d3,d4
                 move.w  d4,(a1)+
                 dbf     d0,loc_55F06
+                
                 clr.b   ((FADING_TIMER_BYTE-$1000000)).w
                 lea     (PALETTE_1_BASE).l,a0
                 jmp     (UpdateBasePalettesAndBackupCurrent).w
@@ -383,7 +384,7 @@ palette_55F6A:  dc.w $E0C
                 dc.w $C0A
                 dc.w $806
                 dc.w $402
-                dc.w 2
+                dc.w $002
                 dc.w $204
                 dc.w $608
                 dc.w $A0A
@@ -394,7 +395,7 @@ palette_55F6A:  dc.w $E0C
 sub_55F82:
                 
                 clr.b   ((FADING_TIMER_BYTE-$1000000)).w
-                lea     ((PALETTE_1_BACKUP-$1000000)).w,a0
+                lea     ((PALETTE_1_COPY-$1000000)).w,a0
                 jmp     (UpdateBasePalettesAndBackupCurrent).w
 
     ; End of function sub_55F82

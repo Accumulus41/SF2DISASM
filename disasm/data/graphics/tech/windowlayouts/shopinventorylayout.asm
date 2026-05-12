@@ -1,4 +1,6 @@
 
+; ASM FILE data\graphics\tech\windowlayouts\shopinventorylayout.asm :
+; 0x1505C..0x151D6 : Shop inventory window layout
 layout_ShopInventoryWindow:
                 
 ; Syntax        vdpBaseTile [VDPTILE_]enum[|MIRROR|FLIP]
@@ -179,7 +181,7 @@ layout_ShopInventoryWindow:
                 vdpBaseTile H_BORDER|FLIP
                 vdpBaseTile H_BORDER|FLIP
                 vdpBaseTile CORNER|MIRROR|FLIP
-ShopInventoryWindowLayoutSpacerLine:
+layout_ShopInventoryWindowLayoutSpacer:
                 
                 vdpBaseTile V_BORDER
                 vdpBaseTile SPACE
@@ -209,7 +211,3 @@ ShopInventoryWindowLayoutSpacerLine:
                 vdpBaseTile SPACE
                 vdpBaseTile V_BORDER|MIRROR
                 
-tiles_ShopInventoryItemHighlight:
-                incbin "data/graphics/tech/shopinventoryitemhighlighttiles.bin"
-				
-				

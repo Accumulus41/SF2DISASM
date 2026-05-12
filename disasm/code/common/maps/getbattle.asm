@@ -4,10 +4,13 @@
 
 ; =============== S U B R O U T I N E =======================================
 
-; In: D0 = map index (if not supplied, will be pulled from CURRENT_MAP)
-;     D1 = player X coord to check
-;     D2 = player Y coord to check
-; Out: D7 = battle index to trigger (-1 if none)
+; In: d0.w = map index (if not supplied, will be pulled from CURRENT_MAP)
+;     d1.w = player X coordinate to check
+;     d2.w = player Y coordinate to check
+;
+; Out: d0.w = map index
+;      d7.w = battle index to trigger (-1 if none)
+;
 ; ...more
 
 
@@ -17,23 +20,28 @@ CheckBattle:
                 move.w  d1,d4
                 move.w  d2,d5
                 move.w  d0,-(sp)
-                cmpi.b  #MAP_CURRENT,d0
+                cmpi.b  #MAP_CURRENT,d0 
                 bne.s   @Continue
                 
                 ; Get current map
                 clr.w   d0
                 getSavedByte CURRENT_MAP, d0
 @Continue:
+            if (STANDARD_BUILD=1)
                 getPointer p_table_BattleMapCoordinates, a0
-                moveq   #BATTLES_MAX_INDEX,d6
+            else
+                lea     table_BattleMapCoordinates(pc), a0
+            endif
+                moveq   #BATTLES_COUNTER,d6
                 clr.w   d7
 @Loop:
                 
                 cmp.b   (a0),d0
                 bne.s   @Next
-                move.w  #FLAG_BATTLE00_AVAILABLE,d1
+                
+                move.w  #BATTLE_UNLOCKED_FLAGS_START,d1
                 add.w   d7,d1
-                jsr     CheckFlag
+                jsr     j_CheckFlag
                 beq.s   @Next
                 
                 ; Check Trigger X
@@ -54,18 +62,19 @@ CheckBattle:
                 setSavedByte BATTLEMAPCOORDINATES_OFFSET_Y(a0), BATTLE_AREA_Y
                 setSavedByte BATTLEMAPCOORDINATES_OFFSET_WIDTH(a0), BATTLE_AREA_WIDTH
                 setSavedByte BATTLEMAPCOORDINATES_OFFSET_HEIGHT(a0), BATTLE_AREA_HEIGHT
-                addi.w  #FLAG_BATTLE00_COMPLETE,d1
-                jsr     CheckFlag
+                addi.w  #BATTLE_UNLOCKED_TO_COMPLETED_FLAGS_OFFSET,d1
+                jsr     j_CheckFlag
                 beq.s   @TriggerBattle
-                subi.w  #FLAG_BATTLE00_COMPLETE,d1
-                jsr     ClearFlag
+                
+                subi.w  #BATTLE_UNLOCKED_TO_COMPLETED_FLAGS_OFFSET,d1
+                jsr     j_ClearFlag
 @TriggerBattle:
                 
                 move.w  (sp)+,d1
                 bra.w   @Done
 @Next:
                 
-                addq.l  #BATTLEMAPCOORDINATES_ENTRY_SIZE,a0
+                addq.l  #BATTLEMAPCOORDINATES_ENTRY_SIZE_FULL,a0
                 addq.w  #1,d7
                 dbf     d6,@Loop
                 

@@ -21,11 +21,6 @@ align:  macro
             endcase
         endm
 
-wordAlign:  macro ;alias
-                align
-                inform 0,"INFO: 'wordAlign' macro is obsolete. Please use 'align' with no arguments instead."
-            endm
-
 alignIfStandard: macro
         if (STANDARD_BUILD=1)
             case narg
@@ -84,7 +79,7 @@ objendIfMemoryMapper: macro
                 objend
             endif
         endm
-
+    
 
 ; ---------------------------------------------------------------------------
 ; Conditional INCLUDE and INCBIN
@@ -334,11 +329,19 @@ conditionalWordAddr: macro
         endm
     
 getPointer: macro
+            if (STANDARD_BUILD=1)
+                movea.l (\1).w,\2
+            else
                 movea.l (\1).l,\2
+            endif
         endm
         
 loadPointer: macro
+            if (STANDARD_BUILD=1)
+                move.l  (\1).w,\2
+            else
                 move.l  (\1).l,\2
+            endif
         endm
         
 conditionalLongAddr: macro
@@ -355,284 +358,313 @@ conditionalLongAddr: macro
 ; Relocated saved data to SRAM
 ; ---------------------------------------------------------------------------
     
-loadSavedDataAddress: macro
+savedDataOperand: macro address
+operand:        equs '((\address-$1000000)).w'
             if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                lea     (\1).l,\2
-            else
-                lea     ((\1-$1000000)).w,\2
+operand:        equs '(\address).l'
             endif
         endm
     
-checkSavedByte: macro
+loadSavedDataAddress: macro address, pointer
+                savedDataOperand \address
+                lea     \operand, \pointer
+            endm
+    
+testSavedByte: macro address
+                savedDataOperand \address
+                tst.b   \operand
+            endm
+    
+compareToSavedByte: macro immediate, address
+                savedDataOperand \address
+                cmpi.b  \immediate,\operand
+            endm
+    
+compareSavedByteTo: macro address, data
+                savedDataOperand \address
+                cmp.b   \operand,\data
+            endm
+    
+clearSavedByte: macro address
+                savedDataOperand \address
+                clr.b   \operand
+            endm
+    
+clearSavedByteWithPostIncrement: macro pointer
             if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-dest:           equs '(\2).l'
+                clr.b   (\pointer)
+                addq.w  #2,\pointer
             else
-dest:           equs '((\2-$1000000)).w'
-            endif
-            if (instr('\1','#')=0)
-src:            equs '\1'
-            else
-src:            substr 2,,'\1'
-            endif
-            if (\src=0)
-                tst.b   \dest
-            else
-                cmpi.b  \1,\dest
+                clr.b   (\pointer)+
             endif
         endm
     
-clearSavedByte: macro
+copySavedByte: macro address1, address2
+                savedDataOperand \address1
+operand1:       equs '\operand'
+                savedDataOperand \address2
+operand2:       equs '\operand'
+                
+                move.b  \operand1,\operand2
+            endm
+    
+getSavedByte: macro address, data
+                savedDataOperand \address
+                move.b  \operand,\data
+        endm
+    
+getSavedByteWithPostIncrement: macro pointer, data
             if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                clr.b   (\1).l
+                move.b  (\pointer),\data
+                addq.w  #2,\pointer
             else
-                clr.b   ((\1-$1000000)).w
+                move.b  (\pointer)+,\data
             endif
         endm
     
-clearSavedByteWithPostIncrement: macro
+getSavedByteWithPreDecrement: macro pointer, data
             if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                clr.b   (\1)
-                addq.w  #2,\1
+                subq.w  #2,\pointer
+                move.b  (\pointer),\data
             else
-                clr.b   (\1)+
+                move.b  -(\pointer),\data
             endif
         endm
     
-copySavedByte: macro
-            if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                move.b  (\1).l,(\2).l
+getSavedWord: macro pointer, data, offset
+        if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
+            if (narg>=3)
+                movep.w \offset\(\pointer),\data
             else
-                move.b  ((\1-$1000000)).w,((\2-$1000000)).w
+                movep.w 0(\pointer),\data
             endif
-        endm
-    
-getSavedByte: macro
-            if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                move.b  (\1).l,\2
-            else
-                move.b  ((\1-$1000000)).w,\2
-            endif
-        endm
-    
-setSavedByte: macro
-            if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                move.b  \1,(\2).l
-            else
-                move.b  \1,((\2-$1000000)).w
-            endif
-        endm
-    
-setSavedByteWithPostIncrement: macro
-            if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                move.b  \1,(\2)
-                addq.w  #2,\2
-            else
-                move.b  \1,(\2)+
-            endif
-        endm
-    
-addToSavedByte: macro
-                addq.b  \1,((\2-$1000000)).w
-        endm
-    
-subtractSavedByte: macro
-                sub.b   ((\1-$1000000)).w,\2
-        endm
-    
-getSavedWord: macro
-                move.w  \3\\1,\2
+        else
+                move.w  \offset\(\pointer),\data
+        endif
     endm
     
-getSavedWordWithPostIncrement: macro
-                move.w  (\1)+,\2
+getSavedWordWithPostIncrement: macro pointer, data, offset
+            if (narg>=3)
+                getSavedWord \pointer, \data, \offset
+            else
+                getSavedWord \pointer, \data
+            endif
+            if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
+                addq.w  #4,\pointer
+            else
+                addq.w  #2,\pointer
+            endif
+        endm
+    
+getSavedLong: macro pointer, data, offset
+        if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
+            if (narg>=3)
+                movep.l \offset\(\pointer),\data
+            else
+                movep.l 0(\pointer),\data
+            endif
+        else
+                move.l  \offset\(\pointer),\data
+        endif
     endm
     
-setSavedWord: macro
-                move.w  \1,\3\\2
+setSavedByte: macro data, address
+                savedDataOperand \address
+                move.b  \data,\operand
+            endm
+    
+setSavedByteWithPostIncrement: macro data, pointer
+            if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
+                move.b  \data,(\pointer)
+                addq.w  #2,\pointer
+            else
+                move.b  \data,(\pointer)+
+            endif
+        endm
+    
+setSavedByteWithPreDecrement: macro data, pointer
+            if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
+                subq.w  #2,\pointer
+                move.b  \data,(\pointer)
+            else
+                move.b  \data,-(\pointer)
+            endif
+        endm
+    
+setSavedWord: macro data, pointer, offset
+        if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
+            if (narg>=3)
+                movep.w \data,\offset\(\pointer)
+            else
+                movep.w \data,0(\pointer)
+            endif
+        else
+                move.w  \data,\offset\(\pointer)
+        endif
     endm
     
-setSavedWordWithPostIncrement: macro
-                move.w  \1,(\2)+
-        endm
-    
-setSavedLongWithPostIncrement: macro
-                move.l  \1,(\2)+
-        endm
-    
-getSavedCombatantByte: macro
-                movem.l d7-a0,-(sp)
-                moveq   #\1,d7
-                bsr.w   GetCombatantByte
-                movem.l (sp)+,d7-a0
-        endm
-    
-getSavedCombatantWord: macro
-                movem.l d7-a0,-(sp)
-                moveq   #\1,d7
-                bsr.w   GetCombatantWord
-                movem.l (sp)+,d7-a0
-        endm
-    
-getSavedCombatantPosition: macro
+setSavedWordWithPostIncrement: macro data, pointer
             if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                move.l  a0,-(sp)
-                bsr.w   GetCombatantEntryAddress
-                move.b  \1(a0),d1
-                ext.w   d1
-                movea.l (sp)+,a0
+                setSavedWord \data, \pointer
+                addq.w  #4,\pointer
             else
-                movem.l d7-a0,-(sp)
-                moveq   #\1,d7
-                bsr.w   GetCombatantByte
-                ext.w   d1
-                movem.l (sp)+,d7-a0
+                move.w  \data,(\pointer)+
             endif
         endm
     
-setSavedCombatantByte: macro
-            if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                move.l  a0,-(sp)
-                bsr.w   GetCombatantEntryAddress
-                move.b  d1,\1(a0)
-                movea.l (sp)+,a0
+setSavedLong: macro data, pointer, offset
+        if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
+            if (narg>=3)
+                movep.l \data,\offset\(\pointer)
             else
-                movem.l d7-a0,-(sp)
-                moveq   #\1,d7
-                bsr.w   SetCombatantByte
-                movem.l (sp)+,d7-a0
+                movep.l \data,0(\pointer)
+            endif
+        else
+                move.l  \data,\offset\(\pointer)
+        endif
+    endm
+    
+setSavedLongWithPostIncrement: macro data, pointer
+            if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
+                setSavedLong \data, \pointer
+                addq.w  #8,\pointer
+            else
+                move.l  \data,(\pointer)+
             endif
         endm
     
-setSavedCombatantWord: macro
+addFromSavedByte: macro address, data
+                savedDataOperand \address
+                add.b  \operand,\data
+            endm
+    
+addFromSavedByteWithPostIncrement: macro pointer, data
             if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                move.l  a0,-(sp)
-                bsr.w   GetCombatantEntryAddress
-                movep.w d1,\1(a0)
-                movea.l (sp)+,a0
+                add.b   (\pointer),\data
+                addq.w  #2,\pointer
             else
-                movem.l d7-a0,-(sp)
-                moveq   #\1,d7
-                bsr.w   SetCombatantWord
-                movem.l (sp)+,d7-a0
+                add.b   (\pointer)+,\data
             endif
         endm
     
-manipulateEquippedBit: macro
+addToSavedBytePointer: macro data, pointer
+            if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
+                add.w   \data,\data
+            endif
+                adda.w  \data,\pointer
+        endm
+    
+addQuickToSavedByte: macro immediate, address
+                savedDataOperand \address
+                addq.b  \immediate,\operand
+            endm
+    
+addQuickToSavedWord: macro immediate, address
+                savedDataOperand \address
+                addq.w  \immediate,\operand
+            endm
+    
+subtractSavedByte: macro address, data
+                savedDataOperand \address
+                sub.b   \operand,\data
+            endm
+    
+
+; Items
+;
+manipulateEquippedBit: macro instruction, pointer
+equippedBit:    equs "#ITEMENTRY_BIT_EQUIPPED"
+entryoffset:    equs "ITEMENTRY_OFFSET_INDEX_AND_EQUIPPED_BIT"
             if (STANDARD_BUILD&EXPANDED_ITEMS_AND_SPELLS=1)
 equippedBit:    equs "#ITEMENTRY_UPPERBIT_EQUIPPED"
 entryoffset:    equs "0"
-            else
-equippedBit:    equs "#ITEMENTRY_BIT_EQUIPPED"
-entryoffset:    equs "ITEMENTRY_OFFSET_INDEX_AND_EQUIPPED_BIT"
             endif
             if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                \1    \equippedBit,COMBATANT_OFFSET_ITEMS+\entryoffset\\2
+                \instruction \equippedBit,COMBATANT_OFFSET_ITEMS+\entryoffset\(\pointer)
             else
-                \1    \equippedBit,\entryoffset\\2
+                \instruction \equippedBit,\entryoffset\(\pointer)
             endif
         endm
     
-isItemEquipped: macro
-                manipulateEquippedBit btst,\1
+isItemEquipped: macro pointer
+                manipulateEquippedBit btst,\pointer
             endm
     
-equipItem: macro
-                manipulateEquippedBit bset,\1
+equipItem: macro pointer
+                manipulateEquippedBit bset,\pointer
             endm
     
-unequipItem: macro
-                manipulateEquippedBit bclr,\1
+unequipItem: macro pointer
+                manipulateEquippedBit bclr,\pointer
             endm
     
-breakItem: macro
+breakItem: macro pointer
             if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                bset    #ITEMENTRY_UPPERBIT_BROKEN,COMBATANT_OFFSET_ITEMS\1
+                bset    #ITEMENTRY_UPPERBIT_BROKEN,COMBATANT_OFFSET_ITEMS(\pointer)
             else
-                bset    #ITEMENTRY_UPPERBIT_BROKEN,\1
+                bset    #ITEMENTRY_UPPERBIT_BROKEN,(\pointer)
             endif
         endm
     
-repairItem: macro
+repairItem: macro pointer
             if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                bclr    #ITEMENTRY_UPPERBIT_BROKEN,COMBATANT_OFFSET_ITEMS\1
+                bclr    #ITEMENTRY_UPPERBIT_BROKEN,COMBATANT_OFFSET_ITEMS(\pointer)
             else
-                bclr    #ITEMENTRY_UPPERBIT_BROKEN,\1
+                bclr    #ITEMENTRY_UPPERBIT_BROKEN,(\pointer)
             endif
         endm
     
-checkCurrentMap: macro
+
+; Battle turn order
+;
+appendBattleTurnEntry: macro
             if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                cmp.b   (CURRENT_MAP).l,\1
+                move.b  \1,(\3)
+                move.b  \2,2(\3)
+                addq.w  #TURN_ORDER_ENTRY_SIZE,\3
             else
-                cmp.b   ((CURRENT_MAP-$1000000)).w,\1
-            endif
-        endm
-    
-checkRaftMap: macro
-            if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                cmp.b   (RAFT_MAP).l,\1
-            else
-                cmp.b   ((RAFT_MAP-$1000000)).w,\1
+                move.b  \1,(\3)+
+                move.b  \2,(\3)+
             endif
         endm
     
 getBattleTurnActor: macro
             if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                lea     (BATTLE_TURN_ORDER).l,a0
-                move.b  CURRENT_BATTLE_TURN-BATTLE_TURN_ORDER(a0),\1
+                loadSavedDataAddress BATTLE_TURN_ORDER, a0
+                getSavedWord a0, \1, CURRENT_BATTLE_TURN-BATTLE_TURN_ORDER
+                adda.w  \1,a0
+                clr.w   \1
+                move.b  (a0),\1
             else
-                move.b  ((CURRENT_BATTLE_TURN-$1000000)).w,\1
-                lea     ((BATTLE_TURN_ORDER-$1000000)).w,a0
-            endif
+                clr.w   \1
+                getSavedByte CURRENT_BATTLE_TURN, \1
+                loadSavedDataAddress BATTLE_TURN_ORDER, a0
                 move.b  (a0,\1.w),\1
-        endm
-    
-addSavedByteOffset: macro
-            if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                add.w   \1,\1
-            endif
-                adda.w  \1,\2
-        endm
-    
-getSavedBattleMapCoordinates: macro
-            if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                move.l  a0,-(sp)
-                lea     (BATTLE_AREA_X).l,a0
-                movep.w 0(a0),\1
-                movep.w BATTLE_AREA_WIDTH-BATTLE_AREA_X(a0),\2
-                movea.l (sp)+,a0
-            else
-                move.w  ((BATTLE_AREA_X-$1000000)).w,\1
-                move.w  ((BATTLE_AREA_WIDTH-$1000000)).w,\2
             endif
         endm
     
-getSavedBattleMapDimensions: macro
-            if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
-                move.l  a0,-(sp)
-                lea     (BATTLE_AREA_WIDTH).l,a0
-                movep.w 0(a0),\1
-                movea.l (sp)+,a0
-            else
-                move.w  ((BATTLE_AREA_WIDTH-$1000000)).w,\1
-            endif
-        endm
-    
-loadSavedMithrilWeaponOrder: macro
+
+; Mithril
+;
+loadMithrilWeaponOrder: macro
             if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
                 movep.w 0(\2),d0
+                tst.w   d0
                 bne.s   @Next
                 movep.w \1,0(\2)
                 bra.s   @Done
+@Next:          addq.w  #4,a0
             else
                 cmpi.w  #0,(\2)
                 bne.w   @Next           ; check next weapon slot if current one is occupied
                 move.w  \1,(\2)
                 bra.w   @Done           ; move item index to current weapon slot in RAM, and we're done
+@Next:          move.w  #2,d0
+                adda.w  d0,a0
             endif
         endm
     
-getSavedMithrilWeaponOrder: macro
+getMithrilWeaponOrder: macro
             if (STANDARD_BUILD&RELOCATED_SAVED_DATA_TO_SRAM=1)
                 movep.w 0(\1),d0
                 addq.w  #4,\1
@@ -749,7 +781,7 @@ script:     macro
 ; Data definition
 ; ---------------------------------------------------------------------------
                 
-defineBitfieldWithParam: macro Prefix,Bitfield,Param
+produceBitfieldValue: macro Prefix,Bitfield,Param
         if (type(\Prefix\\Param)&32>0)
 Value:          set \Prefix\\Param
         else
@@ -772,12 +804,30 @@ Value:          set Value|\Prefix\\Next
         else
 Value:          set Value|\Next
         endif
-                dc.\0 Value
     endm
                 
-defineBitfield: macro
-                defineBitfieldWithParam.\0 \1,\2,0
+defineBitfieldWithParam: macro Prefix,Bitfield,Param
+                produceBitfieldValue \Prefix,\Bitfield,\Param
+                dc.\0 Value
             endm
+                
+defineBitfield: macro Prefix,Bitfield
+                produceBitfieldValue \Prefix,\Bitfield,0
+                dc.\0 Value
+            endm
+                
+defineByteSwappedBitfield: macro Prefix,Bitfield
+                produceBitfieldValue \Prefix,\Bitfield,0
+                dc.w ((Value>>BYTE_SHIFT_COUNT)|(Value<<BYTE_SHIFT_COUNT))&WORD_MASK
+            endm
+                
+defineNibbleShiftedLeftShorthand: macro Prefix,Shorthand
+            if (type(\Prefix\\Shorthand)&32>0)
+                dc.\0 \Prefix\\Shorthand<<NIBBLE_SHIFT_COUNT
+            else
+                dc.\0 \Shorthand<<NIBBLE_SHIFT_COUNT
+            endif
+        endm
                 
 defineShorthand: macro Prefix,Shorthand
             if (type(\Prefix\\Shorthand)&32>0)
@@ -790,16 +840,16 @@ defineShorthand: macro Prefix,Shorthand
 tableEnd: macro
             if strcmp('\0','b')
                 dc.b TERMINATOR_BYTE
-                align
+                alignIfStandard
             else
                 dc.w TERMINATOR_WORD
             endif
         endm
                 
 flagSwitchedMap: macro
-                dc.w \1
-                dc.w \2
-                dc.w \3
+                dc.w \1 ; original map
+                dc.w \2 ; flag
+                dc.w \3 ; replacement map
             endm
 
 flagSwitchedMapsEnd: macro
@@ -807,27 +857,27 @@ flagSwitchedMapsEnd: macro
             endm
                 
 battleMapCoordinates: macro
-                dc.b \1
-                dc.b \2
-                dc.b \3
-                dc.b \4
-                dc.b \5
-                dc.b \6
-                dc.b \7
+                dc.b \1 ; map
+                dc.b \2 ; area start X
+                dc.b \3 ; area start Y
+                dc.b \4 ; area width
+                dc.b \5 ; area height
+                dc.b \6 ; trigger X (255 = any)
+                dc.b \7 ; trigger Y (255 = any)
             endm
                 
 savePointMapCoordinates: macro
-                dc.b \1
-                dc.b \2
-                dc.b \3
-                dc.b \4
+                dc.b \1 ; map
+                dc.b \2 ; X
+                dc.b \3 ; Y
+                dc.b \4 ; facing
             endm
                 
 raftResetMapCoordinates: macro
-                dc.b \1
-                dc.b \2
-                dc.b \3
-                dc.b \4
+                dc.b \1 ; egress map
+                dc.b \2 ; raft map
+                dc.b \3 ; raft X
+                dc.b \4 ; raft Y
             endm
                 
 item:       macro
@@ -840,7 +890,7 @@ classType:  macro
                 
 itemBreakMessage: macro
                 defineShorthand.b ITEM_,\1
-                defineShorthand.b BREAKTYPE_\2
+                defineShorthand.b ITEMBREAK_\2
             endm
                 
 ; Enemy item drops
@@ -852,27 +902,13 @@ battle: macro
                 defineShorthand.b BATTLE_,\1
             endif
         endm
-    
-battleEXP: macro
-    dc.b \2
-    defineShorthand.b BATTLE_,\1
-    endm
                 
 enemyEntity: macro
                 dc.b \1+128
             endm
                 
-itemDrop:   macro ;alias
-                item \1
-            endm
-                
 droppedFlag: macro
                 dc.b \1
-            endm
-                
-dropFlag:   macro ;alias
-                droppedFlag \1
-                inform 0,"INFO: 'dropFlag' macro is obsolete. Please use 'droppedFlag' instead."
             endm
                 
 spellElement: macro
@@ -886,7 +922,7 @@ landEffectAndMoveCost: macro
 aiCommandset: macro
                 dc.b narg
             rept narg
-                defineShorthand.b AICOMMAND_,\1
+                defineShorthand.b AI_COMMAND_,\1
                 shift
             endr
         endm
@@ -906,15 +942,16 @@ background: macro
 enemyFacing: macro
                 defineShorthand.b LASER_,\1
             endm
-    
-position: macro
-                dc.b \1
-                dc.b \2
+                
+position:   macro x, y
+                dc.b \x
+                dc.b \y
             endm
     
 facing: macro
-            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
-                dc.w \1
+            if (STANDARD_BUILD=1)
+                ; make sure that neutral battle entities mapsprite index is word-aligned
+                dc.w \1 ; EXPANDED_MAPSPRITES
             else
                 dc.b \1
             endif
@@ -923,15 +960,15 @@ facing: macro
 ; Battle spriteset definitions
                 
 allyCombatant: macro
-                dc.b \1
-                dc.b \2
-                dc.b \3
+                dc.b \1 ; entity index
+                dc.b \2 ; X
+                dc.b \3 ; Y
             endm
                 
 enemyCombatant: macro
-                defineShorthand.b ENEMY_,\1
-                dc.b \2
-                dc.b \3
+                defineShorthand.b ENEMY_,\1 ; enemy index
+                dc.b \2 ; X
+                dc.b \3 ; Y
             endm
                 
 combatantAiAndItem: macro
@@ -940,12 +977,12 @@ combatantAiAndItem: macro
             endm
                 
 combatantBehavior: macro
-                defineBitfield.b AIORDER_,\1
-                dc.b \2
-                defineBitfield.b AIORDER_,\3
-                dc.b \4
-                dc.b \5
-                defineBitfield.b SPAWN_,\6
+                defineBitfield.b AIORDER_,\1 ; primary order
+                dc.b \2 ; region to activate primary order
+                defineBitfield.b AIORDER_,\3 ; secondary order
+                dc.b \4 ; region to activate secondary order
+                dc.b \5 ; filler byte
+                defineBitfield.b SPAWN_,\6 ; initialization type
             endm
                 
 ; Names
@@ -974,64 +1011,8 @@ spellName: macro
         endm
     
 allyName: macro
-	case strlen(\1)
-=1
-    rept narg
-    dc.b \1
-    shift
-    endr
-    dcb.b 9,0
-=2
-    rept narg
-    dc.b \1
-    shift
-    endr
-    dcb.b 8,0
-=3
-    rept narg
-    dc.b \1
-    shift
-    endr
-    dcb.b 7,0
-=4
-    rept narg
-    dc.b \1
-    shift
-    endr
-    dcb.b 6,0
-=5
-    rept narg
-    dc.b \1
-    shift
-    endr
-    dcb.b 5,0
-=6
-    rept narg
-    dc.b \1
-    shift
-    endr
-    dcb.b 4,0
-=7
-    rept narg
-    dc.b \1
-    shift
-    endr
-    dcb.b 3,0
-=8
-    rept narg
-    dc.b \1
-    shift
-    endr
-    dcb.b 2,0
-=9
-    rept narg
-    dc.b \1
-    shift
-    endr
-    dc.b 0
-=?
-    endcase
-    endm
+                defineName \1
+            endm
     
 enemyName: macro
             if (narg=2)
@@ -1063,30 +1044,12 @@ className: macro
 equipFlags: macro
                 defineBitfield.l EQUIPFLAG_,\1
             endm
-                
+    
 equipFlags2: macro
+            if (STANDARD_BUILD&EXPANDED_CLASSES=1)
                 defineBitfield.l EQUIPFLAG2_,\1
-            endm
-                
-equipFlags3: macro
-                defineBitfield.l EQUIPFLAG3_,\1
-            endm
-                
-equipFlags4: macro
-                defineBitfield.l EQUIPFLAG4_,\1
-            endm
-                
-equipFlags5: macro
-                defineBitfield.l EQUIPFLAG5_,\1
-            endm
-                
-equipFlags6: macro
-                defineBitfield.l EQUIPFLAG6_,\1
-            endm
-                
-equipFlags7: macro
-                defineBitfield.l EQUIPFLAG7_,\1
-            endm
+            endif
+        endm
     
 range:      macro Min,Max
                 dc.b Max,Min
@@ -1105,27 +1068,34 @@ useSpell:   macro
             endm
     
 equipEffects: macro
+            if (STANDARD_BUILD=1)
+                ; Increase effects number from 3 to 6, and expand parameter size from byte to word
                 defineShorthand.b EQUIPEFFECT_,\1
-                dc.b \2
                 defineShorthand.b EQUIPEFFECT_,\3
-                dc.b \4
                 defineShorthand.b EQUIPEFFECT_,\5
-                dc.b \6
                 defineShorthand.b EQUIPEFFECT_,\7
-                dc.b \8
                 defineShorthand.b EQUIPEFFECT_,\9
-                dc.b \10
-            endm
-
-
+                defineShorthand.b EQUIPEFFECT_,\11
+                dc.w \2
+                dc.w \4
+                dc.w \6
+                dc.w \8
+                dc.w \10
+                dc.w \12
+            else
+                defineShorthand.b EQUIPEFFECT_,\1
+                dc.b \2 ; parameter for effect 1
+                defineShorthand.b EQUIPEFFECT_,\3
+                dc.b \4 ; parameter for effect 2
+                defineShorthand.b EQUIPEFFECT_,\5 ; unused effect
+                dc.b \6 ; parameter for effect 3
+            endif
+        endm
+                
 ; Spell definitions
                 
 entry:      macro
                 defineBitfield.b SPELL_,\1
-            endm
-                
-index:      macro ;alias
-                entry \1
             endm
                 
 mpCost:     macro
@@ -1154,10 +1124,7 @@ forClass:   macro
                 
 allyBattleSprite: macro
                 defineShorthand.b ALLYBATTLESPRITE_,\1
-            if (narg=2) ; legacy support for old ally battle sprite and palette
-                dc.b \2
-            endif
-        endm
+            endm
                 
 allyBattleSprAndPlt: macro
                 forClass \1
@@ -1167,10 +1134,7 @@ allyBattleSprAndPlt: macro
                 
 enemyBattleSprite: macro
                 defineShorthand.b ENEMYBATTLESPRITE_,\1
-            if (narg=2) ; legacy support for old enemy battle sprite and palette
-                dc.b \2
-            endif
-        endm
+            endm
                 
 enemyBattleSprAndPlt: macro
                 enemyBattleSprite \1
@@ -1203,10 +1167,6 @@ shopInventory: macro
             endr
         endm
                 
-shopDef:    macro ;alias
-                shopInventory \_
-            endm
-                
 promotionSection: macro
                 dc.b narg
             rept narg
@@ -1231,49 +1191,48 @@ classes: macro
             endr
         endm
                 
-blacksmithClasses: macro                ;alias
-                classes \1
-            endm
-                
-mithrilWeaponClass: macro   ;alias
-                classes \1
-            endm
-                
 mithrilWeapons: macro
-                dc.b \1
+                dc.b \1 ; 1/x chance
                 item \2
-                dc.b \3
+                dc.b \3 ; 1/x chance
                 item \4
-                dc.b \5
+                dc.b \5 ; 1/x chance
                 item \6
-                dc.b \7
+                dc.b \7 ; 1/x chance
                 item \8
             endm
                 
 specialCaravanDescription: macro
                 item \1
-                dc.b \2
-                defineShorthand.w MESSAGE_CARAVANDESC_,\3
+                dc.b \2 ; # of text lines
+                defineShorthand.w MESSAGE_CARAVANDESC_,\3 ; starting text line
             endm
                 
-usableOutsideBattleItem: macro  ;alias
-                item \1
-            endm
-    
 input:      macro
                 defineBitfield.b INPUT_,\1
             endm
     
-follower: macro
-                dc.b \1
-                dc.b \2
-                dc.w \3
-                dc.b \4
-                dc.b 0
+follower: macro flag, entity, mapsprite, toggle
+            if (STANDARD_BUILD=1)
+                dc.b \flag
+                dc.b \entity
+                dc.w \mapsprite ; word-sized mapsprite index
+                dc.b \toggle
+                dc.b 0          ; alignment byte
+            else
+                dc.b \flag
+                dc.b \entity
+                dc.b \mapsprite
+                dc.b \toggle
+            endif
         endm
     
 mapsprite: macro
-                defineShorthand.w MAPSPRITE_,\1
+            if (STANDARD_BUILD=1)
+                defineShorthand.w MAPSPRITE_,\1 ; word-sized index to accomodate up to 65k+ mapsprites
+            else
+                defineShorthand.b MAPSPRITE_,\1
+            endif
         endm
     
 portrait:   macro
@@ -1281,20 +1240,19 @@ portrait:   macro
             endm
     
 speechSfx: macro
+            if (STANDARD_BUILD=1)
                 defineShorthand.b SFX_,\1
+            else
+                defineShorthand.b SFX_,\1
+                dc.b 0  ; alignment byte
+            endif
         endm
-    
-speechSound: macro ;alias
-                speechSfx \1
-                inform 0,"INFO: 'speechSound' macro is obsolete. Please use 'speechSfx' instead."
-            endm
 
 
 ; Enemy definitions
                 
 unknownByte: macro
                 dc.b \1
-                ; ...and define placeholder zeros while we're at it.
                 dcb.b 9,0
             endm
                 
@@ -1307,32 +1265,27 @@ level:      macro
             endm
                 
 maxHp:      macro
-                dc.w \1,0,\1
+                dc.w \1,0
             endm
                 
 maxMp:      macro
-                dc.w \1,0,\1
+                dc.b \1,0
             endm
                 
 baseAtt:    macro
-                dc.b \1,\1,0
-            endm
-                
-baseAtk:    macro ;alias
-                baseAtt \1
-                inform 0,"INFO: 'baseAtk' macro is obsolete. Please use 'baseAtt' instead."
+                dc.b \1,0
             endm
                 
 baseDef:    macro
-                dc.b \1,\1,0
+                dc.b \1,0
             endm
                 
 baseAgi:    macro
-                dc.b \1,\1,0
+                dc.b \1,0
             endm
                 
 baseMov:    macro
-                dc.b \1,0,0
+                dc.b \1,0
             endm
                 
 baseResistance: macro
@@ -1364,18 +1317,14 @@ initialStatus: macro
                 dcb.b 3,0
             endm
                 
-unknownWord: macro
+aiBitfield: macro
                 dcb.b 2,0
-                dc.w \1
+                defineBitfield.w AIBITFIELD_,\1 ; activation bitfield?
                 dcb.b 2,0
-            endm
-                
-randomBattles: macro ;alias
-                battles
             endm
                 
 upgradeRange: macro
-                dc.b \1
+                dc.b \1 ; upgrade factor/step
                 defineShorthand.b ENEMY_,\2
                 defineShorthand.b ENEMY_,\3
             endm
@@ -1414,10 +1363,6 @@ attGrowth:  macro
                 defineStatGrowth \1,\2,\3
             endm
                 
-atkGrowth:  macro ;alias
-                attGrowth \1,\2,\3
-            endm
-                
 defGrowth:  macro
                 defineStatGrowth \1,\2,\3
             endm
@@ -1427,39 +1372,17 @@ agiGrowth:  macro
             endm
                 
 spellList: macro
-                dc.b \1
+            rept narg/2 ; # of spells
+                dc.b \1 ; spell learn level
                 defineBitfield.b SPELL_,\2
-                dc.b \3
-                defineBitfield.b SPELL_,\4
-                dc.b \5
-                defineBitfield.b SPELL_,\6
-                dc.b \7
-                defineBitfield.b SPELL_,\8
-                dc.b \9
-                defineBitfield.b SPELL_,\10
-                dc.b \11
-                defineBitfield.b SPELL_,\12
-                dc.b \13
-                defineBitfield.b SPELL_,\14
-                dc.b \15
-                defineBitfield.b SPELL_,\16
-                dc.b \17
-                defineBitfield.b SPELL_,\18
-                dc.b \19
-                defineBitfield.b SPELL_,\20
-                dc.b \21
-                defineBitfield.b SPELL_,\22
-                dc.b \23
-                defineBitfield.b SPELL_,\24
-                dc.b \25
-                defineBitfield.b SPELL_,\26
-                dc.b \27
-                defineBitfield.b SPELL_,\28
+                shift
+                shift
+            endr
+                dc.b ALLYSTATS_CODE_END_OF_SPELL_LIST
         endm
                 
-lastSpells: macro
-                dcb.b 4,0
-                dc.b ALLYSTATS_CODE_END_OF_SPELL_LIST
+useFirstSpellList: macro
+                dc.b ALLYSTATS_CODE_USE_FIRST_SPELL_LIST
             endm
 
 
@@ -1470,14 +1393,21 @@ startClass: macro
             endm
                 
 startLevel: macro
-                dc.w \1
+                dc.b \1
             endm
                 
 startItems: macro
+            if (STANDARD_BUILD&EXPANDED_ITEMS_AND_SPELLS=1)
                 defineBitfield.w ITEM_,\1
                 defineBitfield.w ITEM_,\2
                 defineBitfield.w ITEM_,\3
                 defineBitfield.w ITEM_,\4
+            else
+                defineBitfield.b ITEM_,\1
+                defineBitfield.b ITEM_,\2
+                defineBitfield.b ITEM_,\3
+                defineBitfield.b ITEM_,\4
+            endif
         endm
 
 
@@ -1488,11 +1418,15 @@ mov:        macro
             endm
                 
 resistance: macro
+            if (STANDARD_BUILD&FIX_CLASSES_RESISTANCE=1)
                 defineBitfield.w RESISTANCE_,\1
-            endm
+            else
+                defineByteSwappedBitfield RESISTANCE_,\1
+            endif
+        endm
                 
-moveType:   macro
-                defineBitfield.b MOVETYPE_UPPER_,\1
+movetype:   macro
+                defineNibbleShiftedLeftShorthand.b MOVETYPE_,\1
             endm
                 
 prowess:    macro
@@ -1518,8 +1452,15 @@ vdpBaseTile: macro
 ; VDP sprites
 
 vdpSprite:  macro
-                dc.w \1
+                dc.w \1 ; Y
                 defineBitfield.w VDPSPRITESIZE_,\2
                 vdpTile \3
-                dc.w \4
+                dc.w \4 ; X
+            endm
+
+vdpSpell:  macro
+                dc.w \1 ; X
+                dc.w \2 ; Y
+                vdpTile \3 ; starting tile
+                defineBitfield.w VDPSPELLPROP_,\4
             endm

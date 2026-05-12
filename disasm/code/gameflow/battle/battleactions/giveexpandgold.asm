@@ -33,7 +33,6 @@ battlesceneScript_GiveExpAndGold:
                 
                 module
                 movem.l d0-d1/a0,-(sp)
-                move.l  d2,-(sp)
                 move.w  ((BATTLESCENE_EXP-$1000000)).w,d1
                 tst.b   targetIsOnSameSide(a2)
                 bne.w   @RandomizeExp1
@@ -45,14 +44,12 @@ battlesceneScript_GiveExpAndGold:
                 
                 cmpi.b  #-1,(a0)
                 beq.w   @RandomizeExp1
-                move.b  (a0)+,d2
+                
                 cmp.b   (a0)+,d0
                 bne.s   @FindBattle_Loop
-                lsr.w   #2,d1           ; divide earned EXP by 4
-                mulu.w  d2,d1
-                andi.w  #$FF,d1
+                lsr.w   #1,d1           ; divide earned EXP by 2
 @RandomizeExp1:
-                move.l  (sp)+,d2
+                
                 move.w  #16,d0
                 jsr     (GenerateRandomOrDebugNumber).w
                 tst.w   d0

@@ -1,6 +1,6 @@
 
 ; ASM FILE data\maps\entries\map66\mapsetups\s6_initfunction.asm :
-; 0x5C874..0x5C876 : 
+; 0x4FAEA..0x4FAEC : 
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -9,5 +9,5 @@ ms_map66_InitFunction:
                 
                 rts
 
-    ; End of function ms_map62_InitFunction
+    ; End of function ms_map66_InitFunction
 

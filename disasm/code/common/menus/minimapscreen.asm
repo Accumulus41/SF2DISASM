@@ -53,6 +53,7 @@ BuildMinimapScreen:
                 jsr     (WaitForVInt).w
                 tst.b   ((FADING_SETTING-$1000000)).w
                 bne.s   @WaitForFading
+                
                 move.w  var_14(a6),d0
                 lsl.w   #BYTE_SHIFT_COUNT,d0
                 or.w    var_12(a6),d0
@@ -271,9 +272,10 @@ sub_12BA4:
                 move.w  8(a2,d2.w),d2
                 andi.w  #$7FF,d2
                 cmpi.w  #$100,d2
-                bne.s   loc_12BD4
+                bne.s   @loc
+                
                 move.w  #$FF,d2
-loc_12BD4:
+@loc:
                 
                 lsl.w   #5,d2
                 move.w  d2,d3
@@ -393,8 +395,9 @@ windowSlot = -2
 
 sub_12CB0:
                 
-                moveq   #$14,d6
-loc_12CB2:
+                module
+                moveq   #20,d6
+@loc_1:
                 
                 lea     ((ENTITY_DATA-$1000000)).w,a0
                 move.b  ((FRAME_COUNTER-$1000000)).w,d0
@@ -403,47 +406,48 @@ loc_12CB2:
                 lsl.w   #ENTITYDEF_SIZE_BITS,d0
                 adda.w  d0,a0
                 lea     (SPRITE_16).l,a1
-                moveq   #$2F,d7 
+                moveq   #47,d7
                 move.w  var_10(a6),d4
                 lsr.w   #2,d4
                 lsl.w   #3,d4
-                move.w  #$F8,d2 
+                move.w  #248,d2
                 sub.w   d4,d2
                 move.w  var_8(a6),d4
                 lsr.w   #2,d4
                 lsl.w   #3,d4
-                move.w  #$E7,d3 
+                move.w  #231,d3
                 sub.w   d4,d3
                 tst.b   ((HIDE_WINDOWS_TOGGLE-$1000000)).w
-                beq.s   loc_12CF0
+                beq.s   @loc_2
                 moveq   #1,d6
-loc_12CF0:
+@loc_2:
                 
                 move.l  a1,d0
                 cmpi.w  #ENTITY_LAST_SPRITE_PLUS_ONE_WORD_ADDRESS,d0
-                beq.w   loc_12D82
+                beq.w   @loc_10
                 cmpi.w  #1,(a1)
-                beq.s   loc_12D04
+                beq.s   @loc_3
                 addq.l  #8,a1
-                bra.s   loc_12CF0
-loc_12D04:
+                bra.s   @loc_2
+@loc_3:
                 
                 cmpi.w  #7,d6
-                blt.w   loc_12D6E
+                blt.w   @loc_8
+                
                 cmpa.w  #ENTITY_SPECIAL_SPRITE_WORD_ADDRESS,a0
-                bne.s   loc_12D26
+                bne.s   @loc_4
                 move.w  var_32(a6),d0
                 cmpi.w  #$7000,d0
-                beq.w   loc_12D6E
+                beq.w   @loc_8
                 move.w  var_30(a6),d1
-                bra.w   loc_12D34
-loc_12D26:
+                bra.w   @loc_5          
+@loc_4:
                 
                 move.w  (a0),d0
                 cmpi.w  #$7000,d0
-                beq.w   loc_12D6E
+                beq.w   @loc_8
                 move.w  ENTITYDEF_OFFSET_Y(a0),d1
-loc_12D34:
+@loc_5:
                 
                 ext.l   d0              ; show combatants on minimap
                 ext.l   d1
@@ -451,83 +455,108 @@ loc_12D34:
                 divs.w  #96,d1
                 add.w   d2,d0
                 add.w   d3,d1
-                move.w  #VDPTILE_GREEN_DOT|VDPTILE_PALETTE4|VDPTILE_PRIORITY,d4
-                cmpi.w  #MAPSPRITES_ENEMIES_START,ENTITYDEF_OFFSET_MAPSPRITE(a0)
-                bcs.s   loc_12D5A
-                cmpi.w  #MAPSPRITES_NPCS_START,ENTITYDEF_OFFSET_MAPSPRITE(a0)
-                bhi.s   loc_12D5A
-                subq.w  #1,d4
-loc_12D5A:
+                move.w  #VDPTILE_GREEN_DOT|VDPTILE_PALETTE4|VDPTILE_PRIORITY,d4 
+                                                        ; minimap ally sprite indicator
+            if (STANDARD_BUILD=1)
+                ; Subtract 1 from d4.w if mapsprite belongs to an enemy entity, regardless of size
+                move.w  d1,-(sp)
+              if (EXPANDED_MAPSPRITES=1)
+                move.w  ENTITYDEF_OFFSET_MAPSPRITE(a0),d1
+              else
+                clr.w   d1
+                move.b  ENTITYDEF_OFFSET_MAPSPRITE(a0),d1
+              endif
+                cmpi.w  #MAPSPRITES_ENEMIES_START,d1
+                blo.s   @isLargeMapsprite
+                cmpi.w  #MAPSPRITES_NPCS_START,d1
+                bhi.s   @isLargeMapsprite
                 
-                cmpi.w  #MAPSPRITES_SPECIALS_START,ENTITYDEF_OFFSET_MAPSPRITE(a0)
-                bcs.s   loc_12D64
                 subq.w  #1,d4
-loc_12D64:
+@isLargeMapsprite:
+                
+                jsr     IsEnemySpecialSprite ; In: d1.w = entity mapsprite index, Out: CCR carry-bit clear if large sprite belongs to an enemy
+                movem.w (sp)+,d1             ; MOVEM to pull value back from the stack without affecting the CCR
+            else
+                ; Subtract 1 from d4.w if mapsprite either belongs to an enemy entity, or is large
+                cmpi.b  #MAPSPRITES_ENEMIES_START,ENTITYDEF_OFFSET_MAPSPRITE(a0)
+                blo.s   @isLargeMapsprite
+                cmpi.b  #MAPSPRITES_NPCS_START,ENTITYDEF_OFFSET_MAPSPRITE(a0)
+                bhi.s   @isLargeMapsprite
+                
+                subq.w  #1,d4           ; subtract 1 if enemy to use the red dot instead
+@isLargeMapsprite:
+                
+                cmpi.b  #MAPSPRITES_SPECIALS_START,ENTITYDEF_OFFSET_MAPSPRITE(a0)
+            endif
+                bcs.s   @loc_7
+                subq.w  #1,d4           ; also subtract 1 if using a large sprite, assuming they must be an enemy too
+@loc_7:
                 
                 move.w  d1,(a1)+
                 clr.b   (a1)+
                 tst.b   (a1)+
                 move.w  d4,(a1)+
                 move.w  d0,(a1)+
-loc_12D6E:
+@loc_8:
                 
                 lea     NEXT_ENTITYDEF(a0),a0
                 move.l  a0,d0
                 cmpi.w  #ENTITY_CURSOR_WORD_ADDRESS,d0
-                bne.s   loc_12D7E
+                bne.s   @loc_9
                 lea     ((ENTITY_DATA-$1000000)).w,a0
-loc_12D7E:
+@loc_9:
                 
-                dbf     d7,loc_12CF0
-loc_12D82:
+                dbf     d7,@loc_2
+@loc_10:
                 
                 movem.l d0-d2/d7-a0,-(sp)
                 lea     (SPRITE_TABLE).l,a0
                 move.w  #56,d0
                 moveq   #47,d7
                 move.w  #16,d1          ; sprites 16-63
-loc_12D96:
+@loc_11:
                 
                 move.w  d1,d2
                 lsl.w   #3,d2
                 tst.b   VDPSPRITE_OFFSET_SIZE(a0,d2.w)
-                bne.s   loc_12DA8
+                bne.s   @loc_12
                 move.b  d1,VDPSPRITE_OFFSET_LINK(a0,d0.w)
                 move.w  d1,d0
                 lsl.w   #3,d0
-loc_12DA8:
+@loc_12:
                 
                 addq.w  #1,d1
-                dbf     d7,loc_12D96
+                dbf     d7,@loc_11
                 
                 moveq   #47,d7
                 move.w  #16,d1          ; sprites 16-63
-loc_12DB4:
+@loc_13:
                 
                 move.w  d1,d2
                 lsl.w   #3,d2
                 tst.b   VDPSPRITE_OFFSET_SIZE(a0,d2.w)
-                beq.s   loc_12DC6
+                beq.s   @loc_14
                 move.b  d1,VDPSPRITE_OFFSET_LINK(a0,d0.w)
                 move.w  d1,d0
                 lsl.w   #3,d0
-loc_12DC6:
+@loc_14:
                 
                 addq.w  #1,d1
-                dbf     d7,loc_12DB4
+                dbf     d7,@loc_13
                 
                 clr.b   VDPSPRITE_OFFSET_LINK(a0,d0.w)
                 movem.l (sp)+,d0-d2/d7-a0
                 jsr     (WaitForVInt).w
                 subq.w  #1,d6
-                bne.s   loc_12DDE
-                moveq   #$14,d6
-loc_12DDE:
+                bne.s   @loc_15
+                moveq   #20,d6
+@loc_15:
                 
                 move.b  ((PLAYER_1_INPUT-$1000000)).w,d0
                 andi.b  #INPUT_B|INPUT_C|INPUT_A,d0
-                beq.w   loc_12CB2
+                beq.w   @loc_1
                 rts
 
     ; End of function sub_12CB0
 
+                modend

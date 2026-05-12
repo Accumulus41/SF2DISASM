@@ -8,10 +8,10 @@
 ms_map4_InitFunction:
                 
                  
-                chkFlg  FLAG_GRANSEAL6             ; Set after the soldiers are swallowed up by the earthquake
+                chkFlg  624             ; Set after the soldiers are swallowed up by the earthquake
                 bne.s   byte_5173A
                 script  cs_51750
-                setFlg  FLAG_GRANSEAL6             ; Set after the soldiers are swallowed up by the earthquake
+                setFlg  624             ; Set after the soldiers are swallowed up by the earthquake
                 bra.s   return_51740
 byte_5173A:
                 

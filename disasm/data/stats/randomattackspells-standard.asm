@@ -1,5 +1,5 @@
 
-; ASM FILE data\stats\items\randomattackspells-standard.asm : :
+; ASM FILE data\stats\randomattackspells-standard.asm :
 
 ; Classes that have a chance to cast a spell when attacking.
 table_RandomAttackSpellsForWeapons:
@@ -18,10 +18,6 @@ table_RandomAttackSpellsForClasses:
                 ; Class index, n/256 (0 = 256) chance to cast, upgrade levels 1, 2, 3 (effective level), spell index
                 
                 ; Kiwi's flame breath replaces Kiwi's attack with 25% chance, upgrading at promoted levels 12, 20, and 30.
-                dc.b CLASS_MNST, 64, 32, 40, 50, SPELL_KIWI
-                dc.b CLASS_MNST, 64, 32, 40, 50, SPELL_KIWI
-                dc.b CLASS_MNST, 64, 32, 40, 50, SPELL_KIWI
-                dc.b CLASS_MNST, 64, 32, 40, 50, SPELL_KIWI
                 dc.b CLASS_MNST, 64, 32, 40, 50, SPELL_KIWI
                 
                 tableEnd.b

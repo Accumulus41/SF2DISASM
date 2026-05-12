@@ -3,15 +3,18 @@
 ; 0x16EA6..0x176A6 : Item definitions
 table_ItemDefinitions:
                 
-; Syntax        equipFlags   [EQUIPFLAG_]bitfield
-;               equipFlags2  [EQUIPFLAG2_]bitfield (if EXPANDED_CLASSES is enabled)
+; Syntax        equipFlags   [EQUIPFLAG_]bitfield               ; bitfield shorthand (e.g., SDMN|HERO)
+;               equipFlags2  [EQUIPFLAG2_]bitfield              ; (if EXPANDED_CLASSES is enabled)
 ;               range        min, max 0-3
 ;               price        0-65535
-;               itemType     [ITEMTYPE_]bitfield
-;               useSpell     [SPELL_]enum[|level]
-;               equipEffects [EQUIPEFFECT_]enum, parameter, &
+;               itemType     [ITEMTYPE_]bitfield                ; bitfield shorthand (e.g., WEAPON|RARE)
+;               useSpell     [SPELL_]enum[|[SPELL_]level]       ; bitfield shorthand (e.g., BLAZE|LV2)
+;               equipEffects [EQUIPEFFECT_]enum, parameter, &   ; shorthand, parameter (e.g, INCREASE_ATT, 19)
 ;                            [EQUIPEFFECT_]enum, parameter, &
-;                            [EQUIPEFFECT_]enum, parameter
+;                            [EQUIPEFFECT_]enum, parameter, &
+;                            [EQUIPEFFECT_]enum, parameter, &
+;                            [EQUIPEFFECT_]enum, parameter, &
+;                            [EQUIPEFFECT_]enum, parameter      (up to 3 effects in vanilla, 6 in standard build)
 ;
 ;        level: LV1 = 0 (default when omitted)
 ;               LV2 = $40
@@ -19,39 +22,141 @@ table_ItemDefinitions:
 ;               LV4 = $C0
 ;
 ; Notes regarding additional equip effects:
-;       Parameters for INCREASE/DECREASE_RES_ can be a combination i.e. MODIFY_FIRE1|MODIFY_WIND3
-;       Parameter for SET_RES_ should be every resistance for the byte i.e. RESISTANCE_WIND_NONE|RESISTANCE_LIGHTNING_MAJOR|RESISTANCE_ICE_WEAKNESS|RESISTANCE_FIRE_NONE
-;       Parameter for SET_STATUS should be single effect i.e. STATUS_POISON, STATUS_SILENCE, etc.
 ;
-; Notes: Equip parameter range depends on effect.
-;        Constant names ("enums"), shorthands (defined by macro), and numerical indexes are interchangeable.
+;       Parameters for INCREASE/DECREASE_RESISTANCE and SET_STATUS can be a combination,
+;       i.e., @fire1|@wind3 or @boost|@attack.
+;
+;       Parameter for LEARN_SPELL must be the full enum symbol, i.e., SPELL_name|SPELL_level.
+;
+;
+; List of Effect Codes :
+;       NONE,                   0       ; no effect
+;       UNDEFINED1,             0       ; no effect
+;       UNDEFINED2,             0       ; no effect
+;       INCREASE_ATT,           0-200   ; (vanilla stat cap)
+;       INCREASE_DEF,           ...
+;       INCREASE_AGI,           0-127
+;       INCREASE_MOV,
+;       INCREASE_CRITICAL,      0-3     ; prowess setting chances: 0 = 1/32, 1 = 1/16, 2 = 1/8, 3 = 1/4
+;       INCREASE_DOUBLE,        ...
+;       INCREASE_COUNTER,
+;       INCREASE_RESISTANCE,    [@wind1|@lightning2|@ice3|...] ; increase resistance by that amount
+;       DECREASE_ATT,
+;       DECREASE_DEF,
+;       DECREASE_AGI,
+;       DECREASE_MOV,
+;       DECREASE_CRITICAL,
+;       DECREASE_DOUBLE,
+;       DECREASE_COUNTER,
+;       DECREASE_RESISTANCE,
+;       SET_ATT,
+;       SET_DEF,
+;       SET_AGI,
+;       SET_MOV,
+;       SET_DOUBLE_TURN_ON,     -1      ; set the double turn bit while preserving current AGI
+;       SET_DOUBLE_TURN_OFF,    -1      ; clear the double turn bit while preserving current AGI
+;       SET_CRITICAL_150,       -1      ; set the strong critical bit while preserving current chance
+;       SET_CRITICAL_125,       -1      ; clear the strong critical bit while preserving current chance
+;       SET_CRITICAL,           @125_1in32/@150_1in4/@stun_1in4/...
+;       SET_DOUBLE,             @1in32/@1in16/...
+;       SET_COUNTER,            ...
+;       SET_RESISTANCE_WIND,    @weakness/@neutral/@minor/@major
+;       SET_RESISTANCE_LIGHTNING, ...
+;       SET_RESISTANCE_ICE
+;       SET_RESISTANCE_FIRE
+;       SET_RESISTANCE_STATUS,  @neutral/@minor/@major/@immunity
+;       SET_STATUS,             [@stun|@poison|@confusion|...]
+;       SET_MOVETYPE,           @regular/@centaur/@stealth/...
+;       LEARN_SPELL,            SPELL_enum[|SPELL_level]
+;       UNLEARN_ALL_SPELL,      -1
+;
+
+
+                module
                 
-                ; 4: Angel Wing
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        40
-                itemType     CONSUMABLE
-                useSpell     EGRESS
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
+; Resistance increase/decrease shorthands :
+@wind1 = MODIFY_WIND1
+@wind2 = MODIFY_WIND2
+@wind3 = MODIFY_WIND3
+@lightning1 = MODIFY_LIGHTNING1
+@lightning2 = MODIFY_LIGHTNING2
+@lightning3 = MODIFY_LIGHTNING3
+@ice1 = MODIFY_ICE1
+@ice2 = MODIFY_ICE2
+@ice3 = MODIFY_ICE3
+@fire1 = MODIFY_FIRE1
+@fire2 = MODIFY_FIRE2
+@fire3 = MODIFY_FIRE3
+@status1 = MODIFY_STATUS1
+@status2 = MODIFY_STATUS2
+@status3 = MODIFY_STATUS3
+
+
+; Critical prowess shorthands :
+@125_1in32 = PROWESS_CRITICAL125_1IN32
+@125_1in16 = PROWESS_CRITICAL125_1IN16
+@125_1in8 = PROWESS_CRITICAL125_1IN8
+@125_1in4 = PROWESS_CRITICAL125_1IN4
+@150_1in32 = PROWESS_CRITICAL150_1IN32
+@150_1in16 = PROWESS_CRITICAL150_1IN16
+@150_1in8 = PROWESS_CRITICAL150_1IN8
+@150_1in4 = PROWESS_CRITICAL150_1IN4
+@none = PROWESS_CRITICAL_NONE
+@poison_1in4 = PROWESS_CRITICAL_POISON
+@sleep_1in4 = PROWESS_CRITICAL_SLEEP
+@stun_1in4 = PROWESS_CRITICAL_STUN
+@confusion_1in4 = PROWESS_CRITICAL_MUDDLE
+@slow_1in4 = PROWESS_CRITICAL_SLOW
+@drain_1in4 = PROWESS_CRITICAL_MAGIC_DRAIN
+@silence_1in4 = PROWESS_CRITICAL_SILENCE
+
+
+; Double and counter prowess shorthands :
+@1in32 = PROWESS_1IN32
+@1in16 = PROWESS_1IN16
+@1in8 = PROWESS_1IN8
+@1in4 = PROWESS_1IN4
+
+
+; Resistance shorthands :
+@neutral = RESISTANCESETTING_NEUTRAL
+@minor = RESISTANCESETTING_MINOR
+@major = RESISTANCESETTING_MAJOR
+@weakness = RESISTANCESETTING_WEAKNESS
+@immunity = RESISTANCESETTING_IMMUNITY
+
+
+; Status effects shorthands :
+@stun = STATUSEFFECT_STUN
+@poison = STATUSEFFECT_POISON
+@confusion = STATUSEFFECT_CONFUSION
+@muddle = STATUSEFFECT_MUDDLE
+@sleep = STATUSEFFECT_SLEEP
+@silence = STATUSEFFECT_SILENCE
+@slow = STATUSEFFECT_SLOW
+@boost = STATUSEFFECT_BOOST
+@attack = STATUSEFFECT_ATTACK
+
+
+; Move type shorthands :
+@regular = MOVETYPE_REGULAR
+@centaur = MOVETYPE_CENTAUR
+@stealth = MOVETYPE_STEALTH
+@brassGunner = MOVETYPE_BRASS_GUNNER
+@flying = MOVETYPE_FLYING
+@hovering = MOVETYPE_HOVERING
+@aquatic = MOVETYPE_AQUATIC
+@archer = MOVETYPE_ARCHER
+@centaurArcher = MOVETYPE_CENTAUR_ARCHER
+@stealthArcher = MOVETYPE_STEALTH_ARCHER
+@mage = MOVETYPE_MAGE
+@healer = MOVETYPE_HEALER
+
+; ---------------------------------------------------------------------------
                 
                 ; 0: Medical Herb
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 1
                 price        10
                 itemType     CONSUMABLE
@@ -60,16 +165,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 1: Healing Seed
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 1
                 price        200
                 itemType     CONSUMABLE
@@ -78,16 +179,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 2: Healing Drop
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 1
                 price        300
                 itemType     CONSUMABLE
@@ -96,165 +193,32 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
-                             NONE, 0
-                
-                ; 228: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 1
-                price        500
-                itemType     CONSUMABLE
-                useSpell     HEALIN|LV4
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 6: Healing Water
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 1
-                price        400
-                itemType     CONSUMABLE
-                useSpell     HEAL|LV4
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 8: Healing Rain
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        10000
-                itemType     RARE|CONSUMABLE
-                useSpell     AURA|LV4
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 229: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 1
-                price        100
-                itemType     CONSUMABLE
-                useSpell     G_TEAR
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 7: Fairy Tear
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 1
-                price        300
-                itemType     CONSUMABLE
-                useSpell     G_TEAR|LV2
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 230: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        500
-                itemType     CONSUMABLE
-                useSpell     G_TEAR|LV3
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 231: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        800
-                itemType     CONSUMABLE
-                useSpell     G_TEAR|LV4
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 111: Right of Hope
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        10000
-                itemType     RARE|CONSUMABLE
-                useSpell     SHINE
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0
                 
                 ; 3: Antidote
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 1
                 price        20
                 itemType     CONSUMABLE
-                useSpell     POWDER
+                useSpell     DETOX
                 equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 4: Angel Wing
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        40
+                itemType     CONSUMABLE
+                useSpell     EGRESS
+                equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -263,106 +227,54 @@ table_ItemDefinitions:
                 ; 5: Fairy Powder
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 1
                 price        100
                 itemType     CONSUMABLE
-                useSpell     POWDER|LV2
+                useSpell     POWDER  ; should be POWDER|LV2
                 equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0
                 
-                ; 247: 
+                ; 6: Healing Water
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 1
-                price        180
+                price        400
                 itemType     CONSUMABLE
-                useSpell     POWDER|LV3
+                useSpell     HEAL|LV4
                 equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0
                 
-                ; 248: 
+                ; 7: Fairy Tear
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 1
-                price        250
+                price        300
                 itemType     CONSUMABLE
-                useSpell     POWDER|LV4
+                useSpell     G_TEAR|LV2
                 equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0
                 
-                ; 15: Brave Apple
+                ; 8: Healing Rain
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
-                price        500
-                itemType     CONSUMABLE
-                useSpell     NOTHING
+                price        10000
+                itemType     RARE|CONSUMABLE
+                useSpell     AURA|LV4
                 equipEffects NONE, 0, &
                              NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 13: Cheerful Bread
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        500
-                itemType     CONSUMABLE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 14: Bright Honey
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        500
-                itemType     CONSUMABLE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -371,16 +283,12 @@ table_ItemDefinitions:
                 ; 9: Power Water
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        500
                 itemType     CONSUMABLE
-                useSpell     NOTHING
+                useSpell     POWER
                 equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -389,16 +297,12 @@ table_ItemDefinitions:
                 ; 10: Protect Milk
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        500
                 itemType     CONSUMABLE
-                useSpell     NOTHING
+                useSpell     GUARD
                 equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -407,16 +311,12 @@ table_ItemDefinitions:
                 ; 11: Quick Chicken
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        500
                 itemType     CONSUMABLE
-                useSpell     NOTHING
+                useSpell     SPEED
                 equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -425,16 +325,54 @@ table_ItemDefinitions:
                 ; 12: Running Pimento
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        1500
                 itemType     CONSUMABLE
-                useSpell     NOTHING
+                useSpell     IDATEN
                 equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 13: Cheerful Bread
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        500
+                itemType     CONSUMABLE
+                useSpell     HEALTH
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 14: Bright Honey
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        500
+                itemType     CONSUMABLE
+                useSpell     HANNY
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 15: Brave Apple
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        500
+                itemType     CONSUMABLE
+                useSpell     BRAVE
+                equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -443,11 +381,6 @@ table_ItemDefinitions:
                 ; 16: Shining Ball
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 1
                 price        1000
                 itemType     RARE|CONSUMABLE
@@ -456,16 +389,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 17: Blizzard
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 1
                 price        1200
                 itemType     RARE|CONSUMABLE
@@ -474,16 +403,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 18: Holy Thunder
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 1
                 price        1500
                 itemType     RARE|CONSUMABLE
@@ -492,124 +417,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
-                             NONE, 0
-                
-                ; 249: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 250: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 251: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 252: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 253: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 254: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0
                 
                 ; 19: Power Ring
                 equipFlags   ALL
-                equipFlags2  ALL
-                equipFlags3  ALL
-				equipFlags4  ALL
-				equipFlags5  ALL
-				equipFlags6  ALL
-				equipFlags7  ALL
+                equipFlags2  NONE
                 range        0, 0
                 price        3000
                 itemType     RING|RARE|BREAKABLE
@@ -618,16 +431,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 20: Protect Ring
                 equipFlags   ALL
-                equipFlags2  ALL
-                equipFlags3  ALL
-				equipFlags4  ALL
-				equipFlags5  ALL
-				equipFlags6  ALL
-				equipFlags7  ALL
+                equipFlags2  NONE
                 range        0, 0
                 price        3000
                 itemType     RING|RARE|BREAKABLE
@@ -636,16 +445,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 21: Quick Ring
                 equipFlags   ALL
-                equipFlags2  ALL
-                equipFlags3  ALL
-				equipFlags4  ALL
-				equipFlags5  ALL
-				equipFlags6  ALL
-				equipFlags7  ALL
+                equipFlags2  NONE
                 range        0, 0
                 price        3000
                 itemType     RING|RARE|BREAKABLE
@@ -654,16 +459,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 22: Running Ring
                 equipFlags   ALL
-                equipFlags2  ALL
-                equipFlags3  ALL
-				equipFlags4  ALL
-				equipFlags5  ALL
-				equipFlags6  ALL
-				equipFlags7  ALL
+                equipFlags2  NONE
                 range        0, 0
                 price        3000
                 itemType     RING|RARE
@@ -672,16 +473,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 23: White Ring
-                equipFlags   NONE
-                equipFlags2  HERO|VICR
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   HERO|VICR
+                equipFlags2  NONE
                 range        0, 0
                 price        5000
                 itemType     RING|RARE|BREAKABLE
@@ -690,16 +487,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 24: Black Ring
-                equipFlags   NONE
-                equipFlags2  WIZ
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WIZ|SORC
+                equipFlags2  NONE
                 range        0, 0
                 price        5000
                 itemType     RING|RARE|CURSED|BREAKABLE
@@ -708,16 +501,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 25: Evil Ring
-                equipFlags   NONE
-                equipFlags2  WIZ|VICR
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WIZ|SORC|VICR
+                equipFlags2  NONE
                 range        0, 0
                 price        5000
                 itemType     RING|RARE|CURSED|BREAKABLE
@@ -726,178 +515,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
-                             NONE, 0
-                
-                ; 126: Chirrup Sandals
-                equipFlags   ALL
-                equipFlags2  ALL
-                equipFlags3  ALL
-				equipFlags4  ALL
-				equipFlags5  ALL
-				equipFlags6  ALL
-				equipFlags7  ALL
-                range        0, 0
-                price        5
-                itemType     RING|RARE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 124: Life Ring
-                equipFlags   NONE
-                equipFlags2  HERO|PLDN|GLDT|WIZ|VICR|SNIP|BDBT|WFBR|BWNT|PHNX|NINJ|MNST|RBT|GLM|RDBN
-                equipFlags3  MMNK|PGNT
-				equipFlags4  BRN|SORC
-				equipFlags5  BRGN
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        5000
-                itemType     RING|RARE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 130: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 131: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 132: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 224: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 225: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 226: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 227: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0
                 
                 ; 26: Leather Glove
-                equipFlags   NONE
+                equipFlags   MMNK
                 equipFlags2  NONE
-                equipFlags3  MMNK
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        1, 1
                 price        1300
                 itemType     WEAPON
@@ -906,16 +529,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 27: Power Glove
-                equipFlags   NONE
+                equipFlags   MMNK
                 equipFlags2  NONE
-                equipFlags3  MMNK
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        1, 1
                 price        1800
                 itemType     WEAPON
@@ -924,16 +543,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 28: Brass Knuckles
-                equipFlags   NONE
+                equipFlags   MMNK
                 equipFlags2  NONE
-                equipFlags3  MMNK
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        1, 1
                 price        2900
                 itemType     WEAPON
@@ -942,16 +557,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 29: Iron Knuckles
-                equipFlags   NONE
+                equipFlags   MMNK
                 equipFlags2  NONE
-                equipFlags3  MMNK
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        1, 1
                 price        4800
                 itemType     WEAPON
@@ -960,16 +571,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 30: Misty Knuckles
-                equipFlags   NONE
+                equipFlags   MMNK
                 equipFlags2  NONE
-                equipFlags3  MMNK
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        1, 1
                 price        5500
                 itemType     WEAPON|RARE|BREAKABLE
@@ -978,16 +585,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 31: Giant Knuckles
-                equipFlags   NONE
+                equipFlags   MMNK
                 equipFlags2  NONE
-                equipFlags3  MMNK
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        1, 1
                 price        7500
                 itemType     WEAPON|RARE|BREAKABLE
@@ -996,16 +599,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 32: Evil Knuckles
-                equipFlags   NONE
+                equipFlags   MMNK
                 equipFlags2  NONE
-                equipFlags3  MMNK
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        1, 1
                 price        9500
                 itemType     WEAPON|RARE|CURSED
@@ -1014,16 +613,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 33: Short Axe
-                equipFlags   WARR
-                equipFlags2  GLDT|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WARR|GLDT|BRN|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        120
                 itemType     WEAPON
@@ -1032,16 +627,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 34: Hand Axe
-                equipFlags   WARR
-                equipFlags2  GLDT|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WARR|GLDT|BRN|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        340
                 itemType     WEAPON
@@ -1050,16 +641,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 35: Middle Axe
-                equipFlags   WARR
-                equipFlags2  GLDT|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WARR|GLDT|BRN|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        610
                 itemType     WEAPON
@@ -1068,16 +655,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 36: Power Axe
-                equipFlags   WARR
-                equipFlags2  GLDT|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WARR|GLDT|BRN|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        1100
                 itemType     WEAPON
@@ -1086,16 +669,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 37: Battle Axe
-                equipFlags   WARR
-                equipFlags2  GLDT|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WARR|GLDT|BRN|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        1370
                 itemType     WEAPON
@@ -1104,16 +683,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 38: Large Axe
-                equipFlags   NONE
-                equipFlags2  GLDT|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   GLDT|BRN|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        2250
                 itemType     WEAPON
@@ -1122,16 +697,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 39: Great Axe
-                equipFlags   NONE
-                equipFlags2  GLDT|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   GLDT|BRN|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        4600
                 itemType     WEAPON
@@ -1140,16 +711,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 40: Heat Axe
-                equipFlags   NONE
-                equipFlags2  GLDT|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   GLDT|BRN|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        7200
                 itemType     WEAPON|RARE|BREAKABLE
@@ -1158,16 +725,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 41: Atlas Axe
-                equipFlags   NONE
-                equipFlags2  GLDT|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   GLDT|BRN|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        9600
                 itemType     WEAPON|RARE|BREAKABLE
@@ -1176,16 +739,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 42: Ground Axe
-                equipFlags   NONE
-                equipFlags2  GLDT|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   GLDT|BRN|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        10000
                 itemType     WEAPON|RARE
@@ -1194,16 +753,12 @@ table_ItemDefinitions:
                              INCREASE_MOV, 1, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 43: Rune Axe
-                equipFlags   NONE
-                equipFlags2  GLDT|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   GLDT|BRN|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        10000
                 itemType     WEAPON|RARE|BREAKABLE
@@ -1212,16 +767,12 @@ table_ItemDefinitions:
                              INCREASE_CRITICAL, 1, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 44: Evil Axe
-                equipFlags   NONE
-                equipFlags2  GLDT|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   GLDT|BRN|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        15000
                 itemType     WEAPON|RARE|CURSED
@@ -1230,16 +781,12 @@ table_ItemDefinitions:
                              DECREASE_DEF, 5, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 45: Wooden Arrow
-                equipFlags   ACHR|RNGR
-                equipFlags2  SNIP|BWNT
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  BRGN
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   ACHR|RNGR|SNIP|BRGN|BWNT
+                equipFlags2  NONE
                 range        2, 2
                 price        250
                 itemType     WEAPON
@@ -1248,16 +795,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 46: Iron Arrow
-                equipFlags   ACHR|RNGR
-                equipFlags2  SNIP|BWNT
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  BRGN
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   ACHR|RNGR|SNIP|BRGN|BWNT
+                equipFlags2  NONE
                 range        2, 2
                 price        600
                 itemType     WEAPON
@@ -1266,16 +809,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 47: Steel Arrow
-                equipFlags   ACHR|RNGR
-                equipFlags2  SNIP|BWNT
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  BRGN
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   ACHR|RNGR|SNIP|BRGN|BWNT
+                equipFlags2  NONE
                 range        2, 2
                 price        1270
                 itemType     WEAPON
@@ -1284,16 +823,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 48: Robin Arrow
-                equipFlags   NONE
-                equipFlags2  SNIP|BWNT
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  BRGN
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   SNIP|BRGN|BWNT
+                equipFlags2  NONE
                 range        2, 3
                 price        1480
                 itemType     WEAPON
@@ -1302,16 +837,12 @@ table_ItemDefinitions:
                              INCREASE_CRITICAL, 1, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 49: Assault Shell
-                equipFlags   NONE
-                equipFlags2  SNIP|BWNT
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  BRGN
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   SNIP|BRGN|BWNT
+                equipFlags2  NONE
                 range        2, 3
                 price        2500
                 itemType     WEAPON
@@ -1320,16 +851,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 50: Great Shot
-                equipFlags   NONE
-                equipFlags2  SNIP|BWNT
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  BRGN
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   SNIP|BRGN|BWNT
+                equipFlags2  NONE
                 range        2, 3
                 price        5000
                 itemType     WEAPON
@@ -1338,16 +865,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 51: Nazca Cannon
-                equipFlags   NONE
-                equipFlags2  SNIP|BWNT
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  BRGN
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   SNIP|BRGN|BWNT
+                equipFlags2  NONE
                 range        2, 3
                 price        3000
                 itemType     WEAPON|RARE
@@ -1356,16 +879,12 @@ table_ItemDefinitions:
                              INCREASE_CRITICAL, 1, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 52: Buster Shot
-                equipFlags   NONE
-                equipFlags2  SNIP|BWNT
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  BRGN
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   SNIP|BRGN|BWNT
+                equipFlags2  NONE
                 range        2, 3
                 price        6800
                 itemType     WEAPON|RARE
@@ -1374,16 +893,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 53: Hyper Cannon
-                equipFlags   NONE
-                equipFlags2  SNIP|BWNT
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  BRGN
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   SNIP|BRGN|BWNT
+                equipFlags2  NONE
                 range        2, 3
                 price        8700
                 itemType     WEAPON|RARE
@@ -1392,16 +907,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 54: Grand Cannon
-                equipFlags   NONE
-                equipFlags2  SNIP|BWNT
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  BRGN
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   SNIP|BRGN|BWNT
+                equipFlags2  NONE
                 range        2, 3
                 price        9800
                 itemType     WEAPON|RARE|BREAKABLE
@@ -1410,16 +921,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 55: Evil Shot
-                equipFlags   NONE
-                equipFlags2  SNIP|BWNT
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  BRGN
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   SNIP|BRGN|BWNT
+                equipFlags2  NONE
                 range        2, 3
                 price        13000
                 itemType     WEAPON|RARE|CURSED
@@ -1428,34 +935,26 @@ table_ItemDefinitions:
                              DECREASE_DEF, 5, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
-                ; 71: Wooden Sword
-                equipFlags   SDMN|BDMN
-                equipFlags2  HERO|BDBT|NINJ|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                ; 56: Wooden Stick
+                equipFlags   KNTE|PLDN|PGNT
+                equipFlags2  NONE
                 range        1, 1
-                price        60
+                price        70
                 itemType     WEAPON
                 useSpell     NOTHING
                 equipEffects INCREASE_ATT, 3, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 57: Short Sword
-                equipFlags   SDMN|BDMN
-                equipFlags2  HERO|BDBT|NINJ|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   SDMN|BDMN|HERO|BRN|BDBT|NINJ|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        140
                 itemType     WEAPON
@@ -1464,16 +963,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 58: Middle Sword
-                equipFlags   SDMN|BDMN
-                equipFlags2  HERO|BDBT|NINJ|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   SDMN|BDMN|HERO|BRN|BDBT|NINJ|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        340
                 itemType     WEAPON
@@ -1482,16 +977,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 59: Long Sword
-                equipFlags   SDMN|BDMN
-                equipFlags2  HERO|BDBT|NINJ|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   SDMN|BDMN|HERO|BRN|BDBT|NINJ|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        620
                 itemType     WEAPON
@@ -1500,16 +991,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 60: Steel Sword
-                equipFlags   SDMN|BDMN
-                equipFlags2  HERO|BDBT|NINJ|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   SDMN|BDMN|HERO|BRN|BDBT|NINJ|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        1120
                 itemType     WEAPON
@@ -1518,34 +1005,30 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 61: Achilles Sword
-                equipFlags   SDMN
-                equipFlags2  HERO
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   SDMN|HERO
+                equipFlags2  NONE
                 range        1, 1
                 price        1350
+            if (STANDARD_BUILD&ORIGINAL_TAROS_INVULNERABILITY=1)
+                itemType     WEAPON|RARE|UNSELLABLE ; prevent a potential softlock when using the Japanese version's invulnerability behavior
+            else
                 itemType     WEAPON|RARE
+            endif
                 useSpell     NOTHING
                 equipEffects INCREASE_ATT, 19, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0
                 
                 ; 62: Broad Sword
-                equipFlags   NONE
-                equipFlags2  HERO|BDBT|NINJ|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   HERO|BRN|BDBT|NINJ|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        1600
                 itemType     WEAPON
@@ -1554,16 +1037,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 63: Buster Sword
-                equipFlags   NONE
-                equipFlags2  HERO|BDBT|NINJ|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   HERO|BRN|BDBT|NINJ|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        2600
                 itemType     WEAPON
@@ -1572,16 +1051,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 64: Great Sword
-                equipFlags   NONE
-                equipFlags2  HERO|BDBT|NINJ|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   HERO|BRN|BDBT|NINJ|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        5100
                 itemType     WEAPON
@@ -1590,16 +1065,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 65: Critical Sword
-                equipFlags   NONE
-                equipFlags2  HERO|BDBT|NINJ|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   HERO|BRN|BDBT|NINJ|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        7200
                 itemType     WEAPON|RARE
@@ -1608,16 +1079,12 @@ table_ItemDefinitions:
                              INCREASE_CRITICAL, 1, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 66: Battle Sword
-                equipFlags   NONE
-                equipFlags2  HERO|BDBT|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   HERO|BRN|BDBT|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        9200
                 itemType     WEAPON|RARE
@@ -1626,16 +1093,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 67: Force Sword
-                equipFlags   NONE
-                equipFlags2  HERO
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   HERO
+                equipFlags2  NONE
                 range        1, 1
                 price        10000
                 itemType     WEAPON|RARE|UNSELLABLE
@@ -1644,16 +1107,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 68: Counter Sword
-                equipFlags   NONE
-                equipFlags2  HERO|BDBT|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   HERO|BRN|BDBT|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        13000
                 itemType     WEAPON|RARE
@@ -1662,16 +1121,12 @@ table_ItemDefinitions:
                              INCREASE_COUNTER, 1, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 69: Levanter
-                equipFlags   NONE
-                equipFlags2  HERO
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   HERO
+                equipFlags2  NONE
                 range        1, 1
                 price        14000
                 itemType     WEAPON|RARE|BREAKABLE
@@ -1680,16 +1135,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 70: Dark Sword
-                equipFlags   NONE
-                equipFlags2  HERO|BDBT|NINJ|RDBN
-                equipFlags3  NONE
-				equipFlags4  BRN
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   HERO|BRN|BDBT|NINJ|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        17000
                 itemType     WEAPON|RARE|CURSED|BREAKABLE
@@ -1698,268 +1149,12 @@ table_ItemDefinitions:
                              DECREASE_DEF, 5, &
                              NONE, 0, &
                              NONE, 0, &
-                             NONE, 0
-                
-                ; 56: Wooden Stick
-                equipFlags   KNTE
-                equipFlags2  PLDN
-                equipFlags3  PGNT
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        1, 1
-                price        70
-                itemType     WEAPON
-                useSpell     NOTHING
-                equipEffects INCREASE_ATT, 3, &
-                             NONE, 0, &
-                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0
                 
-                ; 72: Short Spear
-                equipFlags   KNTE
-                equipFlags2  PLDN
-                equipFlags3  PGNT
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        1, 2
-                price        120
-                itemType     WEAPON
-                useSpell     NOTHING
-                equipEffects INCREASE_ATT, 6, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 73: Bronze Lance
-                equipFlags   KNTE
-                equipFlags2  PLDN
-                equipFlags3  PGNT
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        1, 1
-                price        260
-                itemType     WEAPON
-                useSpell     NOTHING
-                equipEffects INCREASE_ATT, 9, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 74: Spear
-                equipFlags   KNTE
-                equipFlags2  PLDN
-                equipFlags3  PGNT
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        1, 2
-                price        460
-                itemType     WEAPON
-                useSpell     NOTHING
-                equipEffects INCREASE_ATT, 12, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 75: Steel Lance
-                equipFlags   KNTE
-                equipFlags2  PLDN
-                equipFlags3  PGNT
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        1, 1
-                price        810
-                itemType     WEAPON
-                useSpell     NOTHING
-                equipEffects INCREASE_ATT, 16, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 76: Power Spear
-                equipFlags   KNTE
-                equipFlags2  PLDN
-                equipFlags3  PGNT
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        1, 2
-                price        1270
-                itemType     WEAPON
-                useSpell     NOTHING
-                equipEffects INCREASE_ATT, 20, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 77: Heavy Lance
-                equipFlags   NONE
-                equipFlags2  PLDN
-                equipFlags3  PGNT
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        1, 1
-                price        1600
-                itemType     WEAPON
-                useSpell     NOTHING
-                equipEffects INCREASE_ATT, 23, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 78: Javelin
-                equipFlags   NONE
-                equipFlags2  PLDN
-                equipFlags3  PGNT
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        1, 2
-                price        3400
-                itemType     WEAPON
-                useSpell     NOTHING
-                equipEffects INCREASE_ATT, 26, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 79: Chrome Lance
-                equipFlags   NONE
-                equipFlags2  PLDN
-                equipFlags3  PGNT
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        1, 1
-                price        6900
-                itemType     WEAPON
-                useSpell     NOTHING
-                equipEffects INCREASE_ATT, 31, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 80: Valkyrie
-                equipFlags   NONE
-                equipFlags2  PLDN
-                equipFlags3  PGNT
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        1, 2
-                price        7700
-                itemType     WEAPON|RARE|BREAKABLE
-                useSpell     ATTACK
-                equipEffects INCREASE_ATT, 33, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 81: Holy Lance
-                equipFlags   NONE
-                equipFlags2  PLDN
-                equipFlags3  PGNT
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        1, 1
-                price        9300
-                itemType     WEAPON|RARE|BREAKABLE
-                useSpell     HEALIN
-                equipEffects INCREASE_ATT, 39, &
-                             INCREASE_DEF, 5, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 82: Mist Javelin
-                equipFlags   NONE
-                equipFlags2  PLDN
-                equipFlags3  PGNT
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        1, 2
-                price        9900
-                itemType     WEAPON|RARE
-                useSpell     NOTHING
-                equipEffects INCREASE_ATT, 42, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 83: Halberd
-                equipFlags   NONE
-                equipFlags2  PLDN
-                equipFlags3  PGNT
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        1, 1
-                price        7300
-                itemType     WEAPON|RARE|BREAKABLE
-                useSpell     BOLT
-                equipEffects INCREASE_ATT, 37, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 84: Evil Lance
-                equipFlags   NONE
-                equipFlags2  PLDN
-                equipFlags3  PGNT
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        1, 1
-                price        11000
-                itemType     WEAPON|RARE|CURSED
-                useSpell     NOTHING
-                equipEffects INCREASE_ATT, 48, &
-                             DECREASE_MOV, 2, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 85: Wooden Rod
-                equipFlags   MAGE|PRST
-                equipFlags2  WIZ|VICR
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                ; 71: Wooden Sword
+                equipFlags   SDMN|BDMN|HERO|BRN|BDBT|NINJ|RDBN
+                equipFlags2  NONE
                 range        1, 1
                 price        60
                 itemType     WEAPON
@@ -1968,16 +1163,208 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 72: Short Spear
+                equipFlags   KNTE|PLDN|PGNT
+                equipFlags2  NONE
+                range        1, 2
+                price        120
+                itemType     WEAPON
+                useSpell     NOTHING
+                equipEffects INCREASE_ATT, 6, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 73: Bronze Lance
+                equipFlags   KNTE|PLDN|PGNT
+                equipFlags2  NONE
+                range        1, 1
+                price        260
+                itemType     WEAPON
+                useSpell     NOTHING
+                equipEffects INCREASE_ATT, 9, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 74: Spear
+                equipFlags   KNTE|PLDN|PGNT
+                equipFlags2  NONE
+                range        1, 2
+                price        460
+                itemType     WEAPON
+                useSpell     NOTHING
+                equipEffects INCREASE_ATT, 12, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 75: Steel Lance
+                equipFlags   KNTE|PLDN|PGNT
+                equipFlags2  NONE
+                range        1, 1
+                price        810
+                itemType     WEAPON
+                useSpell     NOTHING
+                equipEffects INCREASE_ATT, 16, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 76: Power Spear
+                equipFlags   KNTE|PLDN|PGNT
+                equipFlags2  NONE
+                range        1, 2
+                price        1270
+                itemType     WEAPON
+                useSpell     NOTHING
+                equipEffects INCREASE_ATT, 20, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 77: Heavy Lance
+                equipFlags   PLDN|PGNT
+                equipFlags2  NONE
+                range        1, 1
+                price        1600
+                itemType     WEAPON
+                useSpell     NOTHING
+                equipEffects INCREASE_ATT, 23, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 78: Javelin
+                equipFlags   PLDN|PGNT
+                equipFlags2  NONE
+                range        1, 2
+                price        3400
+                itemType     WEAPON
+                useSpell     NOTHING
+                equipEffects INCREASE_ATT, 26, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 79: Chrome Lance
+                equipFlags   PLDN|PGNT
+                equipFlags2  NONE
+                range        1, 1
+                price        6900
+                itemType     WEAPON
+                useSpell     NOTHING
+                equipEffects INCREASE_ATT, 31, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 80: Valkyrie
+                equipFlags   PLDN|PGNT
+                equipFlags2  NONE
+                range        1, 2
+                price        7700
+                itemType     WEAPON|RARE|BREAKABLE
+                useSpell     ATTACK
+                equipEffects INCREASE_ATT, 33, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 81: Holy Lance
+                equipFlags   PLDN|PGNT
+                equipFlags2  NONE
+                range        1, 1
+                price        9300
+                itemType     WEAPON|RARE|BREAKABLE
+                useSpell     HEALIN
+                equipEffects INCREASE_ATT, 39, &
+                             INCREASE_DEF, 5, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 82: Mist Javelin
+                equipFlags   PLDN|PGNT
+                equipFlags2  NONE
+                range        1, 2
+                price        9900
+                itemType     WEAPON|RARE
+                useSpell     NOTHING
+                equipEffects INCREASE_ATT, 42, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 83: Halberd
+                equipFlags   PLDN|PGNT
+                equipFlags2  NONE
+                range        1, 1
+                price        7300
+                itemType     WEAPON|RARE|BREAKABLE
+                useSpell     BOLT
+                equipEffects INCREASE_ATT, 37, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 84: Evil Lance
+                equipFlags   PLDN|PGNT
+                equipFlags2  NONE
+                range        1, 1
+                price        11000
+                itemType     WEAPON|RARE|CURSED
+                useSpell     NOTHING
+                equipEffects INCREASE_ATT, 48, &
+                             DECREASE_MOV, 2, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 85: Wooden Rod
+                equipFlags   MAGE|PRST|WIZ|SORC|VICR
+                equipFlags2  NONE
+                range        1, 1
+                price        60
+                itemType     WEAPON
+                useSpell     NOTHING
+                equipEffects INCREASE_ATT, 3, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 86: Short Rod
-                equipFlags   MAGE|PRST
-                equipFlags2  WIZ|VICR
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   MAGE|PRST|WIZ|SORC|VICR
+                equipFlags2  NONE
                 range        1, 1
                 price        130
                 itemType     WEAPON
@@ -1986,16 +1373,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 87: Bronze Rod
-                equipFlags   MAGE|PRST
-                equipFlags2  WIZ|VICR
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   MAGE|PRST|WIZ|SORC|VICR
+                equipFlags2  NONE
                 range        1, 1
                 price        360
                 itemType     WEAPON
@@ -2004,16 +1387,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 88: Iron Rod
-                equipFlags   MAGE|PRST
-                equipFlags2  WIZ|VICR
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   MAGE|PRST|WIZ|SORC|VICR
+                equipFlags2  NONE
                 range        1, 1
                 price        560
                 itemType     WEAPON
@@ -2022,16 +1401,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 89: Power Stick
-                equipFlags   MAGE|PRST
-                equipFlags2  WIZ|VICR
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   MAGE|PRST|WIZ|SORC|VICR
+                equipFlags2  NONE
                 range        1, 1
                 price        1050
                 itemType     WEAPON
@@ -2040,16 +1415,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 90: Flail
-                equipFlags   NONE
-                equipFlags2  WIZ|VICR
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WIZ|SORC|VICR
+                equipFlags2  NONE
                 range        1, 1
                 price        1490
                 itemType     WEAPON
@@ -2058,16 +1429,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 91: Guardian Staff
-                equipFlags   NONE
-                equipFlags2  WIZ|VICR
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WIZ|SORC|VICR
+                equipFlags2  NONE
                 range        1, 1
                 price        2380
                 itemType     WEAPON
@@ -2076,16 +1443,12 @@ table_ItemDefinitions:
                              INCREASE_DEF, 5, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 92: Indra Staff
-                equipFlags   NONE
-                equipFlags2  WIZ|VICR
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WIZ|SORC|VICR
+                equipFlags2  NONE
                 range        1, 1
                 price        3200
                 itemType     WEAPON|BREAKABLE
@@ -2094,16 +1457,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 93: Mage Staff
-                equipFlags   NONE
-                equipFlags2  WIZ
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WIZ|SORC
+                equipFlags2  NONE
                 range        1, 1
                 price        6300
                 itemType     WEAPON|RARE|BREAKABLE
@@ -2112,16 +1471,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 94: Wish Staff
-                equipFlags   NONE
-                equipFlags2  VICR
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   VICR
+                equipFlags2  NONE
                 range        1, 1
                 price        6100
                 itemType     WEAPON|RARE|BREAKABLE
@@ -2130,16 +1485,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 95: Great Rod
-                equipFlags   NONE
-                equipFlags2  WIZ|VICR
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WIZ|SORC|VICR
+                equipFlags2  NONE
                 range        1, 1
                 price        7900
                 itemType     WEAPON|RARE
@@ -2148,16 +1499,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 96: Supply Staff
-                equipFlags   NONE
-                equipFlags2  WIZ
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WIZ|SORC
+                equipFlags2  NONE
                 range        1, 1
                 price        8500
                 itemType     WEAPON|RARE|BREAKABLE
@@ -2166,34 +1513,26 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 97: Holy Staff
-                equipFlags   NONE
-                equipFlags2  VICR
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   VICR
+                equipFlags2  NONE
                 range        1, 1
                 price        9000
                 itemType     WEAPON|RARE
                 useSpell     NOTHING
                 equipEffects INCREASE_ATT, 29, &
+                             HP_RECOVERY, 3, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0
                 
                 ; 98: Freeze Staff
-                equipFlags   NONE
-                equipFlags2  WIZ
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WIZ|SORC
+                equipFlags2  NONE
                 range        1, 1
                 price        9500
                 itemType     WEAPON|RARE|BREAKABLE
@@ -2202,16 +1541,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 99: Goddess Staff
-                equipFlags   NONE
-                equipFlags2  VICR
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   VICR
+                equipFlags2  NONE
                 range        1, 1
                 price        9700
                 itemType     WEAPON|RARE|BREAKABLE
@@ -2220,34 +1555,26 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 100: Mystery Staff
-                equipFlags   NONE
-                equipFlags2  WIZ|VICR
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WIZ|SORC|VICR
+                equipFlags2  NONE
                 range        1, 1
                 price        10000
                 itemType     WEAPON|RARE
                 useSpell     NOTHING
                 equipEffects INCREASE_ATT, 39, &
+                             MP_RECOVERY, 2, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0
                 
                 ; 101: Demon Rod
-                equipFlags   NONE
-                equipFlags2  WIZ|VICR
-                equipFlags3  NONE
-				equipFlags4  SORC
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   WIZ|SORC|VICR
+                equipFlags2  NONE
                 range        1, 1
                 price        12500
                 itemType     WEAPON|RARE|CURSED|BREAKABLE
@@ -2256,16 +1583,12 @@ table_ItemDefinitions:
                              DECREASE_AGI, 10, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 102: Iron Ball
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        1, 1
                 price        3800
                 itemType     WEAPON|RARE|CURSED|BREAKABLE
@@ -2274,16 +1597,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 103: Short Knife
                 equipFlags   THIF
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        1, 1
                 price        70
                 itemType     WEAPON
@@ -2292,16 +1611,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 104: Dagger
                 equipFlags   THIF
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        1, 1
                 price        320
                 itemType     WEAPON
@@ -2310,16 +1625,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 105: Knife
                 equipFlags   THIF
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        1, 1
                 price        500
                 itemType     WEAPON
@@ -2328,16 +1639,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 106: Thieve's Dagger
                 equipFlags   THIF
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        1, 1
                 price        940
                 itemType     WEAPON
@@ -2346,16 +1653,12 @@ table_ItemDefinitions:
                              INCREASE_AGI, 5, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 107: Katana
-                equipFlags   NONE
-                equipFlags2  NINJ
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   NINJ
+                equipFlags2  NONE
                 range        1, 1
                 price        9600
                 itemType     WEAPON|RARE
@@ -2364,16 +1667,12 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 108: Ninja Katana
-                equipFlags   NONE
-                equipFlags2  NINJ
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   NINJ
+                equipFlags2  NONE
                 range        1, 1
                 price        11500
                 itemType     WEAPON|RARE
@@ -2382,16 +1681,12 @@ table_ItemDefinitions:
                              INCREASE_DOUBLE, 1, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 109: Gisarme
-                equipFlags   NONE
-                equipFlags2  NINJ
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                equipFlags   NINJ
+                equipFlags2  NONE
                 range        1, 1
                 price        15000
                 itemType     WEAPON|RARE
@@ -2400,16 +1695,12 @@ table_ItemDefinitions:
                              SET_CRITICAL, 6, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
                 ; 110: Taros Sword
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        1, 2
                 price        10000
                 itemType     WEAPON|RARE|BREAKABLE
@@ -2418,1641 +1709,18 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
-                             NONE, 0
-                
-                ; 133: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 134: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 135: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 136: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 137: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 138: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 139: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 140: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 141: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 142: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 143: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 144: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 145: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 146: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 147: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 148: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 149: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 150: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 151: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 152: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 153: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 154: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 155: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 156: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 157: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 158: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 159: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 160: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 161: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 162: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 163: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 164: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 165: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 166: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 167: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 168: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 169: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 170: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 171: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 172: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 173: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 174: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 175: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 176: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 177: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 178: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 179: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 180: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 181: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 182: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 183: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 184: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 185: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 186: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 187: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 188: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 189: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 190: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 191:
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 192: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 193: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 194: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 195: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 196: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 197: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 198: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 199: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 200: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 201: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 202: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 203: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 204: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 205: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 206: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 207: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 208: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 209: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 210: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 211: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 212: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 213: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 214: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 215: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 216: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 217: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 218: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 219: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 220: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0
                 
-                ; 221: 
+                ; 111: Right of Hope
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
+                price        10000
+                itemType     RARE|CONSUMABLE
+                useSpell     SHINE
                 equipEffects NONE, 0, &
                              NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 222: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 223: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -4061,16 +1729,12 @@ table_ItemDefinitions:
                 ; 112: Wooden Panel
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        0
                 itemType     RARE|UNSELLABLE
                 useSpell     NOTHING
                 equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -4079,16 +1743,12 @@ table_ItemDefinitions:
                 ; 113: Sky Orb
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        0
                 itemType     RARE|UNSELLABLE
                 useSpell     NOTHING
                 equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -4097,16 +1757,12 @@ table_ItemDefinitions:
                 ; 114: Cannon
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        0
                 itemType     RARE|UNSELLABLE
                 useSpell     NOTHING
                 equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -4115,16 +1771,12 @@ table_ItemDefinitions:
                 ; 115: Dry Stone
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        0
                 itemType     RARE|UNSELLABLE
                 useSpell     NOTHING
                 equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -4133,16 +1785,12 @@ table_ItemDefinitions:
                 ; 116: Dynamite
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        0
                 itemType     RARE|UNSELLABLE
                 useSpell     NOTHING
                 equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -4151,340 +1799,12 @@ table_ItemDefinitions:
                 ; 117: Arm of Golem
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        0
                 itemType     RARE|UNSELLABLE
                 useSpell     NOTHING
                 equipEffects NONE, 0, &
                              NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 125: Cotton Balloon
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     RARE|UNSELLABLE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 123: Mithril
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        2000
-                itemType     RARE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 232: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 233: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 234: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 235: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 236: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 237: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 238: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 239: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 240: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 241: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 242: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 243: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 244: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 245: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 246: 
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        0
-                itemType     NONE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 122: Vigor Ball
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        3000
-                itemType     RARE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -4493,16 +1813,12 @@ table_ItemDefinitions:
                 ; 118: Pegasus Wing
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        3000
                 itemType     RARE
                 useSpell     NOTHING
                 equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -4511,34 +1827,12 @@ table_ItemDefinitions:
                 ; 119: Warrior Pride
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        3000
                 itemType     RARE
                 useSpell     NOTHING
                 equipEffects NONE, 0, &
                              NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0, &
-                             NONE, 0
-                
-                ; 121: Secret Book
-                equipFlags   NONE
-                equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
-                range        0, 0
-                price        3000
-                itemType     RARE
-                useSpell     NOTHING
-                equipEffects NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -4547,11 +1841,6 @@ table_ItemDefinitions:
                 ; 120: Silver Tank
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        3000
                 itemType     RARE
@@ -4560,16 +1849,96 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
                 
-                ; 127: 
+                ; 121: Secret Book
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
+                range        0, 0
+                price        3000
+                itemType     RARE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 122: Vigor Ball
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        3000
+                itemType     RARE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 123: Mithril
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        2000
+                itemType     RARE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 124: Life Ring
+                equipFlags   HERO|PLDN|PGNT|GLDT|BRN|WIZ|SORC|VICR|MMNK|SNIP|BRGN|BDBT|WFBR|BWNT|PHNX|NINJ|MNST|RBT|GLM|RDBN
+                equipFlags2  NONE
+                range        0, 0
+                price        5000
+                itemType     RING|RARE
+                useSpell     NOTHING
+                equipEffects HP_RECOVERY, 5, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 125: Cotton Balloon
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     RARE|UNSELLABLE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 126: Chirrup Sandals
+                equipFlags   ALL
+                equipFlags2  NONE
+                range        0, 0
+                price        5
+                itemType     RING|RARE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 127: Empty
+                equipFlags   NONE
+                equipFlags2  NONE
                 range        0, 0
                 price        0
                 itemType     NONE
@@ -4578,21 +1947,20 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
+                
+            if (STANDARD_BUILD&EXPANDED_ITEMS_AND_SPELLS=1)
                 
                 ; 128: 
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        0
                 itemType     NONE
                 useSpell     NOTHING
                 equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
@@ -4601,29 +1969,20 @@ table_ItemDefinitions:
                 ; 129: 
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        0
                 itemType     NONE
                 useSpell     NOTHING
                 equipEffects NONE, 0, &
+                             NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0
                 
-                ; 255: Empty
+                ; 130: 
                 equipFlags   NONE
                 equipFlags2  NONE
-                equipFlags3  NONE
-				equipFlags4  NONE
-				equipFlags5  NONE
-				equipFlags6  NONE
-				equipFlags7  NONE
                 range        0, 0
                 price        0
                 itemType     NONE
@@ -4632,4 +1991,1759 @@ table_ItemDefinitions:
                              NONE, 0, &
                              NONE, 0, &
                              NONE, 0, &
+                             NONE, 0, &
                              NONE, 0
+                
+                ; 131: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 132: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 133: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 134: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 135: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 136: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 137: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 138: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 139: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 140: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 141: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 142: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 143: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 144: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 145: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 146: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 147: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 148: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 149: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 150: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 151: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 152: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 153: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 154: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 155: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 156: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 157: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 158: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 159: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 160: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 161: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 162: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 163: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 164: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 165: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 166: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 167: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 168: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 169: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 170: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 171: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 172: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 173: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 174: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 175: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 176: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 177: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 178: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 179: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 180: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 181: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 182: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 183: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 184: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 185: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 186: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 187: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 188: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 189: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 190: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 191:
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 192: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 193: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 194: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 195: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 196: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 197: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 198: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 199: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 200: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 201: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 202: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 203: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 204: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 205: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 206: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 207: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 208: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 209: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 210: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 211: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 212: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 213: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 214: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 215: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 216: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 217: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 218: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 219: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 220: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 221: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 222: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 223: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 224: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 225: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 226: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 227: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 228: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 229: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 230: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 231: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 232: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 233: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 234: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 235: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 236: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 237: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 238: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 239: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 240: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 241: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 242: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 243: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 244: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 245: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 246: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 247: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 248: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 249: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 250: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 251: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 252: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 253: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 254: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+                ; 255: 
+                equipFlags   NONE
+                equipFlags2  NONE
+                range        0, 0
+                price        0
+                itemType     NONE
+                useSpell     NOTHING
+                equipEffects NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0, &
+                             NONE, 0
+                
+            endif
+
+                modend

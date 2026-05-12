@@ -50,3 +50,24 @@ table_PowersOfTen:
                 dc.l 10
                 dc.l 1
 
+; =============== S U B R O U T I N E =======================================
+
+
+nullsub_150A:
+            if (VANILLA_BUILD=1)
+                rts
+            endif
+
+    ; End of function nullsub_150A
+
+
+; =============== S U B R O U T I N E =======================================
+
+
+nullsub_150C:
+            if (VANILLA_BUILD=1)
+                rts
+            endif
+
+    ; End of function nullsub_150C
+

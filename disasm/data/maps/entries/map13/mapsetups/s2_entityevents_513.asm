@@ -83,37 +83,37 @@ Map13_201_EntityEvent8:
 Map13_201_EntityEvent9:
                 
                  
-                chkFlg  FLAG_POLCA6             ; Set after Oddler runs after you as you leave Polca, and tags along
+                chkFlg  718             ; Set after Oddler runs after you as you leave Polca, and tags along
                 bne.s   byte_58212      
-                chkFlg  FLAG_POLCA5             ; Set after the mayor first tries to have you take Oddler with you (Peter declines)
+                chkFlg  717             ; Set after the mayor first tries to have you take Oddler with you (Peter declines)
                 bne.s   byte_5820C      
-                chkFlg  FLAG_POLCA4             ; Set after your raft-giving conversation with the mayor in Polca
+                chkFlg  716             ; Set after your raft-giving conversation with the mayor in Polca
                 bne.s   byte_58206      
-                chkFlg  FLAG_TEMP04             ; TEMP FLAG #04
+                chkFlg  260             ; TEMP FLAG #04
                 bne.s   byte_581C4      
                 txt     1448            ; "Pl...please...take that boy{N}with you!{W1}"
-                setFlg  FLAG_TEMP04             ; TEMP FLAG #04
+                setFlg  260             ; TEMP FLAG #04
                 bra.s   loc_58204
 byte_581C4:
                 
-                chkFlg  FLAG_TEMP05             ; TEMP FLAG #05
+                chkFlg  261             ; TEMP FLAG #05
                 bne.s   byte_581D4      
                 txt     1449            ; "Ddddd...don't kill me!{W1}"
-                setFlg  FLAG_TEMP05             ; TEMP FLAG #05
+                setFlg  261             ; TEMP FLAG #05
                 bra.s   loc_58204
 byte_581D4:
                 
-                chkFlg  FLAG_TEMP06             ; TEMP FLAG #06
+                chkFlg  262             ; TEMP FLAG #06
                 bne.s   byte_581E4
                 txt     1450            ; "Please, take him!{W1}"
-                setFlg  FLAG_TEMP06             ; TEMP FLAG #06
+                setFlg  262             ; TEMP FLAG #06
                 bra.s   loc_58204
 byte_581E4:
                 
                 script  cs_58856
-                setFlg  FLAG_POLCA4             ; Set after your raft-giving conversation with the mayor in Polca
-                setFlg  FLAG_RAFT              ; Raft is unlocked
-                setSavedByte #MAP_OVERWORLD_NORTH_SOUTH_PARMECIA_JUNCTION, RAFT_MAP
+                setFlg  716             ; Set after your raft-giving conversation with the mayor in Polca
+                setFlg  64              ; Raft is unlocked
+                setSavedByte #MAP_OVERWORLD_BEDOE_KINGDOM, RAFT_MAP
                 setSavedByte #43, RAFT_X
                 setSavedByte #48, RAFT_Y
 loc_58204:

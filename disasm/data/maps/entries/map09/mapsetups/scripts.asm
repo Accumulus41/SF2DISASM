@@ -95,7 +95,7 @@ cs_569BC:       textCursor 1382
                 nextText $C0,ALLY_ROHDE ; "I'm the only one who can{N}drive it!{W2}"
                 nextText $C0,ALLY_ROHDE ; "You are going to get the{N}Caravan, aren't you?!{W1}"
                 yesNo
-                jumpIfFlagSet FLAG_YESNO,cs_56A82 ; YES/NO prompt answer
+                jumpIfFlagSet 89,cs_56A82 ; YES/NO prompt answer
                 customActscriptWait ALLY_ROHDE
                  ac_setSpeed 10,10      ;   
                  ac_jump eas_Idle       ;   
@@ -110,7 +110,7 @@ cs_56A70:       textCursor 1391
                 jump cs_56AD4
 cs_56A82:       textCursor 1394
                 nextSingleText $C0,ALLY_ROHDE ; "Great!  Good lad!{W1}"
-                nextSingleText $FF,255  ; "{CLEAR}{LEADER} decides to take{N}Dr. {NAME;11} with him.{W1}{CLEAR}"
+                nextSingleText $FF,ENTITY_NONE  ; "{CLEAR}{LEADER} decides to take{N}Dr. {NAME;11} with him.{W1}{CLEAR}"
                 setActscriptWait ALLY_ROHDE,eas_Init
                 setPriority ALLY_ROHDE,$FFFF
                 setPriority ALLY_BOWIE,$0
@@ -118,9 +118,9 @@ cs_56A82:       textCursor 1394
                 setActscript ALLY_ROHDE,eas_Jump
                 nextSingleText $C0,ALLY_ROHDE ; "Let's go!{W1}"
                 setPriority ALLY_BOWIE,$FFFF
-                setF FLAG_HASSAN1                ; Set after telling Rohde that you're going to get the Caravan
-                setF FLAG_FOLLOWER_ROHDE                 ; Rohde is a follower
-                setF FLAG_BATTLE18_AVAILABLE         ; Battle 18 unlocked - BATTLE_VERSUS_TAROS              
+                setF 725                ; Set after telling Rohde that you're going to get the Caravan
+                setF 84                 ; Rohde is a follower
+                setStoryFlag 18         ; Battle 18 unlocked - BATTLE_VERSUS_TAROS              
                 followEntity ALLY_ROHDE,FOLLOWER_B,2
 cs_56AD4:       setActscriptWait ALLY_BOWIE,eas_Init
                 followEntity ALLY_PETER,ALLY_BOWIE,2
@@ -129,7 +129,7 @@ cs_56AE6:       textCursor 1392
                 nextText $C0,ALLY_ROHDE ; "You again?!{W1}"
                 nextText $C0,ALLY_ROHDE ; "You changed your mind?{N}Hmmm....{W1}"
                 yesNo
-                jumpIfFlagSet FLAG_YESNO,cs_56A82 ; YES/NO prompt answer
+                jumpIfFlagSet 89,cs_56A82 ; YES/NO prompt answer
                 jump cs_56A70
 cs_56B02:       textCursor 1411
                 setPriority ALLY_RICK,$FFFF

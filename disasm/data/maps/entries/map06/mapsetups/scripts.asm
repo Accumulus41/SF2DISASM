@@ -144,7 +144,7 @@ cs_54F26:       textCursor 1074
                 setFacing 136,DOWN
                 setFacing 137,LEFT
                 setFacing 140,LEFT
-                nextSingleText $FF,255  ; "Those boys are about to{N}hit the bird.{W1}"
+                nextSingleText $FF,ENTITY_NONE  ; "Those boys are about to{N}hit the bird.{W1}"
                 entityActions 136
                  moveDown 1
                 endActions
@@ -249,7 +249,7 @@ cs_54F26:       textCursor 1074
                 setFacing 145,RIGHT
                 setFacing 146,LEFT
                 csWait 30
-                setCameraEntity 65535
+                setCameraEntity CAMERA_NEUTRAL
                 entityActions 144
                  moveLeft 1
                  moveUp 5
@@ -278,7 +278,7 @@ cs_54F26:       textCursor 1074
                 setFacing 130,DOWN
                 csc_end
 cs_55242:       textCursor 1123
-                newEntity 142,11,0,DOWN,MAPSPRITE_SOLDIER1
+                newEntity 142,11,0,DOWN,MAPSPRITE_GUARD
                 customActscriptWait 142
                  ac_setSpeed 40,40      ;   
                  ac_jump eas_Idle       ;   

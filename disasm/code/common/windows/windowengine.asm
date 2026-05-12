@@ -20,7 +20,7 @@ InitializeWindowProperties:
                 move.w  (sp)+,d7
                 movea.l (sp)+,a0
                 clr.b   ((WINDOW_IS_PRESENT-$1000000)).w
-                checkSavedByte #MAP_CURRENT, CURRENT_MAP
+                compareToSavedByte #MAP_CURRENT, CURRENT_MAP
                 beq.s   @Continue
                 addq.b  #1,((WINDOW_IS_PRESENT-$1000000)).w
 @Continue:
@@ -60,7 +60,7 @@ FindFreeWindowSlot_Loop:
                 
                 movea.l ((WINDOW_LAYOUTS_END_POINTER-$1000000)).w,a1
                 cmpa.l  #WINDOW_TILE_LAYOUTS,a1
-                bne.s   @Continue
+                bne.s   @Continue       
                 bsr.w   CopyPlaneALayoutForWindows
 @Continue:
                 
@@ -146,6 +146,25 @@ FixWindowsPositions:
 
 ; =============== S U B R O U T I N E =======================================
 
+; unused
+
+
+sub_48BE:
+            if (VANILLA_BUILD=1)
+                move.l  a0,-(sp)
+                move.w  d0,-(sp)
+                bsr.w   GetWindowEntryAddress
+                move.w  #1,$E(a0)
+                move.w  (sp)+,d0
+                movea.l (sp)+,a0
+                rts
+            endif
+
+    ; End of function sub_48BE
+
+
+; =============== S U B R O U T I N E =======================================
+
 
 CopyPlaneALayoutForWindows:
                 
@@ -186,7 +205,8 @@ MoveWindowWithSfx:
 
 MoveWindow:
                 
-                bra.s   loc_4900
+                tst.b   ((SPECIAL_TURBO_TOGGLE-$1000000)).w
+                beq.s   loc_4900
                 moveq   #1,d2
 loc_4900:
                 
@@ -554,7 +574,8 @@ sub_4BEA:
                 add.w   d1,d6
                 add.w   d6,d6
                 cmpi.w  #VDPTILE_SCREEN_BLACK_BAR|VDPTILE_PALETTE3|VDPTILE_PRIORITY,(SPRITE_00_VDPTILE).l
-                bne.s   return_4C36
+                bne.s   @Return
+                
                 move.w  (VERTICAL_SCROLL_DATA).l,d1
                 addq.w  #4,d1
                 lsr.w   #3,d1
@@ -569,9 +590,10 @@ sub_4BEA:
                 sub.w   d1,d6
                 eor.w   d6,d7
                 btst    #6,d7
-                beq.s   return_4C36
-                addi.w  #$40,d6 
-return_4C36:
+                beq.s   @Return
+                
+                addi.w  #$40,d6
+@Return:
                 
                 rts
 

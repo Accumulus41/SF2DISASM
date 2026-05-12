@@ -5,11 +5,11 @@ BattleSpriteset18:
                 ; # Allies
                 dc.b 12
                 ; # Enemies
-                dc.b 20
+                dc.b 14
                 ; # AI Regions
-                dc.b 15
+                dc.b 5
                 ; # AI Points
-                dc.b 15
+                dc.b 0
                 
                 ; Allies
                 allyCombatant 0, 12, 27
@@ -117,30 +117,6 @@ BattleSpriteset18:
                 combatantAiAndItem ATTACKER1, NOTHING
                 combatantBehavior NONE, 3, NONE, 4, 0, STARTING
                 
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
-                enemyCombatant GIZMO, 0, 0
-                combatantAiAndItem SENTRY, NOTHING
-                combatantBehavior NONE, 15, NONE, 15, 0, NOSPAWN
-                
                 ; AI Regions
                 dc.b 4
                 dc.b 0
@@ -185,112 +161,6 @@ BattleSpriteset18:
                 dc.b 12, 17
                 dc.b 24, 4
                 dc.b 0
-                dc.b 0
                 
-                dc.b 4
                 dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-                
-                dc.b 4
-                dc.b 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0, 0
-                dc.b 0
-                dc.b 0
-				
-				
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
-				dc.b 0, 0
                 

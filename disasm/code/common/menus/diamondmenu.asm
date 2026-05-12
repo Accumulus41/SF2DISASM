@@ -16,6 +16,7 @@ menuIndex = -4
 
 ExecuteDiamondMenu:
                 
+                module
                 addq.b  #1,((WINDOW_IS_PRESENT-$1000000)).w
                 link    a6,#-12
                 move.w  d2,menuIndex(a6)
@@ -24,13 +25,14 @@ ExecuteDiamondMenu:
                 move.b  d0,((CURRENT_DIAMOND_MENU_CHOICE-$1000000)).w
                 move.w  #$1206,d0
                 tst.w   d1
-                bne.s   loc_1021C
+                bne.s   @loc_1
+                
                 move.w  #$C1D,d1
-                bra.s   loc_10220
-loc_1021C:
+                bra.s   @loc_2
+@loc_1:
                 
                 move.w  #$2015,d1
-loc_10220:
+@loc_2:
                 
                 jsr     (CreateWindow).w
                 move.w  d0,windowSlot(a6)
@@ -40,13 +42,13 @@ loc_10220:
                 lea     pt_tiles_Menu(pc), a0
                 move.l  (a0,d0.w),d0
                 bclr    #31,d0
-                bne.s   loc_10250
+                bne.s   @loc_3
                 movea.l d0,a0
                 movea.l (a0),a0
                 lea     (FF8804_LOADING_SPACE).l,a1
                 jsr     (LoadStackCompressedData).w
-                bra.s   loc_1026E
-loc_10250:
+                bra.s   @loc_4
+@loc_3:
                 
                 lea     (FF8804_LOADING_SPACE).l,a1
                 rol.l   #8,d0
@@ -57,7 +59,7 @@ loc_10250:
                 bsr.w   LoadMainMenuIcon
                 rol.l   #8,d0
                 bsr.w   LoadMainMenuIcon
-loc_1026E:
+@loc_4:
                 
                 jsr     (WaitForVInt).w
                 clr.w   d6
@@ -71,66 +73,66 @@ loc_1026E:
                 jsr     (MoveWindowWithSfx).w
                 jsr     (WaitForWindowMovementEnd).w
                 move.l  subroutineAddress(a6),d0
-                beq.s   loc_102A2
+                beq.s   @loc_5
                 movea.l d0,a0
                 jsr     (a0)
-loc_102A2:
+@loc_5:
                 
                 moveq   #$1E,d6
-loc_102A4:
+@loc_6:
                 
                 btst    #INPUT_BIT_LEFT,((CURRENT_PLAYER_INPUT-$1000000)).w
-                beq.s   loc_102B6
+                beq.s   @loc_7
                 moveq   #1,d1
                 sndCom  SFX_MENU_SELECTION
-                bra.w   loc_10328
-loc_102B6:
+                bra.w   @loc_13
+@loc_7:
                 
                 btst    #INPUT_BIT_RIGHT,((CURRENT_PLAYER_INPUT-$1000000)).w
-                beq.s   loc_102C8
+                beq.s   @loc_8
                 moveq   #2,d1
                 sndCom  SFX_MENU_SELECTION
-                bra.w   loc_10328
-loc_102C8:
+                bra.w   @loc_13
+@loc_8:
                 
                 btst    #INPUT_BIT_UP,((CURRENT_PLAYER_INPUT-$1000000)).w
-                beq.s   loc_102DA
+                beq.s   @loc_9
                 clr.w   d1
                 sndCom  SFX_MENU_SELECTION
-                bra.w   loc_10328
-loc_102DA:
+                bra.w   @loc_13
+@loc_9:
                 
                 btst    #INPUT_BIT_DOWN,((CURRENT_PLAYER_INPUT-$1000000)).w
-                beq.s   loc_102EC
+                beq.s   @loc_10
                 moveq   #3,d1
                 sndCom  SFX_MENU_SELECTION
-                bra.w   loc_10328
-loc_102EC:
+                bra.w   @loc_13
+@loc_10:
                 
                 ; no dpad button was pressed
                 btst    #INPUT_BIT_B,((CURRENT_PLAYER_INPUT-$1000000)).w
-                beq.s   loc_10300
+                beq.s   @loc_11
                 moveq   #-1,d1          ; B pressed, so cancel menu
                 moveq   #-1,d0
                 move.b  d0,((CURRENT_DIAMOND_MENU_CHOICE-$1000000)).w
-                bra.w   loc_10382
-loc_10300:
+                bra.w   @loc_17
+@loc_11:
                 
                 btst    #INPUT_BIT_C,((CURRENT_PLAYER_INPUT-$1000000)).w
-                beq.s   loc_10314
+                beq.s   @loc_12
                 clr.w   d1              ; C pressed, so confirm menu
                 clr.w   d0
                 move.b  ((CURRENT_DIAMOND_MENU_CHOICE-$1000000)).w,d0
-                bra.w   loc_10382
-loc_10314:
+                bra.w   @loc_17
+@loc_12:
                 
                 btst    #INPUT_BIT_A,((CURRENT_PLAYER_INPUT-$1000000)).w
-                beq.s   loc_10358
+                beq.s   @loc_15
                 clr.w   d1              ; A pressed, so confirm menu
                 clr.w   d0
                 move.b  ((CURRENT_DIAMOND_MENU_CHOICE-$1000000)).w,d0
-                bra.w   loc_10382
-loc_10328:
+                bra.w   @loc_17
+@loc_13:
                 
                 ; dpad button was pressed
                 move.w  d1,-(sp)
@@ -145,40 +147,40 @@ loc_10328:
                 move.w  #$8080,d1
                 jsr     (SetWindowDestination).w
                 move.l  subroutineAddress(a6),d0
-                beq.s   loc_10356
+                beq.s   @loc_14
                 movea.l d0,a0
                 jsr     (a0)
-loc_10356:
+@loc_14:
                 
                 moveq   #29,d6
-loc_10358:
+@loc_15:
                 
                 move.b  ((CURRENT_DIAMOND_MENU_CHOICE-$1000000)).w,d0
                 bsr.w   DmaDiamondMenuIcons
                 subq.w  #1,d6
-                bne.s   loc_10366
+                bne.s   @loc_16
                 moveq   #30,d6
-loc_10366:
+@loc_16:
                 
                 movem.l d6-d7,-(sp)
                 move.w  #$100,d6
                 jsr     (GenerateRandomNumber).w
-                move.b  d7,((RANDOM_WAITING_FOR_INPUT-$1000000)).w
+                move.b  d7,((RANDOM_SEED_COPY-$1000000)).w
                 movem.l (sp)+,d6-d7
                 jsr     (WaitForVInt).w
-                bra.w   loc_102A4
-loc_10382:
+                bra.w   @loc_6
+@loc_17:
                 
                 movem.w d0-d1,-(sp)
                 move.w  windowSlot(a6),d0
                 tst.w   d1
-                beq.s   loc_10394
+                beq.s   @loc_18
                 move.w  #$C1D,d1
-                bra.s   loc_10398
-loc_10394:
+                bra.s   @loc_19
+@loc_18:
                 
                 move.w  #$2015,d1
-loc_10398:
+@loc_19:
                 
                 move.w  #4,d2
                 jsr     (MoveWindowWithSfx).w
@@ -192,6 +194,7 @@ loc_10398:
 
     ; End of function ExecuteDiamondMenu
 
+                modend
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -443,4 +446,4 @@ LoadMainMenuIcon:
                 rts
 
     ; End of function LoadMainMenuIcon
-	
+

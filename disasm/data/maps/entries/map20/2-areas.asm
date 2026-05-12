@@ -6,32 +6,32 @@
                     mainLayerEnd        40, 30
                     scndLayerFgndStart  0, 0
                     scndLayerBgndStart  0, 0
-                    mainLayerParallax   16, 16
-                    scndLayerParallax   16, 16
+                    mainLayerParallax   256, 256
+                    scndLayerParallax   256, 256
                     mainLayerAutoscroll 0, 0
                     scndLayerAutoscroll 0, 0
                     mainLayerType    255
-                    areaDefaultMusic 38
+                    areaDefaultMusic MUSIC_CASTLE
                 
                     mainLayerStart      0, 33
                     mainLayerEnd        41, 45
                     scndLayerFgndStart  0, 0
                     scndLayerBgndStart  0, 0
-                    mainLayerParallax   16, 16
-                    scndLayerParallax   16, 16
+                    mainLayerParallax   256, 256
+                    scndLayerParallax   256, 256
                     mainLayerAutoscroll 0, 0
                     scndLayerAutoscroll 0, 0
                     mainLayerType    255
-                    areaDefaultMusic 38
+                    areaDefaultMusic MUSIC_CASTLE
                 
                     mainLayerStart      14, 47
                     mainLayerEnd        41, 60
                     scndLayerFgndStart  0, 0
                     scndLayerBgndStart  0, 0
-                    mainLayerParallax   16, 16
-                    scndLayerParallax   16, 16
+                    mainLayerParallax   256, 256
+                    scndLayerParallax   256, 256
                     mainLayerAutoscroll 0, 0
                     scndLayerAutoscroll 0, 0
                     mainLayerType    255
-                    areaDefaultMusic 38
+                    areaDefaultMusic MUSIC_CASTLE
                 endWord

@@ -1,6 +1,6 @@
 
-; ASM FILE code\gameflow\battle\battleactions\battleactionsengine_5.asm :
-; 0xACEA..0xAE32 : Battleactions Engine, part 5
+; ASM FILE code\gameflow\battle\battleactions\inflictdamage.asm :
+; 0xACEA..0xAE32 : Write Battlescene Command : Inflict Damage function
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -79,7 +79,7 @@ battlesceneScript_InflictDamage:
                 jsr     battlesceneScript_CalculateDamageExp
                 tst.b   cutoff(a2)
                 beq.s   @CheckTargetDies
-                move.w  #SPELLANIMATION_CUTOFF,d4
+                move.w  #SPELLANIMATION_CUTOFF_AND_DODGE,d4
                 move.w  #-1,d5
                 bsr.w   battlesceneScript_AnimateAction
                 move.w  #$8000,d6
@@ -101,7 +101,7 @@ battlesceneScript_InflictDamage:
                 tst.b   targetDies(a2)
                 beq.s   @WriteScriptCommands
                 jsr     GetEnemy        
-                cmpi.b  #ENEMY_BURST_ROCK,d1
+                cmpi.b  #ENEMY_BURST_ROCK,d1 ; HARDCODED enemy index
                 bne.s   @WriteScriptCommands
                 tst.w   d7
                 bne.s   @WriteScriptCommands
@@ -158,4 +158,3 @@ byte_AE1A:
     ; End of function battlesceneScript_InflictDamage
 
                 modend
-

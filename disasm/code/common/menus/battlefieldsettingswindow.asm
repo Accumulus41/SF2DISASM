@@ -36,8 +36,8 @@ BuildBattlefieldSettingsScreen:
                 jsr     (EnableDmaQueueProcessing).w
                 jsr     (WaitForWindowMovementEnd).l
                 clr.w   d4
-                bsr.w   LoadBattlefieldSettingValue
-                moveq   #$14,d6
+                bsr.w   GetCurrentBattlefieldSettingValue
+                moveq   #20,d6          ; blinking frame timer
 loc_158D6:
                 
                 bsr.w   LoadBattlefieldSettingsHighlightSprites
@@ -56,13 +56,13 @@ loc_158F6:
                 btst    #INPUT_BIT_DOWN,((CURRENT_PLAYER_INPUT-$1000000)).w
                 beq.s   loc_15906
                 eori.w  #1,d4
-                bsr.w   LoadBattlefieldSettingValue
+                bsr.w   GetCurrentBattlefieldSettingValue
 loc_15906:
                 
                 btst    #INPUT_BIT_UP,((CURRENT_PLAYER_INPUT-$1000000)).w
                 beq.s   loc_15916
                 eori.w  #1,d4
-                bsr.w   LoadBattlefieldSettingValue
+                bsr.w   GetCurrentBattlefieldSettingValue
 loc_15916:
                 
                 btst    #INPUT_BIT_B,((CURRENT_PLAYER_INPUT-$1000000)).w
@@ -74,7 +74,7 @@ loc_15916:
                 jsr     (WaitForVInt).w
                 subq.w  #1,d6
                 bne.s   loc_1593E
-                moveq   #$14,d6
+                moveq   #20,d6
 loc_1593E:
                 
                 bra.s   loc_158D6
@@ -127,7 +127,7 @@ MoveCursorEntityOffScreen:
 @Loop:
                 
                 move.w  #1,(a0)
-                addq.l  #VDP_SPRITE_SIZE,a0
+                addq.l  #VDP_SPRITE_ENTRY_SIZE,a0
                 dbf     d7,@Loop
                 rts
 
@@ -148,11 +148,11 @@ LoadBattlefieldSettingsHighlightSprites:
                 getSavedByte MESSAGE_SPEED, d3
                 lsl.w   #NIBBLE_SHIFT_COUNT,d3
                 tst.w   d4
-                bne.s   loc_159CA
+                bne.s   @loc_1
                 cmpi.w  #7,d6
-                bge.s   loc_159CA
+                bge.s   @loc_1
                 move.w  #$FF00,d3
-loc_159CA:
+@loc_1:
                 
                 move.w  (a1)+,(a0)+
                 move.l  (a1)+,(a0)+
@@ -162,20 +162,21 @@ loc_159CA:
                 getSavedByte NO_BATTLE_MESSAGES_TOGGLE, d3
                 lsl.w   #6,d3
                 tst.w   d4
-                beq.s   loc_159E8
+                beq.s   @loc_2
                 cmpi.w  #7,d6
-                bge.s   loc_159E8
+                bge.s   @loc_2
                 move.w  #$FF00,d3
-loc_159E8:
+@loc_2:
                 
                 moveq   #2,d7
-loc_159EA:
+@Loop:
                 
                 move.w  (a1)+,(a0)+
                 move.l  (a1)+,(a0)+
                 move.w  (a1)+,(a0)
                 add.w   d3,(a0)+
-                dbf     d7,loc_159EA
+                dbf     d7,@Loop
+                
                 bsr.w   LinkHighlightSprites
                 movem.w (sp)+,d3-d4/d7
                 rts
@@ -200,19 +201,24 @@ sprite_BattlefieldSettings:
                 vdpSprite 324, V2|H3|10, 1472|PALETTE3|PRIORITY, 196
                 vdpSprite 324, V2|H2|11, 1474|PALETTE3|PRIORITY, 220
                 vdpSprite 324, V2|H3|16, 1474|PALETTE3|PRIORITY, 236
+                
 
 ; =============== S U B R O U T I N E =======================================
 
+; In: d4.w = 0 to get message speed, or 1 to get no battle messages toggle
+; Out: d3.w
 
-LoadBattlefieldSettingValue:
+
+GetCurrentBattlefieldSettingValue:
                 
+                module
                 clr.w   d3
                 tst.w   d4
-                bne.s   @GetNoBattlemessagesToggle
+                bne.s   @GetNoBattleMessagesToggle
                 getSavedByte MESSAGE_SPEED, d3
                 andi.w  #3,d3
                 bra.s   byte_15A38
-@GetNoBattlemessagesToggle:
+@GetNoBattleMessagesToggle:
                 
                 getSavedByte NO_BATTLE_MESSAGES_TOGGLE, d3
                 andi.w  #1,d3
@@ -221,8 +227,9 @@ byte_15A38:
                 sndCom  SFX_MENU_SELECTION
                 rts
 
-    ; End of function LoadBattlefieldSettingValue
+    ; End of function GetCurrentBattlefieldSettingValue
 
+                modend
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -245,3 +252,4 @@ byte_15A54:
                 rts
 
     ; End of function SetBattlefieldSettings
+

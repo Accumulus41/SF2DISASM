@@ -36,6 +36,7 @@ battlesceneScript_InflictCurseDamage:
                 move.b  (a4),d0
                 btst    #COMBATANT_BIT_ENEMY,d0
                 bne.w   @Return
+                
                 jsr     GetStatusEffects
                 btst    #STATUSEFFECT_BIT_CURSE,d1
                 beq.w   @Return

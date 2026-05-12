@@ -1,5 +1,4 @@
 
-
 ; ASM FILE code\gameflow\battle\battleactions\inflictailment.asm :
 ; 0xAE32..0xAF70 : Write Battlescene Command : Inflict Ailment function
 
@@ -142,3 +141,4 @@ inflictAilment_Silence:
                 rts
 
     ; End of function inflictAilment_Silence
+

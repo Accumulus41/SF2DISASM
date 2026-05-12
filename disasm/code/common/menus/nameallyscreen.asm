@@ -68,7 +68,7 @@ NameAlly:
                 lea     (TEMP_NAME_ENTRY_SPACE).l,a0
                 tst.b   (a0)
                 beq.s   @Skip           ; skip copying name if entered string is null (and keep default name)
-                jsr     LoadAllyName
+                jsr     j_LoadAllyName
 @Skip:
                 
                 bsr.w   OpenNameEntryWindow
@@ -385,6 +385,8 @@ loc_15F22:
 
 ; =============== S U B R O U T I N E =======================================
 
+; In: d1.w = blinking frame timer
+
 var_26 = -26
 nameEntryCount = -24
 portraitIndex = -22
@@ -399,19 +401,21 @@ portraitWindowLayoutEndAddress = -4
 LoadAlphabetHighlightSprites:
                 
                 tst.b   ((HIDE_WINDOWS_TOGGLE-$1000000)).w
-                beq.s   loc_15F2C
+                beq.s   @loc_1
+                
                 moveq   #1,d1
-loc_15F2C:
+@loc_1:
                 
                 lea     (SPRITE_BATTLE_CURSOR).l,a0
                 cmpi.w  #7,d1
-                bge.s   loc_15F50
+                bge.s   @loc_2
+                
                 move.w  #1,(a0)
                 move.w  #1,VDPSPRITE_OFFSET_X(a0)
                 move.w  #1,NEXTVDPSPRITE_OFFSET_Y(a0)
                 move.w  #1,NEXTVDPSPRITE_OFFSET_X(a0)
-                bra.s   loc_15F90
-loc_15F50:
+                bra.s   @loc_5
+@loc_2:
                 
                 clr.w   d0
                 move.b  ((BATTLE_ENTITY_CHOSEN_X-$1000000)).w,d0
@@ -425,35 +429,39 @@ loc_15F50:
                 move.w  d0,(a0)
                 move.w  nameEntryCount(a6),d0
                 cmpi.w  #ALLYNAME_MAX_DISPLAYED_LENGTH,d0
-                bge.s   loc_15F84
+                bge.s   @loc_3
+                
                 lsl.w   #3,d0
                 addi.w  #216,d0
                 move.w  d0,NEXTVDPSPRITE_OFFSET_X(a0)
-                bra.s   loc_15F8A
-loc_15F84:
+                bra.s   @loc_4
+@loc_3:
                 
                 move.w  #1,NEXTVDPSPRITE_OFFSET_X(a0)
-loc_15F8A:
+@loc_4:
                 
                 move.w  #201,NEXTVDPSPRITE_OFFSET_Y(a0)
-loc_15F90:
+@loc_5:
                 
                 move.b  #5,VDPSPRITE_OFFSET_SIZE(a0)
                 move.w  #VDPTILE_MENUTILE9|VDPTILE_PALETTE3|VDPTILE_PRIORITY,VDPSPRITE_OFFSET_TILE(a0)
                 cmpi.b  #19,((BATTLE_ENTITY_CHOSEN_X-$1000000)).w
-                blt.s   loc_15FB8
+                blt.s   @loc_6
+                
                 cmpi.b  #4,((BATTLE_ENTITY_CHOSEN_Y-$1000000)).w
-                bne.s   loc_15FB8
+                bne.s   @loc_6
+                
                 move.b  #VDPSPRITESIZE_V1|VDPSPRITESIZE_H1|$D,VDPSPRITE_OFFSET_SIZE(a0)
                 move.w  #VDPTILE_MENUTILE1|VDPTILE_PALETTE3|VDPTILE_PRIORITY,VDPSPRITE_OFFSET_TILE(a0)
-loc_15FB8:
+@loc_6:
                 
                 clr.b   NEXTVDPSPRITE_OFFSET_SIZE(a0)
                 move.w  #VDPTILE_MENUTILE4|VDPTILE_PALETTE3|VDPTILE_PRIORITY,NEXTVDPSPRITE_OFFSET_TILE(a0)
                 subq.w  #1,d1
-                bne.s   loc_15FC8
+                bne.s   @loc_7
+                
                 moveq   #20,d1
-loc_15FC8:
+@loc_7:
                 
                 move.b  #9,VDPSPRITE_OFFSET_LINK(a0)
                 move.b  #16,NEXTVDPSPRITE_OFFSET_LINK(a0)
@@ -483,7 +491,7 @@ OpenNameEntryWindow:
                 jsr     (CopyBytes).w   
                 lea     (TEMP_NAME_ENTRY_SPACE).l,a0
                 move.w  ally(a6),d0
-                jsr     GetCombatantName
+                jsr     j_GetCombatantName
                 tst.w   var_26(a6)
                 beq.s   loc_1601E
                 
@@ -554,7 +562,7 @@ sub_1604A:
                 movea.l entryWindowLayoutEndAddress(a6),a1
                 move.w  #42,d7
                 jsr     (CopyBytes).w   
-                lea     tiles_WindowBorder(pc), a0
+                lea     layout_PortraitWindow(pc), a0
                 movea.l portraitWindowLayoutEndAddress(a6),a1
                 move.w  #160,d7
                 jsr     (CopyBytes).w   

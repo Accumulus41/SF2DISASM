@@ -6,10 +6,10 @@
                     mainLayerEnd        50, 31
                     scndLayerFgndStart  0, 32
                     scndLayerBgndStart  0, 0
-                    mainLayerParallax   16, 16
-                    scndLayerParallax   16, 16
+                    mainLayerParallax   256, 256
+                    scndLayerParallax   256, 256
                     mainLayerAutoscroll 0, 0
                     scndLayerAutoscroll 0, 0
                     mainLayerType    0
-                    areaDefaultMusic 6
+                    areaDefaultMusic MUSIC_BOSS_ATTACK
                 endWord

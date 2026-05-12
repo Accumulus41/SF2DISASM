@@ -30,9 +30,9 @@ SetControlledEntityActScript:
                 move.w  d0,-(sp)
                 move.l  a0,-(sp)
                 bsr.w   GetEntityEntryAddress
-                checkSavedByte #PLAYERTYPE_BOWIE, PLAYER_TYPE
+                testSavedByte PLAYER_TYPE ; 0 = player character
                 beq.s   loc_44B86
-                checkSavedByte #PLAYERTYPE_CARAVAN, PLAYER_TYPE
+                compareToSavedByte #PLAYERTYPE_CARAVAN, PLAYER_TYPE
                 bne.s   loc_44B7C
                 move.l  #eas_Raft,ENTITYDEF_OFFSET_ACTSCRIPTADDR(a0)
                 bra.s   loc_44B84
@@ -230,7 +230,7 @@ HideEntity:
                 move.l  #$70007000,(a0)
                 move.l  (a0),ENTITYDEF_OFFSET_XDEST(a0)
                 move.w  (sp)+,d0
-                lea     ((ENTITY_EVENT_INDEX_LIST-$1000000)).w,a0
+                lea     ((ENTITY_INDEX_LIST-$1000000)).w,a0
                 moveq   #ENTITIES_TOTAL_COUNTER,d7
 @Loop_EntityEvent:
                 

@@ -5,7 +5,7 @@ cs_58F5C:       moveNextToPlayer 129,DOWN
                 textCursor 3204
                 nextText $0,129         ; "Are you ready?{W1}"
                 yesNo
-                jumpIfFlagSet FLAG_YESNO,cs_58F7E ; YES/NO prompt answer
+                jumpIfFlagSet 89,cs_58F7E ; YES/NO prompt answer
                 textCursor 3206
                 nextSingleText $0,129   ; "I want to leave soon.{N}Finish your preparations.{W1}"
                 csc_end
@@ -16,5 +16,5 @@ cs_58F7E:       nextSingleText $0,129   ; "Are you ready?{W1}"
                 entityActionsWait ALLY_BOWIE
                  moveDown 4
                 endActions
-                warp MAP_OVERWORLD_NORTH_SOUTH_PARMECIA_JUNCTION,1,1,DOWN
+                warp MAP_OVERWORLD_BEDOE_KINGDOM,1,1,DOWN
                 csc_end

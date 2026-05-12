@@ -1,6 +1,6 @@
 
 ; ASM FILE code\gameflow\start\systeminit.asm :
-; 0x200..0x2DE : System init functions
+; 0x200..0x2DE : System initialization functions
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -8,13 +8,8 @@
 InitializeSystem:
                 
                 bsr.s   InitializeVdp   ; and clear 68K RAM
-                
-                enableSram              ; make sure that SRAM is enabled now, in case we need to init saved data
-                
                 bsr.w   InitializeZ80   ; and load sound driver to Z80 RAM
-                
-                bsr.w   InitializeVdpData
-                
+                bsr.s   InitializeVdpData
                 jmp     (InitializeGame).l
 
     ; End of function InitializeSystem
@@ -45,7 +40,8 @@ InitializeVdp:
                 clr.w   d0
                 clr.w   d1
                 clr.w   d2
-                include "code\common\tech\interrupts\applyvramdmafill.asm"
+                bsr.w   ApplyVramDmaFill
+                rts
 
     ; End of function InitializeVdp
 
@@ -86,10 +82,11 @@ InitializeVdpData:
                 clr.w   (a0)+           ; clear palette replicas ?
                 dbf     d1,@ClearPalettes_Loop  
                 
-                pea     EnableDmaQueueProcessing(pc)
-                pea     UpdateVdpVScrollData(pc)
-                pea     UpdateVdpHScrollData(pc)
-                bra.w   ClearSpriteTable
+                bsr.w   ClearSpriteTable
+                bsr.w   UpdateVdpHScrollData
+                bsr.w   UpdateVdpVScrollData
+                bsr.w   EnableDmaQueueProcessing
+                rts
 
     ; End of function InitializeVdpData
 
@@ -113,3 +110,4 @@ table_VdpInitializationParameters:
                 dc.w $9000              ; scroll size : V32 cell, H32 cell
                 dc.w $9194              ; window is 20 cells from right
                 dc.w $929C              ; window is 28 cells from bottom
+                

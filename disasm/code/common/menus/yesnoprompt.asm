@@ -32,7 +32,7 @@ loc_1528E:
                 jsr     (CreateWindow).w
                 move.w  d0,windowSlot(a6)
                 move.l  a1,windowLayoutEndAddress(a6)
-                getPointer p_tiles_YesNoPrompt, a0
+                movea.l (p_tiles_YesNoPrompt).l,a0
                 lea     (FF8804_LOADING_SPACE).l,a1
                 jsr     (LoadStackCompressedData).w
                 clr.b   ((CURRENT_DIAMOND_MENU_CHOICE-$1000000)).w
@@ -188,6 +188,7 @@ loc_15408:
 
 sub_15422:
                 
+                module
                 andi.w  #1,d0
                 bne.w   sub_1544A
 
@@ -231,6 +232,7 @@ loc_1545A:
 
     ; End of function sub_1544A
 
+                modend
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -263,4 +265,3 @@ loc_1548A:
 
 s_Yes:          dc.b 'Yes'
 s_No:           dc.b 'No '
-

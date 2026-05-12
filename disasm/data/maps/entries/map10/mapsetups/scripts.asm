@@ -422,7 +422,7 @@ cs_5766C:       textCursor 1680
                 entityActionsWait 153
                  jumpRight 1
                 endActions
-                setSprite 153,MAPSPRITE_CHICK_FLYING
+                setSprite 153,MAPSPRITE_FLYING_CHICK
                 setActscriptWait 153,eas_DeactivateAutoFacing
                 customActscriptWait 153
                  ac_setSpeed 4,4        ;   
@@ -458,7 +458,7 @@ cs_5766C:       textCursor 1680
                  moveRight 1
                  jumpRight 1
                 endActions
-                setSprite 153,MAPSPRITE_CHICK_FLYING
+                setSprite 153,MAPSPRITE_FLYING_CHICK
                 setActscriptWait 153,eas_DeactivateAutoFacing
                 entityActionsWait 153
                  moveDown 1
@@ -584,7 +584,7 @@ cs_5779C:       textCursor 1686
                 setActscriptWait 153,eas_Jump
                 csWait 20
                 setFacing 153,UP
-                setCameraEntity 65535
+                setCameraEntity CAMERA_NEUTRAL
                 setActscriptWait 152,eas_Jump
                 setActscriptWait 152,eas_Jump
                 nextSingleText $0,152   ; "Thank you!  Thank you!{N}{NAME;20} is OK.{W1}"

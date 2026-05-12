@@ -1,26 +1,6 @@
 
 ; ASM FILE code\gameflow\battle\battlefunctions\battlefunctions_0.asm :
-; 0x22C60..0x2379A : Battle functions
-
-; =============== S U B R O U T I N E =======================================
-
-; Get first entity's X, Y and facing -> d1.l, d2.l, d3.w
-
-
-GetPlayerEntityPosition:
-                
-                move.w  (ENTITY_DATA).l,d1
-                move.w  (ENTITY_Y).l,d2
-                move.b  (ENTITY_FACING).l,d3
-                ext.l   d1
-                divu.w  #MAP_TILE_SIZE,d1
-                ext.l   d2
-                divu.w  #MAP_TILE_SIZE,d2
-                andi.w  #DIRECTION_MASK,d3
-                rts
-
-    ; End of function GetPlayerEntityPosition
-
+; 0x22C84..0x2379A : Battle functions
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -175,7 +155,7 @@ ControlCursorEntity:
                 mulu.w  #MAP_TILE_SIZE,d2
                 mulu.w  #MAP_TILE_SIZE,d3
                 moveq   #ENTITY_CURSOR,d0
-                jsr     SetCursorEntitySpeedx2
+                jsr     j_SetCursorEntitySpeedx2
                 lsl.w   #ENTITYDEF_SIZE_BITS,d0
                 lea     ((ENTITY_DATA-$1000000)).w,a0
                 adda.w  d0,a0
@@ -201,7 +181,7 @@ ControlCursorEntity:
                 move.b  d2,((BATTLE_ENTITY_CHOSEN_X-$1000000)).w
                 move.b  d3,((BATTLE_ENTITY_CHOSEN_Y-$1000000)).w
                 moveq   #ENTITY_CURSOR,d0
-                jsr     SetEntityMovescriptToIdle
+                jsr     j_SetEntityMovescriptToIdle
                 move.w  #$6F00,(a0)
                 move.w  #$6F00,ENTITYDEF_OFFSET_XDEST(a0)
                 clr.b   ((CONTROLLING_UNIT_CURSOR-$1000000)).w
@@ -224,7 +204,7 @@ ControlBattleEntity:
                 movem.l d0-d1/a0-a1,-(sp)
                 link    a6,#-2
                 lea     ((ENTITY_DATA-$1000000)).w,a1
-                bsr.w   GetEntityIndexForCombatant
+                bsr.w   GetEntityIndexForCombatant_0
                 move.w  d0,battleEntity(a6)
                 lsl.w   #ENTITYDEF_SIZE_BITS,d0
                 adda.w  d0,a1
@@ -237,7 +217,7 @@ ControlBattleEntity:
                 move.b  #33,ENTITYDEF_OFFSET_ENTNUM(a1)
                 bsr.w   UpdateBattleEntityMapsprite
                 move.w  battleEntity(a6),d0
-                jsr     SetControlledEntityActScript
+                jsr     j_SetControlledEntityActScript
                 addi.w  #$10,d0
                 lea     ((byte_FFAFA0-$1000000)).w,a0
                 move.b  #1,(a0,d0.w)
@@ -266,7 +246,7 @@ ControlBattleEntity:
                 move.b  d2,((BATTLE_ENTITY_CHOSEN_X-$1000000)).w
                 move.b  d3,((BATTLE_ENTITY_CHOSEN_Y-$1000000)).w
                 move.w  battleEntity(a6),d0
-                jsr     SetEntityMovescriptToIdle
+                jsr     j_SetEntityMovescriptToIdle
                 move.b  #-1,((VIEW_TARGET_ENTITY-$1000000)).w
                 unlk    a6
                 movem.l (sp)+,d0-d1/a0-a1
@@ -290,23 +270,36 @@ UpdateBattleEntityPosition:
                 ext.l   d3
                 divs.w  #MAP_TILE_SIZE,d3
                 move.w  ((MOVING_BATTLE_ENTITY_INDEX-$1000000)).w,d0
-                jsr     GetCombatantX
+                jsr     j_GetCombatantX
                 move.w  d1,-(sp)
-                jsr     GetCombatantY
+                jsr     j_GetCombatantY
                 move.w  d1,-(sp)
                 move.w  d2,d1
-                jsr     SetCombatantX
+                jsr     j_SetCombatantX
                 move.w  d3,d1
-                jsr     SetCombatantY
-                jsr     HideLandEffectWindow
+                jsr     j_SetCombatantY
+                jsr     j_HideLandEffectWindow
                 move.w  (sp)+,d1
-                jsr     SetCombatantY
+                jsr     j_SetCombatantY
                 move.w  (sp)+,d1
-                jsr     SetCombatantX
+                jsr     j_SetCombatantX
                 movem.w (sp)+,d0-d3
                 rts
 
     ; End of function UpdateBattleEntityPosition
+
+
+; =============== S U B R O U T I N E =======================================
+
+; Pointless wrapper (should instead directly branch to subroutine below)
+
+
+GetEntityIndexForCombatant_0:
+                
+                bsr.w   GetEntityIndexForCombatant
+                rts
+
+    ; End of function GetEntityIndexForCombatant_0
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -317,7 +310,7 @@ UpdateBattleEntityPosition:
 GetEntityIndexForCombatant:
                 
                 move.l  a0,-(sp)
-                lea     ((ENTITY_EVENT_INDEX_LIST-$1000000)).w,a0
+                lea     ((ENTITY_INDEX_LIST-$1000000)).w,a0
                 tst.b   d0
                 bpl.s   @Ally
                 subi.b  #ENTITY_ENEMY_INDEX_DIFFERENCE,d0
@@ -337,19 +330,19 @@ GetEntityIndexForCombatant:
 ; Out: D0 = entity event index
 
 
-GetEntityEventIndex:
+InitializeNewEnemyEntityIndex:
                 
                 movem.l d1/d7-a0,-(sp)
-                moveq   #ENTITY_TOTAL,d7
+                moveq   #BATTLE_ALL_ENTITIES_NUMBER,d7
                 move.w  d0,d1
                 clr.w   d0
-                lea     ((ENTITY_EVENT_INDEX_LIST-$1000000)).w,a0
+                lea     ((ENTITY_INDEX_LIST-$1000000)).w,a0
 @GetIndex_Loop:
                 
                 cmp.b   (a0)+,d1
                 beq.w   @EntityHasEvent
                 addq.w  #1,d0
-                cmpi.w  #ENTITY_ALLY_COUNT,d0
+                cmpi.w  #BATTLE_ALLY_ENTITIES_NUMBER,d0
                 bne.s   @Ally
                 move.w  #$80,d0 
 @Ally:
@@ -362,13 +355,13 @@ GetEntityEventIndex:
                 movem.l (sp)+,d1/d7-a0
                 rts
 
-    ; End of function GetEntityEventIndex
+    ; End of function InitializeNewEnemyEntityIndex
 
 table_22F76:    dc.w MAP_TILE_PLUS
                 dc.w 0
                 dc.w 0
-                dc.w MAP_TILE_MINUS
-                dc.w MAP_TILE_MINUS
+                dc.w $FE80
+                dc.w $FE80
                 dc.w 0
                 dc.w 0
                 dc.w MAP_TILE_PLUS
@@ -385,7 +378,7 @@ MoveBattleEntityByMoveString:
                 movem.l d1/a0,-(sp)
                 move.b  #-1,-1(a0)
                 lea     ((ENTITY_DATA-$1000000)).w,a1
-                bsr.s   GetEntityIndexForCombatant
+                bsr.s   GetEntityIndexForCombatant_0
                 move.w  d0,battleEntity(a6)
                 move.b  d0,((VIEW_TARGET_ENTITY-$1000000)).w
                 lsl.w   #ENTITYDEF_SIZE_BITS,d0
@@ -399,7 +392,7 @@ MoveBattleEntityByMoveString:
                 move.b  #33,ENTITYDEF_OFFSET_ENTNUM(a1)
                 bsr.w   UpdateBattleEntityMapsprite
                 move.w  battleEntity(a6),d0
-                jsr     sub_44BD6
+                jsr     sub_44030
                 move.l  a0,-(sp)
                 addi.w  #$10,d0
                 lea     ((byte_FFAFA0-$1000000)).w,a0
@@ -411,7 +404,7 @@ loc_22FE8:
                 cmpi.b  #-1,d0
                 beq.w   loc_2308E
                 
-                andi.w  #3,d0
+                andi.w  #DIRECTION_MASK,d0
                 lsl.w   #INDEX_SHIFT_COUNT,d0
                 move.l  a0,-(sp)
                 lea     table_22F76(pc), a0
@@ -454,8 +447,13 @@ loc_23044:
                 move.b  -1(a0),d0
                 cmp.b   -2(a0),d0
                 beq.s   loc_2306A
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 move.b  d4,ENTITYDEF_OFFSET_XVELOCITY(a1)
                 move.b  d5,ENTITYDEF_OFFSET_YVELOCITY(a1)
+            else
+                move.w  d4,ENTITYDEF_OFFSET_XVELOCITY(a1)
+                move.w  d5,ENTITYDEF_OFFSET_YVELOCITY(a1)
+            endif
                 ori.b   #3,ENTITYDEF_OFFSET_FLAGS_A(a1)
 loc_2306A:
                 
@@ -468,7 +466,7 @@ loc_23074:
                 sndCom  SOUND_COMMAND_GET_D0_PARAMETER
                 bsr.w   UpdateBattleEntityPosition
                 move.w  battleEntity(a6),d0
-                jsr     WaitForEntityToStopMoving
+                jsr     j_WaitForEntityToStopMoving
                 bra.w   loc_22FE8
 loc_2308E:
                 
@@ -505,25 +503,26 @@ loc_2308E:
 
 ControlCursorEntity_ChooseTarget:
                 
+                module
                 movem.l d1-a0,-(sp)
-				
                 move.w  ((TARGETS_LIST_LENGTH-$1000000)).w,d7
-                bne.s   loc_230F2
+                bne.s   @Continue
+                
                 moveq   #-1,d0
                 bra.w   byte_2321E
-loc_230F2:
+@Continue:
                 
                 jsr     (WaitForVInt).w
                 move.w  d0,d6
                 lea     ((TARGETS_LIST-$1000000)).w,a0
                 clr.w   d1
-                bra.w   loc_23110
+                bra.w   @Start
 loc_23102:
                 
                 jsr     (WaitForVInt).w
                 jsr     (WaitForViewScrollEnd).w
-                jsr     CloseMiniStatusWindow
-loc_23110:
+                jsr     j_CloseBattlefieldMiniStatusWindow
+@Start:
                 
                 clr.w   d0
                 move.b  (a0,d1.w),d0
@@ -531,12 +530,12 @@ loc_23110:
                 move.w  d0,-(sp)
                 clr.w   d0
                 move.b  (a0,d1.w),d0
-                jsr     GetCombatantX
+                jsr     j_GetCombatantX
                 move.w  d1,d2
-                jsr     GetCombatantY
+                jsr     j_GetCombatantY
                 move.w  d1,d3
                 move.w  d6,d0
-                jsr     GetCombatantX
+                jsr     j_GetCombatantX
                 sub.w   d1,d2
                 blt.s   loc_23142
                 moveq   #RIGHT,d4
@@ -547,7 +546,7 @@ loc_23142:
                 neg.w   d2
 loc_23146:
                 
-                jsr     GetCombatantY
+                jsr     j_GetCombatantY
                 sub.w   d1,d3
                 blt.s   loc_23154
                 moveq   #DOWN,d5
@@ -572,7 +571,7 @@ loc_2315E:
                 bsr.w   sub_2322C
                 move.b  #1,((IS_TARGETING-$1000000)).w
                 jsr     (WaitForViewScrollEnd).w
-                jsr     OpenBattlefieldMiniStatusWindow
+                jsr     j_OpenBattlefieldMiniStatusWindow
                 movem.l (sp)+,d1-a0
 loc_23186:
                 
@@ -625,7 +624,7 @@ loc_231E0:
                 
                 btst    #INPUT_BIT_B,((CURRENT_PLAYER_INPUT-$1000000)).w
                 beq.s   loc_231F6
-                jsr     CloseMiniStatusWindow
+                jsr     j_CloseBattlefieldMiniStatusWindow
                 move.w  #-1,d0
                 bra.w   byte_2321E
 loc_231F6:
@@ -654,6 +653,7 @@ byte_2321E:
 
     ; End of function ControlCursorEntity_ChooseTarget
 
+                modend
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -661,14 +661,14 @@ byte_2321E:
 sub_2322C:
                 
                 movem.l d0-a0,-(sp)
-                jsr     GetCombatantX
+                jsr     j_GetCombatantX
                 move.w  d1,d2
-                jsr     GetCombatantY
+                jsr     j_GetCombatantY
                 move.w  d1,d3
                 bsr.w   GetEntityIndexForCombatant
                 move.b  d0,((VIEW_TARGET_ENTITY-$1000000)).w
                 jsr     (WaitForVInt).w
-                bsr.w   sub_23256
+                bsr.w   sub_23256       
                 movem.l (sp)+,d0-a0
                 rts
 
@@ -694,7 +694,7 @@ sub_23256:
                 mulu.w  #MAP_TILE_SIZE,d4
                 mulu.w  #MAP_TILE_SIZE,d5
                 moveq   #ENTITY_CURSOR,d0
-                jsr     sub_44BC0
+                jsr     sub_4402C
                 lsl.w   #ENTITYDEF_SIZE_BITS,d0
                 lea     ((ENTITY_DATA-$1000000)).w,a0
                 adda.w  d0,a0
@@ -717,9 +717,9 @@ sub_23256:
 
 SetCursorDestinationToNextCombatant:
                 
-                jsr     GetCombatantX
+                jsr     j_GetCombatantX
                 move.w  d1,d2
-                jsr     GetCombatantY
+                jsr     j_GetCombatantY
                 move.w  d1,d3
 
     ; End of function SetCursorDestinationToNextCombatant
@@ -745,7 +745,7 @@ SetCursorDestinationToNextBattleEntity:
                 mulu.w  #MAP_TILE_SIZE,d4
                 mulu.w  #MAP_TILE_SIZE,d5
                 moveq   #ENTITY_CURSOR,d0
-                jsr     SetCursorEntityActscript
+                jsr     j_SetCursorEntityActscript
                 jsr     (WaitForVInt).w
                 lsl.w   #ENTITYDEF_SIZE_BITS,d0
                 lea     ((ENTITY_DATA-$1000000)).w,a0
@@ -756,7 +756,7 @@ SetCursorDestinationToNextBattleEntity:
                 move.w  d3,ENTITYDEF_OFFSET_YDEST(a0)
                 move.b  #64,ENTITYDEF_OFFSET_XSPEED(a0)
                 move.b  #64,ENTITYDEF_OFFSET_YSPEED(a0)
-                btst    #CONFIG_TURBO,((CONFIG_BITFIELD-$1000000)).w
+                tst.b   ((SPECIAL_TURBO_TOGGLE-$1000000)).w
                 beq.s   loc_23328
                 move.b  #96,ENTITYDEF_OFFSET_XSPEED(a0)
                 move.b  #96,ENTITYDEF_OFFSET_YSPEED(a0)
@@ -789,45 +789,41 @@ loc_2335E:
                 move.w  #$70,d1 
 loc_23368:
                 
-                btst    #CONFIG_TURBO,((CONFIG_BITFIELD-$1000000)).w
+                tst.b   ((SPECIAL_TURBO_TOGGLE-$1000000)).w
                 beq.s   loc_23376
                 move.w  #$80,d0 
                 move.w  #$80,d1 
 loc_23376:
                 
-                clr.w   d7
                 tst.b   ((MAP_AREA_LAYER1_AUTOSCROLL_X-$1000000)).w
                 bne.s   loc_23388
-                move.b  ((MAP_AREA_LAYER1_PARALLAX_X-$1000000)).w,d7
-                mulu.w  d0,d7
-                lsr.w   #4,d7
+                move.w  d0,d7
+                mulu.w  ((MAP_AREA_LAYER1_PARALLAX_X-$1000000)).w,d7
+                lsr.w   #BYTE_SHIFT_COUNT,d7
                 move.w  d7,((PLANE_A_SCROLL_SPEED_X-$1000000)).w
 loc_23388:
                 
-                clr.w   d7
                 tst.b   ((MAP_AREA_LAYER1_AUTOSCROLL_Y-$1000000)).w
                 bne.s   loc_2339A
-                move.b  ((MAP_AREA_LAYER1_PARALLAX_Y-$1000000)).w,d7
-                mulu.w  d1,d7
-                lsr.w   #4,d7
+                move.w  d1,d7
+                mulu.w  ((MAP_AREA_LAYER1_PARALLAX_Y-$1000000)).w,d7
+                lsr.w   #BYTE_SHIFT_COUNT,d7
                 move.w  d7,((PLANE_A_SCROLL_SPEED_Y-$1000000)).w
 loc_2339A:
                 
-                clr.w   d7
                 tst.b   ((MAP_AREA_LAYER2_AUTOSCROLL_X-$1000000)).w
                 bne.s   loc_233AC
-                move.b  ((MAP_AREA_LAYER2_PARALLAX_X-$1000000)).w,d7
-                mulu.w  d0,d7
-                lsr.w   #4,d7
+                move.w  d0,d7
+                mulu.w  ((MAP_AREA_LAYER2_PARALLAX_X-$1000000)).w,d7
+                lsr.w   #BYTE_SHIFT_COUNT,d7
                 move.w  d7,((PLANE_B_SCROLL_SPEED_X-$1000000)).w
 loc_233AC:
                 
-                clr.w   d7
                 tst.b   ((MAP_AREA_LAYER2_AUTOSCROLL_Y-$1000000)).w
                 bne.s   loc_233BE
-                move.b  ((MAP_AREA_LAYER2_PARALLAX_Y-$1000000)).w,d7
-                mulu.w  d1,d7
-                lsr.w   #4,d7
+                move.w  d1,d7
+                mulu.w  ((MAP_AREA_LAYER2_PARALLAX_Y-$1000000)).w,d7
+                lsr.w   #BYTE_SHIFT_COUNT,d7
                 move.w  d7,((PLANE_B_SCROLL_SPEED_Y-$1000000)).w
 loc_233BE:
                 
@@ -863,7 +859,7 @@ loc_2340A:
                 
                 move.w  d0,d2
                 move.w  d1,d3
-                jsr     (SetViewDest).w
+                jsr     (SetViewDestination).w
                 rts
 
     ; End of function SetCursorDestinationToNextBattleEntity
@@ -904,8 +900,13 @@ loc_23448:
                 
                 move.w  d0,ENTITYDEF_OFFSET_XTRAVEL(a0)
                 move.w  d1,ENTITYDEF_OFFSET_YTRAVEL(a0)
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 move.b  d4,ENTITYDEF_OFFSET_XVELOCITY(a0)
                 move.b  d5,ENTITYDEF_OFFSET_YVELOCITY(a0)
+            else
+                move.w  d4,ENTITYDEF_OFFSET_XVELOCITY(a0)
+                move.w  d5,ENTITYDEF_OFFSET_YVELOCITY(a0)
+            endif
                 rts
 
     ; End of function sub_23414
@@ -920,7 +921,7 @@ SetEntityBlinkingFlag:
                 bsr.w   GetEntityIndexForCombatant
                 lsl.w   #ENTITYDEF_SIZE_BITS,d0
                 lea     ((ENTITY_DATA-$1000000)).w,a0
-                bset    #7,ENTITYDEF_OFFSET_FLAGS_B(a0,d0.w)
+                bset    #ENTITYDEF_FLAGS_B_BLINKING,ENTITYDEF_OFFSET_FLAGS_B(a0,d0.w)
                 movem.l (sp)+,d0/a0
                 rts
 
@@ -936,7 +937,7 @@ ClearEntityBlinkingFlag:
                 bsr.w   GetEntityIndexForCombatant
                 lsl.w   #ENTITYDEF_SIZE_BITS,d0
                 lea     ((ENTITY_DATA-$1000000)).w,a0
-                bclr    #7,ENTITYDEF_OFFSET_FLAGS_B(a0,d0.w)
+                bclr    #ENTITYDEF_FLAGS_B_BLINKING,ENTITYDEF_OFFSET_FLAGS_B(a0,d0.w)
                 movem.l (sp)+,d0/a0
                 rts
 
@@ -952,7 +953,7 @@ SetCameraDestination:
                 mulu.w  #MAP_TILE_SIZE,d3
                 movem.w d2-d3,-(sp)
                 movem.w (sp)+,d0-d1
-                jsr     (SetViewDest).w
+                jsr     (SetViewDestination).w
                 rts
 
     ; End of function SetCameraDestination
@@ -992,17 +993,35 @@ UpdateBattleEntityMapsprite:
                 addq.w  #2,d6
 @Continue:
                 
-                clr.w   d1
+            if (STANDARD_BUILD=1)
+              if (EXPANDED_MAPSPRITES=1)
                 move.w  ENTITYDEF_OFFSET_MAPSPRITE(a1),d1
-                cmpi.w  #MAPSPRITES_SPECIALS_START,d1
+              else
+                clr.w   d1
+                move.b  ENTITYDEF_OFFSET_MAPSPRITE(a1),d1
+              endif
+                bsr.w   IsSpecialSprite ; Out: CCR carry-bit clear if true
                 bcc.s   @Done
+                
+                clr.w   d1 ; clear register lower word before moving a byte from memory as good practice
+            else
                 clr.w   d1
+                move.b  ENTITYDEF_OFFSET_MAPSPRITE(a1),d1
+                cmpi.b  #MAPSPRITES_SPECIALS_START,d1
+                bhs.s   @Done
+            endif
                 move.b  ENTITYDEF_OFFSET_ENTNUM(a1),d1
-                cmpi.b  #$20,d1
+                cmpi.b  #32,d1
                 beq.s   @Done
-                move.w  d1,-(sp)
-                clr.w   d1
+                
+                move.w  d1,-(sp)        ; push entnum
+            if (STANDARD_BUILD&EXPANDED_MAPSPRITES=1)
                 move.w  ENTITYDEF_OFFSET_MAPSPRITE(a1),d1
+            else
+                clr.w   d1
+                move.b  ENTITYDEF_OFFSET_MAPSPRITE(a1),d1
+            endif
+                
                 move.w  d1,d0
                 add.w   d1,d1
                 add.w   d0,d1
@@ -1014,7 +1033,7 @@ UpdateBattleEntityMapsprite:
                 lea     (FF6802_LOADING_SPACE).l,a1
                 jsr     (LoadBasicCompressedData).w
                 movea.l a1,a0
-                move.w  (sp)+,d1
+                move.w  (sp)+,d1        ; pull entnum
                 move.w  d1,d0
                 lsl.w   #3,d1
                 add.w   d0,d1
@@ -1049,7 +1068,7 @@ WaitForCursorToStopMoving:
                 
                 move.l  d0,-(sp)
                 moveq   #ENTITY_CURSOR,d0
-                jsr     WaitForEntityToStopMoving
+                jsr     j_WaitForEntityToStopMoving
                 move.l  (sp)+,d0
                 rts
 
@@ -1128,6 +1147,7 @@ sprite_Cursor:
                 vdpSprite 146, V4|H4|15, 1712|FLIP|PALETTE3, 95
                 vdpSprite 146, V4|H4|16, 1712|MIRROR|FLIP|PALETTE3, 153
                 
+            if (STANDARD_BUILD&EXPANDED_RANGES=1)
                 ; Cursor radius 3
                 vdpSprite 38, V4|H4|9, 1680|PALETTE3, 124
                 vdpSprite 116, V4|H4|10, 1696|PALETTE3, 52
@@ -1147,6 +1167,7 @@ sprite_Cursor:
                 vdpSprite 56, V4|H4|14, 1712|MIRROR|PALETTE3, 177
                 vdpSprite 176, V4|H4|15, 1712|FLIP|PALETTE3, 71
                 vdpSprite 176, V4|H4|16, 1712|MIRROR|FLIP|PALETTE3, 177
+            endif
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -1198,12 +1219,12 @@ SetEntityPosition:
     ; End of function SetEntityPosition
 
 table_PixelOffsets_X:
-                dc.w MAP_TILE_SIZE
+                dc.w MAP_TILE_PLUS
 table_PixelOffsets_Y:
                 dc.w 0
                 dc.w 0
-                dc.w -MAP_TILE_SIZE
-                dc.w -MAP_TILE_SIZE
+                dc.w MAP_TILE_MINUS
+                dc.w MAP_TILE_MINUS
                 dc.w 0
                 dc.w 0
-                dc.w MAP_TILE_SIZE
+                dc.w MAP_TILE_PLUS

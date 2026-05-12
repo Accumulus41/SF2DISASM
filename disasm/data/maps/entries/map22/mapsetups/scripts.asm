@@ -6,17 +6,18 @@ cs_5994E:       textCursor 1792
                 setCamDest 10,0
                 nextText $0,134         ; "Are you ready?{W2}"
                 nextSingleText $0,134   ; "Now, start the battle!{N}Do your best!{W1}"
-                setF FLAG_BATTLE22_AVAILABLE   ; Battle 22 unlocked - BATTLE_CHESSBOARD                
-                warp MAP_CREED_DESKTOP_WORLD,0,0,RIGHT
+                setStoryFlag 22         ; Battle 22 unlocked - BATTLE_CHESSBOARD                
+                warp MAP_DESKTOP_KINGDOM,0,0,RIGHT
                 csc_end
 cs_5996E:       textCursor 1794
-                setCameraEntity 65535
+                setCameraEntity CAMERA_NEUTRAL
                 reloadMap 10,0
                 setPos ALLY_BOWIE,25,12,UP
                 setPos ALLY_PETER,24,13,UP
                 setPos FOLLOWER_B,25,13,UP
                 fadeInB
                 nextSingleText $0,134   ; "Checkmate!{N}This is for you.{W1}"
+                setCamDest 20,7
                 nextText $0,134         ; "A Cotton Balloon is inside.{W2}"
                 nextSingleText $0,134   ; "With it you can leave{N}Desktop Kingdom safely.{N}Good luck!{W1}"
                 csc_end
@@ -96,5 +97,5 @@ cs_599B2:       setActscriptWait ALLY_BOWIE,eas_Init
                 entityActionsWait 139
                  moveDown 6
                 endActions
-                warp MAP_CREED_FLOOR_WORLD,26,8,DOWN
+                warp MAP_FLOOR_WORLD,26,8,DOWN
                 csc_end
