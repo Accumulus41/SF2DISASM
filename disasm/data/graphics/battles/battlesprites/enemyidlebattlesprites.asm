@@ -7,17 +7,17 @@ table_AnimatedWhenIdleEnemyBattlesprites:
                 
 ; Syntax        enemyBattleSprite [ENEMYBATTLESPRITE_]enum (or index)
                 
-                enemyBattleSprite BURST_ROCK
-                enemyBattleSprite HYDRA
-                enemyBattleSprite HUNTER_GOBLIN
-                enemyBattleSprite ARROW_LAUNCHER
-                enemyBattleSprite MAGE
-                enemyBattleSprite WITCH
-                enemyBattleSprite WIZARD
-                enemyBattleSprite NECROMANCER
-                enemyBattleSprite CLERIC
-                enemyBattleSprite BISHOP
-                enemyBattleSprite SHAMAN
-                enemyBattleSprite PRISM_FLOWER
+                enemyBattleSprite SF2_STONE
+                enemyBattleSprite SF2_HYDRA
+                enemyBattleSprite SF2_SNIPER
+                enemyBattleSprite SF2_LAUNCHER
+                enemyBattleSprite SF2_MAGE
+                enemyBattleSprite SF2_WITCH
+                enemyBattleSprite SF2_WIZARD
+                enemyBattleSprite SF2_NECROMANCER
+                enemyBattleSprite SF2_CLERIC
+                enemyBattleSprite SF2_BISHOP
+                enemyBattleSprite SF2_SHAMAN
+                enemyBattleSprite SF2_FLOWER
                 
                 tableEnd.b

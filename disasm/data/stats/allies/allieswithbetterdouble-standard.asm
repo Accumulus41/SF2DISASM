@@ -6,6 +6,9 @@ table_AlliesWithBetterDouble:
                 
             if (STANDARD_BUILD&FIX_KARNA_INCREASED_DOUBLE>=2)
                 dc.b ALLY_SHEELA
+				dc.b 255
+				dc.b 255
+				dc.b 255
             endif
                 
                 tableEnd.b

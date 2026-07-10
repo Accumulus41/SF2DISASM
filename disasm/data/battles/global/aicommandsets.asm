@@ -28,6 +28,8 @@ AiCommandset00:
                              ATTACK1, &
                              MOVE1, &
                              STAY
+                            dc.b 255
+                            dc.b 255
 AiCommandset01: 
                 aiCommandset MOVE_ORDER1, &
                              HEAL1, &
@@ -35,6 +37,7 @@ AiCommandset01:
                              ATTACK1, &
                              MOVE2, &
                              STAY
+                            dc.b 255
 AiCommandset02: 
                 aiCommandset HEAL2, &
                              MOVE_ORDER4, &
@@ -42,6 +45,7 @@ AiCommandset02:
                              ATTACK3, &
                              MOVE2, &
                              STAY
+                            dc.b 255
 AiCommandset03: 
                 aiCommandset HEAL2, &
                              MOVE_ORDER4, &
@@ -49,6 +53,7 @@ AiCommandset03:
                              ATTACK3, &
                              MOVE1, &
                              STAY
+                            dc.b 255
 AiCommandset04: 
                 aiCommandset HEAL3, &
                              MOVE_ORDER5, &
@@ -56,6 +61,7 @@ AiCommandset04:
                              ATTACK2, &
                              MOVE3, &
                              STAY
+                            dc.b 255
 AiCommandset05: 
                 aiCommandset HEAL3, &
                              MOVE_ORDER5, &
@@ -63,12 +69,15 @@ AiCommandset05:
                              ATTACK2, &
                              MOVE3, &
                              STAY
+                            dc.b 255
 AiCommandset06: 
                 aiCommandset ATTACK1, &
                              HEAL1, &
                              SUPPORT, &
                              MOVE1, &
                              STAY
+                            dc.b 255
+                            dc.b 255
 AiCommandset07: 
                 aiCommandset MOVE_ORDER1, &
                              ATTACK1, &
@@ -76,13 +85,15 @@ AiCommandset07:
                              SUPPORT, &
                              MOVE1, &
                              STAY
+                            dc.b 255
 AiCommandset08: 
                 aiCommandset ATTACK1, &
                              HEAL1, &
                              SUPPORT, &
                              STAY
-AiCommandset10: 
-                aiCommandset STAY
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
 AiCommandset09: 
                 aiCommandset MOVE_ORDER3, &
                              ATTACK3, &
@@ -91,6 +102,23 @@ AiCommandset09:
                              MOVE_ORDER4, &
                              MOVE2, &
                              STAY
+AiCommandset10: 
+                aiCommandset STAY
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+AiCommandset11: 
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
 AiCommandset12: 
                 aiCommandset MOVE_ORDER4, &
                              SUPPORT, &
@@ -107,6 +135,15 @@ AiCommandset13:
                              MOVE_ORDER2, &
                              MOVE3, &
                              STAY
+AiCommandset14: 
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
 AiCommandset15: 
                 aiCommandset MOVE_ORDER1, &
                              ATTACK3, &

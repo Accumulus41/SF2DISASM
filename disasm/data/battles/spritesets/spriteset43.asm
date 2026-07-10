@@ -121,7 +121,7 @@ BattleSpriteset43:
                 combatantAiAndItem ATTACKER1, NOTHING
                 combatantBehavior NONE, 15, NONE, 15, 0, STARTING
                 
-                enemyCombatant BLUE_SHAMAN_0, 12, 7
+                enemyCombatant BLUE_SHAMAN, 12, 7
                 combatantAiAndItem HEALER5, HEALING_RAIN|USABLE_BY_AI|UNUSED_ITEM_DROP
                 combatantBehavior MOVE_TO|1, 0, NONE, 15, 0, STARTING
                 

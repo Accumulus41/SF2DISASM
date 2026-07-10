@@ -8,6 +8,10 @@ table_RandomAttackSpellsForWeapons:
                 
                 ; Attack is replaced with Bolt level 2 with 100% chance while the Taros Sword is equipped.
                 ;dc.b ITEM_TAROS_SWORD, 0, 0, -1, -1, SPELL_BOLT
+				dc.b 255, 255, 255, 255, 255, 255
+				dc.b 255, 255, 255, 255, 255, 255
+				dc.b 255, 255, 255, 255, 255, 255
+				dc.b 255, 255, 255, 255, 255, 255
                 
                 tableEnd.b
 
@@ -19,6 +23,9 @@ table_RandomAttackSpellsForClasses:
                 
                 ; Kiwi's flame breath replaces Kiwi's attack with 25% chance, upgrading at promoted levels 12, 20, and 30.
                 dc.b CLASS_MNST, 64, 32, 40, 50, SPELL_KIWI
+				dc.b 255, 255, 255, 255, 255, 255
+				dc.b 255, 255, 255, 255, 255, 255
+				dc.b 255, 255, 255, 255, 255, 255
                 
                 tableEnd.b
 
@@ -30,5 +37,9 @@ table_RandomAttackSpellsForEnemies:
                 
                 ; Odd Eye Beam level 1 replaces Odd Eye's attack with 50% chance.
                 ;dc.b ENEMY_ODD_EYE, 128, -1, -1, -1, SPELL_ODDEYE
+				dc.b 255, 255, 255, 255, 255, 255
+				dc.b 255, 255, 255, 255, 255, 255
+				dc.b 255, 255, 255, 255, 255, 255
+				dc.b 255, 255, 255, 255, 255, 255
                 
                 tableEnd.b

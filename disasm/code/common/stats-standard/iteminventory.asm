@@ -100,7 +100,7 @@ DiscardItem:
 @loc_2:         move.b  #ITEM_SUBMENU_ACTION_GIVE,(CURRENT_ITEM_SUBMENU_ACTION).l
                 jsr     ExecuteMembersListScreenOnItemSummaryPage
                 tst.w   d0
-                beq.s   @loc_2
+                bmi.s   @loc_2
                 
                 move.w  d0,member(a6)
                 move.w  d1,itemSlot(a6)

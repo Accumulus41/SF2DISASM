@@ -6,5 +6,7 @@ table_NewGameAllies:
                 
                 ; Ally index
                 dc.b ALLY_BOWIE
+                dc.b 255
+                dc.b 255
                 
                 tableEnd.b

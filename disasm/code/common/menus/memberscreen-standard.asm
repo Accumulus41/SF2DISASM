@@ -1407,4 +1407,4 @@ table_MoveTypeNames:
                 
                 align
                 
-tiles_ElementIcons: incbin "data\graphics\tech\elementtiles-standard.bin"
+tiles_ElementIcons: include "data\graphics\tech\elementtiles-standard.asm"

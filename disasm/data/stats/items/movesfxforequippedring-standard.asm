@@ -6,5 +6,7 @@ table_MoveSfxForEquippedRing:
                 
                 ; Item index, SFX index
                 dc.b ITEM_CHIRRUP_SANDALS, SFX_BLOAB
+				dc.b 255, 255
+				dc.b 255, 255
 
                 tableEnd.b

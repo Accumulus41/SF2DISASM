@@ -7,11 +7,11 @@ table_AnimatedWhenIdleAllyBattlesprites:
                 
 ; Syntax        allyBattleSprite [ALLYBATTLESPRITE_]enum (or index)
                 
-                allyBattleSprite PRST
-                allyBattleSprite MAGE
-                allyBattleSprite SORC_MALE
-                allyBattleSprite WIZ
-                allyBattleSprite GLM
-                allyBattleSprite VICR
+                allyBattleSprite SF2_PRST
+                allyBattleSprite SF2_MAGE
+                allyBattleSprite SF2_SORC
+                allyBattleSprite SF2_WIZ
+                allyBattleSprite SF2_GLM
+                allyBattleSprite SF2_VICR
                 
                 tableEnd.b

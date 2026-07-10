@@ -2,9 +2,9 @@
 ; ASM FILE data\maps\entries\map67\mapsetups\s3_zoneevents.asm :
 ; 0x4FB0C..0x4FCCE : 
 ms_map67_ZoneEvents:
-                msZoneEvent 57, 25, Map67_ZoneEvent0-ms_map67_ZoneEvents
-                msZoneEvent 56, 26, Map67_ZoneEvent1-ms_map67_ZoneEvents
-                msZoneEvent 57, 26, Map67_ZoneEvent1-ms_map67_ZoneEvents
+                msZoneEvent 57, 24, Map67_ZoneEvent0-ms_map67_ZoneEvents
+                msZoneEvent 57, 27, Map67_ZoneEvent1-ms_map67_ZoneEvents
+                msZoneEvent 58, 26, Map67_ZoneEvent1-ms_map67_ZoneEvents
                 msZoneEvent 58, 24, Map67_ZoneEvent1-ms_map67_ZoneEvents
                 msZoneEvent 58, 25, Map67_ZoneEvent1-ms_map67_ZoneEvents
                 msDefaultZoneEvent Map67_DefaultZoneEvent-ms_map67_ZoneEvents

@@ -5,8 +5,8 @@
 table_SpecialCriticalHitsForClasses:
                 
                 ; Class index, n/256 chance to crit, ally animation index
-                dc.w CLASS_MMNK, 16, ALLYBATTLEANIMATION_SPECIAL_MMNK
-                dc.w CLASS_RBT, 16, ALLYBATTLEANIMATION_SPECIAL_RBT
+                dc.w CLASS_MMNK, 16, ALLYBATTLEANIMATION_SPECIAL_SF2_MMNK
+                dc.w CLASS_RBT, 16, ALLYBATTLEANIMATION_SPECIAL_SF2_RBT
                 
                 tableEnd
 
@@ -23,7 +23,7 @@ table_SpecialCriticalHitsForEnemies:
 table_UnarmedAttackAnimationsForClasses:
                 
                 ; Class index, spell animation index, ally animation index
-                dc.w CLASS_BRGN, SPELLANIMATION_NONE, ALLYBATTLEANIMATION_SPECIAL_BRGN
+                dc.w CLASS_BRGN, SPELLANIMATION_NONE, ALLYBATTLEANIMATION_SPECIAL_SF2_BRGN
                 
                 tableEnd
 
@@ -38,7 +38,7 @@ table_UnarmedAttackAnimationsForEnemies:
 ; Classes that use a special animation when casting spells.
 table_SpellcastAnimationsForClasses:
                 
-                dc.w CLASS_MNST, ALLYBATTLEANIMATION_SPECIAL_MNST
+                dc.w CLASS_MNST, ALLYBATTLEANIMATION_SPECIAL_SF2_MNST
                 
                 tableEnd
 

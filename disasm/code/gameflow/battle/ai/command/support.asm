@@ -105,18 +105,18 @@ aiCommand_Support:
                 
             if (STANDARD_BUILD&SUPPORT_AI_ENHANCEMENTS=1)
                 bsr.w   InitializeMovementArrays     
-                bsr.w   PopulateMovementArrays
+                bsr.w   BuildMovementArrays
                 btst    #SPELLPROPS_BIT_TARGETING,d5
                 bne.s   @TargetTeammates
                 clr.w   d3
                                          
-                bsr.w   UpdateBattleTerrainOccupiedByEnemies
-                bsr.w   PopulateTargetsArrayWithAllies
+                bsr.w   UpdateOccupiedByEnemiesTerrain
+                bsr.w   BuildTargetsArrayWithAllies
                 bra.s   @MakeTargetsList
 @TargetTeammates:
                 move.w  #$FFFF,d3
-                bsr.w   UpdateBattleTerrainOccupiedByAllies
-                bsr.w   PopulateTargetsArrayWithEnemies
+                bsr.w   UpdateOccupiedByAlliesTerrain
+                bsr.w   BuildTargetsArrayWithEnemies
             else
                 clr.w   d0
                 btst    #SPELLPROPS_BIT_TARGETING,d5

@@ -6,5 +6,11 @@ table_HealerClasses:
                 dc.b CLASS_PRST
                 dc.b CLASS_VICR
                 dc.b CLASS_MMNK
+                dc.b 255
+                dc.b 255
+                dc.b 255
+                dc.b 255
+                dc.b 255
+                dc.b 255
                 
                 tableEnd.b

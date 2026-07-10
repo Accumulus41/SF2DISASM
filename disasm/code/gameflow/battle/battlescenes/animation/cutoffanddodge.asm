@@ -53,7 +53,7 @@ SetupDodge:
                 
                 btst    #SPELLANIMATION_BIT_MIRRORED,((SPELLANIMATION_VARIATION_AND_MIRRORED_BIT-$1000000)).w
                 beq.s   @NotMirrored
-                cmpi.w  #ENEMYBATTLESPRITE_ZEON,((BATTLESCENE_ENEMYBATTLESPRITE-$1000000)).w 
+                cmpi.w  #ENEMYBATTLESPRITE_SF2_ZEON,((BATTLESCENE_ENEMYBATTLESPRITE-$1000000)).w 
                 bne.s   @Continue
                 rts
 @Continue:

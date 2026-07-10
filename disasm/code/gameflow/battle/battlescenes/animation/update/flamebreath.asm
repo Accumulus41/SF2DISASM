@@ -25,13 +25,13 @@ loc_1D2F6:
                 beq.w   loc_1D33C
                 addq.w  #VDP_SPELL_ENTRY_SIZE,a0
                 move.w  ((BATTLESCENE_ENEMYBATTLESPRITE-$1000000)).w,d2
-                cmpi.w  #ENEMYBATTLESPRITE_CERBERUS,d2
+                cmpi.w  #ENEMYBATTLESPRITE_SF2_HOUND,d2
                 beq.w   loc_1D33C
                 addq.w  #VDP_SPELL_ENTRY_SIZE,a0
-                cmpi.w  #ENEMYBATTLESPRITE_HYDRA,d2
+                cmpi.w  #ENEMYBATTLESPRITE_SF2_HYDRA,d2
                 beq.w   loc_1D33C
                 addq.w  #VDP_SPELL_ENTRY_SIZE,a0
-                cmpi.w  #ENEMYBATTLESPRITE_WYVERN,d2
+                cmpi.w  #ENEMYBATTLESPRITE_SF2_WYVERN,d2
                 beq.w   loc_1D33C
                 addq.w  #VDP_SPELL_ENTRY_SIZE,a0
 loc_1D33C:

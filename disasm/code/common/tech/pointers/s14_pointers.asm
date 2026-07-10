@@ -5,7 +5,7 @@ p_pt_Grounds:   dc.l pt_Grounds
 p_pt_Weaponsprites:
                 dc.l pt_Weaponsprites
 p_WeaponPalettes:
-                dc.l WeaponPalette00
+                dc.l WeaponPaletteSHORT_AXE
 p_pt_SpellGraphics:
                 dc.l pt_SpellGraphics
 p_palette_Witch:dc.l palette_Witch

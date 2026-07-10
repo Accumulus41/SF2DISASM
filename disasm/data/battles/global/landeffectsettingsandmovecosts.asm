@@ -241,3 +241,57 @@ table_LandEffectSettingsAndMoveCosts:
                 landEffectAndMoveCost OBSTRUCTED
                 landEffectAndMoveCost OBSTRUCTED
                 
+; 13:
+                landEffectAndMoveCost OBSTRUCTED    ; 0: Low Sky
+                landEffectAndMoveCost OBSTRUCTED    ; 1: Plains
+                landEffectAndMoveCost OBSTRUCTED    ; 2: Path
+                landEffectAndMoveCost OBSTRUCTED    ; 3: Grass
+                landEffectAndMoveCost OBSTRUCTED    ; 4: Forest
+                landEffectAndMoveCost OBSTRUCTED    ; 5: Hills
+                landEffectAndMoveCost OBSTRUCTED    ; 6: Desert
+                landEffectAndMoveCost OBSTRUCTED    ; 7: High Sky
+                landEffectAndMoveCost OBSTRUCTED    ; 8: Water
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                
+; 14:
+                landEffectAndMoveCost OBSTRUCTED    ; 0: Low Sky
+                landEffectAndMoveCost OBSTRUCTED    ; 1: Plains
+                landEffectAndMoveCost OBSTRUCTED    ; 2: Path
+                landEffectAndMoveCost OBSTRUCTED    ; 3: Grass
+                landEffectAndMoveCost OBSTRUCTED    ; 4: Forest
+                landEffectAndMoveCost OBSTRUCTED    ; 5: Hills
+                landEffectAndMoveCost OBSTRUCTED    ; 6: Desert
+                landEffectAndMoveCost OBSTRUCTED    ; 7: High Sky
+                landEffectAndMoveCost OBSTRUCTED    ; 8: Water
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                
+; 15:
+                landEffectAndMoveCost OBSTRUCTED    ; 0: Low Sky
+                landEffectAndMoveCost OBSTRUCTED    ; 1: Plains
+                landEffectAndMoveCost OBSTRUCTED    ; 2: Path
+                landEffectAndMoveCost OBSTRUCTED    ; 3: Grass
+                landEffectAndMoveCost OBSTRUCTED    ; 4: Forest
+                landEffectAndMoveCost OBSTRUCTED    ; 5: Hills
+                landEffectAndMoveCost OBSTRUCTED    ; 6: Desert
+                landEffectAndMoveCost OBSTRUCTED    ; 7: High Sky
+                landEffectAndMoveCost OBSTRUCTED    ; 8: Water
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                landEffectAndMoveCost OBSTRUCTED
+                

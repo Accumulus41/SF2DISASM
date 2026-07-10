@@ -6,6 +6,8 @@
 table_EgressItems:
                 
                 dc.b ITEM_ANGEL_WING
+                dc.b 255, 255
+                dc.b 255, 255
                 
                 tableEnd.b
 
@@ -15,6 +17,8 @@ table_EgressItems:
 table_EgressSpells:
                 
                 dc.b SPELL_EGRESS
+                dc.b 255, 255
+                dc.b 255, 255
                 
                 tableEnd.b
 

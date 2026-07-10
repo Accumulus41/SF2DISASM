@@ -17,11 +17,11 @@
         conditionalAlign $400000
         objIfMemoryMapper $200000
         include "data\graphics\battles\battlesprites\enemies\entries.asm"   ; Enemy battlesprites
-        align
+        align $2000
         include "data\graphics\battles\battlesprites\allies\entries.asm"    ; Ally battlesprites
-        align
+        align $2000
         include "data\graphics\battles\weapons\entries.asm"                 ; Battlescene Weapons
-        align
+        align $400
         include "data\graphics\battles\weapons\palettes\entries.asm"        ; Battlescene Weapon Palettes
         objendIfMemoryMapper
         conditionalAlign $600000, $400000

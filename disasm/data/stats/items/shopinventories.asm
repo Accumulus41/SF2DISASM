@@ -7,14 +7,27 @@ list_ShopInventories:
 ;
 ; Note: Constant names ("enums"), shorthands (defined by macro), and numerical indexes are interchangeable.
                 
-                ; Weapon shop 1
+                ; Weapon shop Granseal
                 shopInventory SHORT_SWORD, &
                               SHORT_SPEAR, &
                               SHORT_AXE, &
                               WOODEN_ROD, &
                               SHORT_KNIFE
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Weapon shop 2
+                ; Weapon shop Galam 0
                 shopInventory SHORT_SWORD, &
                               SHORT_SPEAR, &
                               BRONZE_LANCE, &
@@ -22,8 +35,19 @@ list_ShopInventories:
                               WOODEN_ROD, &
                               SHORT_ROD, &
                               SHORT_KNIFE
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Weapon shop 3
+                ; Weapon shop New Granseal 0
                 shopInventory SHORT_SWORD, &
                               MIDDLE_SWORD, &
                               BRONZE_LANCE, &
@@ -33,8 +57,17 @@ list_ShopInventories:
                               WOODEN_ROD, &
                               SHORT_ROD, &
                               SHORT_KNIFE
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Weapon shop 4
+                ; Weapon shop Ribble
                 shopInventory SHORT_SWORD, &
                               MIDDLE_SWORD, &
                               BRONZE_LANCE, &
@@ -46,8 +79,15 @@ list_ShopInventories:
                               SHORT_KNIFE, &
                               DAGGER, &
                               WOODEN_ARROW
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Weapon shop 5
+                ; Weapon shop Polca
                 shopInventory MIDDLE_SWORD, &
                               LONG_SWORD, &
                               BRONZE_LANCE, &
@@ -59,8 +99,15 @@ list_ShopInventories:
                               SHORT_KNIFE, &
                               DAGGER, &
                               WOODEN_ARROW
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Weapon shop 6
+                ; Weapon shop Bedoe
                 shopInventory MIDDLE_SWORD, &
                               LONG_SWORD, &
                               SPEAR, &
@@ -73,8 +120,14 @@ list_ShopInventories:
                               KNIFE, &
                               WOODEN_ARROW, &
                               IRON_ARROW
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Weapon shop 7
+                ; Weapon shop Hassan 0
                 shopInventory LONG_SWORD, &
                               STEEL_SWORD, &
                               SPEAR, &
@@ -87,16 +140,34 @@ list_ShopInventories:
                               THIEVES_DAGGER, &
                               IRON_ARROW, &
                               STEEL_ARROW
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Weapon shop 8
+                ; Weapon shop Hassan 1
                 shopInventory BROAD_SWORD, &
                               BATTLE_AXE, &
                               POWER_SPEAR, &
                               ROBIN_ARROW, &
                               FLAIL, &
                               LEATHER_GLOVE
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Weapon shop 9
+                ; Weapon shop New Granseal 1
                 shopInventory BROAD_SWORD, &
                               BUSTER_SWORD, &
                               HEAVY_LANCE, &
@@ -107,8 +178,16 @@ list_ShopInventories:
                               GUARDIAN_STAFF, &
                               LEATHER_GLOVE, &
                               POWER_GLOVE
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Weapon shop 10
+                ; Weapon shop Ketto
                 shopInventory BROAD_SWORD, &
                               BUSTER_SWORD, &
                               HEAVY_LANCE, &
@@ -119,8 +198,16 @@ list_ShopInventories:
                               GUARDIAN_STAFF, &
                               INDRA_STAFF, &
                               POWER_GLOVE
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Weapon shop 11
+                ; Weapon shop Pacalon
                 shopInventory BUSTER_SWORD, &
                               GREAT_SWORD, &
                               HEAVY_LANCE, &
@@ -131,8 +218,16 @@ list_ShopInventories:
                               GUARDIAN_STAFF, &
                               INDRA_STAFF, &
                               POWER_GLOVE
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Weapon shop 12
+                ; Weapon shop Tristan
                 shopInventory BUSTER_SWORD, &
                               GREAT_SWORD, &
                               JAVELIN, &
@@ -145,8 +240,14 @@ list_ShopInventories:
                               INDRA_STAFF, &
                               POWER_GLOVE, &
                               BRASS_KNUCKLES
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Weapon shop 13
+                ; Weapon shop Moun
                 shopInventory BUSTER_SWORD, &
                               GREAT_SWORD, &
                               JAVELIN, &
@@ -159,8 +260,14 @@ list_ShopInventories:
                               INDRA_STAFF, &
                               BRASS_KNUCKLES, &
                               IRON_KNUCKLES
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Weapon shop 14
+                ; Weapon shop Roft
                 shopInventory BUSTER_SWORD, &
                               GREAT_SWORD, &
                               JAVELIN, &
@@ -173,8 +280,14 @@ list_ShopInventories:
                               INDRA_STAFF, &
                               BRASS_KNUCKLES, &
                               IRON_KNUCKLES
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Weapon shop 15
+                ; Weapon shop Galam 1
                 shopInventory BUSTER_SWORD, &
                               GREAT_SWORD, &
                               JAVELIN, &
@@ -187,117 +300,351 @@ list_ShopInventories:
                               INDRA_STAFF, &
                               BRASS_KNUCKLES, &
                               IRON_KNUCKLES
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Item shop 1
+                ; Item shop Granseal
                 shopInventory MEDICAL_HERB, &
                               HEALING_SEED, &
                               ANTIDOTE, &
                               ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Item shop 2
+                ; Item shop Galam 0
                 shopInventory MEDICAL_HERB, &
                               HEALING_SEED, &
                               ANTIDOTE, &
                               ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Item shop 3
+                ; Item shop New Granseal 0
                 shopInventory MEDICAL_HERB, &
                               HEALING_SEED, &
                               ANTIDOTE, &
                               ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Item shop 4
-                shopInventory MEDICAL_HERB, &
-                              HEALING_SEED, &
-                              HEALING_DROP, &
-                              ANTIDOTE, &
-                              FAIRY_POWDER, &
-                              ANGEL_WING
-                
-                ; Item shop 5
-                shopInventory MEDICAL_HERB, &
-                              HEALING_SEED, &
-                              HEALING_DROP, &
-                              ANTIDOTE, &
-                              FAIRY_POWDER, &
-                              ANGEL_WING
-                
-                ; Item shop 6
-                shopInventory MEDICAL_HERB, &
-                              HEALING_SEED, &
-                              HEALING_DROP, &
-                              ANTIDOTE, &
-                              FAIRY_POWDER, &
-                              ANGEL_WING
-                
-                ; Item shop 7
-                shopInventory MEDICAL_HERB, &
-                              HEALING_SEED, &
-                              HEALING_DROP, &
-                              ANTIDOTE, &
-                              FAIRY_POWDER, &
-                              ANGEL_WING
-                
-                ; Item shop 8
-                shopInventory MEDICAL_HERB, &
-                              HEALING_SEED, &
-                              HEALING_DROP, &
-                              ANTIDOTE, &
-                              FAIRY_POWDER, &
-                              ANGEL_WING
-                
-                ; Item shop 9
-                shopInventory MEDICAL_HERB, &
-                              HEALING_SEED, &
-                              HEALING_DROP, &
-                              ANTIDOTE, &
-                              FAIRY_POWDER, &
-                              ANGEL_WING
-                
-                ; Item shop 10
-                shopInventory MEDICAL_HERB, &
-                              HEALING_SEED, &
-                              HEALING_DROP, &
-                              ANTIDOTE, &
-                              FAIRY_POWDER, &
-                              ANGEL_WING
-                
-                ; Item shop 11
+                ; Item shop Ribble
                 shopInventory MEDICAL_HERB, &
                               HEALING_SEED, &
                               HEALING_DROP, &
                               ANTIDOTE, &
                               FAIRY_POWDER, &
                               ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Item shop 12
+                ; Item shop Polca
                 shopInventory MEDICAL_HERB, &
                               HEALING_SEED, &
                               HEALING_DROP, &
                               ANTIDOTE, &
                               FAIRY_POWDER, &
                               ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Item shop 13
+                ; Item shop Bedoe
                 shopInventory MEDICAL_HERB, &
                               HEALING_SEED, &
                               HEALING_DROP, &
                               ANTIDOTE, &
                               FAIRY_POWDER, &
                               ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Item shop 14
+                ; Item shop Hassan
                 shopInventory MEDICAL_HERB, &
                               HEALING_SEED, &
                               HEALING_DROP, &
                               ANTIDOTE, &
                               FAIRY_POWDER, &
                               ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
                 
-                ; Item shop 15
+                ; Item shop Miniatures
                 shopInventory MEDICAL_HERB, &
                               HEALING_SEED, &
                               HEALING_DROP, &
                               ANTIDOTE, &
                               FAIRY_POWDER, &
                               ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                
+                ; Item shop New Granseal 1
+                shopInventory MEDICAL_HERB, &
+                              HEALING_SEED, &
+                              HEALING_DROP, &
+                              ANTIDOTE, &
+                              FAIRY_POWDER, &
+                              ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                
+                ; Item shop ???
+                shopInventory MEDICAL_HERB, &
+                              HEALING_SEED, &
+                              HEALING_DROP, &
+                              ANTIDOTE, &
+                              FAIRY_POWDER, &
+                              ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                
+                ; Item shop Pacalon
+                shopInventory MEDICAL_HERB, &
+                              HEALING_SEED, &
+                              HEALING_DROP, &
+                              ANTIDOTE, &
+                              FAIRY_POWDER, &
+                              ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                
+                ; Item shop Tristan
+                shopInventory MEDICAL_HERB, &
+                              HEALING_SEED, &
+                              HEALING_DROP, &
+                              ANTIDOTE, &
+                              FAIRY_POWDER, &
+                              ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                
+                ; Item shop Moun & Kett0
+                shopInventory MEDICAL_HERB, &
+                              HEALING_SEED, &
+                              HEALING_DROP, &
+                              ANTIDOTE, &
+                              FAIRY_POWDER, &
+                              ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                
+                ; Item shop Dwarven Village & Roft
+                shopInventory MEDICAL_HERB, &
+                              HEALING_SEED, &
+                              HEALING_DROP, &
+                              ANTIDOTE, &
+                              FAIRY_POWDER, &
+                              ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                
+                ; Item shop Gallam 1
+                shopInventory MEDICAL_HERB, &
+                              HEALING_SEED, &
+                              HEALING_DROP, &
+                              ANTIDOTE, &
+                              FAIRY_POWDER, &
+                              ANGEL_WING
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                
+                ; Other shop 
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                
+                ; Other shop 
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255
+                            dc.b 255

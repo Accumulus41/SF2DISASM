@@ -3,9 +3,9 @@
 ; 0x1D8000..0x1D8004 : Game Section 16 Icons Pointer
 
     if (STANDARD_BUILD=1)
-p_ItemIcons:    dc.l ItemIcon000
-p_SpellIcons:   dc.l SpellIcon000
-p_OtherIcons:   dc.l OtherIcon000
+p_ItemIcons:    dc.l ItemIconMEDICAL_HERB
+p_SpellIcons:   dc.l SpellIconHEAL
+p_OtherIcons:   dc.l OtherIconBLANK
     else
-p_Icons:        dc.l ItemIcon000
+p_Icons:        dc.l ItemIconMEDICAL_HERB
     endif

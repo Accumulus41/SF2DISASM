@@ -10,7 +10,7 @@ PopulatePrioritiesListForSpell_Dispel:
                 
                 movem.l d0-a6,-(sp)
                 move.w  d0,d7
-                move.w    d1,d3
+                move.w  d1,d3
                 bsr.w   GetTargetsReachableBySpell
                 lea     ((TARGETS_REACHABLE_BY_SPELL_NUMBER-$1000000)).w,a0
                 move.w  (a0),d0
@@ -27,8 +27,8 @@ PopulatePrioritiesListForSpell_Dispel:
                 
                 clr.w   d0
                 move.b  (a1)+,d0
-                move.w    d3,d1
-                bsr.w   PopulateTargetableGrid
+                move.w  d3,d1
+                bsr.w   PopulateTargetsList
                 bsr.w   CalculateTargetPriorityForSpell_Dispel
                 move.b  d1,(a2)+
                 dbf     d5,@GetTargetsPriority_Loop
@@ -116,8 +116,8 @@ MakePrioritiesListForSpell_Muddle2:
                 
                 clr.w   d0
                 move.b  (a1)+,d0
-                move.w    d3,d1
-                bsr.w   PopulateTargetableGrid
+                move.w  d3,d1
+                bsr.w   PopulateTargetsList
                 move.w  (a3),d2         ; d2.w = number of targets in area of effect
                 move.b  d2,(a2)+
                 dbf     d5,@GetTargetsPriority_Loop

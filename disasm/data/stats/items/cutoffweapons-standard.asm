@@ -5,5 +5,9 @@
 table_CutOffWeapons:
                 
                 dc.b ITEM_GISARME
+                dc.b 255
+                dc.b 255
+                dc.b 255
+                dc.b 255
                 
                 tableEnd.b

@@ -12,7 +12,7 @@ spellanimationSetup_PrismLaser:
                 bsr.w   LoadSpellTileset
                 moveq   #1,d0
                 jsr     sub_1A2F6(pc)   
-                cmpi.w  #ENEMYBATTLESPRITE_PRISM_FLOWER,((BATTLESCENE_ENEMYBATTLESPRITE-$1000000)).w 
+                cmpi.w  #ENEMYBATTLESPRITE_SF2_FLOWER,((BATTLESCENE_ENEMYBATTLESPRITE-$1000000)).w 
                                                         ; HARDCODED Prism Flower enemy battle sprite
                 bne.s   loc_1B426
                 move.w  #40,4(a0) ; a0 references some iteration of SPELLANIMATION_PROPERTIES

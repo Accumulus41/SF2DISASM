@@ -35,7 +35,7 @@ table_EnemyDefinitions:
 ;
 ; Note: Constant names ("enums"), shorthands (defined by macro), and numerical indexes are interchangeable.
                 
-                unknownByte 0           ; 0: OOZE
+                unknownByte 0           ; OOZE
                 spellPower REGULAR
                 level    0
                 maxHp    9
@@ -60,7 +60,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 1           ; 1: HUGE RAT
+                unknownByte 1           ; HUGE RAT
                 spellPower REGULAR
                 level    0
                 maxHp    10
@@ -85,7 +85,7 @@ table_EnemyDefinitions:
                 movetype      STEALTH
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 2           ; 2: GALAM SOLDIER
+                unknownByte 2           ; GALAM SOLDIER
                 spellPower REGULAR
                 level    2
                 maxHp    11
@@ -110,7 +110,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 3           ; 3: GALAM KNIGHT
+                unknownByte 3           ; GALAM KNIGHT
                 spellPower REGULAR
                 level    3
                 maxHp    16
@@ -135,7 +135,7 @@ table_EnemyDefinitions:
                 movetype      CENTAUR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 4           ; 4: GOBLIN
+                unknownByte 4           ; GOBLIN
                 spellPower REGULAR
                 level    6
                 maxHp    18
@@ -160,7 +160,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 5           ; 5: GREEN OOZE
+                unknownByte 5           ; GREEN OOZE
                 spellPower REGULAR
                 level    5
                 maxHp    17
@@ -185,7 +185,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 6           ; 6: DARK DWARF
+                unknownByte 6           ; DARK DWARF
                 spellPower REGULAR
                 level    7
                 maxHp    21
@@ -210,7 +210,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 7           ; 7: HOBGOBLIN
+                unknownByte 7           ; HOBGOBLIN
                 spellPower REGULAR
                 level    9
                 maxHp    21
@@ -235,7 +235,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 8           ; 8: ZOMBIE
+                unknownByte 8           ; ZOMBIE
                 spellPower REGULAR
                 level    11
                 maxHp    27
@@ -260,7 +260,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 9           ; 9: GOLEM
+                unknownByte 9           ; GOLEM
                 spellPower REGULAR
                 level    12
                 maxHp    24
@@ -285,32 +285,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 10          ; 10: KRAKEN LEG
-                spellPower REGULAR
-                level    14
-                maxHp    24
-                maxMp    0
-                baseAtt  31
-                baseDef  26
-                baseAgi  19
-                baseMov  6
-                baseresistance WIND_NONE|LIGHTNING_WEAKNESS|ICE_WEAKNESS|FIRE_MINOR|NEUTRAL_NONE|STATUS_NONE
-                baseProwess    CRITICAL150_1IN4|DOUBLE_1IN16|COUNTER_1IN16
-                items &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                spells &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                initialStatus NONE
-                movetype      AQUATIC
-                aiBitfield    PRIORITYMOD_2|BIT5
-                
-                unknownByte 11          ; 11: SOULSOWER
+                unknownByte 11          ; SOULSOWER
                 spellPower REGULAR
                 level    16
                 maxHp    27
@@ -335,7 +310,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 12          ; 12: ORC
+                unknownByte 12          ; ORC
                 spellPower REGULAR
                 level    17
                 maxHp    30
@@ -360,82 +335,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 13          ; 13: PAWN
-                spellPower ENHANCED
-                level    19
-                maxHp    36
-                maxMp    0
-                baseAtt  26
-                baseDef  37
-                baseAgi  25
-                baseMov  6
-                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_IMMUNITY
-                baseProwess    CRITICAL150_1IN8|DOUBLE_1IN32|COUNTER_1IN16
-                items &
-                    BATTLE_AXE|EQUIPPED, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                spells &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                initialStatus NONE
-                movetype      REGULAR
-                aiBitfield    PRIORITYMOD_2|BIT5
-                
-                unknownByte 14          ; 14: KNIGHT
-                spellPower ENHANCED
-                level    20
-                maxHp    48
-                maxMp    0
-                baseAtt  25
-                baseDef  34
-                baseAgi  29
-                baseMov  7
-                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_IMMUNITY
-                baseProwess    CRITICAL150_1IN4|DOUBLE_1IN16|COUNTER_1IN16
-                items &
-                    POWER_SPEAR|EQUIPPED, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                spells &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                initialStatus NONE
-                movetype      REGULAR
-                aiBitfield    PRIORITYMOD_2|BIT5
-                
-                unknownByte 15          ; 15: RAT
-                spellPower REGULAR
-                level    22
-                maxHp    41
-                maxMp    0
-                baseAtt  45
-                baseDef  32
-                baseAgi  30
-                baseMov  6
-                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
-                baseProwess    CRITICAL150_1IN32|DOUBLE_1IN32|COUNTER_1IN16
-                items &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                spells &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                initialStatus NONE
-                movetype      STEALTH
-                aiBitfield    PRIORITYMOD_2|BIT5
-                
-                unknownByte 16          ; 16: BUBBLING OOZE
+                unknownByte 16          ; BUBBLING OOZE
                 spellPower REGULAR
                 level    21
                 maxHp    32
@@ -460,7 +360,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 17          ; 17: SKELETON
+                unknownByte 17          ; SKELETON
                 spellPower ENHANCED
                 level    21
                 maxHp    30
@@ -485,7 +385,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 18          ; 18: DARK SOLDIER
+                unknownByte 18          ; DARK SOLDIER
                 spellPower ENHANCED
                 level    23
                 maxHp    35
@@ -510,7 +410,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 19          ; 19: LIZARDMAN
+                unknownByte 19          ; LIZARDMAN
                 spellPower ENHANCED
                 level    24
                 maxHp    40
@@ -535,7 +435,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 20          ; 20: WORM
+                unknownByte 20          ; WORM
                 spellPower ENHANCED
                 level    25
                 maxHp    45
@@ -560,7 +460,7 @@ table_EnemyDefinitions:
                 movetype      STEALTH
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 21          ; 21: DARK KNIGHT
+                unknownByte 21          ; DARK KNIGHT
                 spellPower ENHANCED
                 level    27
                 maxHp    50
@@ -585,7 +485,7 @@ table_EnemyDefinitions:
                 movetype      CENTAUR
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 22          ; 22: ORC LORD
+                unknownByte 22          ; ORC LORD
                 spellPower ENHANCED
                 level    27
                 maxHp    46
@@ -610,7 +510,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 23          ; 23: DEVIL SOLDIER
+                unknownByte 23          ; DEVIL SOLDIER
                 spellPower ENHANCED
                 level    29
                 maxHp    60
@@ -635,7 +535,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 24          ; 24: CERBERUS
+                unknownByte 24          ; CERBERUS
                 spellPower ENHANCED
                 level    30
                 maxHp    51
@@ -660,7 +560,7 @@ table_EnemyDefinitions:
                 movetype      STEALTH
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 25          ; 25: MUD MAN
+                unknownByte 25          ; MUD MAN
                 spellPower ENHANCED
                 level    31
                 maxHp    55
@@ -685,7 +585,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 26          ; 26: DRAGONEWT
+                unknownByte 26          ; DRAGONEWT
                 spellPower ENHANCED
                 level    32
                 maxHp    60
@@ -710,7 +610,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 27          ; 27: PURPLE WORM
+                unknownByte 27          ; PURPLE WORM
                 spellPower ENHANCED
                 level    32
                 maxHp    58
@@ -735,7 +635,7 @@ table_EnemyDefinitions:
                 movetype      STEALTH
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 28          ; 28: EXECUTIONER
+                unknownByte 28          ; EXECUTIONER
                 spellPower ENHANCED
                 level    33
                 maxHp    64
@@ -760,7 +660,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 29          ; 29: HELL HOUND
+                unknownByte 29          ; HELL HOUND
                 spellPower ENHANCED
                 level    35
                 maxHp    62
@@ -785,7 +685,7 @@ table_EnemyDefinitions:
                 movetype      STEALTH
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 30          ; 30: MINOTAUR
+                unknownByte 30          ; MINOTAUR
                 spellPower ENHANCED
                 level    35
                 maxHp    58
@@ -810,7 +710,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 31          ; 31: CYCLOPS
+                unknownByte 31          ; CYCLOPS
                 spellPower ENHANCED
                 level    36
                 maxHp    64
@@ -835,32 +735,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 32          ; 32: BURST ROCK
-                spellPower ENHANCED
-                level    38
-                maxHp    45
-                maxMp    0
-                baseAtt  0
-                baseDef  60
-                baseAgi  43
-                baseMov  4
-                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
-                baseProwess    CRITICAL150_1IN32|DOUBLE_1IN32|COUNTER_1IN32
-                items &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                spells &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                initialStatus NONE
-                movetype      REGULAR
-                aiBitfield    PRIORITYMOD_2|BIT5
-                
-                unknownByte 33          ; 33: HYDRA
+                unknownByte 33          ; HYDRA
                 spellPower ENHANCED
                 level    39
                 maxHp    70
@@ -885,7 +760,7 @@ table_EnemyDefinitions:
                 movetype      STEALTH
                 aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 34          ; 34: CHAOS WARRIOR
+                unknownByte 34          ; CHAOS WARRIOR
                 spellPower ENHANCED
                 level    40
                 maxHp    76
@@ -910,7 +785,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 35          ; 35: REAPER
+                unknownByte 35          ; REAPER
                 spellPower ENHANCED
                 level    41
                 maxHp    82
@@ -935,7 +810,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 36          ; 36: EVIL BEAST
+                unknownByte 36          ; EVIL BEAST
                 spellPower ENHANCED
                 level    42
                 maxHp    84
@@ -960,7 +835,7 @@ table_EnemyDefinitions:
                 movetype      REGULAR
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 37          ; 37: PYROHYDRA
+                unknownByte 37          ; PYROHYDRA
                 spellPower ENHANCED
                 level    44
                 maxHp    80
@@ -985,32 +860,434 @@ table_EnemyDefinitions:
                 movetype      STEALTH
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 38          ; 38: ZEON GUARD
-                spellPower ENHANCED
-                level    45
-                maxHp    130
-                maxMp    150
-                baseAtt  109
-                baseDef  54
-                baseAgi  64
-                baseMov  5
-                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_MAJOR
-                baseProwess    CRITICAL_SLOW|DOUBLE_1IN16|COUNTER_1IN16
+                unknownByte 0           ; BLUE DRAGON
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
                 items &
                     NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 spells &
-                    DEMON, &
+                    NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 initialStatus NONE
                 movetype      REGULAR
-                aiBitfield    PRIORITYMOD_2
+                aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 39          ; 39: GIZMO
+                unknownByte 0           ; RATMAN
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; MARIONETTE
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; EVIL CLOWN
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; DULLAHAN
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+				
+;--------------------------------------------------------------------------------------------------------------------------------
+                
+                unknownByte 39          ; GIZMO
                 spellPower REGULAR
                 level    0
                 maxHp    5
@@ -1035,7 +1312,7 @@ table_EnemyDefinitions:
                 movetype      HOVERING
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 40          ; 40: HUGE BAT
+                unknownByte 40          ; HUGE BAT
                 spellPower REGULAR
                 level    0
                 maxHp    11
@@ -1060,7 +1337,7 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 41          ; 41: VAMPIRE BAT
+                unknownByte 41          ; VAMPIRE BAT
                 spellPower REGULAR
                 level    7
                 maxHp    20
@@ -1085,7 +1362,7 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 42          ; 42: EVIL CLOUD
+                unknownByte 42          ; EVIL CLOUD
                 spellPower REGULAR
                 level    10
                 maxHp    22
@@ -1110,7 +1387,7 @@ table_EnemyDefinitions:
                 movetype      HOVERING
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 43          ; 43: GARGOYLE
+                unknownByte 43          ; GARGOYLE
                 spellPower REGULAR
                 level    15
                 maxHp    29
@@ -1135,7 +1412,7 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2|BIT4|BIT5
                 
-                unknownByte 44          ; 44: HARPY
+                unknownByte 44          ; HARPY
                 spellPower REGULAR
                 level    17
                 maxHp    32
@@ -1160,7 +1437,7 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2|BIT4|BIT5
                 
-                unknownByte 45          ; 45: LESSER DEMON
+                unknownByte 45          ; LESSER DEMON
                 spellPower ENHANCED
                 level    22
                 maxHp    40
@@ -1185,7 +1462,7 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2|BIT4|BIT5
                 
-                unknownByte 46          ; 46: WYVERN
+                unknownByte 46          ; WYVERN
                 spellPower ENHANCED
                 level    26
                 maxHp    46
@@ -1210,7 +1487,7 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2|BIT4|BIT5
                 
-                unknownByte 47          ; 47: HARPY QUEEN
+                unknownByte 47          ; HARPY QUEEN
                 spellPower ENHANCED
                 level    27
                 maxHp    53
@@ -1235,7 +1512,7 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 48          ; 48: PEGASUS KNIGHT
+                unknownByte 48          ; PEGASUS KNIGHT
                 spellPower ENHANCED
                 level    30
                 maxHp    65
@@ -1260,7 +1537,7 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 49          ; 49: GRIFFIN
+                unknownByte 49          ; GRIFFIN
                 spellPower ENHANCED
                 level    32
                 maxHp    60
@@ -1285,7 +1562,7 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 50          ; 50: MIST DEMON
+                unknownByte 50          ; MIST DEMON
                 spellPower ENHANCED
                 level    36
                 maxHp    68
@@ -1310,7 +1587,7 @@ table_EnemyDefinitions:
                 movetype      HOVERING
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 51          ; 51: WHITE DRAGON
+                unknownByte 51          ; WHITE DRAGON
                 spellPower ENHANCED
                 level    38
                 maxHp    66
@@ -1335,7 +1612,7 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 52          ; 52: DEMON
+                unknownByte 52          ; DEMON
                 spellPower ENHANCED
                 level    40
                 maxHp    75
@@ -1360,7 +1637,7 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 53          ; 53: CHAOS DRAGON
+                unknownByte 53          ; CHAOS DRAGON
                 spellPower ENHANCED
                 level    41
                 maxHp    83
@@ -1385,7 +1662,7 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 54          ; 54: DEVIL GRIFFIN
+                unknownByte 54          ; DEVIL GRIFFIN
                 spellPower ENHANCED
                 level    42
                 maxHp    89
@@ -1410,7 +1687,7 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 55          ; 55: ARCH DEMON
+                unknownByte 55          ; ARCH DEMON
                 spellPower ENHANCED
                 level    44
                 maxHp    99
@@ -1435,7 +1712,334 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 56          ; 56: GALAM ARCHER
+                unknownByte 0           ; CHIMERA
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; BELIAL
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+				
+;--------------------------------------------------------------------------------------------------------------------------------
+                
+                unknownByte 56          ; GALAM ARCHER
                 spellPower REGULAR
                 level    3
                 maxHp    15
@@ -1460,7 +2064,7 @@ table_EnemyDefinitions:
                 movetype      ARCHER
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 57          ; 57: HUNTER GOBLIN
+                unknownByte 57          ; HUNTER GOBLIN
                 spellPower REGULAR
                 level    7
                 maxHp    24
@@ -1485,7 +2089,7 @@ table_EnemyDefinitions:
                 movetype      STEALTH_ARCHER
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 58          ; 58: DEATH ARCHER
+                unknownByte 58          ; DEATH ARCHER
                 spellPower REGULAR
                 level    10
                 maxHp    27
@@ -1510,32 +2114,7 @@ table_EnemyDefinitions:
                 movetype      ARCHER
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 59          ; 59: KRAKEN ARM
-                spellPower REGULAR
-                level    16
-                maxHp    30
-                maxMp    0
-                baseAtt  34
-                baseDef  28
-                baseAgi  22
-                baseMov  6
-                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
-                baseProwess    CRITICAL150_1IN8|DOUBLE_1IN32|COUNTER_1IN32
-                items &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                spells &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                initialStatus NONE
-                movetype      AQUATIC
-                aiBitfield    PRIORITYMOD_2|BIT4
-                
-                unknownByte 60          ; 60: ARROW LAUNCHER
+                unknownByte 60          ; ARROW LAUNCHER
                 spellPower REGULAR
                 level    17
                 maxHp    33
@@ -1560,32 +2139,7 @@ table_EnemyDefinitions:
                 movetype      BRASS_GUNNER
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 61          ; 61: ROOK
-                spellPower REGULAR
-                level    19
-                maxHp    40
-                maxMp    0
-                baseAtt  22
-                baseDef  31
-                baseAgi  27
-                baseMov  4
-                baseresistance WIND_NONE|LIGHTNING_WEAKNESS|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_IMMUNITY
-                baseProwess    CRITICAL150_1IN32|DOUBLE_1IN16|COUNTER_1IN32
-                items &
-                    ROBIN_ARROW|EQUIPPED, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                spells &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                initialStatus NONE
-                movetype      BRASS_GUNNER
-                aiBitfield    PRIORITYMOD_2|BIT4
-                
-                unknownByte 62          ; 62: DARK SNIPER
+                unknownByte 62          ; DARK SNIPER
                 spellPower ENHANCED
                 level    24
                 maxHp    38
@@ -1610,7 +2164,7 @@ table_EnemyDefinitions:
                 movetype      STEALTH_ARCHER
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 63          ; 63: BOW MASTER
+                unknownByte 63          ; BOW MASTER
                 spellPower ENHANCED
                 level    30
                 maxHp    46
@@ -1635,7 +2189,7 @@ table_EnemyDefinitions:
                 movetype      ARCHER
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 64          ; 64: BOW RIDER
+                unknownByte 64          ; BOW RIDER
                 spellPower ENHANCED
                 level    33
                 maxHp    61
@@ -1660,7 +2214,7 @@ table_EnemyDefinitions:
                 movetype      CENTAUR_ARCHER
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 65          ; 65: DARK GUNNER
+                unknownByte 65          ; DARK GUNNER
                 spellPower ENHANCED
                 level    38
                 maxHp    60
@@ -1685,7 +2239,7 @@ table_EnemyDefinitions:
                 movetype      BRASS_GUNNER
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 66          ; 66: HORSEMAN
+                unknownByte 66          ; HORSEMAN
                 spellPower ENHANCED
                 level    41
                 maxHp    67
@@ -1710,7 +2264,284 @@ table_EnemyDefinitions:
                 movetype      CENTAUR_ARCHER
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 67          ; 67: GALAM MAGE
+                unknownByte 0           ; DEADEYE
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+				
+;--------------------------------------------------------------------------------------------------------------------------------
+                
+                unknownByte 67          ; GALAM MAGE
                 spellPower REGULAR
                 level    3
                 maxHp    14
@@ -1735,7 +2566,7 @@ table_EnemyDefinitions:
                 movetype      MAGE
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 68          ; 68: WITCH
+                unknownByte 68          ; WITCH
                 spellPower REGULAR
                 level    7
                 maxHp    21
@@ -1760,7 +2591,7 @@ table_EnemyDefinitions:
                 movetype      MAGE
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 69          ; 69: MASTER MAGE
+                unknownByte 69          ; MASTER MAGE
                 spellPower REGULAR
                 level    14
                 maxHp    28
@@ -1785,7 +2616,7 @@ table_EnemyDefinitions:
                 movetype      MAGE
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 70          ; 70: DARK MADAM
+                unknownByte 70          ; DARK MADAM
                 spellPower REGULAR
                 level    17
                 maxHp    29
@@ -1810,32 +2641,32 @@ table_EnemyDefinitions:
                 movetype      MAGE
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 71          ; 71: QUEEN
-                spellPower ENHANCED
-                level    20
-                maxHp    30
-                maxMp    26
-                baseAtt  25
+                unknownByte 0           ; SORCEROR
+                spellPower REGULAR
+                level    21
+                maxHp    32
+                maxMp    25
+                baseAtt  27
                 baseDef  36
-                baseAgi  35
-                baseMov  6
-                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_MINOR|FIRE_NONE|NEUTRAL_NONE|STATUS_IMMUNITY
-                baseProwess    CRITICAL150_1IN32|DOUBLE_1IN32|COUNTER_1IN32
+                baseAgi  36
+                baseMov  5
+                baseresistance WIND_NONE|LIGHTNING_MINOR|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
                 items &
                     POWER_STICK|EQUIPPED, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 spells &
-                    FREEZE|LV2, &
+                    BOLT|LV2, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 initialStatus NONE
-                movetype      MAGE
-                aiBitfield    PRIORITYMOD_2|BIT4
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 72          ; 72: WIZARD
+                unknownByte 72          ; WIZARD
                 spellPower ENHANCED
                 level    26
                 maxHp    37
@@ -1860,7 +2691,7 @@ table_EnemyDefinitions:
                 movetype      MAGE
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 73          ; 73: NECROMANCER
+                unknownByte 73          ; NECROMANCER
                 spellPower ENHANCED
                 level    30
                 maxHp    47
@@ -1885,7 +2716,7 @@ table_EnemyDefinitions:
                 movetype      MAGE
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 74          ; 74: CHAOS WIZARD
+                unknownByte 74          ; CHAOS WIZARD
                 spellPower ENHANCED
                 level    36
                 maxHp    53
@@ -1910,7 +2741,7 @@ table_EnemyDefinitions:
                 movetype      MAGE
                 aiBitfield    PRIORITYMOD_2|BIT4
                 
-                unknownByte 75          ; 75: DEMON MASTER
+                unknownByte 75          ; DEMON MASTER
                 spellPower ENHANCED
                 level    42
                 maxHp    73
@@ -1935,7 +2766,284 @@ table_EnemyDefinitions:
                 movetype      MAGE
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 76          ; 76: DARK CLERIC
+                unknownByte 0           ; LICH
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+				
+;--------------------------------------------------------------------------------------------------------------------------------
+                
+                unknownByte 76          ; DARK CLERIC
                 spellPower REGULAR
                 level    3
                 maxHp    15
@@ -1960,7 +3068,7 @@ table_EnemyDefinitions:
                 movetype      HEALER
                 aiBitfield    PRIORITYMOD_3
                 
-                unknownByte 77          ; 77: DEATH MONK
+                unknownByte 77          ; DEATH MONK
                 spellPower REGULAR
                 level    8
                 maxHp    23
@@ -1985,7 +3093,7 @@ table_EnemyDefinitions:
                 movetype      HEALER
                 aiBitfield    PRIORITYMOD_3
                 
-                unknownByte 78          ; 78: BLACK MONK
+                unknownByte 78          ; BLACK MONK
                 spellPower REGULAR
                 level    14
                 maxHp    30
@@ -2010,7 +3118,7 @@ table_EnemyDefinitions:
                 movetype      HEALER
                 aiBitfield    PRIORITYMOD_3
                 
-                unknownByte 79          ; 79: HIGH PRIEST
+                unknownByte 79          ; HIGH PRIEST
                 spellPower REGULAR
                 level    17
                 maxHp    30
@@ -2035,32 +3143,7 @@ table_EnemyDefinitions:
                 movetype      HEALER
                 aiBitfield    PRIORITYMOD_3
                 
-                unknownByte 80          ; 80: EVIL BISHOP
-                spellPower ENHANCED
-                level    19
-                maxHp    33
-                maxMp    36
-                baseAtt  26
-                baseDef  37
-                baseAgi  25
-                baseMov  5
-                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
-                baseProwess    CRITICAL150_1IN32|DOUBLE_1IN32|COUNTER_1IN32
-                items &
-                    POWER_STICK|EQUIPPED, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                spells &
-                    HEAL|LV3, &
-                    BLAST|LV2, &
-                    NOTHING, &
-                    NOTHING
-                initialStatus NONE
-                movetype      HEALER
-                aiBitfield    PRIORITYMOD_3
-                
-                unknownByte 81          ; 81: DARK BISHOP
+                unknownByte 81          ; DARK BISHOP
                 spellPower ENHANCED
                 level    23
                 maxHp    39
@@ -2085,7 +3168,7 @@ table_EnemyDefinitions:
                 movetype      HEALER
                 aiBitfield    PRIORITYMOD_3
                 
-                unknownByte 0           ; 82: MASTER MONK
+                unknownByte 0           ; MASTER MONK
                 spellPower ENHANCED
                 level    28
                 maxHp    47
@@ -2110,7 +3193,7 @@ table_EnemyDefinitions:
                 movetype      HEALER
                 aiBitfield    PRIORITYMOD_3
                 
-                unknownByte 0           ; 83: SHAMAN
+                unknownByte 0           ; SHAMAN
                 spellPower ENHANCED
                 level    32
                 maxHp    56
@@ -2135,7 +3218,7 @@ table_EnemyDefinitions:
                 movetype      HEALER
                 aiBitfield    PRIORITYMOD_3
                 
-                unknownByte 0           ; 84: EVIL BISHOP
+                unknownByte 0           ; EVIL BISHOP
                 spellPower ENHANCED
                 level    38
                 maxHp    64
@@ -2160,7 +3243,7 @@ table_EnemyDefinitions:
                 movetype      HEALER
                 aiBitfield    PRIORITYMOD_3
                 
-                unknownByte 0           ; 85: BLUE SHAMAN
+                unknownByte 0           ; BLUE SHAMAN
                 spellPower ENHANCED
                 level    42
                 maxHp    72
@@ -2185,69 +3268,69 @@ table_EnemyDefinitions:
                 movetype      HEALER
                 aiBitfield    PRIORITYMOD_3
                 
-                unknownByte 0           ; 86: DARK SMOKE
+                unknownByte 0           ; FALSE SAINT
                 spellPower REGULAR
-                level    7
-                maxHp    18
-                maxMp    20
-                baseAtt  18
-                baseDef  13
-                baseAgi  141
-                baseMov  6
-                baseresistance WIND_WEAKNESS|LIGHTNING_NONE|ICE_MAJOR|FIRE_WEAKNESS|NEUTRAL_NONE|STATUS_MAJOR
-                baseProwess    CRITICAL_SILENCE|DOUBLE_1IN16|COUNTER_1IN16
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
                 items &
                     NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 spells &
-                    DISPEL, &
+                    NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 initialStatus NONE
-                movetype      HOVERING
-                aiBitfield    PRIORITYMOD_0
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 0           ; 87: KRAKEN HEAD
+                unknownByte 0           ; ENEMY
                 spellPower REGULAR
-                level    18
-                maxHp    35
+                level    255
+                maxHp    1
                 maxMp    0
-                baseAtt  40
-                baseDef  29
-                baseAgi  153
-                baseMov  5
-                baseresistance WIND_NONE|LIGHTNING_WEAKNESS|ICE_WEAKNESS|FIRE_MINOR|NEUTRAL_NONE|STATUS_MAJOR
-                baseProwess    CRITICAL150_1IN4|DOUBLE_1IN8|COUNTER_1IN8
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
                 items &
                     NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 spells &
-                    AQUA, &
+                    NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 initialStatus NONE
-                movetype      AQUATIC
-                aiBitfield    PRIORITYMOD_1
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 0           ; 88: TAROS
+                unknownByte 0           ; ENEMY
                 spellPower REGULAR
-                level    20
-                maxHp    49
+                level    255
+                maxHp    1
                 maxMp    0
-                baseAtt  9
-                baseDef  32
-                baseAgi  151
-                baseMov  0
-                baseresistance WIND_MAJOR|LIGHTNING_MAJOR|ICE_MAJOR|FIRE_MAJOR|NEUTRAL_NONE|STATUS_IMMUNITY
-                baseProwess    CRITICAL150_1IN4|DOUBLE_1IN16|COUNTER_1IN8
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
                 items &
-                    TAROS_SWORD|EQUIPPED, &
+                    NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
@@ -2258,44 +3341,19 @@ table_EnemyDefinitions:
                     NOTHING
                 initialStatus NONE
                 movetype      REGULAR
-                aiBitfield    PRIORITYMOD_1
+                aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 0           ; 89: KING
-                spellPower ENHANCED
-                level    24
-                maxHp    55
-                maxMp    28
-                baseAtt  29
-                baseDef  40
-                baseAgi  161
-                baseMov  6
-                baseresistance WIND_MINOR|LIGHTNING_MINOR|ICE_MINOR|FIRE_MINOR|NEUTRAL_NONE|STATUS_IMMUNITY
-                baseProwess    CRITICAL125_1IN4|DOUBLE_1IN8|COUNTER_1IN16
-                items &
-                    FLAIL|EQUIPPED, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                spells &
-                    BLAZE|LV2, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                initialStatus NONE
-                movetype      MAGE
-                aiBitfield    PRIORITYMOD_1
-                
-                unknownByte 0           ; 90: WILLARD
-                spellPower ENHANCED
-                level    25
-                maxHp    50
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
                 maxMp    0
-                baseAtt  50
-                baseDef  36
-                baseAgi  165
-                baseMov  6
-                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_MAJOR
-                baseProwess    CRITICAL150_1IN4|DOUBLE_1IN16|COUNTER_1IN16
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
                 items &
                     NOTHING, &
                     NOTHING, &
@@ -2307,47 +3365,22 @@ table_EnemyDefinitions:
                     NOTHING, &
                     NOTHING
                 initialStatus NONE
-                movetype      STEALTH
-                aiBitfield    PRIORITYMOD_0
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 0           ; 91: ZALBARD
-                spellPower ENHANCED
-                level    40
-                maxHp    80
-                maxMp    65
-                baseAtt  73
-                baseDef  50
-                baseAgi  180
-                baseMov  5
-                baseresistance WIND_MINOR|LIGHTNING_MINOR|ICE_NONE|FIRE_MAJOR|NEUTRAL_NONE|STATUS_IMMUNITY
-                baseProwess    CRITICAL125_1IN4|DOUBLE_1IN8|COUNTER_1IN4
-                items &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                spells &
-                    BOLT|LV2, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                initialStatus NONE
-                movetype      MAGE
-                aiBitfield    PRIORITYMOD_1
-                
-                unknownByte 0           ; 92: CAMEELA
-                spellPower ENHANCED
-                level    50
-                maxHp    99
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
                 maxMp    0
-                baseAtt  42
-                baseDef  52
-                baseAgi  186
-                baseMov  6
-                baseresistance WIND_MINOR|LIGHTNING_MINOR|ICE_MINOR|FIRE_MINOR|NEUTRAL_NONE|STATUS_IMMUNITY
-                baseProwess    CRITICAL125_1IN4|DOUBLE_1IN4|COUNTER_1IN4
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
                 items &
-                    IRON_BALL|EQUIPPED, &
+                    NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
@@ -2358,46 +3391,46 @@ table_EnemyDefinitions:
                     NOTHING
                 initialStatus NONE
                 movetype      REGULAR
-                aiBitfield    PRIORITYMOD_1
+                aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 0           ; 93: PRISM FLOWER
-                spellPower ENHANCED
-                level    40
-                maxHp    62
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
                 maxMp    0
-                baseAtt  16
-                baseDef  55
-                baseAgi  44
-                baseMov  0
-                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_MAJOR|FIRE_WEAKNESS|NEUTRAL_NONE|STATUS_IMMUNITY
-                baseProwess    CRITICAL150_1IN32|DOUBLE_1IN32|COUNTER_1IN32
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
                 items &
                     NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 spells &
-                    LASER, &
+                    NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 initialStatus NONE
                 movetype      REGULAR
-                aiBitfield    PRIORITYMOD_1
+                aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 0           ; 94: RED BARON
-                spellPower ENHANCED
-                level    60
-                maxHp    150
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
                 maxMp    0
-                baseAtt  42
-                baseDef  59
-                baseAgi  190
-                baseMov  6
-                baseresistance WIND_MINOR|LIGHTNING_MINOR|ICE_MINOR|FIRE_MINOR|NEUTRAL_NONE|STATUS_IMMUNITY
-                baseProwess    CRITICAL125_1IN4|DOUBLE_1IN4|COUNTER_1IN4
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
                 items &
-                    DARK_SWORD|EQUIPPED, &
+                    NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
@@ -2408,109 +3441,1865 @@ table_EnemyDefinitions:
                     NOTHING
                 initialStatus NONE
                 movetype      REGULAR
-                aiBitfield    PRIORITYMOD_1
+                aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 0           ; 95: GESHP
-                spellPower ENHANCED
-                level    70
-                maxHp    180
-                maxMp    120
-                baseAtt  78
-                baseDef  51
-                baseAgi  191
-                baseMov  6
-                baseresistance WIND_MAJOR|LIGHTNING_MAJOR|ICE_MAJOR|FIRE_MAJOR|NEUTRAL_NONE|STATUS_IMMUNITY
-                baseProwess    CRITICAL125_1IN4|DOUBLE_1IN8|COUNTER_1IN8
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
                 items &
-                    FLAIL|EQUIPPED, &
+                    NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 spells &
-                    FREEZE|LV4, &
                     NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                initialStatus NONE
-                movetype      MAGE
-                aiBitfield    PRIORITYMOD_1
-                
-                unknownByte 0           ; 96: ODD EYE
-                spellPower ENHANCED
-                level    80
-                maxHp    200
-                maxMp    160
-                baseAtt  64
-                baseDef  54
-                baseAgi  195
-                baseMov  6
-                baseresistance WIND_MINOR|LIGHTNING_MINOR|ICE_MINOR|FIRE_MINOR|NEUTRAL_NONE|STATUS_IMMUNITY
-                baseProwess    CRITICAL_SLEEP|DOUBLE_1IN8|COUNTER_1IN4
-                items &
-                    COUNTER_SWORD|EQUIPPED, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                spells &
-                    ODDEYE, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                initialStatus NONE
-                movetype      MAGE
-                aiBitfield    PRIORITYMOD_1
-                
-                unknownByte 0           ; 97: GALAM
-                spellPower ENHANCED
-                level    99
-                maxHp    240
-                maxMp    180
-                baseAtt  49
-                baseDef  50
-                baseAgi  208
-                baseMov  6
-                baseresistance WIND_MAJOR|LIGHTNING_MAJOR|ICE_MAJOR|FIRE_MAJOR|NEUTRAL_NONE|STATUS_IMMUNITY
-                baseProwess    CRITICAL125_1IN4|DOUBLE_1IN8|COUNTER_1IN4
-                items &
-                    DEMON_ROD|EQUIPPED, &
-                    NOTHING, &
-                    NOTHING, &
-                    NOTHING
-                spells &
-                    DEMON, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 initialStatus NONE
                 movetype      REGULAR
-                aiBitfield    PRIORITYMOD_1
+                aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 0           ; 98: ZEON
-                spellPower ENHANCED
-                level    99
-                maxHp    500
-                maxMp    180
-                baseAtt  102
-                baseDef  50
-                baseAgi  203
-                baseMov  0
-                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_IMMUNITY
-                baseProwess    CRITICAL125_1IN4|DOUBLE_1IN4|COUNTER_1IN4
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
                 items &
                     NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 spells &
-                    DEMON|LV2, &
+                    NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 initialStatus NONE
                 movetype      REGULAR
-                aiBitfield    PRIORITYMOD_1
+                aiBitfield    PRIORITYMOD_2|BIT5
                 
-                unknownByte 0           ; 99: JAR
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+				
+;--------------------------------------------------------------------------------------------------------------------------------
+                
+                unknownByte 0           ; ARTILLERY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; TORCH EYE
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; METAL CLAW
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; JET
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+				
+				;----------------------------------------------------------------------------------------------------------------
+                
+                unknownByte 0           ; SHELLFISH
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; MERMAID
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; CONCH
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+				
+;--------------------------------------------------------------------------------------------------------------------------------
+                
+                unknownByte 0           ; JARO
                 spellPower ENHANCED
                 level    12
                 maxHp    59
@@ -2535,19 +5324,219 @@ table_EnemyDefinitions:
                 movetype      FLYING
                 aiBitfield    PRIORITYMOD_2
                 
-                unknownByte 0           ; 100: MASTER MAGE
+                unknownByte 10          ; KRAKEN LEG
                 spellPower REGULAR
                 level    14
-                maxHp    28
-                maxMp    14
-                baseAtt  11
-                baseDef  18
+                maxHp    24
+                maxMp    0
+                baseAtt  31
+                baseDef  26
+                baseAgi  19
+                baseMov  6
+                baseresistance WIND_NONE|LIGHTNING_WEAKNESS|ICE_WEAKNESS|FIRE_MINOR|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL150_1IN4|DOUBLE_1IN16|COUNTER_1IN16
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      AQUATIC
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 59          ; KRAKEN ARM
+                spellPower REGULAR
+                level    16
+                maxHp    30
+                maxMp    0
+                baseAtt  34
+                baseDef  28
                 baseAgi  22
+                baseMov  6
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL150_1IN8|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      AQUATIC
+                aiBitfield    PRIORITYMOD_2|BIT4
+                
+                unknownByte 0           ; KRAKEN HEAD
+                spellPower REGULAR
+                level    18
+                maxHp    35
+                maxMp    0
+                baseAtt  40
+                baseDef  29
+                baseAgi  153
                 baseMov  5
-                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_MINOR|NEUTRAL_NONE|STATUS_NONE
+                baseresistance WIND_NONE|LIGHTNING_WEAKNESS|ICE_WEAKNESS|FIRE_MINOR|NEUTRAL_NONE|STATUS_MAJOR
+                baseProwess    CRITICAL150_1IN4|DOUBLE_1IN8|COUNTER_1IN8
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    AQUA, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      AQUATIC
+                aiBitfield    PRIORITYMOD_1
+                
+                unknownByte 13          ; PAWN
+                spellPower ENHANCED
+                level    19
+                maxHp    36
+                maxMp    0
+                baseAtt  26
+                baseDef  37
+                baseAgi  25
+                baseMov  6
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseProwess    CRITICAL150_1IN8|DOUBLE_1IN32|COUNTER_1IN16
+                items &
+                    BATTLE_AXE|EQUIPPED, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 14          ; KNIGHT
+                spellPower ENHANCED
+                level    20
+                maxHp    48
+                maxMp    0
+                baseAtt  25
+                baseDef  34
+                baseAgi  29
+                baseMov  7
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseProwess    CRITICAL150_1IN4|DOUBLE_1IN16|COUNTER_1IN16
+                items &
+                    POWER_SPEAR|EQUIPPED, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 80          ; BISHOP
+                spellPower ENHANCED
+                level    19
+                maxHp    33
+                maxMp    36
+                baseAtt  26
+                baseDef  37
+                baseAgi  25
+                baseMov  5
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
                 baseProwess    CRITICAL150_1IN32|DOUBLE_1IN32|COUNTER_1IN32
                 items &
                     POWER_STICK|EQUIPPED, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    HEAL|LV3, &
+                    BLAST|LV2, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      HEALER
+                aiBitfield    PRIORITYMOD_3
+                
+                unknownByte 61          ; ROOK
+                spellPower REGULAR
+                level    19
+                maxHp    40
+                maxMp    0
+                baseAtt  22
+                baseDef  31
+                baseAgi  27
+                baseMov  4
+                baseresistance WIND_NONE|LIGHTNING_WEAKNESS|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseProwess    CRITICAL150_1IN32|DOUBLE_1IN16|COUNTER_1IN32
+                items &
+                    ROBIN_ARROW|EQUIPPED, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      BRASS_GUNNER
+                aiBitfield    PRIORITYMOD_2|BIT4
+                
+                unknownByte 71          ; QUEEN
+                spellPower ENHANCED
+                level    20
+                maxHp    30
+                maxMp    26
+                baseAtt  25
+                baseDef  36
+                baseAgi  35
+                baseMov  6
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_MINOR|FIRE_NONE|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseProwess    CRITICAL150_1IN32|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    POWER_STICK|EQUIPPED, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    FREEZE|LV2, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      MAGE
+                aiBitfield    PRIORITYMOD_2|BIT4
+                
+                unknownByte 0           ; KING
+                spellPower ENHANCED
+                level    24
+                maxHp    55
+                maxMp    28
+                baseAtt  29
+                baseDef  40
+                baseAgi  161
+                baseMov  6
+                baseresistance WIND_MINOR|LIGHTNING_MINOR|ICE_MINOR|FIRE_MINOR|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseProwess    CRITICAL125_1IN4|DOUBLE_1IN8|COUNTER_1IN16
+                items &
+                    FLAIL|EQUIPPED, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
@@ -2558,55 +5547,884 @@ table_EnemyDefinitions:
                     NOTHING
                 initialStatus NONE
                 movetype      MAGE
-                aiBitfield    PRIORITYMOD_2
+                aiBitfield    PRIORITYMOD_1
                 
-                unknownByte 0           ; 101: NECROMANCER
-                spellPower ENHANCED
-                level    30
-                maxHp    47
-                maxMp    42
+                unknownByte 15          ; RAT
+                spellPower REGULAR
+                level    22
+                maxHp    41
+                maxMp    0
                 baseAtt  45
-                baseDef  44
-                baseAgi  51
+                baseDef  32
+                baseAgi  30
                 baseMov  6
-                baseresistance WIND_NONE|LIGHTNING_MINOR|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
                 baseProwess    CRITICAL150_1IN32|DOUBLE_1IN32|COUNTER_1IN16
                 items &
-                    MAGE_STAFF|EQUIPPED, &
+                    NOTHING, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 spells &
-                    FREEZE|LV3, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      STEALTH
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; WILLARD
+                spellPower ENHANCED
+                level    25
+                maxHp    50
+                maxMp    0
+                baseAtt  50
+                baseDef  36
+                baseAgi  165
+                baseMov  6
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_MAJOR
+                baseProwess    CRITICAL150_1IN4|DOUBLE_1IN16|COUNTER_1IN16
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      STEALTH
+                aiBitfield    PRIORITYMOD_0
+                
+                unknownByte 0           ; TAROS
+                spellPower REGULAR
+                level    20
+                maxHp    49
+                maxMp    0
+                baseAtt  9
+                baseDef  32
+                baseAgi  151
+                baseMov  0
+                baseresistance WIND_MAJOR|LIGHTNING_MAJOR|ICE_MAJOR|FIRE_MAJOR|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseProwess    CRITICAL150_1IN4|DOUBLE_1IN16|COUNTER_1IN8
+                items &
+                    TAROS_SWORD|EQUIPPED, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_1
+                
+                unknownByte 0           ; PRISM FLOWER
+                spellPower ENHANCED
+                level    40
+                maxHp    62
+                maxMp    0
+                baseAtt  16
+                baseDef  55
+                baseAgi  44
+                baseMov  0
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_MAJOR|FIRE_WEAKNESS|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseProwess    CRITICAL150_1IN32|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    LASER, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_1
+                
+                unknownByte 32          ; BURST ROCK
+                spellPower ENHANCED
+                level    38
+                maxHp    45
+                maxMp    0
+                baseAtt  0
+                baseDef  60
+                baseAgi  43
+                baseMov  4
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL150_1IN32|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 38          ; ZEON GUARD
+                spellPower ENHANCED
+                level    45
+                maxHp    130
+                maxMp    150
+                baseAtt  109
+                baseDef  54
+                baseAgi  64
+                baseMov  5
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_MAJOR
+                baseProwess    CRITICAL_SLOW|DOUBLE_1IN16|COUNTER_1IN16
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    DEMON, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2
+                
+                unknownByte 0           ; LASER EYE
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+				
+;--------------------------------------------------------------------------------------------------------------------------------
+                
+                unknownByte 0           ; DARK SMOKE
+                spellPower REGULAR
+                level    7
+                maxHp    18
+                maxMp    20
+                baseAtt  18
+                baseDef  13
+                baseAgi  141
+                baseMov  6
+                baseresistance WIND_WEAKNESS|LIGHTNING_NONE|ICE_MAJOR|FIRE_WEAKNESS|NEUTRAL_NONE|STATUS_MAJOR
+                baseProwess    CRITICAL_SILENCE|DOUBLE_1IN16|COUNTER_1IN16
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    DISPEL, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      HOVERING
+                aiBitfield    PRIORITYMOD_0
+                
+                unknownByte 0           ; RED BARON
+                spellPower ENHANCED
+                level    60
+                maxHp    150
+                maxMp    0
+                baseAtt  42
+                baseDef  59
+                baseAgi  190
+                baseMov  6
+                baseresistance WIND_MINOR|LIGHTNING_MINOR|ICE_MINOR|FIRE_MINOR|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseProwess    CRITICAL125_1IN4|DOUBLE_1IN4|COUNTER_1IN4
+                items &
+                    DARK_SWORD|EQUIPPED, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_1
+                
+                unknownByte 0           ; GALAM
+                spellPower ENHANCED
+                level    99
+                maxHp    240
+                maxMp    180
+                baseAtt  49
+                baseDef  50
+                baseAgi  208
+                baseMov  6
+                baseresistance WIND_MAJOR|LIGHTNING_MAJOR|ICE_MAJOR|FIRE_MAJOR|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseProwess    CRITICAL125_1IN4|DOUBLE_1IN8|COUNTER_1IN4
+                items &
+                    DEMON_ROD|EQUIPPED, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    DEMON, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_1
+                
+                unknownByte 0           ; BALBAZAK
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; RAMLADU
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; CHAOS
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; COLOSSUS
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; KANE
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ELIOT
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; VARIOS
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; DANTON
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; ENEMY
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+				
+;--------------------------------------------------------------------------------------------------------------------------------
+                
+                unknownByte 0           ; ZALBARD
+                spellPower ENHANCED
+                level    40
+                maxHp    80
+                maxMp    65
+                baseAtt  73
+                baseDef  50
+                baseAgi  180
+                baseMov  5
+                baseresistance WIND_MINOR|LIGHTNING_MINOR|ICE_NONE|FIRE_MAJOR|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseProwess    CRITICAL125_1IN4|DOUBLE_1IN8|COUNTER_1IN4
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    BOLT|LV2, &
                     NOTHING, &
                     NOTHING, &
                     NOTHING
                 initialStatus NONE
                 movetype      MAGE
-                aiBitfield    PRIORITYMOD_2
+                aiBitfield    PRIORITYMOD_1
                 
-                unknownByte 0           ; 102: BLUE SHAMAN
+                unknownByte 0           ; CAMEELA
                 spellPower ENHANCED
-                level    42
-                maxHp    72
-                maxMp    60
-                baseAtt  64
-                baseDef  54
-                baseAgi  51
-                baseMov  5
-                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
-                baseProwess    CRITICAL_SILENCE|DOUBLE_1IN32|COUNTER_1IN32
+                level    50
+                maxHp    99
+                maxMp    0
+                baseAtt  42
+                baseDef  52
+                baseAgi  186
+                baseMov  6
+                baseresistance WIND_MINOR|LIGHTNING_MINOR|ICE_MINOR|FIRE_MINOR|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseProwess    CRITICAL125_1IN4|DOUBLE_1IN4|COUNTER_1IN4
                 items &
-                    HOLY_STAFF|EQUIPPED, &
-                    HEALING_RAIN, &
+                    IRON_BALL|EQUIPPED, &
+                    NOTHING, &
                     NOTHING, &
                     NOTHING
                 spells &
-                    AURA|LV3, &
-                    BLAST|LV4, &
+                    NOTHING, &
+                    NOTHING, &
                     NOTHING, &
                     NOTHING
                 initialStatus NONE
-                movetype      HEALER
-                aiBitfield    PRIORITYMOD_3
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_1
+                
+                unknownByte 0           ; GESHP
+                spellPower ENHANCED
+                level    70
+                maxHp    180
+                maxMp    120
+                baseAtt  78
+                baseDef  51
+                baseAgi  191
+                baseMov  6
+                baseresistance WIND_MAJOR|LIGHTNING_MAJOR|ICE_MAJOR|FIRE_MAJOR|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseProwess    CRITICAL125_1IN4|DOUBLE_1IN8|COUNTER_1IN8
+                items &
+                    FLAIL|EQUIPPED, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    FREEZE|LV4, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      MAGE
+                aiBitfield    PRIORITYMOD_1
+                
+                unknownByte 0           ; ODD EYE
+                spellPower ENHANCED
+                level    80
+                maxHp    200
+                maxMp    160
+                baseAtt  64
+                baseDef  54
+                baseAgi  195
+                baseMov  6
+                baseresistance WIND_MINOR|LIGHTNING_MINOR|ICE_MINOR|FIRE_MINOR|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseProwess    CRITICAL_SLEEP|DOUBLE_1IN8|COUNTER_1IN4
+                items &
+                    COUNTER_SWORD|EQUIPPED, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    ODDEYE, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      MAGE
+                aiBitfield    PRIORITYMOD_1
+                
+                unknownByte 0           ; ZEON
+                spellPower ENHANCED
+                level    99
+                maxHp    500
+                maxMp    180
+                baseAtt  102
+                baseDef  50
+                baseAgi  203
+                baseMov  0
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_IMMUNITY
+                baseProwess    CRITICAL125_1IN4|DOUBLE_1IN4|COUNTER_1IN4
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    DEMON|LV2, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_1
+                
+                unknownByte 0           ; DARKSOL
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; MISHEALA
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; BARBARA
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
+                
+                unknownByte 0           ; FRABELL
+                spellPower REGULAR
+                level    255
+                maxHp    1
+                maxMp    0
+                baseAtt  1
+                baseDef  1
+                baseAgi  1
+                baseMov  1
+                baseresistance WIND_NONE|LIGHTNING_NONE|ICE_NONE|FIRE_NONE|NEUTRAL_NONE|STATUS_NONE
+                baseProwess    CRITICAL_NONE|DOUBLE_1IN32|COUNTER_1IN32
+                items &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                spells &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING, &
+                    NOTHING
+                initialStatus NONE
+                movetype      REGULAR
+                aiBitfield    PRIORITYMOD_2|BIT5
                 

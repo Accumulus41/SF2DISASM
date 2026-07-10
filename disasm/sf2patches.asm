@@ -58,7 +58,7 @@ FIX_GOLD_GIFT:                       equ 1   ; Gold increases when Minister give
 FIX_HIGINS_SPELL:                    equ 1   ; Prevents unequipping from possibly corrupting characters spell entries.
 FIX_INCREASE_DOUBLE_RESETS_COUNTER:  equ 1   ; Equipment that increases the chance to double attack also erroneously set the chance to counter attack to 1/32.
 FIX_AI_JARO_NOT_LEAVING_THE_FORCE:   equ 1   ; Resets Jaro's stats, makes him leave the battle party and the Force, and clears the flag indicating that he switched sides when leaving battle 32 (en route to Moun) before completing it.
-FIX_KARNA_INCREASED_DOUBLE:          equ 1   ; 1 = No increased double, 2 = Sheela gets increased double instead.  An oddity in the character initialization routine causes the chance to double attack to be increased if the character happens to start knowing Heal 3.
+FIX_KARNA_INCREASED_DOUBLE:          equ 2   ; 1 = No increased double, 2 = Sheela gets increased double instead.  An oddity in the character initialization routine causes the chance to double attack to be increased if the character happens to start knowing Heal 3.
 FIX_KIWI_BREATH_UPGRADE_LEVELS:      equ 1   ; Kiwi's breath upgrades are based on effective rather than current level.
 FIX_LABYRINTH_DELETION:              equ 1   ; Prevents a section of the labyrinth from being deleted due to AI region activation.
 FIX_MEMBER_GOLD_MENU_GLITCH:         equ 1   ; The gold window displayed on the member status screen should only be 4 tiles tall rather than 12. This fixes a visual glitch in the lower-left corner of screen.
@@ -74,7 +74,7 @@ FIX_USABLE_ITEM_VALIDATION:          equ 1   ; Compares an item's Use Spell inde
 
 
 ; Quality of life features
-AUTO_CONFIGURATION_MODE:            equ 1       ; Hold Start when leaving the witch screen to execute the Configuration sequence without having to enter the input sequence.
+AUTO_CONFIGURATION_MODE:            equ 0       ; Hold Start when leaving the witch screen to execute the Configuration sequence without having to enter the input sequence.
 AUTO_DEBUG_MODE:                    equ 0       ; Hold Start when starting the game to enable debug mode and execute the Configuration sequence without having to enter the input sequence.
 CAPITALIZED_CHARACTER_NAMES:        equ 1       ; Capitalize allies and enemies names, as well as change "JAR" and the Chess Army's "DARK BISHOP" to "Jaro" and "Bishop".
 CARAVAN_IN_TOWER:                   equ 1       ; Add access to Caravan before tower climb battle.
@@ -86,69 +86,69 @@ NO_AI_JARO:                         equ 0       ;
 NO_AI_PETER:                        equ 0       ; 
 NO_DARKNESS_IN_CAVES:               equ 0       ; The darkness gimmick in caves is disabled.
 NO_DEFEAT_ON_LEADER_DEATH:          equ 0       ; Death of the Force Leader character does not cause defeat.
-NO_RANDOM_BATTLES:                  equ 1       ; 0 = Battles    1 = No Battles
-RECRUIT_ALL_CREED_CHARACTERS:       equ 1       ; lets you recruit all four of them at any time after leaving Floor World.
+NO_RANDOM_BATTLES:                  equ 0       ; 0 = Battles    1 = No Battles
+RECRUIT_ALL_CREED_CHARACTERS:       equ 0       ; lets you recruit all four of them at any time after leaving Floor World.
 SKIP_SEGA_LOGO:                     equ 0
 SKIP_GAME_INTRO:                    equ 0
 SKIP_TITLE_SCREEN:                  equ 0
 SKIP_WITCH_DIALOGUE:                equ 0
-UNLOCK_RENAME_CHARACTERS:           equ 1       ; Hold Start while confirming the leader's name to rename all characters when starting a new game.
-UNLOCK_SOUND_TEST:                  equ 1       ; Hold Up while entering Configuration Mode; there is no need to have set Game Completed save flag.
+UNLOCK_RENAME_CHARACTERS:           equ 0       ; Hold Start while confirming the leader's name to rename all characters when starting a new game.
+UNLOCK_SOUND_TEST:                  equ 0       ; Hold Up while entering Configuration Mode; there is no need to have set Game Completed save flag.
 
 
 ; Misc. features
-AGILITY_AFFECTS_CHANCE_TO_DODGE:    equ 0       ; Adjust chance to dodge proportionally to the difference between the attacker's and the target's current AGI.
-DIAGONAL_LASERS:                    equ 0       ; Allows laser based enemies to fire in 8 directions (Up, Up-Left, Left, Down-Left, etc).
-DIFFICULTY_FACTORS:                 equ 0       ; Allows 4 distinct difficulties.
+AGILITY_AFFECTS_CHANCE_TO_DODGE:    equ 1       ; Adjust chance to dodge proportionally to the difference between the attacker's and the target's current AGI.
+DIAGONAL_LASERS:                    equ 1       ; Allows laser based enemies to fire in 8 directions (Up, Up-Left, Left, Down-Left, etc).
+DIFFICULTY_FACTORS:                 equ 1       ; Allows 4 distinct difficulties.
 EXPANDED_RANGES:                    equ 1       ; Weapons/spells can have ranges up to 7 and spell radii up to 4.
-LEARN_SPELL_AT_PROMOTION:           equ 0       ; Allow learning 1 spell immediately upon promotion.
+LEARN_SPELL_AT_PROMOTION:           equ 1       ; Allow learning 1 spell immediately upon promotion.
 MUSCLE_MAGIC:                       equ 0       ; 0 = OFF, 1-256 = spell power increased by (muscleMagicStat * n) / 256
 MUSCLE_MAGIC_STAT:                  equ 5       ; 0 = Max HP, 1 = Current HP, 2 = Max MP, 3 = Current MP, 4 = Base ATT, 5 = Current ATT, 6 = Base DEF, 7 = Current DEF, 8 = Base AGI, 9 = Current AGI
 ORIGINAL_TAROS_INVULNERABILITY:     equ 0       ; 0 = OFF, 1 = Japanese version behavior (i.e, Bowie must continually attack to keep invulnerability off), 2 = SFCD behavior (invulnerability stays off for the remainder of the battle)
-PER_LEVEL_CHURCH_COST:              equ 0       ; Raise/Cure cost based on ally level (double cost per promo level.)
+PER_LEVEL_CHURCH_COST:              equ 1       ; Raise/Cure cost based on ally level (double cost per promo level.)
 PERCENT_POISON_DAMAGE:              equ 0       ; 1-100 = n% of max HP
 PLAYER_DEFEAT_IS_GAME_OVER:         equ 0       ; On player defeat, rather than halve the gold and return to town, reset the game.
-SEND_DESTROYED_ITEMS_TO_DEALS:      equ 1       ; Add item that was destroyed upon usage to shop deals if rare and if not a consumable.
-SEND_DROPPED_ITEMS_TO_CARAVAN:      equ 1       ; If character inventory is full, add dropped item to the Caravan instead of shop deals, regardless of rarity. If the Caravan itself is full, then drops follow the usual routine: go to deals if rare, or become lost completely if not rare.
-SPELLS_REFRESH_STATUS_COUNTERS:     equ 1       ; Boost, Slow, and Attack spells refresh status counters instead of failing, as long as the counter is increased by at least 1. Battle messages display the actual regained stats values.
-TRADEABLE_ITEMS:                    equ 0       ; Allow trading items in battle without full inventory.
-TRAP_DAMAGE_RAISES_WITH_DIFFICULTY: equ 0       ; Increase Laser/Burst Rock damage with difficulty.   Normal:100%  Hard:125%  Super: 150%  Ouch: 175%
+SEND_DESTROYED_ITEMS_TO_DEALS:      equ 0       ; Add item that was destroyed upon usage to shop deals if rare and if not a consumable.
+SEND_DROPPED_ITEMS_TO_CARAVAN:      equ 0       ; If character inventory is full, add dropped item to the Caravan instead of shop deals, regardless of rarity. If the Caravan itself is full, then drops follow the usual routine: go to deals if rare, or become lost completely if not rare.
+SPELLS_REFRESH_STATUS_COUNTERS:     equ 0       ; Boost, Slow, and Attack spells refresh status counters instead of failing, as long as the counter is increased by at least 1. Battle messages display the actual regained stats values.
+TRADEABLE_ITEMS:                    equ 1       ; Allow trading items in battle without full inventory.
+TRAP_DAMAGE_RAISES_WITH_DIFFICULTY: equ 1       ; Increase Laser/Burst Rock damage with difficulty.   Normal:100%  Hard:125%  Super: 150%  Ouch: 175%
 
 
 ; Special screens
 CHAPTER_SCREEN:                     equ 0       ; Patch implementation with template SFCD screen as applicable example.
-CONFIGURATION_SCREEN:               equ 1       ; Re-implements the configuration screen featured in Final Conflict.
+CONFIGURATION_SCREEN:               equ 0       ; Re-implements the configuration screen featured in Final Conflict.
 SCROLLING_TEXT_INTRODUCTION:        equ 0       ; An example for adding a scrolling text introduction between the SEGA logo and the introduction cutscene. Text extracted from SFC's translation of Shining Force : Final Conflict.
 
 
 ; AI enhancements (experimental)
 HEALER_AI_ENHANCEMENTS:             equ 0       ; See SF2_AI_Healing_Rewrite.txt for more details.
-SUPPORT_AI_ENHANCEMENTS:            equ 0       ; Increase support spell options enemies can use.
+SUPPORT_AI_ENHANCEMENTS:            equ 1       ; Increase support spell options enemies can use.
 
 
 ; Turn order modifications
 DISABLE_TURN_ORDER_RANDOMIZATION:   equ 0       ; Combatants always act in the same order from highest to lowest AGI, prioritizing allies by their index and starting with the Force leader.
-EXTENDED_BATTLE_TURN_UPDATE:        equ 1       ; Trigger regions, activate AI, spawn region activated enemies, and play region activated cutscenes after each individual turn instead of at the start of a new round.
+EXTENDED_BATTLE_TURN_UPDATE:        equ 0       ; Trigger regions, activate AI, spawn region activated enemies, and play region activated cutscenes after each individual turn instead of at the start of a new round.
                                                 ; Also, partially regenerates the turn order table after each turn for combatants waiting to act in order for the BOOST and SLOW spells to have an impact on the current round.
 
 
 ; SF1 mechanics
 SF1_LEVELUP:                        equ 0       ; Reproduces the stat gain calculations from SF1 using SF2 ally stat blocks and growthcurves, with modified parameters to better suit SF2's higher growth values.
-SF1_LEVELUP_RNG_SCALE_RATE:         equ 8       ; Determines the rate at which the randomization range scales relative to stat value. Higher value = slower rate (minimum = 1.) Starting at stat target value ± 1, range increases by ± 1 for every n points in a stat. Vanilla SF1 default = 4
-SF1_LEVELUP_RNG_CAP:                equ 8       ; Caps the randomization range to stat target value ± n. Vanilla SF1 default = 4
-LEARN_SPELLS_BASED_ON_TOTAL_LEVEL:  equ 1       ; Considers promoted at level when learning spells from the first list (i.e., the base class's.)
+SF1_LEVELUP_RNG_SCALE_RATE:         equ 0       ; Determines the rate at which the randomization range scales relative to stat value. Higher value = slower rate (minimum = 1.) Starting at stat target value ± 1, range increases by ± 1 for every n points in a stat. Vanilla SF1 default = 4
+SF1_LEVELUP_RNG_CAP:                equ 0       ; Caps the randomization range to stat target value ± n. Vanilla SF1 default = 4
+LEARN_SPELLS_BASED_ON_TOTAL_LEVEL:  equ 0       ; Considers promoted at level when learning spells from the first list (i.e., the base class's.)
 
 
 ; Menu enhancements
 ACCURATE_LAND_EFFECT_DISPLAY:       equ 1       ; Reads values to be displayed from a table. Damage multipliers are converted to reduction percent values during assembly through a macro.
-ALTERNATE_JEWEL_ICONS_DISPLAY:      equ 1       ; 0 = OFF, 1 = small icons in top right corner of the K/D window, 2 = no display.
+ALTERNATE_JEWEL_ICONS_DISPLAY:      equ 2       ; 0 = OFF, 1 = small icons in top right corner of the K/D window, 2 = no display.
 DRAW_CRACKS_OVERLAY_IN_ITEM_MENU:   equ 1       ; Draws a cracked icon for damaged items in item submenus.
 EIGHT_CHARACTERS_MEMBER_NAMES:      equ 1       ; Remodels windows and sprites to make room for an extra character in Force member names.
 EXTENDED_SPELL_NAMES:               equ 1       ; Increases the maximum number of characters in spell names from 6 to 7, and makes room for them to span 2 lines.
-EXTENDED_STATUS:                    equ 1       ; Display additional information on the member screen: Promotion indicator, Critical hit type and chance, Double and Counter chances, Resistance levels, and Movetype name.
+EXTENDED_STATUS:                    equ 0       ; Display additional information on the member screen: Promotion indicator, Critical hit type and chance, Double and Counter chances, Resistance levels, and Movetype name.
 FULL_CLASS_NAMES:                   equ 1       ; Remodels the member status and members list screens in order to fit fully spelled out class names which are also displayed in dialogues, while the classic shorthands are still used in places where space is limited.
 SHOW_ALL_SPELLS_IN_MEMBER_SCREEN:   equ 1       ; All spells now appears on the member status screen regardless of whether they are affected by silence. (Without modifications to spell definitions, this impacts enemy-only spells.)
-SHOW_EFFECTIVE_LEVEL:               equ 1       ; Effective level (i.e., current level + promoted extra levels if promoted) is shown for allies instead of current level.
+SHOW_EFFECTIVE_LEVEL:               equ 0       ; Effective level (i.e., current level + promoted extra levels if promoted) is shown for allies instead of current level.
 SHOW_ENEMY_LEVEL:                   equ 1       ; The enemy's current level is shown on the member status screen.
 SHOW_STATUS_EFFECT_COUNTER:         equ 1       ; Shows status effect counter values next to the corresponding tiles on the member status screen.
 THREE_DIGITS_STATS:                 equ 1       ; Remodels the member status screen and mini status window to make room for 3 digits stat values.
@@ -181,7 +181,7 @@ EXPANDED_MAPSPRITES:        equ 1       ; Store mapsprite index in word-sized st
 
 
 ; Hardware expansions
-ROM_EXPANSION:              equ 1       ; 0 = 2 MB ROM, 1 = 4 MB ROM (default), 2 = 6 MB ROM
+ROM_EXPANSION:              equ 2       ; 0 = 2 MB ROM, 1 = 4 MB ROM (default), 2 = 6 MB ROM
 SRAM_EXPANSION:             equ 1       ; Expands cartridge SaveRAM from 8KB to 32KB. (8-bit)
 SAVED_DATA_EXPANSION:       equ 1       ; Expands the save file size.
 

@@ -4,6 +4,12 @@
 table_AfterBattlePositions:
                 dc.w BATTLE_GALAM_CASTLE ; battle 5
                 dc.l abp_Battle5        
+                dc.w $FF
+                dc.l $FFFF
+                dc.w $FF
+                dc.l $FFFF
+                dc.w $FF
+                dc.l $FFFF
                 
                 tableEnd
                 
@@ -18,6 +24,45 @@ abp_Battle5:    dc.b ALLY_BOWIE         ; character 0 : Bowie
                 dc.b $80                ; enemy leader
                 dc.b 17
                 dc.b 2
+                dc.b $FF
+				
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+				
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+				
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
+                dc.b $FF
                 dc.b $FF
                 
                 tableEnd

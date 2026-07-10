@@ -6,5 +6,8 @@ table_ImmortalAllies:
                 
                 dc.b ALLY_PETER
                 dc.b ALLY_LEMON
+                dc.b 255
+                dc.b 255
+                dc.b 255
                 
                 tableEnd.b

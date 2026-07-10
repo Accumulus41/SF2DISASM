@@ -14,5 +14,10 @@ table_EnemyBattlesceneMusics:
                 dc.b ENEMY_ODD_EYE, MUSIC_BOSS_ATTACK
                 dc.b ENEMY_GALAM, MUSIC_BOSS_ATTACK
                 dc.b ENEMY_ZEON, MUSIC_ZEON_ATTACK
+                dc.b 255, 255
+                dc.b 255, 255
+                dc.b 255, 255
+                dc.b 255, 255
+                dc.b 255, 255
                 
                 tableEnd.b

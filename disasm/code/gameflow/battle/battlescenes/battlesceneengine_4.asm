@@ -525,7 +525,7 @@ MoveEnemyBattlespriteHorizontally:
                 
                 movem.l d0/a0,-(sp)
                 move.w  d6,((BATTLESCENE_ENEMY_X-$1000000)).w
-                cmpi.w  #ENEMYBATTLESPRITE_ZEON,((BATTLESCENE_ENEMYBATTLESPRITE-$1000000)).w 
+                cmpi.w  #ENEMYBATTLESPRITE_SF2_ZEON,((BATTLESCENE_ENEMYBATTLESPRITE-$1000000)).w 
                                                         ; HARDCODED Zeon enemy battle sprite
                 bne.s   loc_1F236
                 btst    #2,((byte_FFB56F-$1000000)).w
@@ -560,7 +560,7 @@ MoveEnemyBattlespriteVertically:
                 
                 movem.l d0/a0,-(sp)
                 move.w  d6,((BATTLESCENE_ENEMY_Y-$1000000)).w
-                cmpi.w  #ENEMYBATTLESPRITE_ZEON,((BATTLESCENE_ENEMYBATTLESPRITE-$1000000)).w 
+                cmpi.w  #ENEMYBATTLESPRITE_SF2_ZEON,((BATTLESCENE_ENEMYBATTLESPRITE-$1000000)).w 
                                                         ; HARDCODED Zeon enemy battle sprite
                 bne.s   @Continue
                 subq.w  #8,d6

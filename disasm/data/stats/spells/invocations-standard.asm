@@ -7,5 +7,12 @@ table_Invocations:
                 dc.b SPELL_APOLLO
                 dc.b SPELL_NEPTUN
                 dc.b SPELL_ATLAS
+                dc.b 255
+                dc.b 255
+                dc.b 255
+                dc.b 255
+                dc.b 255
+                dc.b 255
+                dc.b 255
                 
                 tableEnd.b

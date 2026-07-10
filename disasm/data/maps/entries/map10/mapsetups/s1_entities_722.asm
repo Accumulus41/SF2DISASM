@@ -9,8 +9,8 @@ ms_map10_flag722_Entities:
                 msWalkingEntity 44, 26, DOWN, MAPSPRITE_BIRDWOMAN, 44, 26, 1
                 msFixedEntity 41, 27, RIGHT, MAPSPRITE_BIRDMAN, eas_Init
                 msFixedEntity 42, 29, LEFT, MAPSPRITE_BIRDMAN, eas_Init
-                msFixedEntity 30, 34, DOWN, MAPSPRITE_BEDRIDDEN_BIRDMAN, eas_InitFixedSprite
-                msFixedEntity 30, 37, DOWN, MAPSPRITE_BEDRIDDEN_BIRDMAN, eas_InitFixedSprite
+                msFixedEntity 30, 34, DOWN, MAPSPRITE_BEDOE_SOLDIER, eas_InitFixedSprite
+                msFixedEntity 30, 37, DOWN, MAPSPRITE_BEDOE_SOLDIER, eas_InitFixedSprite
                 msWalkingEntity 41, 35, UP, MAPSPRITE_BIRDMAN, 41, 35, 2
                 msFixedEntity 28, 28, DOWN, MAPSPRITE_MERCHANT, eas_Init
                 msFixedEntity 27, 33, DOWN, MAPSPRITE_PRIEST, eas_Init
@@ -22,7 +22,7 @@ ms_map10_flag722_Entities:
                 msWalkingEntity 9, 50, UP, MAPSPRITE_BIRDMAN, 9, 50, 1
                 msFixedEntity 15, 51, DOWN, MAPSPRITE_CHICK, eas_Init
                 msFixedEntity 21, 49, UP, MAPSPRITE_BIRDWOMAN, eas_Init
-                msFixedEntity 36, 49, DOWN, MAPSPRITE_KING_BEDOE, eas_Init
+                msFixedEntity 36, 49, DOWN, MAPSPRITE_BEDOE_KING, eas_Init
                 msFixedEntity 37, 50, DOWN, MAPSPRITE_BIRDWOMAN, eas_Init
                 msFixedEntity 28, 48, LEFT, MAPSPRITE_BIRDMAN, eas_Init
                 msFixedEntity 35, 53, UP, MAPSPRITE_BIRDMAN, eas_Init

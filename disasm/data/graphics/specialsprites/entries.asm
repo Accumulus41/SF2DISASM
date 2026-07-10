@@ -7,3 +7,5 @@ SpecialSprite_NazcaShip:        incbin "data/graphics/specialsprites/nazcaship.b
 SpecialSprite_EvilSpirit:       incbin "data/graphics/specialsprites/evilspirit.bin"
 SpecialSprite_EvilSpiritAlt:    incbin "data/graphics/specialsprites/evilspiritalt.bin"
 SpecialSprite_Zeon:             incbin "data/graphics/specialsprites/zeon.bin"
+SpecialSprite_MassiveBat:       include "data\graphics\specialsprites\massivebat.asm"
+SpecialSprite_Unknown:          include "data\graphics\specialsprites\unknown.asm"

@@ -88,6 +88,7 @@ battlesceneScript_DropEnemyItem:
                 bsr.w   RemoveItemBySlot
                 move.b  (a4),d0
                 bsr.w   GetCurrentHp
+                tst.w   d1
                 beq.s   @AddRareItemToDeals
                 move.w  d3,d1
                 bsr.w   AddItem

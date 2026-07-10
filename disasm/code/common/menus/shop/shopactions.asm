@@ -718,14 +718,8 @@ GetShopInventoryAddress:
                 lea     list_ShopInventories(pc), a0
                 clr.w   d7
                 move.b  (CURRENT_SHOP_INDEX).l,d7
-                subq.b  #1,d7
-                bcs.w   @Done           ; if current shop index = 0, we're done
-                clr.w   d0
-@Loop:
-                
-                move.b  (a0)+,d0
-                adda.w  d0,a0
-                dbf     d7,@Loop
+                mulu.w  #19,d7
+                adda.w  d7,a0
 @Done:
                 
                 movem.l (sp)+,d0/d7

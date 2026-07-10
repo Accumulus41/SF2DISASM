@@ -30,7 +30,7 @@ table_NeutralBattleEntities:
                 dc.l eas_LyingLeft
                 position 13,17
                 facing DOWN
-                mapsprite EVIL_GALAM
+                mapsprite GALAM_EVIL
                 dc.l eas_LyingLeft
                 position 12,15
                 facing DOWN
@@ -42,7 +42,7 @@ table_NeutralBattleEntities:
                 dc.l eas_Standing
                 position 11,35
                 facing UP
-                mapsprite KING_GRANSEAL
+                mapsprite GRANSEAL_KING
                 dc.l eas_Standing
                 dc.w TERMINATOR_WORD
                 
@@ -77,7 +77,7 @@ table_NeutralBattleEntities:
                 battle.w CHESSBOARD
                 position 6,2
                 facing DOWN
-                mapsprite KING_PONPEI
+                mapsprite DESKTOP_KING
                 dc.l eas_Standing
                 position 5,3
                 facing DOWN
@@ -114,3 +114,4 @@ table_NeutralBattleEntities:
                 dc.w TERMINATOR_WORD
                 
                 tableEnd.w
+				align $100
