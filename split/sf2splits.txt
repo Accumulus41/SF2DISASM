@@ -1314,7 +1314,7 @@
 #split	0x1DDD04,0x1DDDC4,data/graphics/icons/item/iconLIFE_RING.bin
 #split	0x1DDDC4,0x1DDE84,data/graphics/icons/item/iconCOTTON_BALL.bin
 #split	0x1DDE84,0x1DDF44,data/graphics/icons/item/iconCHIRRUP_SANDALS.bin
-#split	0x1DDF44,0x1DE004,data/graphics/icons/other/iconBLANK.bin
+#split	0x1DDF44,0x1DE004,data/graphics/icons/other/iconNOTHING.bin
 #split	0x1DE004,0x1DE0C4,data/graphics/icons/other/iconUNARMED.bin
 #split	0x1DED84,0x1DEE44,data/graphics/icons/other/iconJEWEL_LIGHT.bin
 #split	0x1DEE44,0x1DEF04,data/graphics/icons/other/iconJEWEL_EVIL.bin
