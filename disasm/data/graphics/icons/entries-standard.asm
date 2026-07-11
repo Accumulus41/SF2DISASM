@@ -333,7 +333,7 @@ SpellIcon062:   incbin "data/graphics/icons/spell/iconSPOIT.bin"
 
 
 ; Other
-OtherIconBLANK:   incbin "data/graphics/icons/other/iconBLANK.bin"    ; Empty item/spell slot
+OtherIconBLANK:   incbin "data/graphics/icons/other/iconNOTHING.bin"    ; Empty item/spell slot
 OtherIconUNARMED:   incbin "data/graphics/icons/other/iconUNARMED.bin"    ; Unarmed
 OtherIconJEWEL_LIGHT:   incbin "data/graphics/icons/other/iconJEWEL_LIGHT.bin"    ; Jewel of Light
 OtherIconJEWEL_EVIL:   incbin "data/graphics/icons/other/iconJEWEL_EVIL.bin"    ; Jewel of Evil
